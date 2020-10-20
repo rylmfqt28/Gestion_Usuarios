@@ -1,5 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
+import FormCrearTipoUsuario from './components/crearTipoUsuario';
+
+
 import './App.css';
 
 function App() {
@@ -17,9 +20,12 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+         
         </a>
       </header>
+      <FormCrearTipoUsuario></FormCrearTipoUsuario>
     </div>
+
   );
 }
 

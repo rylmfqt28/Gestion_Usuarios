@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
-import FormCrearTipoUsuario from './components/crearTipoUsuario';
+//import logo from './logo.svg';
+//import FormCrearTipoUsuario from './components/crearTipoUsuario';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
@@ -41,6 +41,8 @@ function App() {
             <input
               type="text"
               className="from-control"
+              maxLength="15"
+              minLength="5"
               placeholder="Ingrese su usuario"
             />
             <br />
@@ -49,6 +51,7 @@ function App() {
             <input
               type="password"
               className="from-control"
+              minLength="8"
               placeholder="Ingrese su contraseña"
             />
             <br />
@@ -77,7 +80,6 @@ function App() {
 
       </div>
     </div>
-
   );
 }
 

@@ -4,7 +4,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid rgb(70, 210, 245);
+  border: 1px solid rgb(5, 104, 196);
   padding:  50px;
   background-color: rgb(245, 244, 243);
 }
@@ -13,4 +13,14 @@
 
   text-align: center;
   margin-top: -10px;
+
+}
+.enlaceRegister{
+  font-size: x-small;
+}
+.checkbox{
+  font-size: small;
+}
+.navbar{
+  background-color:rgb(5, 104, 196);
 }

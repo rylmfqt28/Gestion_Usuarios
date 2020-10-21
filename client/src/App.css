@@ -4,12 +4,13 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border: 1px solid black;
-  padding:  40px;
-  background-color: blanchedalmond;
+  border: 1px solid rgb(70, 210, 245);
+  padding:  50px;
+  background-color: rgb(245, 244, 243);
 }
 
 .containerSecundario{
 
   text-align: center;
+  margin-top: -10px;
 }

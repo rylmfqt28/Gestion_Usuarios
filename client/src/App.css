@@ -4,7 +4,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border: 2px solid rgba(250, 124, 183, 0.623);
+  border: 2px solid rgba(124, 210, 250, 0.623);
   padding:  50px;
   background-color: rgb(245, 244, 243);
 }
@@ -18,7 +18,7 @@
 
 .title-inicio{
   font-size:larger;
-  color:rgb(151, 1, 63);
+  color:rgb(2, 129, 146);;
 }
 .enlaceRegister{
   font-size: x-small;
@@ -27,19 +27,24 @@
   font-size: small;
 }
 .navbar-light{
-  background-color:rgb(151, 1, 63);
+  background-color:rgb(2, 129, 146);
   text-decoration-color: aliceblue;
 }
-.btn-outline-danger{
+.btn-outline-info{
 
   background-color:rgb(245, 244, 243);
 }
 .btn-primary{
-  background-color:rgb(151, 1, 63);
-  border-color: rgba(250, 124, 183, 0.623);
+  background-color:rgb(2, 129, 146);
+  border-color: rgba(124, 210, 250, 0.623);
 }
 .btn-primary:hover {
-  background: rgb(255, 0, 98);
-  border-color: rgba(250, 124, 183, 0.623);
+  background: rgb(0, 174, 255);
+  border-color: rgba(124, 210, 250, 0.623);
+  color:white
+}
+.btn-primary:active {
+  background: rgb(2, 173, 185);
+  border-color: rgba(124, 210, 250, 0.623);
   color:white
 }

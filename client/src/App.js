@@ -14,7 +14,7 @@ function App() {
           <a className="navbar-brand">Empresa</a>
           <form className="form-inline">
 
-            <button className="btn btn-outline-info my-2 my-sm-0" type="submit">REGISTARSE</button>
+            <button className="btn btn-outline-info my-2 my-sm-0" type="submit">REGISTRARSE</button>
           </form>
         </nav>
       </div>
@@ -28,7 +28,7 @@ function App() {
             <div className="from-group">
               <label className="title-inicio">
                 <b>
-                  Inicio de seción
+                  Inicio de sesión
                         </b>
 
               </label>
@@ -68,7 +68,7 @@ function App() {
 
                 </div>
 
-                <button className="btn btn-primary">Iniciar sesion</button>
+                <button className="btn btn-primary">Iniciar sesión</button>
 
                 <div className="enlaceRegister">
                   <a href="">

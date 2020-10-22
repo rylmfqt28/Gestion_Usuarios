@@ -14,7 +14,7 @@ function App() {
           <a className="navbar-brand">Empresa</a>
           <form className="form-inline">
 
-            <button className="btn btn-outline-info my-2 my-sm-0" type="submit">REGISTRARSE</button>
+            <button className="btn btn-outline-info my-2 my-sm-0" type="submit">REGISTARSE</button>
           </form>
         </nav>
       </div>
@@ -25,10 +25,10 @@ function App() {
 
         <form>
           <div className="containerSecundario">
-            <div className="form-group">
+            <div className="from-group">
               <label className="title-inicio">
                 <b>
-                  Inicio de sesión
+                  Inicio de seción
                         </b>
 
               </label>
@@ -41,7 +41,7 @@ function App() {
               <br />
               <input
                 type="text"
-                className="form-control"
+                className="from-control"
                 maxLength="15"
                 minLength="5"
                 placeholder="Ingrese su usuario"
@@ -51,7 +51,7 @@ function App() {
               <br />
               <input
                 type="password"
-                className="form-control"
+                className="from-control"
                 minLength="8"
                 placeholder="Ingrese su contraseña"
               />
@@ -68,7 +68,7 @@ function App() {
 
                 </div>
 
-                <button className="btn btn-primary">Iniciar sesión</button>
+                <button className="btn btn-primary">Iniciar sesion</button>
 
                 <div className="enlaceRegister">
                   <a href="">

@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
-import FormCrearTipoUsuario from './components/crearTipoUsuario';
+//import logo from './logo.svg';
+//import FormCrearTipoUsuario from './components/crearTipoUsuario';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './App.css';
@@ -8,6 +8,7 @@ import './App.css';
 function App() {
   return (
     <div>
+
       <div className="barraNav">
         <nav className="navbar navbar-light justify-content-between">
           <a className="navbar-brand">Empresa</a>
@@ -22,7 +23,7 @@ function App() {
       <div className="containerPrincipal">
 
 
-        <from>
+        <form>
           <div className="containerSecundario">
             <div className="from-group">
               <label className="title-inicio">
@@ -41,6 +42,8 @@ function App() {
               <input
                 type="text"
                 className="from-control"
+                maxLength="15"
+                minLength="5"
                 placeholder="Ingrese su usuario"
               />
               <br />
@@ -49,37 +52,39 @@ function App() {
               <input
                 type="password"
                 className="from-control"
+                minLength="8"
                 placeholder="Ingrese su contraseña"
               />
-              <br />
-              <br />
-              <div className="checkbox">
+              
+                <br />
+                <br />
+                <div className="checkbox">
 
-                <input
-                  type="checkbox" value=""
-                />  <label>
-                  Recordar cuenta
+                  <input
+                    type="checkbox" value=""
+                  />  <label>
+                    Recordar cuenta
                           </label>
 
-              </div>
+                </div>
 
-              <button className="btn btn-primary">Iniciar sesion</button>
+                <button className="btn btn-primary">Iniciar sesion</button>
 
-              <div className="enlaceRegister">
-                <a href="">
-                  ¿Aún no tienes una cuenta? registrate aqui
+                <div className="enlaceRegister">
+                  <a href="">
+                    ¿Aún no tienes una cuenta? registrate aqui
                           </a>
 
-              </div>
+                </div>
 
+              </div>
             </div>
-          </div>
-        </from>
+        </form>
       </div>
 
-    </div>
-
+      </div>
   );
 }
+
 
 export default App;

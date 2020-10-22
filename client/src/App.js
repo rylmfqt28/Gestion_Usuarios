@@ -14,7 +14,7 @@ function App() {
           <a className="navbar-brand">Empresa</a>
           <form className="form-inline">
 
-            <button className="btn btn-outline-danger my-2 my-sm-0" type="submit">REGISTARSE</button>
+            <button className="btn btn-outline-info my-2 my-sm-0" type="submit">REGISTARSE</button>
           </form>
         </nav>
       </div>

@@ -1,18 +1,35 @@
 import React from 'react';
+
 import logo from './logo.svg';
 import FormCrearTipoUsuario from './components/crearTipoUsuario';
 //import FormCreateTypeUser from './components/FormCreateTypeUser';
 
-import './App.css';
+import{
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+
+} from "react-router-dom"
+import Login from './components/login/Login';
+import Register from './components/register/Register';
+
+
 
 function App() {
   return (
-    <div className="App">
-      
-      <FormCrearTipoUsuario></FormCrearTipoUsuario>
-    </div>
+
+
+
+    <Router>
+      <Switch>
+      <Route exact path="/" component={Login}/>
+      <Route path="/register" component={Register}/>
+      </Switch>
+    </Router>
 
   );
 }
+
 
 export default App;

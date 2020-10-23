@@ -1,9 +1,7 @@
 import React from 'react';
-
-import logo from './logo.svg';
-import FormCrearTipoUsuario from './components/crearTipoUsuario';
-//import FormCreateTypeUser from './components/FormCreateTypeUser';
-
+//import logo from './logo.svg';
+//import FormCrearTipoUsuario from './components/crearTipoUsuario';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 import{
   BrowserRouter as Router,
   Switch,
@@ -13,23 +11,20 @@ import{
 } from "react-router-dom"
 import Login from './components/login/Login';
 import Register from './components/register/Register';
-
-
+import crearTipoUsuario from './components/createTypeUser/crearTipoUsuario';
 
 function App() {
   return (
-
-
-
     <Router>
       <Switch>
       <Route exact path="/" component={Login}/>
       <Route path="/register" component={Register}/>
+      <Route path="/crearTipoUsuario" component={crearTipoUsuario}/>
       </Switch>
     </Router>
-
   );
 }
 
 
 export default App;
+

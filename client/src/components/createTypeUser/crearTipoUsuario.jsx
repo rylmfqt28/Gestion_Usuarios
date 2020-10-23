@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
-import '../crearTipoUsuario.css';
-import { Button } from '@material-ui/core';
+import './crearTipoUsuario.css';
+import {Link}from "react-router-dom"
 import { useForm } from 'react-hook-form';
 
 const CrearTipoUsuario = () => {
@@ -23,11 +23,12 @@ const CrearTipoUsuario = () => {
             </nav>
 
         
-            <form onSubmit={handleSubmit(onSubmit)}>
-
+            <form className="formC" onSubmit={handleSubmit(onSubmit)}>
+            
                 <h2>Crear tipo de Usuario</h2>
                 <div>
                     <input
+                        
                         name="crearTipo"
                         className="campoTipo"
                         ref={
@@ -86,7 +87,7 @@ const CrearTipoUsuario = () => {
                     <br></br>
                     <div className="botones">
                         <button className="btn btn-primary  pull-right btn-lg" >Cancelar</button>
-                        <button className="btn btn-primary pull-left btn-lg" >Crear</button>   
+                        <button className="btn btn-outline-info  pull-left btn-lg" >Crear</button>   
                     </div>
                     
 

@@ -73,7 +73,7 @@ const Login = ()=> {
                 <button className="btn btn-primary">Iniciar sesión</button>
 
                 <div className="enlaceRegister">
-                  <a href="./register">
+                  <a href="./request">
                     ¿Aún no tienes una cuenta? registrate aqui
                           </a>
 

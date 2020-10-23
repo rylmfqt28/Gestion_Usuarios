@@ -6,12 +6,12 @@ import{
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+ 
 
 } from "react-router-dom"
 import Login from './components/login/Login';
 import Register from './components/register/Register';
-
+import Request from './components/request/Request';
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
       <Switch>
       <Route exact path="/" component={Login}/>
       <Route path="/register" component={Register}/>
+      <Route path="/request" component={Request}/>
       </Switch>
     </Router>
   );

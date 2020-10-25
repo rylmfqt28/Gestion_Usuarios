@@ -2,9 +2,24 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Login.css'
 import {Link}from "react-router-dom"
+import {Fragment, useState} from 'react';
 
 const Login = ()=> {
+
+  const [datos, setDatos] = useState({
+    username: '',
+    password: ''
+  });
+
+  const handleInputChange = (event) => {
+    setDatos({
+        ...datos,
+        [event.target.name] : event.target.value
+    });
+  }
+
   return (
+    <Fragment>
     <div>
 
       <div className="barraNav">
@@ -47,6 +62,8 @@ const Login = ()=> {
                 maxLength="15"
                 minLength="5"
                 placeholder="Ingrese su usuario"
+                name="username"
+                onChange={handleInputChange}
               />
               <br />
               <label>Contraseña: </label>
@@ -56,6 +73,8 @@ const Login = ()=> {
                 className="form-control"
                 minLength="8"
                 placeholder="Ingrese su contraseña"
+                name="password"
+                onChange={handleInputChange}
               />
               
                 <br />
@@ -85,8 +104,8 @@ const Login = ()=> {
       </div>
 
       </div>
+      </Fragment>
   );
 }
-
 
 export default Login;

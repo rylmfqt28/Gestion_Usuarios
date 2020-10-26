@@ -19,9 +19,20 @@ const Login = ()=> {
     });
   }
 
+  const finUser = async () => {
+    try {
+      const res = await axios.get('localhost:8080/api/user/${datos.username}');
+      console.log(res);
+    } catch (error) {
+      console.log('no pos no dio');
+    }
+  }
+
   const startButtonEvent = (event) => {
+    event.preventDefault();
     if(datos.username !== '' && datos.password !== ''){
       console.log("Todo bien");
+      finUser();
     }else{
       //mensaje campos vacios
     }

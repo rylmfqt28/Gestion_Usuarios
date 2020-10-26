@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Login.css'
 import {Link}from "react-router-dom"
 import {Fragment, useState} from 'react';
-import {axios} from 'axios';
+import axios from 'axios';
 
 const Login = ()=> {
 
@@ -20,7 +20,7 @@ const Login = ()=> {
   }
 
   const startButtonEvent = (event) => {
-    if(datos.username != '' && datos.password != ''){
+    if(datos.username !== '' && datos.password !== ''){
       console.log("Todo bien");
     }else{
       //mensaje campos vacios

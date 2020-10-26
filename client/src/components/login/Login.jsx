@@ -19,22 +19,24 @@ const Login = ()=> {
     });
   }
 
-  const finUser = async () => {
-    try {
-      const res = await axios.get('localhost:8080/api/user/${datos.username}');
-      console.log(res);
-    } catch (error) {
-      console.log('no pos no dio');
-    }
-  }
-
-  const startButtonEvent = (event) => {
+  const startButtonEvent = async (event) => {
     event.preventDefault();
     if(datos.username !== '' && datos.password !== ''){
-      console.log("Todo bien");
-      finUser();
+      const res = await axios.get('/api/user/'+datos.username);
+      if(res.data !== null){
+        if(res.data.nombreUsuario === datos.username && res.data.password === datos.password){
+          //redireccionar a la pagina de crear usuario
+          console.log("redirecciona ya a crear tipo de usuario");
+        }else{
+          //Mensaje de "Cuenta de usuario no valida"
+          console.log("nel mensaje de error no es el admin o el usuario no existe");
+        }
+      }else{
+        //Mensaje de "Cuenta de usuario no valida"
+        console.log("nel mensaje de error no es el admin o el usuario no existe");
+      }
     }else{
-      //mensaje campos vacios
+      //mensaje campos vacios "Existen campos vacios"
     }
   }
 

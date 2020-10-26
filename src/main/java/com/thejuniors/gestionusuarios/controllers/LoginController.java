@@ -21,5 +21,7 @@ public class LoginController {
     public String login(@PathVariable("nombreUsuario") String nombreUsuario){
         return gson.toJson(loginservice.buscarUsuario(nombreUsuario));
     }
+    
+
 
 }

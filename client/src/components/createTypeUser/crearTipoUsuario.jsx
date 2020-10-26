@@ -48,7 +48,7 @@ const CrearTipoUsuario = () => {
 
 
                         }
-                        placeholder="Ingresar tipo de u suario"
+                        placeholder="Ingresar tipo de usuario"
 
                     />
                     <span className="text-danger text-small d-block mb-2">

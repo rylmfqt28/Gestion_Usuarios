@@ -1,0 +1,103 @@
+/*-- HEADER--*/
+.navbar{
+    margin-bottom: 0;
+}
+
+.jumbotron{
+  background:  rgb(2, 129, 146); /*#428BCA*/
+  color: black;
+  padding: 10px 0;
+
+}
+
+.titulo-blog{
+   font-size: 15px;
+
+}
+
+/*-- ESTILO DE BORDE--*/
+.bordes{
+  
+  border: 1px solid rgba(124, 210, 250, 0.623);
+  
+}
+
+/*-- BOTONES--*/
+
+
+.button{
+   background: #7f8c8d;
+   color: #fff;
+   display: inline-block;
+   font-size: 1.25em;
+   margin: 20px;
+   padding: 10px 0px;
+   text-align: center;
+   width: 200px;       /*--Tamaño del boton--*/
+   text-decoration: none;
+   box-shadow: 0px 3px 0px #373c3c;
+}
+
+
+
+/* -- COLORES--*/
+.button.white{
+  background-color: white;
+  color: #000000;
+  box-shadow: 1px 1px 2px 2px #CD3F2E;
+}
+
+.button.red{
+  background-color: #CD3F2E;
+  color: white;
+  box-shadow: 1px 1px 2px 2px #373c3c;
+}
+
+.button.blue{
+  background-color: #0321AB;
+  color: white;
+  box-shadow: 1px 1px 2px 2px #373c3c;
+}
+
+/*--Formas--*/
+.button.radius{
+    border-radius: 5px;
+  
+}
+
+.button:hover{
+    box-shadow: 0px 0px 0px;
+    padding-top: 7px;
+
+}
+
+#Encabezado{
+  background-color:rgb(2, 129, 146);
+}
+
+#VentanaEmergente{
+  background-color:  rgb(245, 244, 243);
+}
+
+#MotivoCuerpo{
+  border: 3px solid rgb(2, 129, 146);
+  border-radius: 10px;
+  text-align: left;
+}
+
+#MotivoCabeza{
+  text-align: center ;
+  
+}
+
+.modal-footer{
+  background-color: rgb(2, 173, 185)
+}
+
+#ListaDatos{
+  text-align: right;
+}
+
+#cl{
+  text-align: left;
+}

@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import './crearTipoUsuario.css';
-import {Link}from "react-router-dom"
+import {Link}from "react-router-dom";
 import { useForm } from 'react-hook-form';
 
 const CrearTipoUsuario = () => {
@@ -10,8 +10,8 @@ const CrearTipoUsuario = () => {
         console.log(data)
         e.target.reset()
     }
-
-
+    
+    
     return (
 
         <Fragment>
@@ -23,14 +23,15 @@ const CrearTipoUsuario = () => {
             </nav>
 
         
-            <form className="formC" onSubmit={handleSubmit(onSubmit)}>
-            
+            <form className="formC" onSubmit={handleSubmit(onSubmit)} onClick="this.reset"  >
                 <h2>Crear tipo de Usuario</h2>
                 <div>
                     <input
+                        type="text"
                         
                         name="crearTipo"
                         className="campoTipo"
+                        
                         ref={
                             register({
                                 required: {
@@ -43,16 +44,17 @@ const CrearTipoUsuario = () => {
                                 minLength: {
                                     value: 5,
                                     message: 'Mínimo 5 carácteres'
-                                }
+                                },               
+                                pattern:  /^[A-Za-z]+$/i
+                                
                             })
-
-
                         }
                         placeholder="Ingresar tipo de usuario"
 
                     />
                     <span className="text-danger text-small d-block mb-2">
                         {errors?.crearTipo?.message}
+                        {errors?.crearTipo && <p> Solo se permiten letras</p>}
                     </span>
 
                 </div>
@@ -75,6 +77,7 @@ const CrearTipoUsuario = () => {
                                     value: 2,
                                     message: 'Mínimo 2 carácteres'
                                 }
+                                
                             })
 
 

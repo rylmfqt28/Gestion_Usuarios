@@ -70,3 +70,34 @@
     padding-top: 7px;
 
 }
+
+#Encabezado{
+  background-color:rgb(2, 129, 146);
+}
+
+#VentanaEmergente{
+  background-color:  rgb(245, 244, 243);
+}
+
+#MotivoCuerpo{
+  border: 3px solid rgb(2, 129, 146);
+  border-radius: 10px;
+  text-align: left;
+}
+
+#MotivoCabeza{
+  text-align: center ;
+  
+}
+
+.modal-footer{
+  background-color: rgb(2, 173, 185)
+}
+
+#ListaDatos{
+  text-align: right;
+}
+
+#cl{
+  text-align: left;
+}

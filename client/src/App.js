@@ -11,6 +11,7 @@ import{
 } from "react-router-dom"
 import Login from './components/login/Login';
 import Register from './components/register/Register';
+import Solicitudes from './components/solicitudes/Solicitudes';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Switch>
       <Route exact path="/" component={Login}/>
       <Route path="/register" component={Register}/>
+      <Route path="/solicitudes" component={Solicitudes}/>
       </Switch>
     </Router>
   );

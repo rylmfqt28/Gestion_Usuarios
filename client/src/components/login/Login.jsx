@@ -65,8 +65,7 @@ const Login = ()=> {
                   <input
                     type="checkbox" value=""
                   />  <label>
-                    Recordar cuenta
-                          </label>
+                    Recordar cuenta </label>
 
                 </div>
 

@@ -2,9 +2,46 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Login.css'
 import {Link}from "react-router-dom"
+import {Fragment, useState} from 'react';
+import axios from 'axios';
 
 const Login = ()=> {
+
+  const [datos, setDatos] = useState({
+    username: '',
+    password: ''
+  });
+
+  const handleInputChange = (event) => {
+    setDatos({
+        ...datos,
+        [event.target.name] : event.target.value
+    });
+  }
+
+  const startButtonEvent = async (event) => {
+    event.preventDefault();
+    if(datos.username !== '' && datos.password !== ''){
+      const res = await axios.get('/api/user/'+datos.username);
+      if(res.data !== null){
+        if(res.data.nombreUsuario === datos.username && res.data.password === datos.password){
+          //redireccionar a la pagina de crear usuario
+          console.log("redirecciona ya a crear tipo de usuario");
+        }else{
+          //Mensaje de "Cuenta de usuario no valida"
+          console.log("nel mensaje de error no es el admin o el usuario no existe");
+        }
+      }else{
+        //Mensaje de "Cuenta de usuario no valida"
+        console.log("nel mensaje de error no es el admin o el usuario no existe");
+      }
+    }else{
+      //mensaje campos vacios "Existen campos vacios"
+    }
+  }
+
   return (
+    <Fragment>
     <div>
 
       <div className="barraNav">
@@ -25,7 +62,7 @@ const Login = ()=> {
       <div className="containerPrincipal">
 
 
-        <form>
+        <form onSubmit={startButtonEvent}>
           <div className="containerSecundario">
             <div className="form-group">
               <label className="title-inicio">
@@ -47,6 +84,8 @@ const Login = ()=> {
                 maxLength="15"
                 minLength="5"
                 placeholder="Ingrese su usuario"
+                name="username"
+                onChange={handleInputChange}
               />
               <br />
               <label>Contraseña: </label>
@@ -56,6 +95,8 @@ const Login = ()=> {
                 className="form-control"
                 minLength="8"
                 placeholder="Ingrese su contraseña"
+                name="password"
+                onChange={handleInputChange}
               />
               
                 <br />
@@ -84,8 +125,8 @@ const Login = ()=> {
       </div>
 
       </div>
+      </Fragment>
   );
 }
-
 
 export default Login;

@@ -1,20 +1,20 @@
 .containerPrincipal {
   
   position: absolute;
-
+  
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   border: 2px solid rgba(124, 210, 250, 0.623);
   padding:  50px;
-  margin-top: 15px;
+  margin-top: 25px;
   background-color: rgb(245, 244, 243);
 }
 
 .containerSecundario{
 
   text-align: center;
-  /*margin-top: -10px;*/
+  margin-top: -10px;
 
 }
 

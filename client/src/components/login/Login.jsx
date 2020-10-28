@@ -19,7 +19,24 @@ const Login = () => {
       [event.target.name]: event.target.value
     });
   }
-  
+  //funcion que permite direccionear
+  function ingersar(rol) {
+
+    switch (rol) {
+      case '1':
+        window.location.pathname = '/crearTipoUsuario';
+        break;
+      case '2':
+        //ventana de cliente
+        break;
+      default:
+        //no hacer nada
+        break;
+
+
+    }
+
+  }
   const startButtonEvent = async (event) => {
 
     event.preventDefault();
@@ -32,6 +49,8 @@ const Login = () => {
           document.getElementById('avisoValido').style.display = "block";
           document.getElementById('avisoVacio').style.display = "none";
           document.getElementById('avisoNo').style.display = "none";
+          ingersar('1');
+
         } else {
           //Mensaje de "Cuenta de usuario no valida"
           console.log("nel mensaje de error no es el admin o el usuario no existe");
@@ -80,9 +99,9 @@ const Login = () => {
             <div className="containerSecundario">
               <div className="form-group">
                 <label className="title-inicio">
-                  <h2>
+                  <h2><b>
                     Inicio de sesión
-                        </h2>
+                        </b></h2>
 
                 </label>
                 <br />
@@ -133,6 +152,7 @@ const Login = () => {
                           </a>
 
                 </div>
+                <br />
                 <div className="avisos">
                   <div id="avisoValido" className="alert alert-success">Bienvenido!</div>
                   <div id="avisoVacio" className="alert alert-warning">Existen campos vacios</div>

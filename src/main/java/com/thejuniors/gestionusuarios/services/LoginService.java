@@ -31,7 +31,7 @@ public class LoginService {
             @Override
             public UsuarioCredenciales extractData(ResultSet rs) throws SQLException{
                 if (rs.next()){
-                    UsuarioCredenciales user = new UsuarioCredenciales(rs.getInt("CI"), rs.getString("nombreUsuario"), rs.getString("password"));
+                    UsuarioCredenciales user = new UsuarioCredenciales(rs.getString("CI"), rs.getString("nombreUsuario"), rs.getString("password"));
                     return user;
                 } else{
                     return null;

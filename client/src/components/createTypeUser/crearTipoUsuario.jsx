@@ -63,7 +63,7 @@ const CrearTipoUsuario = () => {
 
             <form className="formC" 
             onSubmit={handleSubmit(onSubmit)}  
-            onClick="this.reset"
+            
             >
             <h2>Crear tipo de Usuario  </h2>
                 
@@ -137,7 +137,7 @@ const CrearTipoUsuario = () => {
                     <br></br>
                     <div className="botones">
 
-                        <button className="btn btn-primary  pull-right btn-lg" >Cancelar</button>
+                        <button className="btn btn-primary  pull-right btn-lg" onClick="this.reset">Cancelar</button>
                         <button  className="btn btn-outline-info  pull-left btn-lg" onClick={createButtonEvent}>Crear</button>   
 
                     </div>

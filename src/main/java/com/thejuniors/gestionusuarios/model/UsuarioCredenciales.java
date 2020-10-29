@@ -2,25 +2,25 @@ package com.thejuniors.gestionusuarios.model;
 
 public class UsuarioCredenciales {
 
-    private Integer CI;
+    private String CI;
     private String nombreUsuario;
     private String password ;
 
     public UsuarioCredenciales(){
     }
 
-    public UsuarioCredenciales(Integer CI, String nombreUsuario, String password){
+    public UsuarioCredenciales(String CI, String nombreUsuario, String password){
         super();
         this.CI = CI;
         this.nombreUsuario = nombreUsuario;
         this.password = password;
     }
 
-    public Integer getCI(){
+    public String getCI(){
         return CI;
     }
 
-    public void setCI(Integer CI){
+    public void setCI(String CI){
         this.CI = CI;
     }
 

@@ -1,8 +1,9 @@
 .campoTipo{
+    text-align: center; 
+    width: 300px;
+}   
 
-    text-align: center;
-    width: 300px;   
-}
+
 .formC{
 text-align: center;
 

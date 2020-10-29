@@ -58,7 +58,9 @@ const CrearTipoUsuario = () => {
                 </button>    
             </nav>
 
-    
+
+
+
             <form className="formC" 
             onSubmit={handleSubmit(onSubmit)}  
             onClick="this.reset"
@@ -85,8 +87,9 @@ const CrearTipoUsuario = () => {
                                 minLength: {
                                     value: 5,
                                     message: 'Mínimo 5 carácteres'
-                                },
+                                 },
                                 pattern: /^[A-Za-z]+$/i 
+
 
 
                             })
@@ -97,9 +100,8 @@ const CrearTipoUsuario = () => {
                     />
                     <span className="text-danger text-small d-block mb-2">
                         {errors?.crearTipo?.message}
+                       {errors?.crearTipo && <p> Solo se permiten letras</p>}
 
-
-                        {errors?.crearTipo && <p> Solo se permiten letras</p>}
 
                     </span>
 
@@ -124,7 +126,6 @@ const CrearTipoUsuario = () => {
                                     message: 'Mínimo 2 carácteres'
                                 }
 
-
                             })
                         }
                         placeholder="Ingrese la Descripción Aquí"
@@ -135,7 +136,6 @@ const CrearTipoUsuario = () => {
                     </span>
                     <br></br>
                     <div className="botones">
-
 
                         <button className="btn btn-primary  pull-right btn-lg" >Cancelar</button>
                         <button  className="btn btn-outline-info  pull-left btn-lg" onClick={createButtonEvent}>Crear</button>   

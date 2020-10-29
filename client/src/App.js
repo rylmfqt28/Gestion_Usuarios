@@ -1,7 +1,5 @@
 import React from 'react';
-//import logo from './logo.svg';
-//import FormCrearTipoUsuario from './components/crearTipoUsuario';
-//import 'bootstrap/dist/css/bootstrap.min.css';
+
 import{
   BrowserRouter as Router,
   Switch,

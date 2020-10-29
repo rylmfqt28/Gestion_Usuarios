@@ -9,7 +9,7 @@ const { restart } = require('nodemon');
    host: '',
    user: 'root',
    password: 'root',
-   database: 'cruddatabase',
+   database: 'FvtSdhvyMr',
   });
   
    app.use(cors());
@@ -20,13 +20,22 @@ const { restart } = require('nodemon');
    app.get('/api/get', (req, res) => {
     
     const sqlSelect = 
-    "SELECT * FROM movie_review";
+    "SELECT * FROM tipousuario" ;
     db.query(sqlSelect, (err, result)=>{
         res.send(result);
-       //console.log(result);           
+      //console.log(result);           
      });
     });
 
+    app.get('/api/get2', (req, res) => {
+    
+      const sqlSelect = 
+      "SELECT * FROM usuario" ;
+      db.query(sqlSelect, (err, result)=>{
+          res.send(result);
+        //console.log(result);           
+       });
+      });
 
      
 

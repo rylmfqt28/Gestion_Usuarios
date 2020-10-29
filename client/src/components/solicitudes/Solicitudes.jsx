@@ -28,7 +28,7 @@ class Solicitudes extends Component{
   
   componentDidMount(){
     PersonaService.getAll().then(data => this.setState({Usuarios: data}))
-    const url="http://localhost:8080/persona/obtener/10002"
+    const url="http://localhost:8080/persona/obtener/10010"
     fetch(url).then(respuesta=> respuesta.json())
     .then(resultado => this.setState({User: resultado}))
     
@@ -88,16 +88,16 @@ class Solicitudes extends Component{
                               
                                   <ul class="list-group list-group-flush" id = "listaDatos" >
                                       <br></br>
-                                      <li class="list-group-item"><small>Nombre:{this.state.User.usuarioNombre}</small></li>
-                                      <li class="list-group-item"><small>Apellido:{this.state.User.usuarioApellido}</small></li>
-                                      <li class="list-group-item"><small>C.I.:{this.state.User.CI}</small></li>
+                                      <li class="list-group-item"><small>Nombre:{this.state.User.nombre}</small></li>
+                                      <li class="list-group-item"><small>Apellido:{this.state.User.apellido}</small></li>
+                                      <li class="list-group-item"><small>C.I.:{this.state.User.ci}</small></li>
                                       <li class="list-group-item"><small>Pais:{this.state.User.paisID}</small></li>
                                       <li class="list-group-item"><small>Ciudad:{this.state.User.ciudadID}</small></li>
                                       <li class="list-group-item"><small>Direccion:{this.state.User.ciudadID}</small></li>
                                       <li class="list-group-item"><small>Correo:{this.state.User.correo}</small></li>
                                       <li class="list-group-item"><small>Telefono:{this.state.User.telefono}</small></li>
-                                      <li class="list-group-item"><small>Nombre de Usuario:{this.state.User.usuarioNombre}</small></li>
-                                      <li class="list-group-item"><small>Solicitud de tipo:{this.state.User.CI}</small></li>
+                                      <li class="list-group-item"><small>Nombre de Usuario:{this.state.User.nombre}</small></li>
+                                      <li class="list-group-item"><small>Solicitud de tipo:{this.state.User.ci}</small></li>
                                   </ul>
                               
                           </div>

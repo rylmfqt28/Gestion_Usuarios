@@ -40,10 +40,12 @@ const Login = () => {
   const startButtonEvent = async (event) => {
 
     event.preventDefault();
+
     if (datos.username !== '' && datos.password !== '') {
       const res = await axios.get('/api/user/' + datos.username);
       if (res.data !== null) {
         if (res.data.nombreUsuario === datos.username && res.data.password === datos.password) {
+
           //redireccionar a la pagina de crear usuario
           console.log("redirecciona ya a crear tipo de usuario");
           document.getElementById('avisoValido').style.display = "block";

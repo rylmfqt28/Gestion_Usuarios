@@ -1,11 +1,13 @@
 .containerPrincipal {
-
+  
   position: absolute;
+  
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   border: 2px solid rgba(124, 210, 250, 0.623);
   padding:  50px;
+  margin-top: 25px;
   background-color: rgb(245, 244, 243);
   
 }
@@ -38,6 +40,7 @@
 .btn-primary{
   background-color:rgb(2, 129, 146);
   border-color: rgba(124, 210, 250, 0.623);
+  width: 200px;
 }
 .btn-primary:hover {
   background: rgb(0, 174, 255);
@@ -48,4 +51,37 @@
   background: rgb(2, 173, 185);
   border-color: rgba(124, 210, 250, 0.623);
   color:white
+}
+#avisoValido{
+  display: none;
+}
+#avisoVacio{
+  display: none;
+}
+#avisoNo{
+  display: none;
+}
+@media(max-width:360px){
+  .containerPrincipal {
+    width: 80%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(124, 210, 250, 0.623);
+    padding:  20px;
+    margin-left: 0;
+    margin-right: 0;
+    background-color: rgb(245, 244, 243);
+  }
+  
+  .containerSecundario{
+  
+    text-align: center;
+    /*margin-top: -10px;*/
+    
+    
+  
+  }
+
 }

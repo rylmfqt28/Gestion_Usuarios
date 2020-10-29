@@ -1,180 +1,212 @@
-import React from 'react';
+import React, {Fragment, Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Request.css'
-import {Table,Button,Container, Modal,ModalHeader,ModalBody,FormGroup,ModalFooter,} from "reactstrap";
+import './Request.css';
+import axios from 'axios';
 
-const data = [
-  { id: 1, personaje: "Esteban Pirito Del Castillo" },
-  { id: 2, personaje: "Elsa Pato Perez"},
-  { id: 3, personaje: "Cesar Nozoa"},
-  { id: 4, personaje: "Elba Zurita"},
-  { id: 5, personaje: "Esther Moso Rostro"},
-  { id: 6, personaje: "Helena Nito Perez"},
-];
+import {Table,Button,Container, Modal,ModalHeader,ModalBody,FormGroup,ModalFooter} from "reactstrap";
 
 
-
-class Request extends React.Component {
-  state = {
-    data: data,
-    modalActualizar: false,
-    modalInsertar: false,
-    form: {
-      id: "",
-      personaje: "",
-    },
-  };
-
-  mostrarModalMostrar = (dato) => {
-    this.setState({
-      form: dato,
-      modalMostrar: true,
-    });
-  };
 
  
+class Request extends Component {
 
-  
-  render() {
-    
-    return (
-      <>
-        <Container>
-        <br />
-        <div className="barraNav"> 
-        <nav className="navbar navbar-light justify-content-between">
-          <a className="navbar-brand">Nombre app // Logo</a>
-          <form className="form-inline">
-          </form>
-        </nav>
-        </div>
+     state={
+     modalMostrar: false,
+     usuario2 : [],
+     usuario3 : [],
+     form: {
+      tipoUsuarioID: "",
+      tipoUsuarioNombre: "",
+      tipoUsuarioDescripcion: "",
+    },
+ };
+
+  componentDidMount()
+  {
+
+    axios
+     .get("http://localhost:3001/api/get")
+    .then(response=>{
+      console.log(response);
+      this.setState({usuario2: response.data })
       
-        <label className="title-inicio">
-                <b>
-                  Solicitud Personal
-                        </b>
+    })
+    .catch(error=>{
+      console.log(error);
+    });
+  }
+  componentDidMount2()
+  {
 
-              </label>
-     
-          <br />
-          <br />
-          <br />
-          <br />
-          <Table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Usuario</th>
-                <br/>            
-                <th>Opciones</th>
+    axios
+     .get("http://localhost:3001/api/get2")
+    .then(response=>{
+      console.log(response);
+      this.setState({usuario3: response.data })
+      
+    })
+    .catch(error=>{
+      console.log(error);
+    });
+  }
+
+  mostrarModalUser = (dato) => {
+    this.setState({
+      form: dato,
+      modalUser: true
+    });
+  };
+ 
+  render()
+    {
+      return (
+    <Fragment>
+         <div className="barraNav">
+         <nav className="navbar navbar-light">
+          <a className="navbar-brand">Nombre App // Logo</a>
+         </nav>
+         </div>
+         <br/>
+         <div className="app-bar">
+         <h1 className="app-bar-title">Solicitudes de Personal</h1>
+         </div>
+         <section className="app-section container">
+         {this.renderUsuarioSelector()}
+
+         <div className="top-margin-small">
+         {this.renderSelectedCard(this.state.identy)}
+         </div>
+       
+      </section>
+    </Fragment>
+         )
+    }
+  renderUsuarioSelector()      
+     {
+        return (
+        <div className="form-group top-margin-small">
+        <label className="solicitud-selector-label">Ver Solicitudes de tipo</label>
+        <select className="solicitud-selector form-control"
+
+        onChange={(e) => this.setState({identy: e.target.value })}>
+         
+         {this.state.usuario2.map(elemento => (
+        <option key={elemento.id} value = {elemento.tipoUsuarioDescripcion}>
+             {elemento.tipoUsuarioNombre} 
+        </option> )  )   }
+        </select>
+        </div>
+        );
+      }
+  renderSelectedCard(identy) 
+  {    
+    return (   
+       <>
+      <Container>
+        <br />
+        <br />
+        <br />
+        <Table>
+          <thead>
+            <tr>
+              <th>Usuarios</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {this.state.usuario2.map((dato) => (
+               <tr key={dato.id}>
+               <td></td>
+               <td></td>
+               <td>{dato.tipoUsuarioID}</td>
+               {dato.tipoUsuarioNombre}
+               {dato.tipoUsuarioDescripcion}
+               
+               <td>
+                <Button color="primary" onClick={()=> this.eliminar(dato)}>Aceptar</Button>{" "}
+                <Button color="danger" onClick={()=> this.eliminar(dato)}>Rechazar</Button>{" "}
+                  <Button
+                    color="primary"
+                    onClick={() => this.mostrarModalUser(dato)}>
+                    Ver Usuario
+                  </Button>
+                </td>
               </tr>
-            </thead>
-
-            <tbody>
-              {this.state.data.map((dato) => (
-                <tr key={dato.id}>
-                  <td>{dato.id}</td>
-                  <td>{dato.personaje}</td>
-                  <td>{dato.anime}</td>
-                  <td>
-             
-                    <Button
-                      color="primary"
-                      onClick={() => ""} >Aceptar
-                    </Button>{" "}
-
-                    <Button
-                      color="primary"
-                      onClick={() => ""}>Rechazar
-                    </Button>{" "}
-                    <Button color="danger"
-                    onClick={()=> this.mostrarModalMostrar(dato)}>Ver Usuario</Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Container>
-
-        <Modal isOpen={this.state.modalMostrar}>
+            ))}
+          </tbody>
+        </Table>
+      </Container>
+      
+      <Modal isOpen={this.state.modalUser}>
           <ModalHeader>
            <div><h3>Solicitudes de Personal</h3></div>
+        
           </ModalHeader>
 
           <ModalBody>
+  
             <FormGroup>
               <label>
-               Nombre:
+                Apellidos: 
               </label>
+            {this.state.form.tipoUsuarioID}
             </FormGroup>
+            
             <FormGroup>
               <label>
-               Apellido:
+                Cedula de Identidad: 
               </label>
-            </FormGroup> 
-            <FormGroup>
-              <label>
-               Cedula de identidad:
-              </label>
+              {this.state.form.tipoUsuarioNombre}
             </FormGroup>
-            <FormGroup>
-              <label>
-               Pais:
-              </label>
-            </FormGroup>
-            <FormGroup>
-              <label>
-               Ciudad:
-              </label>
-            </FormGroup>
-            <FormGroup>
-              <label>
-               Direccion:
-              </label>
-            </FormGroup>
-            <FormGroup>
-              <label>
-               Cedula de identidad:
-              </label>
-            </FormGroup>
-            <FormGroup>
-              <label>
-               Correo:
-              </label>
-            </FormGroup>
-            <FormGroup>
-              <label>
-               Telefono:
-              </label>
-            </FormGroup>
-            <FormGroup>
-              <label>
-               Nombre de usuario:
-              </label>
-            </FormGroup>
-            <FormGroup>
-              <label>
-               Solicitud tipo:
-              </label>
-            </FormGroup>
-            <div className="containerPrincipal">
-            <form>
-                  <label> Lorem ipsum dolbus commodi voluptas animi.Lorem ipsum dolbus commodi voluptas animiLorem ipsum dolbus commodi voluptas animi</label>
-            </form>
 
-            </div>
-
+            <FormGroup>
+              <label>
+                Pais: 
+              </label>
+              {this.state.form.tipoUsuarioDescripcion}
+            </FormGroup>
+            <FormGroup>
+              <label>
+                Ciudad: 
+              </label>
+            </FormGroup><FormGroup>
+              <label>
+                Direccion: 
+              </label>
+            </FormGroup><FormGroup>
+              <label>
+                Correo: 
+              </label>
+            </FormGroup>
+            <FormGroup>
+              <label>
+                Telefono: 
+              </label>
+            </FormGroup>
+            <FormGroup>
+              <label>
+                Nombre de Usuario: 
+              </label>
+            </FormGroup>
+            <FormGroup>
+              <label>
+                Solicitud de tipo: 
+              </label>
+            </FormGroup>
           </ModalBody>
 
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => ""}>Aceptar</Button>
-           
+              onClick={() => this.editar(this.state.form)} >
+              Salir
+            </Button>
           </ModalFooter>
-        </Modal>
-      </>
-    );
+        </Modal> 
+  </>
+    )
   }
 }
 export default Request;
+//<td>{identy}</td>

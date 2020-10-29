@@ -1,48 +1,21 @@
-.containerPrincipal {
-
-    position: absolute;
-    left: 60%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border: 2px solid rgba(124, 210, 250, 0.623);
-    padding:  50px;
-    background-color: rgb(245, 244, 243);
+.barraNav {
+  transform: translate(0%, 0%);
   }
-  
+  .navbar-light{
+    background: rgb(2, 129, 146);
+  }
   .containerSecundario{
-  
     text-align: center;
     margin-top: -10px;
-  
   } 
-  .ContainerS{
-  
-    text-align: center;
-    margin-top: -10px;
-  
-  }
-  
-  .title-inicio{
-    position: absolute;
-    font-size:larger;
-    color:rgb(2, 129, 146);
-    left: 42%;
-   
-  }
-  .title-sol{
-    position: absolute;
-    font-size:larger;
-    color:rgb(2, 129, 146);
-    left: 25%;
-     top: 20%;
-  }
+
   .enlaceRegister{
     font-size: x-small;
   }
   .checkbox{
     font-size: small;
   }
-  .navbar-light{
+  .titulo-blog{
     background-color:rgb(2, 129, 146);
     text-decoration-color: aliceblue;
   }
@@ -64,7 +37,7 @@
     border-color: rgba(124, 210, 250, 0.623);
     color:white
   }
-  .App {
+  .txt-primary {
     text-align: center;
   }
   
@@ -79,7 +52,7 @@
     }
   }
   
-  .App-header {
+  .Table {
     background-color: #282c34;
     min-height: 100vh;
     display: flex;
@@ -89,7 +62,7 @@
     font-size: calc(10px + 2vmin);
     color: white;
   }
-  
+
   .App-link {
     color: #61dafb;
   }
@@ -101,4 +74,56 @@
     to {
       transform: rotate(360deg);
     }
+  }
+  .app-bar-title {
+    font-family: 'Arial', cursive;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    margin-top: 0;
+    margin-bottom: 0;
+    word-spacing: 6px;
+  }
+  
+  .app-section {
+    margin-top: 2rem;
+  }
+  
+  .solicitud-selector {
+    width: 30%;
+    position: absolute;
+    left: 40%;
+   
+
+  }
+  
+  .solicitud-selector-label {
+    left: 20%;
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: 400;
+    
+  }
+  
+  .angry-joe {
+    color: #999;  
+  }
+  
+  .angry-joe:hover {
+    color: crimson;
+  }
+  
+  .ico-angry-joe {
+    font-size: 5rem;
+  }
+  
+  .center {
+    text-align: center;
+  }
+  
+  .top-margin {
+    margin-top: 5rem;
+  }
+  
+  .top-margin-small {
+    margin-top: 2rem; 
   }

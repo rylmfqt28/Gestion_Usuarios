@@ -82,8 +82,8 @@ const Login = () => {
 
         <div className="barraNav">
           <nav className="navbar navbar-light justify-content-between">
-            <a class="navbar-brand" href="#">
-              <img src={logo} height="35" alt="logo" />
+            <a className="navbar-brand" href="#">
+              <img className="logo" src={logo} height="35" alt="logo" />
              </a>
 
             <div>

@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState} from 'react';
 import './crearTipoUsuario.css';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -93,9 +93,6 @@ const CrearTipoUsuario = () => {
                                     message: 'Mínimo 5 carácteres'
                                  },
                                 pattern: /^[A-Za-z]+$/i 
-
-
-
                             })
                         }
                         placeholder="Ingresar tipo de usuario"
@@ -140,7 +137,6 @@ const CrearTipoUsuario = () => {
                     </span>
                     <br></br>
                     <div className="botones">
-
 
                         <button className="btn btn-primary  pull-right btn-lg" onClick='this.reset'>Cancelar</button>
 

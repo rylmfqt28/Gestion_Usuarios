@@ -1,4 +1,4 @@
-package com.thejuniors.gestionusuarios.services;
+/*package com.thejuniors.gestionusuarios.services;
 //Implementar peticiones GET POST PUT DELETE respectivas a cada ventana
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class SolicitudeService {
 
     
-   /* @Autowired		
+    @Autowired		
     private JdbcTemplate jdbcTemplate;
 
     public UsuarioCredenciales enlistarSolicitudes(String tipo, String estado){
@@ -45,8 +45,8 @@ public class SolicitudeService {
         }else{
             return null;
         }
-    }*/
+    }
 
     
 
-}
+}*/

@@ -40,6 +40,7 @@ const Solicitudes = ()=> {
 
         <a href="#" class="button white radius">Aceptar</a>
         <a href="#" class="button red radius">Rechazar</a>
+<<<<<<< HEAD
         <a href="#" class="button blue radius" data-toggle="modal" data-target="#UserData">Ver Usuario</a>
         </fieldset>
       </form>
@@ -104,6 +105,12 @@ const Solicitudes = ()=> {
             </div>
             </div>
       </div>
+=======
+        <a href="#" class="button blue radius">Ver Usuario</a>
+        </fieldset>
+      </form>
+
+>>>>>>> develop
       
       <script src="js/bootstrap.min.js"></script>
     </body>

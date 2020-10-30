@@ -1,7 +1,8 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState} from 'react';
 import './crearTipoUsuario.css';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import logo from '../img/logo.png';
 
 const CrearTipoUsuario = () => {
     
@@ -55,7 +56,7 @@ const CrearTipoUsuario = () => {
         
         <Fragment>
             <nav className="navbar navbar-expand-lg navbar-light ">
-                <a className="navbar-brand" href="#">Navbar</a>
+                <a className="navbar-brand" href="#"><img src={logo} height="35" alt="logo" /></a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>    
@@ -92,9 +93,6 @@ const CrearTipoUsuario = () => {
                                     message: 'Mínimo 5 carácteres'
                                  },
                                 pattern: /^[A-Za-z]+$/i 
-
-
-
                             })
                         }
                         placeholder="Ingresar tipo de usuario"
@@ -139,7 +137,6 @@ const CrearTipoUsuario = () => {
                     </span>
                     <br></br>
                     <div className="botones">
-
 
                         <button className="btn btn-primary  pull-right btn-lg" onClick='this.reset'>Cancelar</button>
 

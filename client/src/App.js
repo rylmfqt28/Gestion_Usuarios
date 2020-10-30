@@ -9,7 +9,9 @@ import{
 } from "react-router-dom"
 import Login from './components/login/Login';
 import Register from './components/register/Register';
+import Solicitudes from './components/solicitudes/Solicitudes';
 import crearTipoUsuario from './components/createTypeUser/crearTipoUsuario';
+
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
       <Switch>
       <Route exact path="/" component={Login}/>
       <Route path="/register" component={Register}/>
+      <Route path="/solicitudes" component={Solicitudes}/>
       <Route path="/crearTipoUsuario" component={crearTipoUsuario}/>
       </Switch>
     </Router>

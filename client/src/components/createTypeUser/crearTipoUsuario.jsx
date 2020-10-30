@@ -32,12 +32,15 @@ const CrearTipoUsuario = () => {
                 console.log(res.data);
                 if(res.data === null){            
                     const crear = await axios.post('/api/type/', datos);
+                    alert('Se creo el tipo de usuario Exitosamente');
                     console.log("Se creó el nuevo tipo de usuario:" + crear.data);
                 }else{
+                    alert('El tipo de usuario ya existe');
                     console.log("El usuario ya existe");
                 }
               }else{
                 //mensaje campos vacios "Existen campos vacios"
+                alert('Existen campos vacíos, rellenar los campos restantes');
                 console.log("");
               }
             
@@ -63,7 +66,7 @@ const CrearTipoUsuario = () => {
 
             <form className="formC" 
             onSubmit={handleSubmit(onSubmit)}  
-            onClick="this.reset"
+            
             >
             <h2>Crear tipo de Usuario  </h2>
                 
@@ -137,7 +140,7 @@ const CrearTipoUsuario = () => {
                     <br></br>
                     <div className="botones">
 
-                        <button className="btn btn-primary  pull-right btn-lg" >Cancelar</button>
+                        <button className="btn btn-primary  pull-right btn-lg" onClick='this.reset'>Cancelar</button>
                         <button  className="btn btn-outline-info  pull-left btn-lg" onClick={createButtonEvent}>Crear</button>   
 
                     </div>

@@ -23,7 +23,7 @@ public class LoginService {
         UsuarioCredenciales user = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement("select * from UsuarioCredenciales where nombreUsuario=?");
+                PreparedStatement ps = con.prepareStatement("select uc.CI, uc.nombreUsuario, uc.password, tu.tipoUsuarioNombre, eu.nombreEstado from UsuarioCredenciales uc , UsuarioTipoUsuario ut, TipoUsuario tu, UsuarioEstadoUsuario ue, EstadoUsuario eu where nombreUsuario=? and ut.CI=uc.CI and ue.CI=uc.CI and ut.tipoUsuarioID=tu.tipoUsuarioID and eu.tipoEstado=ue.tipoEstado");
                 ps.setString(1, username);
                 return ps;
             }
@@ -31,7 +31,7 @@ public class LoginService {
             @Override
             public UsuarioCredenciales extractData(ResultSet rs) throws SQLException{
                 if (rs.next()){
-                    UsuarioCredenciales user = new UsuarioCredenciales(rs.getString("CI"), rs.getString("nombreUsuario"), rs.getString("password"));
+                    UsuarioCredenciales user = new UsuarioCredenciales(rs.getString("CI"), rs.getString("nombreUsuario"), rs.getString("password"), rs.getString("tipoUsuarioNombre"), rs.getString("nombreEstado"));
                     return user;
                 } else{
                     return null;

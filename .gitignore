@@ -32,5 +32,9 @@ build/
 ### VS Code ###
 .vscode/
 
-### Node Modules ###
-node_modules
+### Node JS ###
+/node_modules
+package.json
+package-lock.json
+/.pnp
+.pnp.js

@@ -6,7 +6,7 @@ const Register = ()=> {
 return(
 <div>
     <h1>
-        Aqui vendrá la pagina de Registro
+        Pagina de Registro muy pronto!!!!
     </h1>
     <Link 
             className="btn btn-outline-info my-2 my-sm-0" 

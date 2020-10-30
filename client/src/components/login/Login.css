@@ -79,9 +79,8 @@
   
     text-align: center;
     /*margin-top: -10px;*/
-    
-    
-  
   }
-
+  .logo{
+    padding: 50px 50px;
+  }
 }

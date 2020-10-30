@@ -1,7 +1,8 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState} from 'react';
 import './crearTipoUsuario.css';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import logo from '../img/logo.png';
 
 const CrearTipoUsuario = () => {
     
@@ -32,12 +33,15 @@ const CrearTipoUsuario = () => {
                 console.log(res.data);
                 if(res.data === null){            
                     const crear = await axios.post('/api/type/', datos);
+                    alert('Se creo el tipo de usuario Exitosamente');
                     console.log("Se creó el nuevo tipo de usuario:" + crear.data);
                 }else{
+                    alert('El tipo de usuario ya existe');
                     console.log("El usuario ya existe");
                 }
               }else{
                 //mensaje campos vacios "Existen campos vacios"
+                alert('Existen campos vacíos, rellenar los campos restantes');
                 console.log("");
               }
             
@@ -52,7 +56,7 @@ const CrearTipoUsuario = () => {
         
         <Fragment>
             <nav className="navbar navbar-expand-lg navbar-light ">
-                <a className="navbar-brand" href="#">Navbar</a>
+                <a className="navbar-brand" href="#"><img src={logo} height="35" alt="logo" /></a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>    
@@ -89,9 +93,6 @@ const CrearTipoUsuario = () => {
                                     message: 'Mínimo 5 carácteres'
                                  },
                                 pattern: /^[A-Za-z]+$/i 
-
-
-
                             })
                         }
                         placeholder="Ingresar tipo de usuario"
@@ -137,7 +138,8 @@ const CrearTipoUsuario = () => {
                     <br></br>
                     <div className="botones">
 
-                        <button className="btn btn-primary  pull-right btn-lg" onClick="this.reset">Cancelar</button>
+                        <button className="btn btn-primary  pull-right btn-lg" onClick='this.reset'>Cancelar</button>
+
                         <button  className="btn btn-outline-info  pull-left btn-lg" onClick={createButtonEvent}>Crear</button>   
 
                     </div>

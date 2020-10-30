@@ -53,7 +53,7 @@ const Login = () => {
   function ingersar(rol) {
     
     switch (rol) {
-      case '1':
+      case 'Administrador':
         window.location.pathname = '/crearTipoUsuario';
         break;
       case '2':
@@ -70,26 +70,26 @@ const Login = () => {
   const startButtonEvent = async (event) => {
     
     event.preventDefault();
+
     if (datos.username !== '' && datos.password !== '') {
       const res = await axios.get('/api/user/' + datos.username);
       if (res.data !== null) {
         if (res.data.nombreUsuario === datos.username && res.data.password === datos.password) {
+
           //redireccionar a la pagina de crear usuario
-          console.log("redirecciona ya a crear tipo de usuario");
           document.getElementById('avisoValido').style.display = "block";
           document.getElementById('avisoVacio').style.display = "none";
           document.getElementById('avisoNo').style.display = "none";
-          ingersar('1');
+          ingersar(res.data.tipoUsuarioNombre);
+
         } else {
           //Mensaje de "Cuenta de usuario no valida"
-          console.log("nel mensaje de error no es el admin o el usuario no existe");
           document.getElementById('avisoValido').style.display = "none";
           document.getElementById('avisoVacio').style.display = "none";
           document.getElementById('avisoNo').style.display = "block";
         }
       } else {
         //Mensaje de "Cuenta de usuario no valida"
-        console.log("nel mensaje de error no es el admin o el usuario no existe");
         document.getElementById('avisoValido').style.display = "none";
         document.getElementById('avisoVacio').style.display = "none";
         document.getElementById('avisoNo').style.display = "block";

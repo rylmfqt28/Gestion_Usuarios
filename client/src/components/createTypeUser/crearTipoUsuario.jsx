@@ -1,9 +1,16 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import './crearTipoUsuario.css';
-import {Link}from "react-router-dom"
 import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
 const CrearTipoUsuario = () => {
+    
+    const [datos, setDatos] = useState({
+        crearTipo: '',
+        descripcionTipo: ''
+
+    })
+   
 
     const { register, errors, handleSubmit } = useForm();
     const onSubmit = (data, e) => {
@@ -11,9 +18,38 @@ const CrearTipoUsuario = () => {
         e.target.reset()
     }
 
-
+    const handleInputChange = (event) => {
+        setDatos({
+            ...datos,
+            [event.target.name] : event.target.value
+        });
+      }
+    const createButtonEvent = async (event) => {
+        event.preventDefault();
+        try { 
+            if(datos.crearTipo !== '' && datos.descripcionTipo !== ''){
+                const res = await axios.get('/api/type/'+datos.crearTipo);
+                console.log(res.data);
+                if(res.data === null){            
+                    const crear = await axios.post('/api/type/', datos);
+                    console.log("Se creó el nuevo tipo de usuario:" + crear.data);
+                }else{
+                    console.log("El usuario ya existe");
+                }
+              }else{
+                //mensaje campos vacios "Existen campos vacios"
+                console.log("");
+              }
+            
+        } catch (error) {
+            console.log(error);
+        }      
+      }
+    
+    
     return (
 
+        
         <Fragment>
             <nav className="navbar navbar-expand-lg navbar-light ">
                 <a className="navbar-brand" href="#">Navbar</a>
@@ -22,12 +58,19 @@ const CrearTipoUsuario = () => {
                 </button>    
             </nav>
 
-        
-            <form className="formC" onSubmit={handleSubmit(onSubmit)} >
+
+
+
+            <form className="formC" 
+            onSubmit={handleSubmit(onSubmit)}  
             
-                <h2>Crear tipo de Usuario</h2>
+            >
+            <h2>Crear tipo de Usuario  </h2>
+                
+
                 <div>
                     <input
+                        type="text"
                         
                         name="crearTipo"
                         className="campoTipo"
@@ -44,20 +87,22 @@ const CrearTipoUsuario = () => {
                                 minLength: {
                                     value: 5,
                                     message: 'Mínimo 5 carácteres'
-                                },
+                                 },
                                 pattern: /^[A-Za-z]+$/i 
 
+
+
                             })
-
-
                         }
                         placeholder="Ingresar tipo de usuario"
-
+                        onChange={handleInputChange}
+                        
                     />
                     <span className="text-danger text-small d-block mb-2">
                         {errors?.crearTipo?.message}
-                        <br/>
-                        {errors.crearTipo && "Solo se permiten Letras"}
+                       {errors?.crearTipo && <p> Solo se permiten letras</p>}
+
+
                     </span>
 
                 </div>
@@ -65,7 +110,7 @@ const CrearTipoUsuario = () => {
                 <div>
 
                     <textarea
-                        name="descripcion"
+                        name="descripcionTipo"
                         className="textArea"
                         ref={
                             register({
@@ -81,20 +126,20 @@ const CrearTipoUsuario = () => {
                                     message: 'Mínimo 2 carácteres'
                                 }
 
-
                             })
-
-
                         }
                         placeholder="Ingrese la Descripción Aquí"
+                        onChange={handleInputChange}
                     />
                     <span className="text-danger text-small d-block mb-2">
                         {errors?.descripcion?.message}
                     </span>
                     <br></br>
                     <div className="botones">
-                        <button className="btn btn-primary  pull-right btn-lg" onClick="this.reset()">Cancelar</button>
-                        <button className="btn btn-outline-info  pull-left btn-lg" >Crear</button>   
+
+                        <button className="btn btn-primary  pull-right btn-lg" onClick="this.reset">Cancelar</button>
+                        <button  className="btn btn-outline-info  pull-left btn-lg" onClick={createButtonEvent}>Crear</button>   
+
                     </div>
                     
 
@@ -104,6 +149,11 @@ const CrearTipoUsuario = () => {
         </Fragment>
     );
 }
+
+
+
+
+
 
 
 export default CrearTipoUsuario;

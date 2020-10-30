@@ -4,6 +4,7 @@ import './Login.css'
 import { Link } from "react-router-dom"
 import { Fragment, useState } from 'react';
 import axios from 'axios';
+import logo from '../img/logo.png';
 
 
 
@@ -117,18 +118,21 @@ const Login = () => {
 
         <div className="barraNav">
           <nav className="navbar navbar-light justify-content-between">
-            <a className="navbar-brand">Empresa</a>
-            <form className="form-inline">
+            <a className="navbar-brand" href="#">
+              <img className="logo" src={logo} height="35" alt="logo" />
+             </a>
 
+            <div>
               <Link
                 className="btn btn-outline-info my-2 my-sm-0"
                 type="submit"
                 to="/register"
               >REGISTRARSE</Link>
-            </form>
+            </div>
+
+
           </nav>
         </div>
-
 
         <div className="containerPrincipal">
 

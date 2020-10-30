@@ -40,11 +40,11 @@ const Solicitudes = ()=> {
 
         <a href="#" class="button white radius">Aceptar</a>
         <a href="#" class="button red radius">Rechazar</a>
-<<<<<<< HEAD
         <a href="#" class="button blue radius" data-toggle="modal" data-target="#UserData">Ver Usuario</a>
         </fieldset>
       </form>
-
+      <form>
+        <fieldset>
       <div className="UserDateWindows" class="modal fade" id="UserData">
             <div class="modal-dialog modal-lg">
             <div class="modal-content" id="VentanaEmergente">
@@ -105,12 +105,11 @@ const Solicitudes = ()=> {
             </div>
             </div>
       </div>
-=======
-        <a href="#" class="button blue radius">Ver Usuario</a>
+        
         </fieldset>
       </form>
 
->>>>>>> develop
+
       
       <script src="js/bootstrap.min.js"></script>
     </body>

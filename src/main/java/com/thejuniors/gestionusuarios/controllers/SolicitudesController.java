@@ -5,9 +5,13 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.thejuniors.gestionusuarios.services.SolicitudeService;
 import com.thejuniors.gestionusuarios.model.UsuarioSolicitud;
+import com.thejuniors.gestionusuarios.model.UsuarioEstadoUsuario;
 
 import java.util.List;
 
@@ -16,14 +20,21 @@ import java.util.List;
 @RestController
 public class SolicitudesController {
     @Autowired
-    SolicitudeService loginservice;
+    SolicitudeService solicitudes;
+    
 
     @Autowired
     Gson gson;
 
     @GetMapping(value="/api/listaSolicitud/{tipoUsuarioNombre}/{nombreEstado}", produces={"application/json"})
     public List<UsuarioSolicitud> login(@PathVariable("tipoUsuarioNombre") String tipoUsuarioNombre, @PathVariable("nombreEstado") String nombreEstado) {
-        return loginservice.enlistarSolicitudes(tipoUsuarioNombre, nombreEstado);
+        return solicitudes.enlistarSolicitudes(tipoUsuarioNombre, nombreEstado);
     }
+
     
-}
+    @PutMapping(value = "/api/cambio", consumes={"application/json"})
+    public void insertar(@RequestBody UsuarioEstadoUsuario tipo)
+    {
+        solicitudes.actualizarEstado(tipo.getTipoEstado(),tipo.getCI());
+    }
+    }

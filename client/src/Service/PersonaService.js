@@ -1,10 +1,14 @@
 import axios from 'axios';
 
 class PersonaService{
-    baseUrl ="http://localhost:8080/persona"
-    
+    baseUrl ="/persona"
+    baseUrl2 ="/api/listaSolicitud"
     getAll(){
         return axios.get(this.baseUrl + "/lista").then(res => res.data);
+    }
+
+    getTiposUser(tipo){
+        return axios.get(this.baseUrl2 + "/"+tipo+"/Pendiente").then(res => res.data);
     }
 
     /*getUser(String){

@@ -32,9 +32,16 @@ public class SolicitudesController {
     }
 
     
-    @PutMapping(value = "/api/cambio", consumes={"application/json"})
+    /*@PutMapping(value = "/api/cambio", consumes={"application/json"})
     public void insertar(@RequestBody UsuarioEstadoUsuario tipo)
     {
         solicitudes.actualizarEstado(tipo.getTipoEstado(),tipo.getCI());
+    }*/
+    @PutMapping(value = "/api/cambio/{CI}/{tipo}", produces={"application/json"})
+    public void insertar(@PathVariable("CI") String CI, @PathVariable("tipo") String tipo)
+    {
+        solicitudes.actualizarEstado(tipo, CI);
     }
+
+
     }

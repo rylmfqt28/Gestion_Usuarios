@@ -43,13 +43,18 @@ class Solicitudes extends Component {
     PersonaService.getAll().then(data => this.setState({ Usuarios: data }))
     PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
   }
-  /*upLista() {
-    let tipoSelect = document.getElementById('tipoSelect')
-    let tipoUser= tipoSelect.optio[tipoSelect.selectedIndex].value;
-
-    PersonaService.getTiposUser(tipoUser).then(data => this.setState({ Usuarios: data }))
+  
+  
+  /*upListaAceptado(id) {
+    
+    this.setState({ user: this.state.Usuarios[id] })
+    
+    console.log(this.state.Usuarios[id].ci);
+    PersonaService.upListaUser(this.state.Usuarios[id].ci, "1" );
+    //PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+  
   }*/
-
+  
 
   replaceModalItem(id) {
     this.setState({ requiredItem: id });
@@ -57,6 +62,10 @@ class Solicitudes extends Component {
   }
 
   render() {
+    
+    
+    
+    //console.log(this.state.user.ci);
     const Usuarios = this.state.Usuarios.map((Usuario, index) => {
       return (
         <tr key={index} >
@@ -65,8 +74,12 @@ class Solicitudes extends Component {
           <td>{Usuario.nombre} {Usuario.apellido}</td>
 
           <td>
-            <button className="btn btn-outline-secondary">ACEPTAR</button>{' '}
-            <button className="btn btn-outline-danger">RECHAZAR</button>{' '}
+            <button className="btn btn-secondary"
+           >ACEPTAR</button>{' '}
+            <button 
+            className="btn btn-danger"
+            >RECHAZAR</button>{' '}
+
             <button 
             className="btn btn-outline-info" 
             data-toggle="modal" 
@@ -77,17 +90,29 @@ class Solicitudes extends Component {
       )
     });
 
-    const requiredItem = this.state.requiredItem;
-    let modalData = this.state.Usuarios[requiredItem];
-    console.log(this.state.user);
-    return (
+    //const requiredItem = this.state.requiredItem;
+    //let modalData = this.state.Usuarios[requiredItem];
+    //console.log(this.state.user);
+    
+        return (
       <div>
-        <nav className="navbar navbar-expand-lg navbar-light ">
-          <a className="navbar-brand" href="#"><img src={logo} height="35" alt="logo" /></a>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-        </nav>
+        <div className="barraNav">
+          <nav className="navbar navbar-light justify-content-between">
+            <a className="navbar-brand" href="#">
+              <img className="logo" src={logo} height="35" alt="logo" />
+             </a>
+
+            <div>
+              <Link
+                className="btn btn-outline-info my-2 my-sm-0"
+                type="submit"
+                to="/crearTipoUsuario"
+              >Crear Tipo Usuario</Link>
+            </div>
+
+
+          </nav>
+        </div>
 
         <h1 align="center"> Solicitudes de personal </h1>
 

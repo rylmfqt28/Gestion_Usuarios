@@ -57,12 +57,10 @@ public class SolicitudeService{
         }
     }
 
-    public void actualizarEstado(Integer tipoEstado, String CI)
+    public void actualizarEstado(String tipoEstado, String CI)
     {
         jdbcTemplate.update(
-                "UPDATE UsuarioEstadoUsuario SET tipoEstado = ? WHERE CI = ?",
-                tipoEstado, CI
-                );
+                "UPDATE UsuarioEstadoUsuario SET tipoEstado = ? WHERE CI = ?", tipoEstado, CI);
     }
 
 }

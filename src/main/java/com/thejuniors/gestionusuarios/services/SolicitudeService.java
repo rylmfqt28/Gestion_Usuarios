@@ -1,7 +1,7 @@
 package com.thejuniors.gestionusuarios.services;
 //Implementar peticiones GET POST PUT DELETE respectivas a cada ventana
 
-import java.nio.IntBuffer;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
+
 
 import java.util.List;
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 
 @Component
-///@CrossOrigin("*")
+
 public class SolicitudeService{
 
     @Autowired		

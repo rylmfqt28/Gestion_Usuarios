@@ -126,8 +126,10 @@ class Solicitudes extends Component {
         <span>Ver solicitudes de tipo</span>
 
         <select  className="select" id="select" onChange={this.updateList}>
-        <option value ={this.state.tipos[0]}>{this.state.tipos[0]}</option>
-        <option value = {this.state.tipos[1]}>{this.state.tipos[1]}</option>
+          {this.state.tipos.map((tipo, index)=>(
+            <option key={index} value ={tipo}>{tipo}</option>
+          ))
+          }
         </select>
 
         <br></br>
@@ -153,6 +155,7 @@ class Solicitudes extends Component {
             ciudadID={this.state.user.ciudadID}
             correo = {this.state.user.correo}
             telefono={this.state.user.telefono}
+            tipoUsuario = {this.state.user.tipoUsuario}
         />
       </div>
     )

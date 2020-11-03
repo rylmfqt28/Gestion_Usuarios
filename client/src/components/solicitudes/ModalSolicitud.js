@@ -56,7 +56,7 @@ class ModalSolicitud extends Component{
                                             <li class="list-group-item" id="correo">Correo: {this.props.correo}</li>
                                             <li class="list-group-item" id="telefono">Telefono: {this.props.telefono}</li>
                                             <li class="list-group-item" id="nm">Nombre de Usuario: {this.props.usuarioNombre}</li>
-                                            <li class="list-group-item" id="st">Solicitud de tipo: {this.props.ci} </li>
+                                            <li class="list-group-item" id="st">Solicitud de tipo: {this.props.tipoUsuario} </li>
                                         </ul>
                                     
                                 </div>

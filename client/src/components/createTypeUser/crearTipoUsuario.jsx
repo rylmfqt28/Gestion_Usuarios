@@ -20,7 +20,7 @@ const CrearTipoUsuario = () => {
 
     const handleDeleteKey = (event) => {
         let key = event.keyCode || event.which;
-        if(datos.crearTipo.length !== 0 && key === 8){
+        if(datos.crearTipo.length !== 0 && (key === 8 || key === 127)){
             let nuevo = datos.crearTipo.substring(0, datos.crearTipo.length -1);
             setDatos({
                 ...datos,
@@ -28,16 +28,47 @@ const CrearTipoUsuario = () => {
             });
         }
     }
-
-    const handleInputChange = (event) => {
+    const restartForm = () => {
+        setDatos({
+            ...datos,
+            crearTipo: '',
+            descripcionTipo: ''
+        });
+    }
+    
+    
+    const validar = (event) => {
         let key = event.keyCode || event.which;
         let tecla = String.fromCharCode(key);
         let letras = " áéíóúñÑ";
+        if(datos.crearTipo.length !== 20 ){
+            console.log('llego malditod');
+            if((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)){
+                setDatos({
+                    ...datos,
+                    [event.target.name]: event.target.value + tecla
+                });
+            }
+        }else{
+                alert('El maximo de caracteres es de 20');
+        }
         
-        if((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)){
+    }
+    const presionarKey =()=>{
+        if(descripcionTipo.length===250)
+        {
+            alert('Solo se permite un maximo de 250 caracteres')
+        }
+    }
+
+    
+    const { crearTipo, descripcionTipo} = datos
+    const handleInputChange = (event) => {
+        if(event.target.name === "descripcionTipo"){
+            
             setDatos({
                 ...datos,
-                [event.target.name]: event.target.value + tecla
+                [event.target.name]: event.target.value
             });
         }
     }
@@ -115,11 +146,12 @@ const CrearTipoUsuario = () => {
 
                             })
                         }
+                        onChange={handleInputChange}
                         placeholder="Ingresar tipo de usuario"
-                        onKeyPress={handleInputChange}
+                        onKeyPress={validar}
                         onKeyDown={handleDeleteKey}
-                        value={datos.crearTipo}
-
+                        value={crearTipo}
+                        
                     />
                     <span className="text-danger text-small d-block mb-2">
                         {errors?.crearTipo?.message}
@@ -132,6 +164,7 @@ const CrearTipoUsuario = () => {
                     <textarea
                         name="descripcionTipo"
                         className="textArea"
+                        maxLength="250"
                         ref={
                             register({
                                 required: {
@@ -148,8 +181,10 @@ const CrearTipoUsuario = () => {
 
                             })
                         }
-                        placeholder="Ingrese la Descripción Aquí"
-                        onKeyPress={handleInputChange}
+                        placeholder="Ingrese la Descripción Aquí"   
+                        onChange={handleInputChange}
+                        onKeyPress={presionarKey}
+                        value={descripcionTipo}
                     />
                     <span className="text-danger text-small d-block mb-2">
                         {errors?.descripcion?.message}
@@ -157,7 +192,7 @@ const CrearTipoUsuario = () => {
                     <br></br>
                     <div className="botones">
 
-                        <button className="btn btn-primary  pull-right btn-lg" onClick='this.reset'>Cancelar</button>
+                        <button className="btn btn-primary  pull-right btn-lg" type="reset" onClick={restartForm}>Cancelar</button>
 
                         <button className="btn btn-outline-info  pull-left btn-lg" onClick={createButtonEvent}>Crear</button>
 

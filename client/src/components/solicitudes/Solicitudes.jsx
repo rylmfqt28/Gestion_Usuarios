@@ -8,7 +8,7 @@ import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser';
 //import ModalSolicitud from './ModalSolicitud';
 
-const date = '10010';
+
 class Solicitudes extends Component {
 
   constructor(props) {
@@ -16,59 +16,33 @@ class Solicitudes extends Component {
     this.state = {
       Usuarios: [],
       user: {},
-      TipoUsuarios: [],
-      Tipuser: {}
-      // User: {
-      //   CI:null,
-      //   usuarioNombre: null,
-      //   usuarioApellido: null,
-      //   paisID:null,
-      //   ciudadID:null,
-      //   correo:null,
-      //   telefono:null,
-      // }
+      TUsuarios: [],
+      Tuser: {
+              tipoUsuarioID:null, 
+              tipoUsuarioNombre:null, 
+              tipoUsuarioDescripcion:null}, date:'',
     }
   }
 
-  /*componentDidMount(){
-    PersonaService.getAll().then(data => this.setState({Usuarios: data}))
-    const url="http://localhost:8080/persona/obtener/10010"
-    fetch(url).then(respuesta=> respuesta.json())
-    .then(resultado => this.setState({User: resultado}))
-    
-    console.log(this.state.User)
-    
-  }*/
-
-
   componentDidMount() {
+    TipoUser.getAll().then(data => this.setState({ TUsuarios: data }))
     PersonaService.getAll().then(data => this.setState({ Usuarios: data }))
     PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
- 
+    
   }
   
- 
-  
-  /*upListaAceptado(id) {
-    
-    this.setState({ user: this.state.Usuarios[id] })
-    
-    console.log(this.state.Usuarios[id].ci);
-    PersonaService.upListaUser(this.state.Usuarios[id].ci, "1" );
-    //PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
-  
-  }*/
-  
+
 
   replaceModalItem(id) {
     this.setState({ requiredItem: id });
     this.setState({ user: this.state.Usuarios[id] })
-  }
+   }
+
+
 
   render() {
-
     
-    //console.log(this.state.user.ci);
+  
     const Usuarios = this.state.Usuarios.map((Usuario, index) => {
       return (
         <tr key={index} >
@@ -93,10 +67,6 @@ class Solicitudes extends Component {
       )
     });
 
-    //const requiredItem = this.state.requiredItem;
-    //let modalData = this.state.Usuarios[requiredItem];
-    //console.log(this.state.user);
-    TipoUser.getAll().then(data => this.setState({TipoUsuarios: data}))
         return (
       <div>
         <div className="barraNav">
@@ -123,12 +93,11 @@ class Solicitudes extends Component {
 
         <select  className="selector" 
             onChange={(e) => this.setState({date: e.target.value })}>
-            {this.state.TipoUsuarios.map(elemento => (
-            <option key={elemento.id} value = {elemento.id}>
+            {this.state.TUsuarios.map(elemento => (
+            <option key={elemento.id} value = {elemento.usuarioID}>
                 {elemento.nombreUs} 
            </option> ))}
            </select>
-
         <br></br>
         <br></br>
         <table className="table" id="lista">

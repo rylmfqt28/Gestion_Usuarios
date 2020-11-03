@@ -19,7 +19,14 @@ const CrearTipoUsuario = () => {
     }
 
     const handleDeleteKey = (event) => {
-        
+        let key = event.keyCode || event.which;
+        if(datos.crearTipo.length !== 0 && key === 8){
+            let nuevo = datos.crearTipo.substring(0, datos.crearTipo.length -1);
+            setDatos({
+                ...datos,
+                [event.target.name]: nuevo
+            });
+        }
     }
 
     const handleInputChange = (event) => {

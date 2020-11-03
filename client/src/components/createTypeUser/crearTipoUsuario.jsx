@@ -10,9 +10,7 @@ const CrearTipoUsuario = () => {
     const [datos, setDatos] = useState({
         crearTipo: '',
         descripcionTipo: ''
-
     })
-
 
     const { register, errors, handleSubmit } = useForm();
     const onSubmit = (data, e) => {
@@ -20,11 +18,21 @@ const CrearTipoUsuario = () => {
         e.target.reset()
     }
 
+    const handleDeleteKey = (event) => {
+        
+    }
+
     const handleInputChange = (event) => {
-        setDatos({
-            ...datos,
-            [event.target.name]: event.target.value
-        });
+        let key = event.keyCode || event.which;
+        let tecla = String.fromCharCode(key);
+        let letras = " áéíóúñÑ";
+        
+        if((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)){
+            setDatos({
+                ...datos,
+                [event.target.name]: event.target.value + tecla
+            });
+        }
     }
     const createButtonEvent = async (event) => {
         event.preventDefault();
@@ -51,9 +59,7 @@ const CrearTipoUsuario = () => {
         }
     }
 
-
     return (
-
 
         <Fragment>
             <div className="barraNav">
@@ -70,19 +76,13 @@ const CrearTipoUsuario = () => {
                         >Solicitudes</Link>
                     </div>
 
-
                 </nav>
             </div>
 
-
-
-
             <form className="formC"
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={handleSubmit(onSubmit)}>
 
-            >
-                <h2>Crear tipo de Usuario  </h2>
-
+                <h2>Crear tipo de Usuario</h2>
 
                 <div>
                     <input
@@ -105,25 +105,23 @@ const CrearTipoUsuario = () => {
                                     message: 'Mínimo 5 carácteres'
 
                                  },
-                                pattern: /^[A-Za-z]+$/i 
 
                             })
                         }
                         placeholder="Ingresar tipo de usuario"
-                        onChange={handleInputChange}
+                        onKeyPress={handleInputChange}
+                        onKeyDown={handleDeleteKey}
+                        value={datos.crearTipo}
 
                     />
                     <span className="text-danger text-small d-block mb-2">
                         {errors?.crearTipo?.message}
                         {errors?.crearTipo && <p> Solo se permiten letras</p>}
-
-
                     </span>
 
                 </div>
 
                 <div>
-
                     <textarea
                         name="descripcionTipo"
                         className="textArea"
@@ -144,7 +142,7 @@ const CrearTipoUsuario = () => {
                             })
                         }
                         placeholder="Ingrese la Descripción Aquí"
-                        onChange={handleInputChange}
+                        onKeyPress={handleInputChange}
                     />
                     <span className="text-danger text-small d-block mb-2">
                         {errors?.descripcion?.message}
@@ -157,8 +155,6 @@ const CrearTipoUsuario = () => {
                         <button className="btn btn-outline-info  pull-left btn-lg" onClick={createButtonEvent}>Crear</button>
 
                     </div>
-
-
                 </div>
 
             </form>

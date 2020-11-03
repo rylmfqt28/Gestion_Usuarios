@@ -46,11 +46,25 @@ class Solicitudes extends Component {
 
   putEstadoLista(id, estado) {
 
-    this.setState({ user: this.state.Usuarios[id] })
+    this.setState({ user: this.state.Usuarios[id] });
 
-    console.log(this.state.Usuarios[id].ci);
-    PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
-    PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+    var nomUser = this.state.Usuarios[id].nombre;
+    if (estado === '3') {
+      var opcion = window.confirm("¿Está seguro que quiere RECHAZAR la solicitud de " + nomUser+"?");
+      if (opcion) {
+        console.log(this.state.Usuarios[id].ci);
+        PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
+        PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+      }
+    } else if (estado === '1') {
+      //var opcion=window.confirm("Esta seguro que quiere ACEPTAR la solicitud de "+nomUser);
+
+      console.log(this.state.Usuarios[id].ci);
+      PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
+      PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+
+    }
+
 
   }
 

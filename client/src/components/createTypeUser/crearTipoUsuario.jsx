@@ -44,8 +44,8 @@ const CrearTipoUsuario = () => {
     const createButtonEvent = async (event) => {
         event.preventDefault();
         try {
-            if (datos.crearTipo !== '' && datos.descripcionTipo !== '') {
-                const res = await axios.get('/api/type/' + datos.crearTipo);
+            if (datos.crearTipo.trim() !== '' && datos.descripcionTipo.trim() !== '') {
+                const res = await axios.get('/api/type/' + datos.crearTipo.trim());
                 console.log(res.data);
                 if (res.data === null) {
                     const crear = await axios.post('/api/type/', datos);

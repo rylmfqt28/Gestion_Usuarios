@@ -5,7 +5,7 @@ import logo from '../img/logo.png';
 
 import './Solicitudes.css';
 import PersonaService from '../../Service/PersonaService';
-//import ModalSolicitud from './ModalSolicitud';
+import ModalSolicitud from './ModalSolicitud';
 
 
 class Solicitudes extends Component {
@@ -14,7 +14,11 @@ class Solicitudes extends Component {
     super(props);
     this.state = {
       Usuarios: [],
-      user: {}
+      user: {},
+      tipos:[
+        "Administrador",
+        "SN"
+      ],
       // User: {
       //   CI:null,
       //   usuarioNombre: null,
@@ -25,6 +29,7 @@ class Solicitudes extends Component {
       //   telefono:null,
       // }
     }
+    this.updateList = this.updateList.bind(this)
   }
 
   /*componentDidMount(){
@@ -39,8 +44,8 @@ class Solicitudes extends Component {
 
 
   componentDidMount() {
-    PersonaService.getAll().then(data => this.setState({ Usuarios: data }))
-    PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+    //PersonaService.getAll().then(data => this.setState({ Usuarios: data }))
+    PersonaService.getTiposUser(this.state.tipos[0]).then(data => this.setState({ Usuarios: data }))
   }
   
   
@@ -53,7 +58,10 @@ class Solicitudes extends Component {
     //PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
   
   }*/
-  
+  updateList(e){
+    PersonaService.getTiposUser(e.target.value).then(data => this.setState({Usuarios: data}))
+    console.log(e.target.value);
+  }
 
   replaceModalItem(id) {
     this.setState({ requiredItem: id });
@@ -117,11 +125,13 @@ class Solicitudes extends Component {
 
         <span>Ver solicitudes de tipo</span>
 
-        <select name="select" id="tipoSelect">
-          <option name = "Vendedor">Vendedor</option>
-          <option name = "Administrador">Administrador</option>
-          <option name = "Oficina" >Oficina</option>
+        <select  className="select" id="select" onChange={this.updateList}>
+          {this.state.tipos.map((tipo, index)=>(
+            <option key={index} value ={tipo}>{tipo}</option>
+          ))
+          }
         </select>
+
         <br></br>
         <br></br>
         <table className="table" id="lista">
@@ -137,7 +147,7 @@ class Solicitudes extends Component {
             {Usuarios}
           </tbody>
         </table>
-        {/*<ModalSolicitud
+        <ModalSolicitud
             ci= {this.state.user.ci}
             usuarioNombre = {this.state.user.nombre}
             usuarioApellido = {this.state.user.apellido}
@@ -145,7 +155,8 @@ class Solicitudes extends Component {
             ciudadID={this.state.user.ciudadID}
             correo = {this.state.user.correo}
             telefono={this.state.user.telefono}
-        />*/}
+            tipoUsuario = {this.state.user.tipoUsuario}
+        />
       </div>
     )
   }

@@ -1,33 +1,33 @@
 import React, { Component } from 'react';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-//import {Link}from "react-router-dom"
+import { Link } from "react-router-dom"
+import logo from '../img/logo.png';
 
 import './Solicitudes.css';
-
 import PersonaService from '../../Service/PersonaService';
+//import ModalSolicitud from './ModalSolicitud';
 
 
-class Solicitudes extends Component{
+class Solicitudes extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      Usuarios:[],
-      User: {
-        CI:null,
-        usuarioNombre: null,
-        usuarioApellido: null,
-        paisID:null,
-        ciudadID:null,
-        correo:null,
-        telefono:null,
-      }
+      Usuarios: [],
+      user: {}
+      // User: {
+      //   CI:null,
+      //   usuarioNombre: null,
+      //   usuarioApellido: null,
+      //   paisID:null,
+      //   ciudadID:null,
+      //   correo:null,
+      //   telefono:null,
+      // }
     }
   }
-  
-  componentDidMount(){
+
+  /*componentDidMount(){
     PersonaService.getAll().then(data => this.setState({Usuarios: data}))
     const url="http://localhost:8080/persona/obtener/10010"
     fetch(url).then(respuesta=> respuesta.json())
@@ -35,111 +35,119 @@ class Solicitudes extends Component{
     
     console.log(this.state.User)
     
+  }*/
+
+
+  componentDidMount() {
+    PersonaService.getAll().then(data => this.setState({ Usuarios: data }))
+    PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
   }
-  render(){
-    return (
-      <body>
-        <form>
-          <section class="jumbotron">
-            <div class="container">
-              <hi class="titulo-blog">Nombre de la app // Logo</hi>
+  
+  
+  /*upListaAceptado(id) {
+    
+    this.setState({ user: this.state.Usuarios[id] })
+    
+    console.log(this.state.Usuarios[id].ci);
+    PersonaService.upListaUser(this.state.Usuarios[id].ci, "1" );
+    //PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+  
+  }*/
+  
+
+  replaceModalItem(id) {
+    this.setState({ requiredItem: id });
+    this.setState({ user: this.state.Usuarios[id] })
+  }
+
+  render() {
+    
+    
+    
+    //console.log(this.state.user.ci);
+    const Usuarios = this.state.Usuarios.map((Usuario, index) => {
+      return (
+        <tr key={index} >
+
+          <td>{Usuario.ci}</td>
+          <td>{Usuario.nombre} {Usuario.apellido}</td>
+
+          <td>
+            <button className="btn btn-secondary"
+           >ACEPTAR</button>{' '}
+            <button 
+            className="btn btn-danger"
+            >RECHAZAR</button>{' '}
+
+            <button 
+            className="btn btn-outline-info" 
+            data-toggle="modal" 
+            data-target="#UserData"
+            onClick={() => this.replaceModalItem(index)}>VER USUARIO</button>{' '}
+          </td>
+        </tr>
+      )
+    });
+
+    //const requiredItem = this.state.requiredItem;
+    //let modalData = this.state.Usuarios[requiredItem];
+    //console.log(this.state.user);
+    
+        return (
+      <div>
+        <div className="barraNav">
+          <nav className="navbar navbar-light justify-content-between">
+            <a className="navbar-brand" href="#">
+              <img className="logo" src={logo} height="35" alt="logo" />
+             </a>
+
+            <div>
+              <Link
+                className="btn btn-outline-info my-2 my-sm-0"
+                type="submit"
+                to="/crearTipoUsuario"
+              >Crear Tipo Usuario</Link>
             </div>
-          </section>
-          <section class="main container"></section>
 
-          <h1 align="center"> Solicitudes de personal </h1>
 
-          <span>Ver solicitudes de tipo</span>
-
-          <select  name="select" id="select" class="bordes">
-            <option>Vendedor</option>
-            <option>Personal</option>
-            <option>Delivery</option>
-          </select>
-
-          <br>
-          </br>
-          <br>
-          </br>
-          <fieldset class="bordes">
-
-              <pre>      <font size="4"> Usuarios                                                Opciones  </font> </pre>
-
-          <span>Pepe Martinez</span>
-
-          <a href="#" class="button white radius">Aceptar</a>
-          <a href="#" class="button red radius">Rechazar</a>
-          <a href="#" class="button blue radius" data-toggle="modal" data-target="#UserData">Ver Usuario</a>
-          </fieldset>
-        </form>
-
-        <div className="UserDateWindows" class="modal fade" id="UserData">
-              <div class="modal-dialog modal-lg">
-              <div class="modal-content" id="VentanaEmergente">
-                  <div class="modal-header" id ="Encabezado">
-                      {/*id="exampleModalLabel"*/}   
-                      <h5 className="TitleUserDateWindows" class="modal-title" >Datos de Usuario</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                      </button>
-                  </div>
-                  <div class="modal-body" id="Cuerpo">
-                      <div class="row">
-                          <div class= "col-sm-6" id="cl">
-                              
-                                  <ul class="list-group list-group-flush" id = "listaDatos" >
-                                      <br></br>
-                                      <li class="list-group-item"><small>Nombre:{this.state.User.nombre}</small></li>
-                                      <li class="list-group-item"><small>Apellido:{this.state.User.apellido}</small></li>
-                                      <li class="list-group-item"><small>C.I.:{this.state.User.ci}</small></li>
-                                      <li class="list-group-item"><small>Pais:{this.state.User.paisID}</small></li>
-                                      <li class="list-group-item"><small>Ciudad:{this.state.User.ciudadID}</small></li>
-                                      <li class="list-group-item"><small>Direccion:{this.state.User.ciudadID}</small></li>
-                                      <li class="list-group-item"><small>Correo:{this.state.User.correo}</small></li>
-                                      <li class="list-group-item"><small>Telefono:{this.state.User.telefono}</small></li>
-                                      <li class="list-group-item"><small>Nombre de Usuario:{this.state.User.nombre}</small></li>
-                                      <li class="list-group-item"><small>Solicitud de tipo:{this.state.User.ci}</small></li>
-                                  </ul>
-                              
-                          </div>
-                          <div class= "col-sm-6">
-                              <div>
-                                  <h5 id="MotivoCabeza">motivo</h5>
-                                  <div class="card">
-                                      <div class="card-body" id ="MotivoCuerpo">
-                                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                              Phasellus eleifend porta sem eget pretium. 
-                                              Etiam tempor facilisis mollis. Suspendisse tempor est sed turpis molestie rutrum eu vel purus. 
-                                              Cras sit amet facilisis leo. Nam rhoncus vestibulum lobortis. Cras varius metus in ante malesuada mollis. 
-                                              Nam non magna maximus, sagittis lectus eu, luctus justo. Morbi et aliquam purus. 
-                                              Proin elementum mauris sed erat dictum, ut blandit eros tempor.
-                                          </p>
-                                          <p>Vestibulum nulla purus, placerat ac efficitur vel, volutpat quis ante. 
-                                              Etiam a mattis quam, ut semper leo. Integer eu tortor ut ligula molestie rutrum. 
-                                              Nunc eget est ex. In fringilla est et ligula dictum, eu dictum velit condimentum. 
-                                              Fusce aliquam vel elit condimentum placerat. Pellentesque at nulla ex. 
-                                              Praesent porttitor elementum leo, vitae ornare orci egestas a. Duis id faucibus nisl. 
-                                              In ac tellus vestibulum, interdum purus convallis, imperdiet felis.
-                                          </p>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                  </div>
-              </div>
-              </div>
+          </nav>
         </div>
 
-        
-        <script src="js/bootstrap.min.js"></script>
-      </body>
+        <h1 align="center"> Solicitudes de personal </h1>
 
-      
-    );
+        <span>Ver solicitudes de tipo</span>
+
+        <select name="select" id="tipoSelect">
+          <option name = "Vendedor">Vendedor</option>
+          <option name = "Administrador">Administrador</option>
+          <option name = "Oficina" >Oficina</option>
+        </select>
+        <br></br>
+        <br></br>
+        <table className="table" id="lista">
+          <thead >
+            <tr>
+              <th scope="col">CI</th>
+              <th scope="col">Usuarios</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {Usuarios}
+          </tbody>
+        </table>
+        {/*<ModalSolicitud
+            ci= {this.state.user.ci}
+            usuarioNombre = {this.state.user.nombre}
+            usuarioApellido = {this.state.user.apellido}
+            paisID={this.state.user.paisID}
+            ciudadID={this.state.user.ciudadID}
+            correo = {this.state.user.correo}
+            telefono={this.state.user.telefono}
+        />*/}
+      </div>
+    )
   }
 }
 

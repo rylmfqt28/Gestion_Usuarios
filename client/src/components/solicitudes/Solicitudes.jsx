@@ -5,16 +5,19 @@ import logo from '../img/logo.png';
 
 import './Solicitudes.css';
 import PersonaService from '../../Service/PersonaService';
+import TipoUser from '../../Service/TipoUser';
 //import ModalSolicitud from './ModalSolicitud';
 
-
+const date = '10010';
 class Solicitudes extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       Usuarios: [],
-      user: {}
+      user: {},
+      TipoUsuarios: [],
+      Tipuser: {}
       // User: {
       //   CI:null,
       //   usuarioNombre: null,
@@ -41,8 +44,10 @@ class Solicitudes extends Component {
   componentDidMount() {
     PersonaService.getAll().then(data => this.setState({ Usuarios: data }))
     PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+ 
   }
   
+ 
   
   /*upListaAceptado(id) {
     
@@ -61,8 +66,7 @@ class Solicitudes extends Component {
   }
 
   render() {
-    
-    
+
     
     //console.log(this.state.user.ci);
     const Usuarios = this.state.Usuarios.map((Usuario, index) => {
@@ -92,7 +96,7 @@ class Solicitudes extends Component {
     //const requiredItem = this.state.requiredItem;
     //let modalData = this.state.Usuarios[requiredItem];
     //console.log(this.state.user);
-    
+    TipoUser.getAll().then(data => this.setState({TipoUsuarios: data}))
         return (
       <div>
         <div className="barraNav">
@@ -117,11 +121,14 @@ class Solicitudes extends Component {
 
         <span>Ver solicitudes de tipo</span>
 
-        <select name="select" id="tipoSelect">
-          <option name = "Vendedor">Vendedor</option>
-          <option name = "Administrador">Administrador</option>
-          <option name = "Oficina" >Oficina</option>
-        </select>
+        <select  className="selector" 
+            onChange={(e) => this.setState({date: e.target.value })}>
+            {this.state.TipoUsuarios.map(elemento => (
+            <option key={elemento.id} value = {elemento.id}>
+                {elemento.nombreUs} 
+           </option> ))}
+           </select>
+
         <br></br>
         <br></br>
         <table className="table" id="lista">

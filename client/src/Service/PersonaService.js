@@ -22,3 +22,4 @@ class PersonaService{
 }
 
 export default new PersonaService()
+

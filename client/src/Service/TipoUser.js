@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 class TipoUser{
-    baseUrl ="http://localhost:8080/tipousuario"
+    baseUrl ="/tipousuario"
     
     getAll(){
         return axios.get(this.baseUrl + "/lista").then(res => res.data);

@@ -20,14 +20,14 @@ class Solicitudes extends Component {
       Tuser: {
               tipoUsuarioID:null, 
               tipoUsuarioNombre:null, 
-              tipoUsuarioDescripcion:null}, date:'',
+              tipoUsuarioDescripcion:null}, date:'SN',
     }
   }
 
   componentDidMount() {
     TipoUser.getAll().then(data => this.setState({ TUsuarios: data }))
     PersonaService.getAll().then(data => this.setState({ Usuarios: data }))
-    PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+    PersonaService.getTiposUser(this.state.date).then(data => this.setState({ Usuarios: data }))
     
   }
   

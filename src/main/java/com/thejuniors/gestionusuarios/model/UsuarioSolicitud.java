@@ -7,8 +7,22 @@ public class UsuarioSolicitud {
    private String estadoUsuario;
    private String tipoUsuario;
    
+
+   private String correo;
+   private String telefono;
+   private String paisNombre;
+   private String ciudadNombre;
+
     public UsuarioSolicitud() {
-       
+       ci="";
+       nombre="";
+       apellido="";
+       estadoUsuario="";
+       tipoUsuario = "";
+       correo = "";
+       this.telefono = "";
+       paisNombre = "";
+       ciudadNombre = "";
     }
 
     public UsuarioSolicitud(String ci, String nombre, String apellido, String estadoUsuario, String tipoUsuario) {
@@ -59,5 +73,35 @@ public class UsuarioSolicitud {
         this.tipoUsuario = tipoUsuario;
     }
     
+    public String getCorreo() {
+        return correo;
+    }
 
+    public void setCorreo(String correo) {
+        this.correo= correo;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getCiudadNombre() {
+        return ciudadNombre;
+    }
+
+    public void setCiudadNombre(String ciudadNombre) {
+        this.ciudadNombre = ciudadNombre;
+    }
+
+    public String getPaisNombre() {
+        return paisNombre;
+    }
+
+    public void setPaisNombre(String paisNombre) {
+        this.paisNombre = paisNombre;
+    }
 }

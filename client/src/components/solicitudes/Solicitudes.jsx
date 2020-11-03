@@ -151,8 +151,8 @@ class Solicitudes extends Component {
             ci= {this.state.user.ci}
             usuarioNombre = {this.state.user.nombre}
             usuarioApellido = {this.state.user.apellido}
-            paisID={this.state.user.paisID}
-            ciudadID={this.state.user.ciudadID}
+            paisID={this.state.user.paisNombre}
+            ciudadID={this.state.user.ciudadNombre}
             correo = {this.state.user.correo}
             telefono={this.state.user.telefono}
             tipoUsuario = {this.state.user.tipoUsuario}

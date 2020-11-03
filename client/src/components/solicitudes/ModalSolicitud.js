@@ -52,7 +52,6 @@ class ModalSolicitud extends Component{
                                             <li class="list-group-item" id="ci">C.I.: {this.props.ci}</li>
                                             <li class="list-group-item" id="pais">Pais: {this.props.paisID} </li>
                                             <li class="list-group-item" id="ciudad">Ciudad: {this.props.ciudadID}</li>
-                                            <li class="list-group-item" id="direccion">Direccion: {this.props.ciudadID}</li>
                                             <li class="list-group-item" id="correo">Correo: {this.props.correo}</li>
                                             <li class="list-group-item" id="telefono">Telefono: {this.props.telefono}</li>
                                             <li class="list-group-item" id="nm">Nombre de Usuario: {this.props.usuarioNombre}</li>

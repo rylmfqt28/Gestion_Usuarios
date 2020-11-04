@@ -149,7 +149,7 @@ class Solicitudes extends Component {
 
           <span>Ver solicitudes de tipo</span>
           <div>
-            <select  className="select" id="select" onChange={this.updateList}>
+            <select  className="browser-default custom-select" id="select" onChange={this.updateList}>
               {this.state.tipos.map((tipo, index)=>(
                 <option key={index} value ={tipo}>{tipo}</option>
               ))

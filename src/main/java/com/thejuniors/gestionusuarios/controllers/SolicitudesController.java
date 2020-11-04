@@ -37,10 +37,10 @@ public class SolicitudesController {
     {
         solicitudes.actualizarEstado(tipo.getTipoEstado(),tipo.getCI());
     }*/
-    @PutMapping(value = "/api/cambio/{CI}/{tipo}", produces={"application/json"})
+    @PutMapping(value = "/api/cambio/{CI}/{tipo}", produces = {"application/json"})
     public void insertar(@PathVariable("CI") String CI, @PathVariable("tipo") String tipo)
     {
-        solicitudes.actualizarEstado(tipo, CI);
+        solicitudes.actualizarEstado(CI, tipo);
     }
 
 

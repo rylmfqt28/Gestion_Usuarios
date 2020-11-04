@@ -97,7 +97,7 @@ class Solicitudes extends Component {
       <div>
         <div className="barraNav">
           <nav className="navbar navbar-light justify-content-between">
-            <a className="navbar-brand" href="#">
+            <a className="navbar-brand" href="/solicitudes">
               <img className="logo" src={logo} height="35" alt="logo" />
              </a>
 

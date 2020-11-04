@@ -38,32 +38,32 @@ class ModalSolicitud extends Component{
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body" id="Cuerpo">
+                        <div className="modal-body" id="Cuerpo">
                         {
                             //this.state.User.map(
                             //user=>(
-                            <div class="row">
-                                <div class= "col-sm-6" id="cl">
+                            <div className="row">
+                                <div className= "col-sm-6" id="cl">
                                 
-                                        <ul class="list-group list-group-flush" id = "listaDatos" >
+                                        <ul className="list-group list-group-flush" id = "listaDatos" >
                                             <br></br>
-                                            <li class="list-group-item" id="nombre">Nombre: {this.props.usuarioNombre} </li>
-                                            <li class="list-group-item" id="apellido">Apellido: {this.props.usuarioApellido}</li>
-                                            <li class="list-group-item" id="ci">C.I.: {this.props.ci}</li>
-                                            <li class="list-group-item" id="pais">Pais: {this.props.paisID} </li>
-                                            <li class="list-group-item" id="ciudad">Ciudad: {this.props.ciudadID}</li>
-                                            <li class="list-group-item" id="correo">Correo: {this.props.correo}</li>
-                                            <li class="list-group-item" id="telefono">Telefono: {this.props.telefono}</li>
-                                            <li class="list-group-item" id="nm">Nombre de Usuario: {this.props.usuarioNombre}</li>
-                                            <li class="list-group-item" id="st">Solicitud de tipo: {this.props.tipoUsuario} </li>
+                                            <li className="list-group-item" id="nombre">Nombre: {this.props.usuarioNombre} </li>
+                                            <li className="list-group-item" id="apellido">Apellido: {this.props.usuarioApellido}</li>
+                                            <li className="list-group-item" id="ci">C.I.: {this.props.ci}</li>
+                                            <li className="list-group-item" id="pais">Pais: {this.props.paisID} </li>
+                                            <li className="list-group-item" id="ciudad">Ciudad: {this.props.ciudadID}</li>
+                                            <li className="list-group-item" id="correo">Correo: {this.props.correo}</li>
+                                            <li className="list-group-item" id="telefono">Telefono: {this.props.telefono}</li>
+                                            <li className="list-group-item" id="nm">Nombre de Usuario: {this.props.usuarioNombre}</li>
+                                            <li className="list-group-item" id="st">Solicitud de tipo: {this.props.tipoUsuario} </li>
                                         </ul>
                                     
                                 </div>
-                                <div class= "col-sm-6">
+                                <div className= "col-sm-6">
                                     <div>
                                         <h5 id="MotivoCabeza">motivo</h5>
-                                        <div class="card">
-                                            <div class="card-body" id ="MotivoCuerpo">
+                                        <div className="card">
+                                            <div className="card-body" id ="MotivoCuerpo">
                                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
                                                     Phasellus eleifend porta sem eget pretium. 
                                                     Etiam tempor facilisis mollis. Suspendisse tempor est sed turpis molestie rutrum eu vel purus. 

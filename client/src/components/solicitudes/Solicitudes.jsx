@@ -169,6 +169,8 @@ class Solicitudes extends Component {
             correo = {this.state.user.correo}
             telefono={this.state.user.telefono}
             tipoUsuario = {this.state.user.tipoUsuario}
+            nombreUsuario = {this.state.user.nombreUsuario}
+            motivo = {this.state.user.motivo}
         />
       </div>
     )

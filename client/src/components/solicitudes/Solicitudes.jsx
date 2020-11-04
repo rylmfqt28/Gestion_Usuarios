@@ -5,7 +5,7 @@ import logo from '../img/logo.png';
 
 import './Solicitudes.css';
 import PersonaService from '../../Service/PersonaService';
-//import ModalSolicitud from './ModalSolicitud';
+import ModalSolicitud from './ModalSolicitud';
 
 
 class Solicitudes extends Component {
@@ -14,7 +14,11 @@ class Solicitudes extends Component {
     super(props);
     this.state = {
       Usuarios: [],
-      user: {}
+      user: {},
+      tipos:[
+        "Administrador",
+        "SN"
+      ],
       // User: {
       //   CI:null,
       //   usuarioNombre: null,
@@ -25,6 +29,7 @@ class Solicitudes extends Component {
       //   telefono:null,
       // }
     }
+    this.updateList = this.updateList.bind(this)
   }
 
   /*componentDidMount(){
@@ -39,29 +44,43 @@ class Solicitudes extends Component {
 
 
   componentDidMount() {
-    PersonaService.getAll().then(data => this.setState({ Usuarios: data }))
-    PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+    //PersonaService.getAll().then(data => this.setState({ Usuarios: data }))
+    PersonaService.getTiposUser(this.state.tipos[0]).then(data => this.setState({ Usuarios: data }))
   }
-
+  
+  /*upListaAceptado(id) {
+    
+    this.setState({ user: this.state.Usuarios[id] })
+    
+    console.log(this.state.Usuarios[id].ci);
+    PersonaService.upListaUser(this.state.Usuarios[id].ci, "1" );
+    //PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+  
+  }*/
+  updateList(e){
+    PersonaService.getTiposUser(e.target.value).then(data => this.setState({Usuarios: data}))
+    console.log(e.target.value);
+  }
 
   putEstadoLista(id, estado) {
 
     this.setState({ user: this.state.Usuarios[id] });
 
     var nomUser = this.state.Usuarios[id].nombre;
+    var tipoUsuario = this.state.Usuarios[id].tipoUsuario;
     if (estado === '3') {
       var opcion = window.confirm("¿Está seguro que quiere RECHAZAR la solicitud de " + nomUser+"?");
       if (opcion) {
         console.log(this.state.Usuarios[id].ci);
         PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
-        PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+        PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data }))
       }
     } else if (estado === '1') {
       //var opcion=window.confirm("Esta seguro que quiere ACEPTAR la solicitud de "+nomUser);
 
       console.log(this.state.Usuarios[id].ci);
       PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
-      PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+      PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data }))
 
     }
 
@@ -130,15 +149,16 @@ class Solicitudes extends Component {
 
           <span>Ver solicitudes de tipo</span>
           <div>
-            <select className="browser-default custom-select" name="select" id="tipoSelect">
-              <option name="Vendedor">Vendedor</option>
-              <option name="Administrador">Administrador</option>
-              <option name="Oficina" >Oficina</option>
+            <select  className="select" id="select" onChange={this.updateList}>
+              {this.state.tipos.map((tipo, index)=>(
+                <option key={index} value ={tipo}>{tipo}</option>
+              ))
+              }
             </select>
           </div>
 
         </div>
-
+        
         <br></br>
         <br></br>
         <table className="table" id="lista">
@@ -154,15 +174,16 @@ class Solicitudes extends Component {
             {Usuarios}
           </tbody>
         </table>
-        {/*<ModalSolicitud
+        <ModalSolicitud
             ci= {this.state.user.ci}
             usuarioNombre = {this.state.user.nombre}
             usuarioApellido = {this.state.user.apellido}
-            paisID={this.state.user.paisID}
-            ciudadID={this.state.user.ciudadID}
+            paisID={this.state.user.paisNombre}
+            ciudadID={this.state.user.ciudadNombre}
             correo = {this.state.user.correo}
             telefono={this.state.user.telefono}
-        />*/}
+            tipoUsuario = {this.state.user.tipoUsuario}
+        />
       </div>
     )
   }

@@ -9,7 +9,7 @@ class PersonaService{
     }
 
     getTiposUser(tipo){
-        return axios.get(this.baseUrl2 + "/"+tipo+"/Pendiente").then(res => res.data);
+        return axios.get(this.baseUrl2 + "/"+tipo+"/Habilitado").then(res => res.data);
     }
     putListaUser(CI,tipoEstado){
         return axios.put(this.baseUrlPut + "/"+CI+"/"+tipoEstado);

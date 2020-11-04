@@ -62,7 +62,7 @@ const CrearTipoUsuario = () => {
     const { crearTipo, descripcionTipo } = datos
     const handleInputChange = (event) => {
         if (event.target.name === "descripcionTipo") {
-            
+
             setDatos({
                 ...datos,
                 [event.target.name]: event.target.value
@@ -99,7 +99,7 @@ const CrearTipoUsuario = () => {
         <Fragment>
             <div className="barraNav">
                 <nav className="navbar navbar-light justify-content-between">
-                    <a className="navbar-brand" href="#">
+                    <a className="navbar-brand" href="/crearTipoUsuario">
                         <img className="logo" src={logo} height="35" alt="logo" />
                     </a>
 

@@ -1,57 +1,62 @@
 package com.thejuniors.gestionusuarios.services;
-import java.util.Optional;
-import com.thejuniors.gestionusuarios.controllers.TipoUsuarioDao;
-import com.thejuniors.gestionusuarios.model.TipoUsuario;
+//Implementar peticiones GET POST PUT DELETE respectivas a cada ventana
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.thejuniors.gestionusuarios.model.CrearTipo;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Component;
+
+
+import java.util.List;
+import java.util.ArrayList;
 
 
 
+@Component
 
-
-@Controller
-@RequestMapping("/tipousuario")
-@CrossOrigin("*")
 public class DatosTipoUser{
-    
-    @Autowired
-    private TipoUsuarioDao tipouserdao;
-    
-    @GetMapping("/lista")
-    public @ResponseBody Iterable<TipoUsuario> lista() {
-        return tipouserdao.findAll();
+
+
+    @Autowired		
+    private JdbcTemplate jdbcTemplate;
+ 
+    public List<CrearTipo> enlistarSolicitudes() {
+        List<CrearTipo> user = jdbcTemplate.query(new PreparedStatementCreator(){
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps = con.prepareStatement("SELECT tipoUsuarioNombre, tipoUsuarioDescripcion FROM TipoUsuario");
+
+                return ps;
+            }
+        }, new ResultSetExtractor <List<CrearTipo>>(){
+            @Override
+            public List<CrearTipo> extractData(ResultSet rs) throws SQLException {
+
+                List<CrearTipo> user = new ArrayList<>();
+                while (rs.next()){
+                    //CrearTipo usuario = new CrearTipo();
+                 
+                  //  user.add(usuario);
+                    user.add(new CrearTipo(rs.getString("tipoUsuarioNombre"), rs.getString("tipoUsuarioDescripcion") )); 
+                   
+                } 
+                return user;
+            }
+        });
+        if(user != null){
+            return user;
+        }else{
+            return null;
+        }
     }
 
-    @GetMapping("obtener/{tipoUsuarioID}")
-    public @ResponseBody Optional<TipoUsuario> obtener(@PathVariable("tipoUsuarioID") String tipoUsuarioID) {
-        return tipouserdao.findById(tipoUsuarioID);
-    }
-
-    /*@GetMapping("obtener/{id}")
-    public java.util.Optional<Usuario> obtener(@PathVariable("id") String id) {
-        return userdao.findByPaisID(id);
-    }*/
-
-    @DeleteMapping("eliminar/{tipoUsuarioID}")
-    public void eliminar(@PathVariable("tipoUsuarioID") String tipoUsuarioID){
-        tipouserdao.deleteById(tipoUsuarioID);
-    }
-
-    @PostMapping("guardar")
-    public void guardar(@RequestBody TipoUsuario tipoUsuarioID){
-        tipouserdao.save(tipoUsuarioID);
-    }
-
-    @GetMapping("dato/{id}")
-    public @ResponseBody Optional<TipoUsuario> dato(@PathVariable("tipoUsuarioID") String tipoUsuarioID){
-        return tipouserdao.findById(tipoUsuarioID);
-    }
 }

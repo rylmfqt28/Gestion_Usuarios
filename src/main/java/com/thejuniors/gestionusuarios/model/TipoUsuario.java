@@ -5,11 +5,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-
 @Entity
 @Table(name = "TipoUsuario", uniqueConstraints= { @UniqueConstraint(columnNames = {"tipoUsuarioID"})})
 public class TipoUsuario {
-    @Id
+  @Id
     private String tipoUsuarioID;
 
     private String tipoUsuarioNombre;

@@ -13,8 +13,8 @@ class PersonaService{
     getTiposUser(tipo){
         return axios.get(this.baseUrl2 + "/"+tipo+"/Pendiente").then(res => res.data);
     }
-    upListaUser(CI,tipoEstado){
-        return axios.get(this.baseUrlPut + "/"+CI+"/"+tipoEstado).then(res => res.data);
+    putListaUser(CI,tipoEstado){
+        return axios.put(this.baseUrlPut + "/"+CI+"/"+tipoEstado);
     }
     /*getUser(String){
         return axios.get(this.baseUrl + "/user/{id}",String).then(res =>res.data);

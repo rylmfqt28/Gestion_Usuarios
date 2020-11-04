@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 class TipoUser{
-    baseUrl ="http://localhost:8080/tipousuario"
+    baseUrl = "/api"
     
     getAll(){
-        return axios.get(this.baseUrl + "/lista").then(res => res.data);
+        return axios.get(this.baseUrl + "/listaTipos").then(res => res.data);
     }
 }
 

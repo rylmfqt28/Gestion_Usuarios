@@ -1,4 +1,4 @@
-import React, { Fragment, useState} from 'react';
+import React, { Fragment, useState } from 'react';
 import './crearTipoUsuario.css';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
@@ -10,9 +10,7 @@ const CrearTipoUsuario = () => {
     const [datos, setDatos] = useState({
         crearTipo: '',
         descripcionTipo: ''
-
     })
-
 
     const { register, errors, handleSubmit } = useForm();
     const onSubmit = (data, e) => {
@@ -20,17 +18,62 @@ const CrearTipoUsuario = () => {
         e.target.reset()
     }
 
-    const handleInputChange = (event) => {
+    const handleDeleteKey = (event) => {
+        let key = event.keyCode || event.which;
+        if (datos.crearTipo.length !== 0 && (key === 8 || key === 127)) {
+            let nuevo = datos.crearTipo.substring(0, datos.crearTipo.length - 1);
+            setDatos({
+                ...datos,
+                [event.target.name]: nuevo
+            });
+        }
+    }
+    const restartForm = () => {
         setDatos({
             ...datos,
-            [event.target.name]: event.target.value
+            crearTipo: '',
+            descripcionTipo: ''
         });
+    }
+
+
+    const validar = (event) => {
+        let key = event.keyCode || event.which;
+        let tecla = String.fromCharCode(key);
+        let letras = " áéíóúñÑ";
+        if (datos.crearTipo.length !== 20) {
+            console.log('llego malditod');
+            if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
+                setDatos({
+                    ...datos,
+                    [event.target.name]: event.target.value + tecla
+                });
+            }
+        } else {
+            alert('El maximo de caracteres es de 20');
+        }
+
+    }
+    const presionarKey = () => {
+        if (descripcionTipo.length === 250) {
+            alert('Solo se permite un maximo de 250 caracteres')
+        }
+    }
+    const { crearTipo, descripcionTipo } = datos
+    const handleInputChange = (event) => {
+        if (event.target.name === "descripcionTipo") {
+
+            setDatos({
+                ...datos,
+                [event.target.name]: event.target.value
+            });
+        }
     }
     const createButtonEvent = async (event) => {
         event.preventDefault();
         try {
-            if (datos.crearTipo !== '' && datos.descripcionTipo !== '') {
-                const res = await axios.get('/api/type/' + datos.crearTipo);
+            if (datos.crearTipo.trim() !== '' && datos.descripcionTipo.trim() !== '') {
+                const res = await axios.get('/api/type/' + datos.crearTipo.trim());
                 console.log(res.data);
                 if (res.data === null) {
                     const crear = await axios.post('/api/type/', datos);
@@ -51,14 +94,12 @@ const CrearTipoUsuario = () => {
         }
     }
 
-
     return (
-
 
         <Fragment>
             <div className="barraNav">
                 <nav className="navbar navbar-light justify-content-between">
-                    <a className="navbar-brand" href="#">
+                    <a className="navbar-brand" href="/crearTipoUsuario">
                         <img className="logo" src={logo} height="35" alt="logo" />
                     </a>
 
@@ -70,19 +111,13 @@ const CrearTipoUsuario = () => {
                         >Solicitudes</Link>
                     </div>
 
-
                 </nav>
             </div>
 
-
-
-
             <form className="formC"
-                onSubmit={handleSubmit(onSubmit)}
+                onSubmit={handleSubmit(onSubmit)}>
 
-            >
-                <h2>Crear tipo de Usuario  </h2>
-
+                <h2>Crear tipo de Usuario</h2>
 
                 <div>
                     <input
@@ -104,29 +139,29 @@ const CrearTipoUsuario = () => {
                                     value: 5,
                                     message: 'Mínimo 5 carácteres'
 
-                                 },
-                                pattern: /^[A-Za-z]+$/i 
+                                },
 
                             })
                         }
-                        placeholder="Ingresar tipo de usuario"
                         onChange={handleInputChange}
+                        placeholder="Ingresar tipo de usuario"
+                        onKeyPress={validar}
+                        onKeyDown={handleDeleteKey}
+                        value={crearTipo}
 
                     />
                     <span className="text-danger text-small d-block mb-2">
                         {errors?.crearTipo?.message}
                         {errors?.crearTipo && <p> Solo se permiten letras</p>}
-
-
                     </span>
 
                 </div>
 
                 <div>
-
                     <textarea
                         name="descripcionTipo"
                         className="textArea"
+                        maxLength="250"
                         ref={
                             register({
                                 required: {
@@ -145,6 +180,8 @@ const CrearTipoUsuario = () => {
                         }
                         placeholder="Ingrese la Descripción Aquí"
                         onChange={handleInputChange}
+                        onKeyPress={presionarKey}
+                        value={descripcionTipo}
                     />
                     <span className="text-danger text-small d-block mb-2">
                         {errors?.descripcion?.message}
@@ -152,13 +189,11 @@ const CrearTipoUsuario = () => {
                     <br></br>
                     <div className="botones">
 
-                        <button className="btn btn-primary  pull-right btn-lg" onClick='this.reset'>Cancelar</button>
+                        <button className="btn btn-primary  pull-right btn-lg" type="reset" onClick={restartForm}>Cancelar</button>
 
                         <button className="btn btn-outline-info  pull-left btn-lg" onClick={createButtonEvent}>Crear</button>
 
                     </div>
-
-
                 </div>
 
             </form>

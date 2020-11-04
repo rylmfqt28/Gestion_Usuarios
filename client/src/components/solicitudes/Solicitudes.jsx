@@ -67,19 +67,20 @@ class Solicitudes extends Component {
     this.setState({ user: this.state.Usuarios[id] });
 
     var nomUser = this.state.Usuarios[id].nombre;
+    var tipoUsuario = this.state.Usuarios[id].tipoUsuario;
     if (estado === '3') {
       var opcion = window.confirm("¿Está seguro que quiere RECHAZAR la solicitud de " + nomUser+"?");
       if (opcion) {
         console.log(this.state.Usuarios[id].ci);
         PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
-        PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+        PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data }))
       }
     } else if (estado === '1') {
       //var opcion=window.confirm("Esta seguro que quiere ACEPTAR la solicitud de "+nomUser);
 
       console.log(this.state.Usuarios[id].ci);
       PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
-      PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+      PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data }))
 
     }
 

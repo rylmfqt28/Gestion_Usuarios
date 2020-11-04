@@ -4,6 +4,7 @@ import{
   BrowserRouter as Router,
   Switch,
   Route,
+
 } from "react-router-dom"
 import Login from './components/login/Login';
 import Register from './components/register/Register';
@@ -17,8 +18,10 @@ function App() {
       <Switch>
       <Route exact path="/" component={Login}/>
       <Route path="/register" component={Register}/>
+      <Route path="/request" component={Request}/>
       <Route path="/solicitudes" component={Solicitudes}/>
       <Route path="/crearTipoUsuario" component={crearTipoUsuario}/>
+
       </Switch>
     </Router>
   );

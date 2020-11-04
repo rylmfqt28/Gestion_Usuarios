@@ -4,6 +4,8 @@ class PersonaService{
     baseUrl ="/persona"
     baseUrl2 ="/api/listaSolicitud"
     baseUrlPut="/api/cambio"
+
+
     getAll(){
         return axios.get(this.baseUrl + "/lista").then(res => res.data);
     }
@@ -20,3 +22,4 @@ class PersonaService{
 }
 
 export default new PersonaService()
+

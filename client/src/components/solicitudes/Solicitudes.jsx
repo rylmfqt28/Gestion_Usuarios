@@ -48,7 +48,6 @@ class Solicitudes extends Component {
     PersonaService.getTiposUser(this.state.tipos[0]).then(data => this.setState({ Usuarios: data }))
   }
   
-  
   /*upListaAceptado(id) {
     
     this.setState({ user: this.state.Usuarios[id] })
@@ -63,16 +62,38 @@ class Solicitudes extends Component {
     console.log(e.target.value);
   }
 
+  putEstadoLista(id, estado) {
+
+    this.setState({ user: this.state.Usuarios[id] });
+
+    var nomUser = this.state.Usuarios[id].nombre;
+    if (estado === '3') {
+      var opcion = window.confirm("¿Está seguro que quiere RECHAZAR la solicitud de " + nomUser+"?");
+      if (opcion) {
+        console.log(this.state.Usuarios[id].ci);
+        PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
+        PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+      }
+    } else if (estado === '1') {
+      //var opcion=window.confirm("Esta seguro que quiere ACEPTAR la solicitud de "+nomUser);
+
+      console.log(this.state.Usuarios[id].ci);
+      PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
+      PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+
+    }
+
+
+  }
+
+
   replaceModalItem(id) {
     this.setState({ requiredItem: id });
     this.setState({ user: this.state.Usuarios[id] })
   }
 
   render() {
-    
-    
-    
-    //console.log(this.state.user.ci);
+
     const Usuarios = this.state.Usuarios.map((Usuario, index) => {
       return (
         <tr key={index} >
@@ -81,17 +102,19 @@ class Solicitudes extends Component {
           <td>{Usuario.nombre} {Usuario.apellido}</td>
 
           <td>
-            <button className="btn btn-secondary"
-           >ACEPTAR</button>{' '}
-            <button 
-            className="btn btn-danger"
+            <button className="btn btn-success"
+              onClick={() => this.putEstadoLista(index, '1')}
+            >ACEPTAR</button>{' '}
+            <button
+              className="btn btn-danger"
+              onClick={() => this.putEstadoLista(index, '3')}
             >RECHAZAR</button>{' '}
 
-            <button 
-            className="btn btn-outline-info" 
-            data-toggle="modal" 
-            data-target="#UserData"
-            onClick={() => this.replaceModalItem(index)}>VER USUARIO</button>{' '}
+            <button
+              className="btn btn-info"
+              data-toggle="modal"
+              data-target="#UserData"
+              onClick={() => this.replaceModalItem(index)}>VER USUARIO</button>{' '}
           </td>
         </tr>
       )
@@ -100,14 +123,14 @@ class Solicitudes extends Component {
     //const requiredItem = this.state.requiredItem;
     //let modalData = this.state.Usuarios[requiredItem];
     //console.log(this.state.user);
-    
-        return (
+
+    return (
       <div>
         <div className="barraNav">
           <nav className="navbar navbar-light justify-content-between">
             <a className="navbar-brand" href="#">
               <img className="logo" src={logo} height="35" alt="logo" />
-             </a>
+            </a>
 
             <div>
               <Link
@@ -120,18 +143,21 @@ class Solicitudes extends Component {
 
           </nav>
         </div>
+        <div>
+          <h1 align="center"> Solicitudes de personal </h1>
 
-        <h1 align="center"> Solicitudes de personal </h1>
+          <span>Ver solicitudes de tipo</span>
+          <div>
+            <select  className="select" id="select" onChange={this.updateList}>
+              {this.state.tipos.map((tipo, index)=>(
+                <option key={index} value ={tipo}>{tipo}</option>
+              ))
+              }
+            </select>
+          </div>
 
-        <span>Ver solicitudes de tipo</span>
-
-        <select  className="select" id="select" onChange={this.updateList}>
-          {this.state.tipos.map((tipo, index)=>(
-            <option key={index} value ={tipo}>{tipo}</option>
-          ))
-          }
-        </select>
-
+        </div>
+        
         <br></br>
         <br></br>
         <table className="table" id="lista">

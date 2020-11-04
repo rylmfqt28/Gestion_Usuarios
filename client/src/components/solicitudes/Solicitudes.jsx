@@ -8,6 +8,7 @@ import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser';
 //import ModalSolicitud from './ModalSolicitud';
 import ModalSolicitud from './ModalSolicitud';
+import { data } from 'jquery';
 
 
 
@@ -19,6 +20,7 @@ class Solicitudes extends Component {
       Usuarios: [],
       user: {},
       TUsuarios: [],
+      tipo: ""
   }
 
 
@@ -26,11 +28,10 @@ class Solicitudes extends Component {
   }
 
   componentDidMount() {
-    TipoUser.getAll().then(data => this.setState({ TUsuarios: data }))
+    TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
+   //PersonaService.getAll().then(data => this.setState({ Usuarios: data }))
 
-   PersonaService.getAll().then(data => this.setState({ Usuarios: data }))
-
-  PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
+  //PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
  
   }
   
@@ -130,29 +131,18 @@ class Solicitudes extends Component {
 
           <span>Ver solicitudes de tipo</span>
           <div>
-          <select  className="selector" 
-            onChange={this.updateList}>
-            {this.state.TUsuarios.map((elemento,index) => (
-            <option key={index} value = {elemento.crearTipo}>
+            <select  className="selector" 
+              onChange={this.updateList}>
+              <option value =" " >{"---"}</option>
+              {this.state.TUsuarios.map((elemento,index) => (
+              <option key={index} value = {elemento.crearTipo}>
                 {elemento.crearTipo} 
-           </option> ))}
-           </select>
+              </option> ))}
+            </select>
           </div>
 
 
-       {/*   <h1 align="center"> Solicitudes de personal </h1>
-
-        <span>Ver solicitudes de tipo</span>
-
-        <select  className="selector" 
-            onChange={(e) => this.setState({date: e.target.value })}>
-            {this.state.TUsuarios.map(elemento => (
-            <option key={elemento.id} value = {elemento.usuarioID}>
-                {elemento.nombreUs} 
-           </option> ))}
-           </select>*/}
-
-            </div> 
+        </div> 
         
 
         <br></br>

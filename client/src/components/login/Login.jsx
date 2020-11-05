@@ -202,7 +202,7 @@ const Login = () => {
                   placeholder="Ingrese su usuario"
                   name="username"
                   onChange={handleInputChange}
-                  value={username}
+                  value={username.replace(/ /g, "")}
                   onClickCapture={componentDidMount}
                 />
                 <br />
@@ -245,7 +245,6 @@ const Login = () => {
                   <div id="avisoReachazado" className="alert alert-warning">Tu solicitud fue rechazada</div>
                   <div id="avisoDeshabilitado" className="alert alert-danger">Tu cuenta fue deshabilitada</div>
                 </div>
-
               
               </div>
             </div>

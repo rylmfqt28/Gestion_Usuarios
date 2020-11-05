@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class HolaController {
     @RequestMapping("/")
     public String hola() {
-        return "Que miras curioso!!";
+        return "** API THEJUNIORS **";
     }
 }

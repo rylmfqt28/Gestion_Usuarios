@@ -91,6 +91,8 @@ const Login = () => {
             document.getElementById('avisoVacio').style.display = "none";
             document.getElementById('avisoNo').style.display = "none";
             document.getElementById('avisoPendiente').style.display = "none";
+            document.getElementById('avisoReachazado').style.display = "none";
+            document.getElementById('avisoDeshabilitado').style.display = "none";
             ingersar(res.data.tipoUsuarioNombre);
           }else{
             if(res.data.nombreEstado === "Pendiente"){
@@ -98,6 +100,24 @@ const Login = () => {
               document.getElementById('avisoVacio').style.display = "none";
               document.getElementById('avisoNo').style.display = "none";
               document.getElementById('avisoPendiente').style.display = "block";
+              document.getElementById('avisoReachazado').style.display = "none";
+              document.getElementById('avisoDeshabilitado').style.display = "none";
+            }
+            if(res.data.nombreEstado === "Deshabilitado"){
+              document.getElementById('avisoValido').style.display = "none";
+              document.getElementById('avisoVacio').style.display = "none";
+              document.getElementById('avisoNo').style.display = "none";
+              document.getElementById('avisoPendiente').style.display = "none";
+              document.getElementById('avisoReachazado').style.display = "none";
+              document.getElementById('avisoDeshabilitado').style.display = "block";
+            }
+            if(res.data.nombreEstado === "Rechazado"){
+              document.getElementById('avisoValido').style.display = "none";
+              document.getElementById('avisoVacio').style.display = "none";
+              document.getElementById('avisoNo').style.display = "none";
+              document.getElementById('avisoPendiente').style.display = "none";
+              document.getElementById('avisoReachazado').style.display = "block";
+              document.getElementById('avisoDeshabilitado').style.display = "none";
             }
           }
           
@@ -108,6 +128,8 @@ const Login = () => {
           document.getElementById('avisoVacio').style.display = "none";
           document.getElementById('avisoNo').style.display = "block";
           document.getElementById('avisoPendiente').style.display = "none";
+          document.getElementById('avisoReachazado').style.display = "none";
+          document.getElementById('avisoDeshabilitado').style.display = "none";
         }
       } else {
         //Mensaje de "Cuenta de usuario no valida"
@@ -115,6 +137,8 @@ const Login = () => {
         document.getElementById('avisoVacio').style.display = "none";
         document.getElementById('avisoNo').style.display = "block";
         document.getElementById('avisoPendiente').style.display = "none";
+        document.getElementById('avisoReachazado').style.display = "none";
+        document.getElementById('avisoDeshabilitado').style.display = "none";
       }
     } else {
       //mensaje campos vacios "Existen campos vacios"
@@ -122,6 +146,8 @@ const Login = () => {
       document.getElementById('avisoVacio').style.display = "block";
       document.getElementById('avisoNo').style.display = "none";
       document.getElementById('avisoPendiente').style.display = "none";
+      document.getElementById('avisoReachazado').style.display = "none";
+      document.getElementById('avisoDeshabilitado').style.display = "none";
     }
   }
   
@@ -216,6 +242,8 @@ const Login = () => {
                   <div id="avisoVacio" className="alert alert-warning">Existen campos vacios</div>
                   <div id="avisoNo" className="alert alert-danger">Cuenta de usuario no valida</div>
                   <div id="avisoPendiente" className="alert alert-warning">Tu cuenta aun no fue aceptada</div>
+                  <div id="avisoReachazado" className="alert alert-warning">Tu solicitud fue rechazada</div>
+                  <div id="avisoDeshabilitado" className="alert alert-danger">Tu cuenta fue deshabilitada</div>
                 </div>
 
               

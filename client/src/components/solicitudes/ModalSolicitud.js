@@ -54,7 +54,7 @@ class ModalSolicitud extends Component{
                                             <li className="list-group-item" id="ciudad">Ciudad: {this.props.ciudadID}</li>
                                             <li className="list-group-item" id="correo">Correo: {this.props.correo}</li>
                                             <li className="list-group-item" id="telefono">Telefono: {this.props.telefono}</li>
-                                            <li className="list-group-item" id="nm">Nombre de Usuario: {this.props.usuarioNombre}</li>
+                                            <li className="list-group-item" id="nm">Nombre de Usuario: {this.props.nombreUsuario}</li>
                                             <li className="list-group-item" id="st">Solicitud de tipo: {this.props.tipoUsuario} </li>
                                         </ul>
                                     
@@ -64,19 +64,8 @@ class ModalSolicitud extends Component{
                                         <h5 id="MotivoCabeza">motivo</h5>
                                         <div className="card">
                                             <div className="card-body" id ="MotivoCuerpo">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                                                    Phasellus eleifend porta sem eget pretium. 
-                                                    Etiam tempor facilisis mollis. Suspendisse tempor est sed turpis molestie rutrum eu vel purus. 
-                                                    Cras sit amet facilisis leo. Nam rhoncus vestibulum lobortis. Cras varius metus in ante malesuada mollis. 
-                                                    Nam non magna maximus, sagittis lectus eu, luctus justo. Morbi et aliquam purus. 
-                                                    Proin elementum mauris sed erat dictum, ut blandit eros tempor.
-                                                </p>
-                                                <p>Vestibulum nulla purus, placerat ac efficitur vel, volutpat quis ante. 
-                                                    Etiam a mattis quam, ut semper leo. Integer eu tortor ut ligula molestie rutrum. 
-                                                    Nunc eget est ex. In fringilla est et ligula dictum, eu dictum velit condimentum. 
-                                                    Fusce aliquam vel elit condimentum placerat. Pellentesque at nulla ex. 
-                                                    Praesent porttitor elementum leo, vitae ornare orci egestas a. Duis id faucibus nisl. 
-                                                    In ac tellus vestibulum, interdum purus convallis, imperdiet felis.
+                                                <p>
+                                                    {this.props.motivo}
                                                 </p>
                                             </div>
                                         </div>

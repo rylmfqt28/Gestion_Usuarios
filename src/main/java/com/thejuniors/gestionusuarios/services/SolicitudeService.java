@@ -33,7 +33,7 @@ public class SolicitudeService{
         List<UsuarioSolicitud> user = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement("select u.CI, u.usuarioNombre, u.usuarioApellido, tu.tipoUsuarioNombre, eu.nombreEstado, u.correo, u.telefono, c.ciudadNombre, p.paisNombre from Usuario u join UsuarioTipoUsuario utu on utu.CI = u.CI join TipoUsuario tu on tu.tipoUsuarioID = utu.tipoUsuarioID join UsuarioEstadoUsuario ueu on ueu.CI = u.CI join EstadoUsuario eu on eu.tipoEstado = ueu.tipoEstado join Ciudad c on u.ciudadID = c.ciudadID join Pais p on u.paisID = p.paisID where tu.tipoUsuarioNombre=? and eu.nombreEstado=?");
+                PreparedStatement ps = con.prepareStatement("select u.CI, u.usuarioNombre, u.usuarioApellido, tu.tipoUsuarioNombre, eu.nombreEstado, u.correo, u.telefono, c.ciudadNombre, p.paisNombre, uc.nombreUsuario, utu.motivo from Usuario u join UsuarioTipoUsuario utu on utu.CI = u.CI join TipoUsuario tu on tu.tipoUsuarioID = utu.tipoUsuarioID join UsuarioEstadoUsuario ueu on ueu.CI = u.CI join EstadoUsuario eu on eu.tipoEstado = ueu.tipoEstado join UsuarioCredenciales uc on u.CI = uc.CI join Ciudad c on u.ciudadID = c.ciudadID join Pais p on u.paisID = p.paisID where tu.tipoUsuarioNombre=? and eu.nombreEstado=?");
                 ps.setString(1, tipo);
                 ps.setString(2, estado);
                 return ps;
@@ -54,6 +54,8 @@ public class SolicitudeService{
                     usuario.setCiudadNombre(rs.getString("ciudadNombre"));
                     usuario.setEstadoUsuario(rs.getString("nombreEstado"));
                     usuario.setTipoUsuario(rs.getString("tipoUsuarioNombre"));
+                    usuario.setNombreUsuario(rs.getString("nombreUsuario"));
+                    usuario.setMotivo(rs.getString("motivo"));
                     user.add(usuario);
                    //user.add(new UsuarioSolicitud(rs.getString("CI"), rs.getString("usuarioNombre"), rs.getString("usuarioApellido"),rs.getString("nombreEstado"), rs.getString("tipoUsuarioNombre")));
                    

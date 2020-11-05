@@ -84,29 +84,70 @@ const Login = () => {
       const res = await axios.get('/api/user/' + datos.username);
       if (res.data !== null) {
         if (res.data.nombreUsuario === datos.username && res.data.password === datos.password) {
-          //redireccionar a la pagina de crear usuario
-          document.getElementById('avisoValido').style.display = "block";
-          document.getElementById('avisoVacio').style.display = "none";
-          document.getElementById('avisoNo').style.display = "none";
-          ingersar(res.data.tipoUsuarioNombre);
+          console.log(res.data.nombreEstado);
+          if(res.data.nombreEstado === "Habilitado"){
+            //redireccionar a la pagina de crear usuario
+            document.getElementById('avisoValido').style.display = "block";
+            document.getElementById('avisoVacio').style.display = "none";
+            document.getElementById('avisoNo').style.display = "none";
+            document.getElementById('avisoPendiente').style.display = "none";
+            document.getElementById('avisoReachazado').style.display = "none";
+            document.getElementById('avisoDeshabilitado').style.display = "none";
+            ingersar(res.data.tipoUsuarioNombre);
+          }else{
+            if(res.data.nombreEstado === "Pendiente"){
+              document.getElementById('avisoValido').style.display = "none";
+              document.getElementById('avisoVacio').style.display = "none";
+              document.getElementById('avisoNo').style.display = "none";
+              document.getElementById('avisoPendiente').style.display = "block";
+              document.getElementById('avisoReachazado').style.display = "none";
+              document.getElementById('avisoDeshabilitado').style.display = "none";
+            }
+            if(res.data.nombreEstado === "Deshabilitado"){
+              document.getElementById('avisoValido').style.display = "none";
+              document.getElementById('avisoVacio').style.display = "none";
+              document.getElementById('avisoNo').style.display = "none";
+              document.getElementById('avisoPendiente').style.display = "none";
+              document.getElementById('avisoReachazado').style.display = "none";
+              document.getElementById('avisoDeshabilitado').style.display = "block";
+            }
+            if(res.data.nombreEstado === "Rechazado"){
+              document.getElementById('avisoValido').style.display = "none";
+              document.getElementById('avisoVacio').style.display = "none";
+              document.getElementById('avisoNo').style.display = "none";
+              document.getElementById('avisoPendiente').style.display = "none";
+              document.getElementById('avisoReachazado').style.display = "block";
+              document.getElementById('avisoDeshabilitado').style.display = "none";
+            }
+          }
+          
 
         } else {
           //Mensaje de "Cuenta de usuario no valida"
           document.getElementById('avisoValido').style.display = "none";
           document.getElementById('avisoVacio').style.display = "none";
           document.getElementById('avisoNo').style.display = "block";
+          document.getElementById('avisoPendiente').style.display = "none";
+          document.getElementById('avisoReachazado').style.display = "none";
+          document.getElementById('avisoDeshabilitado').style.display = "none";
         }
       } else {
         //Mensaje de "Cuenta de usuario no valida"
         document.getElementById('avisoValido').style.display = "none";
         document.getElementById('avisoVacio').style.display = "none";
         document.getElementById('avisoNo').style.display = "block";
+        document.getElementById('avisoPendiente').style.display = "none";
+        document.getElementById('avisoReachazado').style.display = "none";
+        document.getElementById('avisoDeshabilitado').style.display = "none";
       }
     } else {
       //mensaje campos vacios "Existen campos vacios"
       document.getElementById('avisoValido').style.display = "none";
       document.getElementById('avisoVacio').style.display = "block";
       document.getElementById('avisoNo').style.display = "none";
+      document.getElementById('avisoPendiente').style.display = "none";
+      document.getElementById('avisoReachazado').style.display = "none";
+      document.getElementById('avisoDeshabilitado').style.display = "none";
     }
   }
   
@@ -161,7 +202,7 @@ const Login = () => {
                   placeholder="Ingrese su usuario"
                   name="username"
                   onChange={handleInputChange}
-                  value={username}
+                  value={username.replace(/ /g, "")}
                   onClickCapture={componentDidMount}
                 />
                 <br />
@@ -200,8 +241,10 @@ const Login = () => {
                   <div id="avisoValido" className="alert alert-success">Bienvenido!</div>
                   <div id="avisoVacio" className="alert alert-warning">Existen campos vacios</div>
                   <div id="avisoNo" className="alert alert-danger">Cuenta de usuario no valida</div>
+                  <div id="avisoPendiente" className="alert alert-warning">Tu cuenta aun no fue aceptada</div>
+                  <div id="avisoReachazado" className="alert alert-warning">Tu solicitud fue rechazada</div>
+                  <div id="avisoDeshabilitado" className="alert alert-danger">Tu cuenta fue deshabilitada</div>
                 </div>
-
               
               </div>
             </div>

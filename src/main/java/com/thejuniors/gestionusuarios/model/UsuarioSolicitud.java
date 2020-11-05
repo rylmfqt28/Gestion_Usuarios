@@ -12,6 +12,8 @@ public class UsuarioSolicitud {
    private String telefono;
    private String paisNombre;
    private String ciudadNombre;
+   private String nombreUsuario;
+   private String motivo;
 
     public UsuarioSolicitud() {
        ci="";
@@ -103,5 +105,21 @@ public class UsuarioSolicitud {
 
     public void setPaisNombre(String paisNombre) {
         this.paisNombre = paisNombre;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
     }
  }

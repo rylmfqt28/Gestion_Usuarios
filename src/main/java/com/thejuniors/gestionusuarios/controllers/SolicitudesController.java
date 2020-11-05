@@ -1,7 +1,5 @@
 package com.thejuniors.gestionusuarios.controllers;
 
-import com.google.gson.Gson;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,22 +13,23 @@ import com.thejuniors.gestionusuarios.services.SolicitudeService;
 import com.thejuniors.gestionusuarios.model.CrearTipo;
 import com.thejuniors.gestionusuarios.model.UsuarioSolicitud;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
 
 //LLamar y dar rutas a las solicitudes para SolicitudesService
 @RestController
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT})
 public class SolicitudesController {
+    
     @Autowired
     SolicitudeService solicitudes;
+
     @Autowired
     DatosTipoUser datosTipo;
     
-
-    @Autowired
-    Gson gson;
-
     @GetMapping(value="/api/listaSolicitud/{tipoUsuarioNombre}/{nombreEstado}", produces={"application/json"})
     public List<UsuarioSolicitud> login(@PathVariable("tipoUsuarioNombre") String tipoUsuarioNombre, @PathVariable("nombreEstado") String nombreEstado) {
         return solicitudes.enlistarSolicitudes(tipoUsuarioNombre, nombreEstado);
@@ -50,6 +49,5 @@ public class SolicitudesController {
     {
         solicitudes.actualizarEstado(CI, tipo);
     }
-
 
     }

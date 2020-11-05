@@ -59,11 +59,7 @@ class Solicitudes extends Component {
 
       console.log(this.state.Usuarios[id].ci);
       PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
-      PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data }))
-
-    }
-
-
+      PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data })) }
   }
 
   replaceModalItem(id) {
@@ -81,16 +77,16 @@ class Solicitudes extends Component {
           <td>{Usuario.nombre} {Usuario.apellido}</td>
 
           <td>
-            <button className="btn btn-success"
+            <button className="btn btn-success col-sm-3"
               onClick={() => this.putEstadoLista(index, '1')}
             >ACEPTAR</button>{' '}
             <button
-              className="btn btn-danger"
+              className="btn btn-danger col-sm-3"
               onClick={() => this.putEstadoLista(index, '3')}
             >RECHAZAR</button>{' '}
 
             <button
-              className="btn btn-info"
+              className="btn btn-info col-sm-3"
               data-toggle="modal"
               data-target="#UserData"
               onClick={() => this.replaceModalItem(index)}>VER USUARIO</button>{' '}
@@ -125,11 +121,12 @@ class Solicitudes extends Component {
 
           </nav>
         </div>
-        <div>
 
+        <div >
           <h1 align="center"> Solicitudes de personal </h1>
-
-          <span>Ver solicitudes de tipo</span>
+          <br></br>
+          <div className="containerSelect">
+          <label className="solicitud-label"> Ver solicitudes de tipo: </label>
           <div>
             <select  className="selector" 
               onChange={this.updateList}>
@@ -140,26 +137,37 @@ class Solicitudes extends Component {
               </option> ))}
             </select>
           </div>
-
+         </div>
 
         </div> 
-        
+        <br></br>
+        <br></br>
+        <br></br>
+     <div>
 
-        <br></br>
-        <br></br>
-        <table className="table" id="lista">
-          <thead >
+
+     <div className="table-responsive">
+
+       <div className="containerTabla">
+           <table className="table"  id="lista">
+           <thead >
             <tr>
               <th scope="col">CI</th>
               <th scope="col">Usuarios</th>
               <th scope="col">Opciones</th>
             </tr>
-          </thead>
+           </thead>
 
-          <tbody>
+           <tbody>
+           <br></br>
             {Usuarios}
-          </tbody>
-        </table>
+           </tbody>
+           </table>
+           </div>
+       </div>
+
+    </div>
+
         <ModalSolicitud
             ci= {this.state.user.ci}
             usuarioNombre = {this.state.user.nombre}

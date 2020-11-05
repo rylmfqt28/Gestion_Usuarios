@@ -8,7 +8,7 @@ import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser';
 //import ModalSolicitud from './ModalSolicitud';
 import ModalSolicitud from './ModalSolicitud';
-import { data } from 'jquery';
+//import { data } from 'jquery';
 
 
 
@@ -55,11 +55,13 @@ class Solicitudes extends Component {
         PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data }))
       }
     } else if (estado === '1') {
-      //var opcion=window.confirm("Esta seguro que quiere ACEPTAR la solicitud de "+nomUser);
-
-      console.log(this.state.Usuarios[id].ci);
-      PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
-      PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data })) }
+      var opcion1 = window.confirm("Esta seguro que quiere ACEPTAR la solicitud de "+nomUser);
+      if(opcion1){
+        console.log(this.state.Usuarios[id].ci);
+        PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
+        PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data })) }
+      }
+      
   }
 
   replaceModalItem(id) {

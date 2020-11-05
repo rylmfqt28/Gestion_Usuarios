@@ -13,17 +13,6 @@ class ModalSolicitud extends Component{
                 telefono:'',           
         }
     }
-    // componentWillReceiveProps(nextProps) {
-    //     this.setState({
-    //         CI : nextProps.ci,
-    //         usuarioNombre: nextProps.usuarioNombre,
-    //         usuarioApellido: nextProps.usuarioApellido,
-    //         paisID: nextProps.paisID,
-    //         ciudadID: nextProps.ciudadID,
-    //         correo: nextProps.correo,
-    //         telefono: nextProps.telefono,
-    //     });
-    // }
      
     render(){
         return(

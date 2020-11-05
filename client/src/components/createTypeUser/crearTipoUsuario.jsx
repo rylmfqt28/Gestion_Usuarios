@@ -201,10 +201,4 @@ const CrearTipoUsuario = () => {
     );
 }
 
-
-
-
-
-
-
 export default CrearTipoUsuario;

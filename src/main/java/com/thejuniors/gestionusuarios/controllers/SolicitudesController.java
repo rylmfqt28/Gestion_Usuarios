@@ -32,7 +32,7 @@ public class SolicitudesController {
     
     @GetMapping(value="/api/listaSolicitud/{tipoUsuarioNombre}/{nombreEstado}", produces={"application/json"})
     public List<UsuarioSolicitud> login(@PathVariable("tipoUsuarioNombre") String tipoUsuarioNombre, @PathVariable("nombreEstado") String nombreEstado) {
-        return solicitudes.enlistarSolicitudes(tipoUsuarioNombre, nombreEstado);
+        return solicitudes.enlistarSolicitudes(tipoUsuarioNombre.replace("+", " "), nombreEstado);
     }
 
     @GetMapping(value="/api/listaTipos", produces={"application/json"})

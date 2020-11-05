@@ -61,6 +61,15 @@
 #avisoNo{
   display: none;
 }
+#avisoPendiente{
+  display: none;
+}
+#avisoReachazado{
+  display: none;
+}
+#avisoDeshabilitado{
+  display: none;
+}
 @media(max-width:360px){
   .containerPrincipal {
     width: 80%;

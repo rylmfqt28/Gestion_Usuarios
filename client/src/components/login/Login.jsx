@@ -8,9 +8,9 @@ import logo from '../img/logo.png';
 
 
 
-var timeout = setTimeout(function(){ //funcion que define el tiempo de eliminacion del usuario 
-                                     //en localstorage
-              localStorage.clear()}, 300000);//1000=1 segundo, 300000=5 minutos, 3600000 = una hora
+var timeout = setTimeout(function(){  
+                                     
+              localStorage.clear()}, 300000);
 
 window.onload = timeout;
 

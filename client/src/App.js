@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import{
   BrowserRouter as Router,
   Switch,
-  Route,
 
 } from "react-router-dom"
 import Login from './components/login/Login';
@@ -26,10 +25,8 @@ class App extends Component{
         <Switch>
         <PublicRoute exact path="/" component={Login}/>
         <PublicRoute path="/register" component={Register}/>
-        <Route path="/request" component={Request}/>
         <PrivateRoute path="/solicitudes" component={Solicitudes}/>
         <PrivateRoute path="/crearTipoUsuario" component={crearTipoUsuario}/>
-  
         </Switch>
       </Router>
     );

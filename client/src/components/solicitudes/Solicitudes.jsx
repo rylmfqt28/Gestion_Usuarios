@@ -29,9 +29,6 @@ class Solicitudes extends Component {
 
   componentDidMount() {
     TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
-   //PersonaService.getAll().then(data => this.setState({ Usuarios: data }))
-
-  //PersonaService.getTiposUser('SN').then(data => this.setState({ Usuarios: data }))
  
   }
   
@@ -102,9 +99,9 @@ class Solicitudes extends Component {
 
 
       
-    //const requiredItem = this.state.requiredItem;
-    //let modalData = this.state.Usuarios[requiredItem];
-    //console.log(this.state.user);
+    const salir = () => {
+      sessionStorage.removeItem("authToken");
+  }
 
     return (
 
@@ -120,7 +117,13 @@ class Solicitudes extends Component {
                 className="btn btn-outline-info my-2 my-sm-0"
                 type="submit"
                 to="/crearTipoUsuario"
-              >Crear Tipo Usuario</Link>
+              >Crear Tipo Usuario</Link>{"    "}
+              <Link
+                className="btn btn-danger my-2 my-sm-0"
+                type="submit"
+                onClick={salir}
+                to="/"
+                >SALIR</Link>
             </div>
 
 
@@ -164,7 +167,7 @@ class Solicitudes extends Component {
            </thead>
 
            <tbody>
-           <br></br>
+           
             {Usuarios}
            </tbody>
            </table>

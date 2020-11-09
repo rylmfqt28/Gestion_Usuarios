@@ -4,7 +4,9 @@ import { Link } from "react-router-dom"
 import logo from '../img/logo.png';
 import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser';
-//import ModalEditarPermiso from './ModalEditarPermiso';
+import ModalEditarPermiso from './ModalEditarPermiso';
+
+import "./administrarPermisos.css";
 
 
 class administrarPermisos extends Component{
@@ -90,7 +92,10 @@ class administrarPermisos extends Component{
                 <div className="row ">
                     <div className ="col">
                         <label>Lista de Permisos: </label>
-                        <button type="button" className="btn btn-secondary">Crear Permiso</button>
+                        <button 
+                        className="btn btn-info col-sm-3"
+                        data-toggle="modal"
+                        data-target="#editPermiso">Crear Permiso</button>
                     </div>
                     <div className ="col">
                         <div className = "row">
@@ -147,8 +152,8 @@ class administrarPermisos extends Component{
                 </div>
             </div>
     
-            {/*<ModalEditarPermiso
-            />*/}
+            <ModalEditarPermiso
+            />
 
           </div>
         )

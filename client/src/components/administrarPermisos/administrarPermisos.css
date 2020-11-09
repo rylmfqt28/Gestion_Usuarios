@@ -1,0 +1,16 @@
+#textoArea{
+  height: 250px;
+}
+
+#EncabezadoEditPermiso{
+    background-color:rgb(2, 129, 146);
+}
+
+  
+#ModalEditPermiso{
+    background-color:  rgb(245, 244, 243);
+}
+
+.modal-footer{
+    background-color: rgb(2, 173, 185)
+}

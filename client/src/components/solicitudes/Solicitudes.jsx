@@ -52,6 +52,7 @@ class Solicitudes extends Component {
       if (opcion) {
         console.log(this.state.Usuarios[id].ci);
         PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
+        //revisar
         PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data }))
       }
     } else if (estado === '1') {
@@ -59,6 +60,8 @@ class Solicitudes extends Component {
 
       console.log(this.state.Usuarios[id].ci);
       PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
+      let tempUsuarios = PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
+      this.setState({Usuarios: tempUsuarios.then()})
       PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data }))
 
     }

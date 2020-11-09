@@ -29,28 +29,26 @@ class administrarPermisos extends Component{
 
     render() {
 
-        const Usuarios = this.state.permisos.map((Permiso, index) => {
+        const Permisos = this.state.permisos.map((Permiso, index) => {
           return (
             <tr key={index} >
     
-              <td>{/*Usuario.ci*/}</td>
-              <td>{/*Usuario.nombre} {Usuario.apellido*/}</td>
+              <td>{/*Permiso.nombre.ci*/}</td>
     
               <td>
                 <button className="btn btn-success col-sm-3"
-                 // onClick={() => this.putEstadoLista(index, '1')}
-                >ACEPTAR</button>{' '}
+                >Añadir</button>{' '}
                 <button
                   className="btn btn-danger col-sm-3"
-                  //onClick={() => this.putEstadoLista(index, '3')}
-                >RECHAZAR</button>{' '}
+                  data-toggle="modal"
+                  //data-target="#UserData"
+                  //onClick={() => this.replaceModalItem(index)}>VER USUARIO</button>{' '}
+                >edicion</button>{' '}
     
                 <button
                   className="btn btn-info col-sm-3"
                   data-toggle="modal"
-                  //data-target="#UserData"
-                  //onClick={() => this.replaceModalItem(index)}
-                  >VER USUARIO</button>{' '}
+                  >eliminar</button>{' '}
               </td>
             </tr>
           )
@@ -89,7 +87,7 @@ class administrarPermisos extends Component{
               <br></br>
             </div> 
             <div className = "container">
-                <div className="row">
+                <div className="row ">
                     <div className ="col">
                         <label>Lista de Permisos: </label>
                         <button type="button" className="btn btn-secondary">Crear Permiso</button>
@@ -100,7 +98,7 @@ class administrarPermisos extends Component{
                                 <label>Permisos Asignados </label>
                             </div>
                             <div className="col">
-                                <select onChange={this.updateList}>
+                                <select class="form-control form-control-sm" onChange={this.updateList}>
                                     <option value =" " >{"---"}</option>
                                     
                                 </select>
@@ -108,12 +106,43 @@ class administrarPermisos extends Component{
                         </div>
                     </div>
                 </div>
-                <div className = "row">
-                <div className ="col">
-                        hola3
+                <br></br>
+                <div className = "row justify-content-around">
+                    <div className ="col-5">
+                        <div className="table-respomsive">
+                            <div className="containertable">
+                                <table className="table" id="listaPermisos">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Permiso</th>
+                                            <th scope="col">opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {Permisos}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
-                    <div className ="col">
-                        hola4
+                    <div className ="col-5">
+                        <div className="container">
+                        <div className="table-respomsive">
+                            <div className="containertable">
+                                <table className="table" id="listaPermisos">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Permisos asignados</th>
+                                            <th scope="col">opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {Permisos}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -10,7 +10,8 @@ import Register from './components/register/Register';
 import Solicitudes from './components/solicitudes/Solicitudes';
 import crearTipoUsuario from './components/createTypeUser/crearTipoUsuario';
 import PrivateRoute from './routes/PrivateRoute';
-import PublicRoute from './routes/PublicRoute'
+import PublicRoute from './routes/PublicRoute';
+import administrarPermisos from './components/administrarPermisos/administrarPermisos'
 
 class App extends Component{
 
@@ -25,6 +26,7 @@ class App extends Component{
         <Switch>
         <PublicRoute exact path="/" component={Login}/>
         <PublicRoute path="/register" component={Register}/>
+        <PublicRoute path="/administrarPermisos" component={administrarPermisos}/>
         <PrivateRoute path="/solicitudes" component={Solicitudes}/>
         <PrivateRoute path="/crearTipoUsuario" component={crearTipoUsuario}/>
         </Switch>

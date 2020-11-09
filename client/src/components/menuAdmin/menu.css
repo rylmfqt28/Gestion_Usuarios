@@ -1,0 +1,46 @@
+.nav{
+	position: absolute;
+	top: 62px;
+	right: -100%;
+	width: 218px;
+    transition: all 0.5s;
+    margin-right: 0;
+}
+.menu{
+	list-style: none;
+	padding: 0;
+    margin: 0;
+    z-index: 100;
+    background:rgba(12, 12, 12, 0.411);;
+    border-radius: 2px;
+}
+
+.menu__link{
+	display: block;
+	padding: 15px;
+	background:#008080;
+	text-decoration:none;
+    color: white;
+    border-radius: 2px;
+
+}
+.menu__item{
+    padding: 4px;
+    padding-bottom: 3px;
+    border-color: black;
+    
+}
+.menu__link:hover, .select{
+	background: white;
+    color: #008080;
+    text-decoration:none;
+}
+.mostrar{
+	right: 0;
+}
+#btn-menu{
+    width: 40;
+    border-radius: 5px;
+    border:  rgb(226, 229, 231) 1px solid;
+    cursor: hand;
+}

@@ -10,7 +10,8 @@ import Register from './components/register/Register';
 import Solicitudes from './components/solicitudes/Solicitudes';
 import crearTipoUsuario from './components/createTypeUser/crearTipoUsuario';
 import PrivateRoute from './routes/PrivateRoute';
-import PublicRoute from './routes/PublicRoute'
+import PublicRoute from './routes/PublicRoute';
+import Home from './components/Home/Home';
 
 class App extends Component{
 
@@ -27,6 +28,7 @@ class App extends Component{
         <PublicRoute path="/register" component={Register}/>
         <PrivateRoute path="/solicitudes" component={Solicitudes}/>
         <PrivateRoute path="/crearTipoUsuario" component={crearTipoUsuario}/>
+        <PrivateRoute path="/home" component={Home}/>
         </Switch>
       </Router>
     );

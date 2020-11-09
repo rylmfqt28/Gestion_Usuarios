@@ -194,11 +194,11 @@ return (
                      Términos y condiciones
                           </a>
                     </label>
-                    
-
                     </div>
-                
 
+                    <button className="btn btn-primary" value="Login" >Cancelar</button>
+                    <button className="btn " value="Login" >Registrar</button>
+                
         </div>
 
 

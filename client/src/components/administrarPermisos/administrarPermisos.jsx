@@ -116,69 +116,6 @@ class administrarPermisos extends Component{
                         hola4
                     </div>
                 </div>
-                {/*<div className= "row">
-                    {/*boton crear permiso*}
-                    <div className = "col">
-                        <label className="solicitud-label"> Lista de Permisos: </label>
-                    </div>
-                    {/*combobox tipo de usuario*}
-                    <div className = "col">
-                        
-                            <label className="solicitud-label"> Ver solicitudes de tipo: </label>
-                        
-                    </div>
-                </div>
-            
-                <div className= "row">
-                    {/*Lista de Permisos*}
-                    <div className = "col">  
-                        <div className="container">
-                            <div className="table-responsive">
-
-                                <div className="containerTabla">
-                                    <table className="table"  id="lista">
-                                        <thead >
-                                            <tr>
-                                                <th scope="col">CI</th>
-                                                <th scope="col">Usuarios</th>
-                                                <th scope="col">Opciones</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            {/*Usuarios*}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {
-                        //lista de permisos asignados
-                    }
-                    <div className = "col">
-                        <div className="container">
-                            <div className="table-responsive">
-
-                                <div className="containerTabla">
-                                    <table className="table"  id="lista">
-                                        <thead >
-                                            <tr>
-                                                <th scope="col">CI</th>
-                                                <th scope="col">Usuarios</th>
-                                                <th scope="col">Opciones</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            {/*Usuarios*}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>*/}
             </div>
     
             {/*<ModalEditarPermiso

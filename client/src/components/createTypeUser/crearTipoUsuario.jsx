@@ -94,6 +94,10 @@ const CrearTipoUsuario = () => {
         }
     }
 
+    const salir = () => {
+        sessionStorage.removeItem("authToken");
+    }
+
     return (
 
         <Fragment>
@@ -108,7 +112,14 @@ const CrearTipoUsuario = () => {
                             className="btn btn-outline-info my-2 my-sm-0"
                             type="submit"
                             to="/solicitudes"
-                        >Solicitudes</Link>
+                        >Solicitudes</Link>{"     "}
+
+                        <Link
+                            className="btn btn-danger my-2 my-sm-0"
+                            type="submit"
+                            onClick={salir}
+                            to="/"
+                        >SALIR</Link>
                     </div>
 
                 </nav>

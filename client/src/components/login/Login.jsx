@@ -64,6 +64,7 @@ const Login = () => {
 
       case 'Administrador':
         window.location.pathname = '/crearTipoUsuario';
+        sessionStorage.setItem("authToken", true);
         break;
       case '2':
         //ventana de cliente

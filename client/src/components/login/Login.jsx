@@ -63,7 +63,7 @@ const Login = () => {
     switch (rol) {
 
       case 'Administrador':
-        window.location.pathname = '/crearTipoUsuario';
+        window.location.pathname = '/home';
         sessionStorage.setItem("authToken", true);
         break;
       case '2':

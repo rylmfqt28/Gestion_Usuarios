@@ -10,7 +10,7 @@ const PublicRoute = ({ component: Component, ...rest }) => (
             ) : (
                 <Redirect
                     to={{
-                        pathname: "/crearTipoUsuario"
+                        pathname: "/home"
                         //state: { from: props.location }
                     }} 
                 />

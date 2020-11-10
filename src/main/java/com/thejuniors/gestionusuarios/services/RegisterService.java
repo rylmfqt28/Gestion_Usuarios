@@ -13,15 +13,23 @@ public class RegisterService {
     private JdbcTemplate jdbcTemplate;
 
     public void agregarUsuario(Register register){
+
         jdbcTemplate.update(
             "INSERT INTO Usuario (CI, usuarioNombre, usuarioApellido, paisID, ciudadID, direccion, correo, telefono, genero VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?))", 
             register.getCI(), register.getUsuarioNombre(), register.getUsuarioApellido(), register.getPaisID(), 
             register.getCuidadID(), register.getDireccion(), register.getCorreo(), register.getTelefono(), register.getTelefono() 
-            );
+        );
+        
+        agregarTipo(register.getCI(), register.getTipoUsuarioID(), register.getMotivo());
+        agregarEstado(register.getCI());
+        agregarCredenciales(register.getCI(), register.getNombreUsuario(), register.getPassword());
     }
 
-    private void agregarTipo(String ci, String tipo){
-
+    private void agregarTipo(String ci, String tipo, String motivo){
+        jdbcTemplate.update(
+            "INSERT INTO UsuarioTipoUsuario (CI, tipoUsuarioID, motivo) VALUES (?, ?, ?)", 
+            ci, tipo, motivo 
+        );
     }
 
     private void agregarEstado(String ci){

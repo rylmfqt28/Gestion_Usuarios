@@ -19,52 +19,55 @@ return (
           </nav>
         </div>
 
-        <div >
-        <label>
-                  Nombres:
-                        </label>
-                <br />
-                <input
+        <div>
+        <h1 align="center"> Formulario de registro </h1>
+        </div>
+        <div className="contenedor">
+          <label >
+                 <b> Nombres:</b>
+                  <input
                   type="text"
-                  className="form-control"
-                  maxLength="15"
-                  minLength="5"
+                  class="imput"
+                  size="60"
                   placeholder="Ingrese sus nombres"
                   name="nombres"
                 />
+                        </label>
                 <br />
-                <label>Apellidos: </label>
-                <br />
+                <label><b>Apellidos: </b>
                 <input
                   type="text"
-                  className="form-control"
-                  minLength="8"
+                  className="imput"
+                  size="60"
                   placeholder="Ingrese su Apellidos"
                   name="apellidos"
                 />
-                <label>
-                  Cédula de Identidad:
-                        </label>
+                </label>
                 <br />
-                <input
+                <label>
+                  <b>Cédula de Identidad:</b>
+                  <input
                   type="text"
-                  className="form-control"
-                  maxLength="15"
-                  minLength="5"
+                  className="imput"
+                  size="60"
                   placeholder="Ingrese su cédula de identidad"
                   name="cedula"
                 />
+                        </label>
+                <br />
+                
 
-                <label>
-                  Género:  
+                <label className="radio">
+                  <b>Género:</b>  
                         </label>
                 <input
                   type="radio"
                   id="male"
                   name="gender"
                   value="male"
+                  
                 />
-                <label for="male">
+                <label for="male" className="radio">
                   Masculino
                         </label>
                 
@@ -74,133 +77,132 @@ return (
                   name="gender"
                   value="female"
                 />
-                <label for="female">
+                <label for="female" className="radio">
                   Femenino
                         </label>
                 
                 <input
                   type="radio"
                   id="other"
+                  className="radioButton"
                   name="gender"
                   value="other"
                 />
-                <label for="other">
+                <label for="other" className="radio">
                   Otro
                         </label>
                 <br />
-
-
-
-                <label>
-                  Pais:
-                        </label>
+                <label> <b>Pais:</b> 
+                <select  className="imput" 
+                        >
+                        <option value =" " >{"---"}</option>
+                        
+                        </select>
+                </label>
                 <br />
-                <input
-                  type="text"
-                  className="form-control"
-                  maxLength="15"
-                  minLength="5"
-                  placeholder="Seleccione su país"
-                  name="pais"
-                />
-                <label>
-                  Ciudad:
-                        </label>
+                
+                <label> <b>Ciudad:</b> 
+                <select  className="imput" 
+                        >
+                        <option value =" " >{"---"}</option>
+                        
+                        </select>
+                </label>
                 <br />
-                <input
-                  type="text"
-                  className="form-control"
-                  maxLength="15"
-                  minLength="5"
-                  placeholder="Ingrese su ciudad"
-                  name="ciudad"
-                />
+                
                 <label>
-                  Dirección:
-                        </label>
-                <br />
-                <input
+                  <b>Dirección:</b>
+                  <input
                   type="text"
-                  className="form-control"
-                  maxLength="15"
-                  minLength="5"
+                  className="imput"
+                  size="60"
                   placeholder="Ingrese su dirección"
                   name="direccion"
                 />
-                <label>
-                  Correo Electronico:
                         </label>
                 <br />
-                <input
+                
+                <label>
+                  <b>Correo Electronico:</b>
+                  <input
                   type="text"
-                  className="form-control"
-                  maxLength="15"
-                  minLength="5"
+                  className="imput"
+                  size="60"
                   placeholder="Ingrese su dirección de correo"
                   name="correo"
                 />
-                <label>
-                  Teléfono:
                         </label>
                 <br />
-                <input
+                
+                <label>
+                  <b>Teléfono:</b>
+                  <input
                   type="text"
-                  className="form-control"
-                  maxLength="15"
-                  minLength="5"
+                  className="imput"
+                  size="60"
                   placeholder="Ingrese su número telefónico"
                   name="telefono"
                 />
-                <label>
-                  Nombre de usuario:
                         </label>
                 <br />
-                <input
+                
+                <label>
+                  <b>Nombre de usuario:</b>
+                  <input
                   type="text"
-                  className="form-control"
-                  maxLength="15"
-                  minLength="5"
+                  className="imput"
+                  size="60"
                   placeholder="Ingrese su nombre de usuario"
                   name="nombres"
                 />
-                <label>
-                  Contraseña:
                         </label>
                 <br />
-                <input
+                
+                <label> <b>Tipo de usuario:</b> 
+                <select  className="imput" 
+                        >
+                        <option value =" " >{"---"}</option>
+                        
+                        </select>
+                </label>
+                <br />
+                <label>
+                  <b>Contraseña:</b>
+                  <input
                   type="password"
-                  className="form-control"
-                  minLength="8"
+                  className="imput"
+                  size="60"
                   placeholder="Ingrese su contraseña"
                   name="password"
                 />
-                <label>
-                  Confirmar contraseña:
                         </label>
                 <br />
-                <input
+                
+                <label>
+                  <b>Confirmar contraseña:</b>
+                  <input
                   type="password"
-                  className="form-control"
-                  minLength="8"
+                  className="imput"
+                  size="60"
                   placeholder="Confirme su contraseña"
                   name="conf-password"
                 />
+                        </label>
+                <br />
+    
+                    <div className="checkbox-confirmar">
 
-                    <div className="checkbox">
-
-                    <input type="checkbox"  name="aceppt" value=""/>  <label>
-                    acepto los 
+                    <input type="checkbox" name="aceppt" value=""/>  <label>
+                    <b>acepto los</b> 
                     <a href="/register">
-                     Términos y condiciones
+                     <b>Términos y condiciones</b>
                           </a>
                     </label>
                     </div>
-
-                    <button className="btn btn-primary" value="Login" >Cancelar</button>
-                    <button className="btn " value="Login" >Registrar</button>
+                    <button className="btn btn-cancelar" value="Login" >Cancelar</button>
+                    <button className="btn btn-aceptar " value="Login" >Registrar</button>
                 
         </div>
-
 
     </div>
 

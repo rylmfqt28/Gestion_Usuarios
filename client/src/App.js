@@ -28,7 +28,7 @@ class App extends Component{
         <PublicRoute path="/register" component={Register}/>
         <PrivateRoute path="/solicitudes" component={Solicitudes}/>
         <PrivateRoute path="/crearTipoUsuario" component={crearTipoUsuario}/>
-        <PublicRoute path="/createAccount" component={newAccount}/>
+        <PrivateRoute path="/createAccount" component={newAccount}/>
         </Switch>
       </Router>
     );

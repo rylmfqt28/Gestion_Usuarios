@@ -5,6 +5,8 @@ import logo from '../img/logo.png';
 import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser';
 import ModalEditarPermiso from './ModalEditarPermiso';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import{faPlusCircle, faEdit, faTrashAlt, faMinusCircle} from '@fortawesome/free-solid-svg-icons'
 
 import "./administrarPermisos.css";
 
@@ -13,8 +15,8 @@ class administrarPermisos extends Component{
     constructor(props){
         super(props);
         this.state = {
-            permisos: [],
-            permisosAsignados: [],
+            permisos: ["solicitud","administrar","listar","crear"],
+            permisosAsignados: ["solicitud","administrar","listar","crear"],
             TUsuarios: [],
             tipo: "",
         }
@@ -35,27 +37,55 @@ class administrarPermisos extends Component{
           return (
             <tr key={index} >
     
-              <td>{/*Permiso.nombre.ci*/}</td>
+              <td>{Permiso}</td>
     
               <td>
-                <button className="btn btn-success col-sm-3"
-                >Añadir</button>{' '}
+                <button className="btn btn-default btn-sm">
+                    <FontAwesomeIcon icon={faPlusCircle} style={{fontSize:"20px", color:"green"}}></FontAwesomeIcon> 
+                </button>{' '}
                 <button
-                  className="btn btn-danger col-sm-3"
-                  data-toggle="modal"
-                  //data-target="#UserData"
+                    className="btn btn-default btn-sm"
+                    data-toggle="modal"
+                    data-target="#editPermiso"
                   //onClick={() => this.replaceModalItem(index)}>VER USUARIO</button>{' '}
-                >edicion</button>{' '}
+                >
+                    <FontAwesomeIcon icon={faEdit} style={{fontSize:"20px"}}></FontAwesomeIcon>
+                </button>{' '}
     
-                <button
-                  className="btn btn-info col-sm-3"
-                  data-toggle="modal"
-                  >eliminar</button>{' '}
+                <button className="btn btn-default btn-sm">
+                    <FontAwesomeIcon icon={faTrashAlt} style={{fontSize:"20px", color:"blue"}}></FontAwesomeIcon>
+                </button>{' '}
               </td>
             </tr>
           )
         });
-    
+
+        const PermisosAsignados = this.state.permisosAsignados.map((PermisoA, index) => {
+            return (
+              <tr key={index} >
+      
+                <td>{PermisoA}</td>
+      
+                <td>
+                  <button className="btn btn-default btn-sm">
+                      <FontAwesomeIcon icon={faMinusCircle} style={{fontSize:"20px", color:"red"}}></FontAwesomeIcon> 
+                  </button>{' '}
+                  <button
+                    className="btn btn-default btn-sm"
+                    data-toggle="modal"
+                    data-target="#editPermiso"
+                    //onClick={() => this.replaceModalItem(index)}>VER USUARIO</button>{' '}
+                  >
+                      <FontAwesomeIcon icon={faEdit} style={{fontSize:"20px"}}></FontAwesomeIcon>
+                  </button>{' '}
+      
+                  <button className="btn btn-default btn-sm">
+                      <FontAwesomeIcon icon={faTrashAlt} style={{fontSize:"20px", color:"blue"}}></FontAwesomeIcon>
+                  </button>{' '}
+                </td>
+              </tr>
+            )
+          });
     
           
         const salir = () => {
@@ -89,64 +119,73 @@ class administrarPermisos extends Component{
               <br></br>
             </div> 
             <div className = "container">
-                <div className="row ">
-                    <div className ="col">
-                        <label>Lista de Permisos: </label>
-                        <button 
-                        className="btn btn-info col-sm-3"
-                        data-toggle="modal"
-                        data-target="#editPermiso">Crear Permiso</button>
-                    </div>
-                    <div className ="col">
-                        <div className = "row">
+                <div className="row">
+                    <div className="col ">
+                        {/*ttulo permisos y boton crear permiso*/}
+                        <div className ="row">
                             <div className="col">
-                                <label>Permisos Asignados </label>
+                                <label>Lista de Permisos: </label>
                             </div>
                             <div className="col">
-                                <select class="form-control form-control-sm" onChange={this.updateList}>
-                                    <option value =" " >{"---"}</option>
-                                    
-                                </select>
+                                <button className="btn btn-info btn-sm" > Crear Permiso</button>
+                                
                             </div>
+                        </div>
+                        <br></br>
+                        {/*lista de permisos*/}
+                        <div className ="row" id="permisos">
+                            
+                                <div className="table-responsive">
+                                    <div className="containertable">
+                                        <table className="tableFixHead" id="listaPermisos">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Permiso</th>
+                                                    <th scope="col">opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {Permisos}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            
                         </div>
                     </div>
-                </div>
-                <br></br>
-                <div className = "row justify-content-around">
-                    <div className ="col-5">
-                        <div className="table-respomsive">
-                            <div className="containertable">
-                                <table className="table" id="listaPermisos">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Permiso</th>
-                                            <th scope="col">opciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {Permisos}
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div className = "col">
+                        {/*titulo de permisos asigandos y combobox tipo de usuario*/}
+                        <div className ="row">
+                                <div className="col">
+                                    <label>Permisos Asignados </label>
+                                </div>
+                                <div className="col">
+                                    <select className="form-control form-control-sm" onChange={this.updateList}>
+                                        <option value =" " >{"---"}</option>    
+                                    </select>
+                                </div>
+                            
                         </div>
-                    </div>
-                    <div className ="col-5">
-                        <div className="container">
-                        <div className="table-respomsive">
-                            <div className="containertable">
-                                <table className="table" id="listaPermisos">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Permisos asignados</th>
-                                            <th scope="col">opciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {Permisos}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        <br></br>
+                        {/*Lista de permisos Asignados */}
+                        <div className ="row" id="asignados">
+                            
+                                <div className="table-responsive" >
+                                    <div className="containertable">
+                                        <table className="tableFixHead" id="listaPermisos">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Permiso</th>
+                                                    <th scope="col">opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody >
+                                                {PermisosAsignados}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -160,3 +199,14 @@ class administrarPermisos extends Component{
     }
 }
 export default administrarPermisos
+{/*<div className = "row">
+                                <div className="col">
+                                    <label>Permisos Asignados </label>
+                                </div>
+                                <div className="col">
+                                    <select className="form-control form-control-sm" onChange={this.updateList}>
+                                        <option value =" " >{"---"}</option>
+                                        
+                                    </select>
+                                </div>
+                            </div> */}

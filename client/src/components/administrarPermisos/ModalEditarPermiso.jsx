@@ -4,7 +4,6 @@ class ModalEditarPermiso extends Component{
     constructor(props){
         super(props)
         this.state={ 
-                id:"",
                 nombre:"titulo",
                 descripcion:"descripcion"         
         }

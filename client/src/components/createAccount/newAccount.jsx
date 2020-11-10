@@ -1,15 +1,48 @@
-import React from 'react';
+import React, {Fragment, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './newAccount.css'
 import { Link } from "react-router-dom"
-import { Fragment, useState } from 'react';
 import axios from 'axios';
 import logo from '../img/logo.png';
 
-const newAccount = () => {
+const NewAccount = () => {
+
+const [datosRegistro, setDatosRegistro] = useState({
+        nombre: '',
+        apellido: '',
+        ci: '',
+        genero: '',
+        pais: '',
+        ciudad: '',
+        direccion: '',
+        correo: '',
+        telefono: '', 
+        userName: '',
+        password: ''  
+})
+
+const restartForm = () => {
+  setDatosRegistro({
+      ...datosRegistro,
+      nombre: '',
+        apellido: '',
+        ci: '',
+        genero: '',
+        pais: '',
+        ciudad: '',
+        direccion: '',
+        correo: '',
+        telefono: '', 
+        userName: '',
+        password: '', 
+  });
+}
+
+
 
 return (
-    <div>
+    <Fragment>
+      <div>
         <div className="barraNav">
           <nav className="navbar navbar-light justify-content-between">
             <a className="navbar-brand" href="/">
@@ -18,43 +51,45 @@ return (
 
           </nav>
         </div>
-
-        <div >
-        <label>
-                  Nombres:
-                        </label>
-                <br />
+        </div>
+        <form className="RegisterForm">
+            <div >
+              <div>Nombres:
+                
                 <input
                   type="text"
                   className="form-control"
-                  maxLength="15"
-                  minLength="5"
+                  maxLength="50"
                   placeholder="Ingrese sus nombres"
                   name="nombres"
                 />
-                <br />
-                <label>Apellidos: </label>
-                <br />
-                <input
+              </div>
+        
+      
+                  
+              <div> <label>Apellidos: </label> 
+                  <input
                   type="text"
                   className="form-control"
-                  minLength="8"
+                  maxLength="50"
+               
                   placeholder="Ingrese su Apellidos"
                   name="apellidos"
-                />
-                <label>
-                  Cédula de Identidad:
-                        </label>
-                <br />
-                <input
-                  type="text"
+                  />
+              </div>
+                <div> Cédula de Identidad:
+                  <input
+                  type="number"
                   className="form-control"
-                  maxLength="15"
-                  minLength="5"
+                  maxLength="9"
+                  
                   placeholder="Ingrese su cédula de identidad"
                   name="cedula"
                 />
-
+                </div>
+              
+                
+                <div>
                 <label>
                   Género:  
                         </label>
@@ -67,8 +102,8 @@ return (
                 <label for="male">
                   Masculino
                         </label>
-                
-                <input
+
+                        <input
                   type="radio"
                   id="female"
                   name="gender"
@@ -76,61 +111,61 @@ return (
                 />
                 <label for="female">
                   Femenino
-                        </label>
-                
-                <input
+                        </label>   
+                        <input
                   type="radio"
                   id="other"
                   name="gender"
                   value="other"
                 />
                 <label for="other">
-                  Otro
-                        </label>
-                <br />
-
-
-
+                       Otro
+                </label>
+                <br />             
+                </div>
+                <div>
                 <label>
-                  Pais:
-                        </label>
+                      Pais:
+                </label>
                 <br />
-                <input
-                  type="text"
-                  className="form-control"
-                  maxLength="15"
-                  minLength="5"
-                  placeholder="Seleccione su país"
-                  name="pais"
-                />
+
+                <select>
+                <option>------------ </option>
+
+
+                </select>
+                
+
+                </div>
+                
+                <div className="city">
                 <label>
                   Ciudad:
                         </label>
-                <br />
-                <input
-                  type="text"
-                  className="form-control"
-                  maxLength="15"
-                  minLength="5"
-                  placeholder="Ingrese su ciudad"
-                  name="ciudad"
-                />
+                <br/>
+                <select name="" id="">
+                  <option>------------</option>
+                </select>
+               
+
+                </div>
+                
+                <div>
                 <label>
                   Dirección:
                         </label>
-                <br />
                 <input
                   type="text"
                   className="form-control"
-                  maxLength="15"
-                  minLength="5"
+                  maxLength="250"
                   placeholder="Ingrese su dirección"
                   name="direccion"
                 />
+                </div>
+                <div>
                 <label>
                   Correo Electronico:
                         </label>
-                <br />
                 <input
                   type="text"
                   className="form-control"
@@ -139,6 +174,9 @@ return (
                   placeholder="Ingrese su dirección de correo"
                   name="correo"
                 />
+                </div>
+                
+                <div>
                 <label>
                   Teléfono:
                         </label>
@@ -146,15 +184,15 @@ return (
                 <input
                   type="text"
                   className="form-control"
-                  maxLength="15"
-                  minLength="5"
+                  maxLength="8"
                   placeholder="Ingrese su número telefónico"
                   name="telefono"
                 />
+                </div>
+                <div>
                 <label>
                   Nombre de usuario:
                         </label>
-                <br />
                 <input
                   type="text"
                   className="form-control"
@@ -163,10 +201,14 @@ return (
                   placeholder="Ingrese su nombre de usuario"
                   name="nombres"
                 />
+
+
+                </div>
+                <div>
                 <label>
                   Contraseña:
                         </label>
-                <br />
+              
                 <input
                   type="password"
                   className="form-control"
@@ -177,7 +219,8 @@ return (
                 <label>
                   Confirmar contraseña:
                         </label>
-                <br />
+                </div>
+                <div>
                 <input
                   type="password"
                   className="form-control"
@@ -185,6 +228,8 @@ return (
                   placeholder="Confirme su contraseña"
                   name="conf-password"
                 />
+                </div>
+      
 
                     <div className="checkbox">
 
@@ -195,16 +240,18 @@ return (
                           </a>
                     </label>
                     </div>
-
-                    <button className="btn btn-primary" value="Login" >Cancelar</button>
-                    <button className="btn " value="Login" >Registrar</button>
-                
+                    <div>
+                      <button className="btn btn-primary" value="Login" >Cancelar</button>
+                      {"   "}
+                      <button className="btn " value="Login" >Registrar</button>
+                    </div>
+                            
         </div>
-
-
-    </div>
+        </form>
+    </Fragment>
+    
 
 
 );
 }
-export default newAccount;
+export default NewAccount;

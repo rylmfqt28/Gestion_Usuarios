@@ -168,7 +168,7 @@ const Login = () => {
               <Link
                 className="btn btn-outline-info my-2 my-sm-0"
                 type="submit"
-                to="/register"
+                to="/createAccount"
               >REGISTRARSE</Link>
             </div>
 

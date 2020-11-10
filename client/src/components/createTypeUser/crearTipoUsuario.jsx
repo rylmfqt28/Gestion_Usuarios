@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import './crearTipoUsuario.css';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-import logo from '../img/logo.png';
+import NavMenu from '../menuAdmin/NavMenu'
 import { Link } from "react-router-dom"
 
 const CrearTipoUsuario = () => {
@@ -101,29 +101,7 @@ const CrearTipoUsuario = () => {
     return (
 
         <Fragment>
-            <div className="barraNav">
-                <nav className="navbar navbar-light justify-content-between">
-                    <a className="navbar-brand" href="/crearTipoUsuario">
-                        <img className="logo" src={logo} height="35" alt="logo" />
-                    </a>
-
-                    <div>
-                        <Link
-                            className="btn btn-outline-info my-2 my-sm-0"
-                            type="submit"
-                            to="/solicitudes"
-                        >Solicitudes</Link>{"     "}
-
-                        <Link
-                            className="btn btn-danger my-2 my-sm-0"
-                            type="submit"
-                            onClick={salir}
-                            to="/"
-                        >SALIR</Link>
-                    </div>
-
-                </nav>
-            </div>
+            <NavMenu/>
 
             <form className="formC"
                 onSubmit={handleSubmit(onSubmit)}>
@@ -208,6 +186,8 @@ const CrearTipoUsuario = () => {
                 </div>
 
             </form>
+
+           {/*<script src="../menuAdmin/FuntionMenu.js"></script>*/} 
         </Fragment>
     );
 }

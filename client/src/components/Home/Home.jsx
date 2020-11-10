@@ -9,12 +9,10 @@ class Home extends Component {
                 <br />
                 <div>
                     <h2>Usuario Administrador</h2>
-                    <h3>Bienvenido:Rylmar</h3>
+                    <h3>Bienvenido: Admin?</h3>
                 </div>
 
             </div>
-
-
 
         )
     };

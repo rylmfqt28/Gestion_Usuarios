@@ -1,10 +1,21 @@
 package com.thejuniors.gestionusuarios.services;
 
 import com.thejuniors.gestionusuarios.model.Register;
+//import com.thejuniors.gestionusuarios.model.Ciudad;
+import com.thejuniors.gestionusuarios.model.Pais;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class RegisterService {
@@ -28,6 +39,37 @@ public class RegisterService {
         }
         
         agregarCredenciales(register.getCI(), register.getNombreUsuario(), register.getPassword());
+    }
+
+    // Metodo para traer la lista de paises
+    public List<Pais> listaPaises(){
+        List<Pais> paises = jdbcTemplate.query(new PreparedStatementCreator(){
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps = con.prepareStatement("SELECT paisID, paisNombre FROM Pais");
+                return ps;
+            }
+        }, new ResultSetExtractor <List<Pais>>(){
+            @Override
+            public List<Pais> extractData(ResultSet rs) throws SQLException {
+                List<Pais> paisLista = new ArrayList<>();
+                while (rs.next()){
+                    Pais pais = new Pais(rs.getInt("paisID"), rs.getString("paisNombre"));
+                    paisLista.add(pais);
+                } 
+                return paisLista;
+            }
+        });
+        if(paises != null){
+            return paises;
+        }else{
+            return null;
+        }
+    }
+
+    // Metodo para traer la lista de ciudades
+    public void listaCiudades(){
+
     }
 
     private void agregarTipo(String ci, Integer tipo, String motivo){

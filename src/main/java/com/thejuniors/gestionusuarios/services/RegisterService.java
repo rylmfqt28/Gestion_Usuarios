@@ -44,6 +44,11 @@ public class RegisterService {
         );
     }
 
-    private void agregarCredenciales(String ci, String userName, String userPassword){}
+    private void agregarCredenciales(String ci, String userName, String userPassword){
+        jdbcTemplate.update(
+            "INSERT INTO UsuarioCredenciales (CI, nombreUsuario, password) VALUES (?, ?, ?)", 
+            ci, userName, userPassword
+        );
+    }
     
 }

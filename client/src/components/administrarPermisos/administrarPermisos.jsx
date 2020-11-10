@@ -10,6 +10,8 @@ import{faPlusCircle, faEdit, faTrashAlt, faMinusCircle} from '@fortawesome/free-
 
 import "./administrarPermisos.css";
 
+import NavMenu from '../menuAdmin/NavMenu'
+
 
 class administrarPermisos extends Component{
     constructor(props){
@@ -95,24 +97,7 @@ class administrarPermisos extends Component{
         return (
     
           <div>
-            <div className="barraNav">
-              <nav className="navbar navbar-light justify-content-between">
-                <a className="navbar-brand" href="/solicitudes">
-                  <img className="logo" src={logo} height="35" alt="logo" />
-                </a>
-    
-                <div>
-                  <Link
-                    className="btn btn-danger my-2 my-sm-0"
-                    type="submit"
-                    onClick={salir}
-                    to="/"
-                    >SALIR</Link>
-                </div>
-    
-    
-              </nav>
-            </div>
+            <NavMenu/>
     
             <div >
               <h1 align="center"> Solicitudes de personal </h1>

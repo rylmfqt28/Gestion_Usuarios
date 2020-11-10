@@ -15,29 +15,28 @@ public class RegisterService {
     public void agregarUsuario(Register register){
 
         jdbcTemplate.update(
-            "INSERT INTO Usuario (CI, usuarioNombre, usuarioApellido, paisID, ciudadID, direccion, correo, telefono, genero VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?))", 
-            register.getCI(), register.getUsuarioNombre(), register.getUsuarioApellido(), register.getPaisID(), 
-            register.getCuidadID(), register.getDireccion(), register.getCorreo(), register.getTelefono(), register.getTelefono() 
+            "INSERT INTO Usuario (CI, usuarioNombre, usuarioApellido, paisID, ciudadID, direccion, correo, telefono, genero) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+            register.getCI(), register.getUsuarioNombre(), register.getUsuarioApellido(), register.getPaisID(), register.getCiudadID(), register.getDireccion(), register.getCorreo(), register.getTelefono(), register.getTelefono() 
         );
         
         agregarTipo(register.getCI(), register.getTipoUsuarioID(), register.getMotivo());
-        if(register.getTipoUsuarioID().equals("11")){
-            agregarEstado(register.getCI(), "1");
+        if(register.getTipoUsuarioID() == 11){
+            agregarEstado(register.getCI(), 1);
         }else{
-            agregarEstado(register.getCI(), "4");
+            agregarEstado(register.getCI(), 4);
         }
         
         agregarCredenciales(register.getCI(), register.getNombreUsuario(), register.getPassword());
     }
 
-    private void agregarTipo(String ci, String tipo, String motivo){
+    private void agregarTipo(String ci, Integer tipo, String motivo){
         jdbcTemplate.update(
             "INSERT INTO UsuarioTipoUsuario (CI, tipoUsuarioID, motivo) VALUES (?, ?, ?)", 
             ci, tipo, motivo 
         );
     }
 
-    private void agregarEstado(String ci, String tipo){
+    private void agregarEstado(String ci, Integer tipo){
         jdbcTemplate.update(
             "INSERT INTO UsuarioEstadoUsuario (tipoEstado, CI) VALUES (?, ?)", 
             tipo, ci

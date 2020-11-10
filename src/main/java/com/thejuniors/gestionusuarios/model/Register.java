@@ -7,8 +7,8 @@ public class Register {
     private String usuarioApellido;
     private String CI;
     private String genero;
-    private String paisID;
-    private String cuidadID;
+    private Integer paisID;
+    private Integer ciudadID;
     private String direccion;
     private String correo;
     private String telefono;
@@ -18,19 +18,19 @@ public class Register {
     private String password;
 
     // Tipo de usuario
-    private String tipoUsuarioID;
+    private Integer tipoUsuarioID;
 
     // usuario no cliente
     private String motivo = "";
 
-    public Register(String usuarioNombre, String usuarioApellido, String cI, String genero, String paisID,
-            String cuidadID, String direccion, String correo, String telefono, String nombreUsuario, String password, String tipoUsuarioID, String motivo) {
+    public Register(String usuarioNombre, String usuarioApellido, String CI, String genero, Integer paisID,
+            Integer ciudadID, String direccion, String correo, String telefono, String nombreUsuario, String password, Integer tipoUsuarioID, String motivo) {
         this.usuarioNombre = usuarioNombre;
         this.usuarioApellido = usuarioApellido;
-        CI = cI;
+        this.CI = CI;
         this.genero = genero;
         this.paisID = paisID;
-        this.cuidadID = cuidadID;
+        this.ciudadID = ciudadID;
         this.direccion = direccion;
         this.correo = correo;
         this.telefono = telefono;
@@ -72,20 +72,20 @@ public class Register {
         this.genero = genero;
     }
 
-    public String getPaisID() {
+    public Integer getPaisID() {
         return paisID;
     }
 
-    public void setPaisID(String paisID) {
+    public void setPaisID(Integer paisID) {
         this.paisID = paisID;
     }
 
-    public String getCuidadID() {
-        return cuidadID;
+    public Integer getCiudadID() {
+        return ciudadID;
     }
 
-    public void setCuidadID(String cuidadID) {
-        this.cuidadID = cuidadID;
+    public void setCiudadID(Integer ciudadID) {
+        this.ciudadID = ciudadID;
     }
 
     public String getDireccion() {
@@ -136,11 +136,11 @@ public class Register {
         return motivo;
     }
 
-    public String getTipoUsuarioID() {
+    public Integer getTipoUsuarioID() {
         return tipoUsuarioID;
     }
 
-    public void setTipoUsuarioID(String tipoUsuarioID) {
+    public void setTipoUsuarioID(Integer tipoUsuarioID) {
         this.tipoUsuarioID = tipoUsuarioID;
     }
 

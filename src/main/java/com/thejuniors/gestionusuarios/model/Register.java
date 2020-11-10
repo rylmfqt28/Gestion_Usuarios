@@ -7,8 +7,8 @@ public class Register {
     private String usuarioApellido;
     private String CI;
     private String genero;
-    private Integer paisID;
-    private Integer cuidadID;
+    private String paisID;
+    private String cuidadID;
     private String direccion;
     private String correo;
     private String telefono;
@@ -20,8 +20,8 @@ public class Register {
     // usuario no cliente
     private String motivo;
 
-    public Register(String usuarioNombre, String usuarioApellido, String cI, String genero, Integer paisID,
-            Integer cuidadID, String direccion, String correo, String telefono, String nombreUsuario, String password) {
+    public Register(String usuarioNombre, String usuarioApellido, String cI, String genero, String paisID,
+            String cuidadID, String direccion, String correo, String telefono, String nombreUsuario, String password) {
         this.usuarioNombre = usuarioNombre;
         this.usuarioApellido = usuarioApellido;
         CI = cI;
@@ -67,19 +67,19 @@ public class Register {
         this.genero = genero;
     }
 
-    public Integer getPaisID() {
+    public String getPaisID() {
         return paisID;
     }
 
-    public void setPaisID(Integer paisID) {
+    public void setPaisID(String paisID) {
         this.paisID = paisID;
     }
 
-    public Integer getCuidadID() {
+    public String getCuidadID() {
         return cuidadID;
     }
 
-    public void setCuidadID(Integer cuidadID) {
+    public void setCuidadID(String cuidadID) {
         this.cuidadID = cuidadID;
     }
 

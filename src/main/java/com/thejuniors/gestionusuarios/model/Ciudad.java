@@ -3,10 +3,10 @@ package com.thejuniors.gestionusuarios.model;
 public class Ciudad {
 
     private Integer ciudadID;
-    private String paisID;
+    private Integer paisID;
     private String ciudadNombre;
 
-    public Ciudad(Integer ciudadID, String paisID, String ciudadNombre) {
+    public Ciudad(Integer ciudadID, Integer paisID, String ciudadNombre) {
         this.ciudadID = ciudadID;
         this.paisID = paisID;
         this.ciudadNombre = ciudadNombre;
@@ -20,11 +20,11 @@ public class Ciudad {
         this.ciudadID = ciudadID;
     }
 
-    public String getPaisID() {
+    public Integer getPaisID() {
         return paisID;
     }
 
-    public void setPaisID(String paisID) {
+    public void setPaisID(Integer paisID) {
         this.paisID = paisID;
     }
 
@@ -35,5 +35,5 @@ public class Ciudad {
     public void setCiudadNombre(String ciudadNombre) {
         this.ciudadNombre = ciudadNombre;
     }
-    
+
 }

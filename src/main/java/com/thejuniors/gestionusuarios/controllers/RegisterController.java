@@ -2,6 +2,7 @@ package com.thejuniors.gestionusuarios.controllers;
 
 import java.util.List;
 
+import com.thejuniors.gestionusuarios.model.Ciudad;
 import com.thejuniors.gestionusuarios.model.Pais;
 import com.thejuniors.gestionusuarios.model.Register;
 import com.thejuniors.gestionusuarios.services.RegisterService;
@@ -9,6 +10,7 @@ import com.thejuniors.gestionusuarios.services.RegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,6 +31,11 @@ public class RegisterController {
     @GetMapping(value="/api/listaPaises", produces={"application/json"})
     public List<Pais> listarPaises(){
         return registerService.listaPaises();
+    }
+
+    @GetMapping(value="/api/listaCiudades/{paisNombre}", produces={"application/json"})
+    public List<Ciudad> listarCiudades(@PathVariable("paisNombre") String paisNombre){
+        return registerService.listaCiudades(paisNombre);
     }
 
 }

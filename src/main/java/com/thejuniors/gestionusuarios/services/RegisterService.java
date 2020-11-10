@@ -1,7 +1,7 @@
 package com.thejuniors.gestionusuarios.services;
 
 import com.thejuniors.gestionusuarios.model.Register;
-//import com.thejuniors.gestionusuarios.model.Ciudad;
+import com.thejuniors.gestionusuarios.model.Ciudad;
 import com.thejuniors.gestionusuarios.model.Pais;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class RegisterService {
         agregarCredenciales(register.getCI(), register.getNombreUsuario(), register.getPassword());
     }
 
-    // Metodo para traer la lista de paises
+    // Metodo para traer la lista de ciudades
     public List<Pais> listaPaises(){
         List<Pais> paises = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
@@ -68,8 +68,30 @@ public class RegisterService {
     }
 
     // Metodo para traer la lista de ciudades
-    public void listaCiudades(){
-
+    public List<Ciudad> listaCiudades(String paisNombre){
+        List<Ciudad> ciudades = jdbcTemplate.query(new PreparedStatementCreator(){
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps = con.prepareStatement("SELECT c.ciudadID, c.paisID, c.ciudadNombre FROM Ciudad c, Pais p WHERE p.paisNombre=? AND p.paisID=c.paisID");
+                ps.setString(1, paisNombre);
+                return ps;
+            }
+        }, new ResultSetExtractor <List<Ciudad>>(){
+            @Override
+            public List<Ciudad> extractData(ResultSet rs) throws SQLException {
+                List<Ciudad> ciudadLista = new ArrayList<>();
+                while (rs.next()){
+                    Ciudad ciudad = new Ciudad(rs.getInt("ciudadID"), rs.getInt("paisID"), rs.getString("ciudadNombre"));
+                    ciudadLista.add(ciudad);
+                } 
+                return ciudadLista;
+            }
+        });
+        if(ciudades != null){
+            return ciudades;
+        }else{
+            return null;
+        }
     }
 
     private void agregarTipo(String ci, Integer tipo, String motivo){

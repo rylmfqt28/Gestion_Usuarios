@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
-@CrossOrigin(origins = "*", methods = {RequestMethod.POST})
+@CrossOrigin(origins = "*", methods = {RequestMethod.POST, RequestMethod.GET})
 public class RegisterController {
     
     @Autowired

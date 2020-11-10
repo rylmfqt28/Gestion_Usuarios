@@ -63,7 +63,7 @@ const Login = () => {
     switch (rol) {
 
       case 'Administrador':
-        window.location.pathname = '/crearTipoUsuario';
+        window.location.pathname = '/home';
         sessionStorage.setItem("authToken", true);
         break;
       case '2':
@@ -168,7 +168,7 @@ const Login = () => {
               <Link
                 className="btn btn-outline-info my-2 my-sm-0"
                 type="submit"
-                to="/register"
+                to="/createAccount"
               >REGISTRARSE</Link>
             </div>
 
@@ -232,7 +232,7 @@ const Login = () => {
                 <button className="btn btn-primary" value="Login" onClick={loginSubmit} id="lsRememberMe">Iniciar sesión</button>
 
                 <div className="enlaceRegister">
-                  <a href="/register">
+                  <a href="/createAccount">
                     ¿Aún no tienes una cuenta? registrate aqui
                           </a>
 

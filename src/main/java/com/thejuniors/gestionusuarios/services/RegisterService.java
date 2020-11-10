@@ -13,10 +13,14 @@ public class RegisterService {
     private JdbcTemplate jdbcTemplate;
 
     public void agregarUsuario(Register register){
-
+        jdbcTemplate.update(
+            "INSERT INTO Usuario (CI, usuarioNombre, usuarioApellido, paisID, ciudadID, direccion, correo, telefono, genero VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?))", 
+            register.getCI(), register.getUsuarioNombre(), register.getUsuarioApellido(), register.getPaisID(), 
+            register.getCuidadID(), register.getDireccion(), register.getCorreo(), register.getTelefono(), register.getTelefono() 
+            );
     }
 
-    private void agregarTipo(String ci){
+    private void agregarTipo(String ci, String tipo){
 
     }
 
@@ -24,6 +28,6 @@ public class RegisterService {
 
     }
 
-    private void agregarCredenciales(){}
+    private void agregarCredenciales(String ci, String userName, String userPassword){}
     
 }

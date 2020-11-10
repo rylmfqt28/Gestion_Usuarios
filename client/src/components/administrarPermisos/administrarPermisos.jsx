@@ -199,14 +199,3 @@ class administrarPermisos extends Component{
     }
 }
 export default administrarPermisos
-{/*<div className = "row">
-                                <div className="col">
-                                    <label>Permisos Asignados </label>
-                                </div>
-                                <div className="col">
-                                    <select className="form-control form-control-sm" onChange={this.updateList}>
-                                        <option value =" " >{"---"}</option>
-                                        
-                                    </select>
-                                </div>
-                            </div> */}

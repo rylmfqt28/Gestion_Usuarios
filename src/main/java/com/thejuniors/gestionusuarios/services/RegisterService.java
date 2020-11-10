@@ -21,7 +21,12 @@ public class RegisterService {
         );
         
         agregarTipo(register.getCI(), register.getTipoUsuarioID(), register.getMotivo());
-        agregarEstado(register.getCI());
+        if(register.getTipoUsuarioID().equals("11")){
+            agregarEstado(register.getCI(), "1");
+        }else{
+            agregarEstado(register.getCI(), "4");
+        }
+        
         agregarCredenciales(register.getCI(), register.getNombreUsuario(), register.getPassword());
     }
 
@@ -32,8 +37,11 @@ public class RegisterService {
         );
     }
 
-    private void agregarEstado(String ci){
-
+    private void agregarEstado(String ci, String tipo){
+        jdbcTemplate.update(
+            "INSERT INTO UsuarioEstadoUsuario (tipoEstado, CI) VALUES (?, ?)", 
+            tipo, ci
+        );
     }
 
     private void agregarCredenciales(String ci, String userName, String userPassword){}

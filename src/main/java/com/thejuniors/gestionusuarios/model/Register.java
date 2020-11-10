@@ -24,7 +24,7 @@ public class Register {
     private String motivo = "";
 
     public Register(String usuarioNombre, String usuarioApellido, String cI, String genero, String paisID,
-            String cuidadID, String direccion, String correo, String telefono, String nombreUsuario, String password, String tipoUsuarioID) {
+            String cuidadID, String direccion, String correo, String telefono, String nombreUsuario, String password, String tipoUsuarioID, String motivo) {
         this.usuarioNombre = usuarioNombre;
         this.usuarioApellido = usuarioApellido;
         CI = cI;
@@ -37,6 +37,7 @@ public class Register {
         this.nombreUsuario = nombreUsuario;
         this.password = password;
         this.tipoUsuarioID = tipoUsuarioID;
+        this.motivo = motivo;
     }
 
     public String getUsuarioNombre() {

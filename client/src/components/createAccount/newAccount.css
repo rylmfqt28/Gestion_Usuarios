@@ -11,6 +11,10 @@
     background-color: rgb(245, 244, 243);
     
   }
+  .registerForm{
+    text-align: center;
+    
+  }
   
   .contenedor{
   
@@ -103,6 +107,7 @@
       padding: 50px 50px;
     }
 
+
     .solicitud-label {
         left: 30%;
         position: absolute;
@@ -119,4 +124,5 @@
         top: 43px;
       }
      
+
   }

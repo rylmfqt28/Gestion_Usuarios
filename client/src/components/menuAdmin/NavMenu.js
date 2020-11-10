@@ -42,7 +42,7 @@ const BarraMenu = props => {
                     </ul>
                 </div>
             </nav>
-            <script src="/MostarMenu.js"></script>
+        
         </div>
           
     );

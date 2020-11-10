@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from "react-router-dom"
-import logo from '../img/logo.png';
 
 import './Solicitudes.css';
 import PersonaService from '../../Service/PersonaService';

@@ -5,6 +5,7 @@
 	width: 218px;
     transition: all 0.5s;
     margin-right: 0;
+    
 }
 .menu{
 	list-style: none;
@@ -12,7 +13,7 @@
     margin: 0;
     z-index: 100;
     background:rgba(12, 12, 12, 0.411);;
-    border-radius: 2px;
+    border-radius: 3px;
 }
 
 .menu__link{
@@ -21,7 +22,7 @@
 	background:#008080;
 	text-decoration:none;
     color: white;
-    border-radius: 2px;
+    border-radius: 4px;
 
 }
 .menu__item{
@@ -36,13 +37,14 @@
     text-decoration:none;
 }
 .mostrar{
-    transition: all 1s;
+    
     right: 0;
     
 }
-#btn-menu{
+#btn-menu:hover{
     
     border-radius: 5px;
     border:  rgb(226, 229, 231) 1px solid;
     cursor: hand;
+    transition: all 0.5s;
 }

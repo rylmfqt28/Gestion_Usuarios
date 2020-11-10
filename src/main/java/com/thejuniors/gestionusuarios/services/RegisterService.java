@@ -12,6 +12,7 @@ public class RegisterService {
     @Autowired		
     private JdbcTemplate jdbcTemplate;
 
+    // Metodo para registrar nuevos usaurios
     public void agregarUsuario(Register register){
 
         jdbcTemplate.update(

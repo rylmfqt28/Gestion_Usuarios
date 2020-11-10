@@ -6,7 +6,6 @@ import{
 
 } from "react-router-dom"
 import Login from './components/login/Login';
-import Register from './components/register/Register';
 import Solicitudes from './components/solicitudes/Solicitudes';
 import crearTipoUsuario from './components/createTypeUser/crearTipoUsuario';
 import newAccount from './components/createAccount/newAccount';
@@ -25,10 +24,9 @@ class App extends Component{
       <Router>
         <Switch>
         <PublicRoute exact path="/" component={Login}/>
-        <PublicRoute path="/register" component={Register}/>
         <PrivateRoute path="/solicitudes" component={Solicitudes}/>
         <PrivateRoute path="/crearTipoUsuario" component={crearTipoUsuario}/>
-        <PrivateRoute path="/createAccount" component={newAccount}/>
+        <PublicRoute path="/createAccount" component={newAccount}/>
         </Switch>
       </Router>
     );

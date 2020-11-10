@@ -232,7 +232,7 @@ const Login = () => {
                 <button className="btn btn-primary" value="Login" onClick={loginSubmit} id="lsRememberMe">Iniciar sesión</button>
 
                 <div className="enlaceRegister">
-                  <a href="/register">
+                  <a href="/createAccount">
                     ¿Aún no tienes una cuenta? registrate aqui
                           </a>
 

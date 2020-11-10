@@ -102,7 +102,6 @@ class Solicitudes extends Component {
 
       <div>
         <NavMenu/>
-
         <div >
           <h1 align="center"> Solicitudes de personal </h1>
           <br></br>

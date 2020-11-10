@@ -17,11 +17,14 @@ public class Register {
     private String nombreUsuario;
     private String password;
 
+    // Tipo de usuario
+    private String tipoUsuarioID;
+
     // usuario no cliente
-    private String motivo;
+    private String motivo = "";
 
     public Register(String usuarioNombre, String usuarioApellido, String cI, String genero, String paisID,
-            String cuidadID, String direccion, String correo, String telefono, String nombreUsuario, String password) {
+            String cuidadID, String direccion, String correo, String telefono, String nombreUsuario, String password, String tipoUsuarioID) {
         this.usuarioNombre = usuarioNombre;
         this.usuarioApellido = usuarioApellido;
         CI = cI;
@@ -33,6 +36,7 @@ public class Register {
         this.telefono = telefono;
         this.nombreUsuario = nombreUsuario;
         this.password = password;
+        this.tipoUsuarioID = tipoUsuarioID;
     }
 
     public String getUsuarioNombre() {
@@ -129,6 +133,14 @@ public class Register {
 
     public String getMotivo() {
         return motivo;
+    }
+
+    public String getTipoUsuarioID() {
+        return tipoUsuarioID;
+    }
+
+    public void setTipoUsuarioID(String tipoUsuarioID) {
+        this.tipoUsuarioID = tipoUsuarioID;
     }
 
 }

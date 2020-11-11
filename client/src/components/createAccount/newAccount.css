@@ -102,7 +102,10 @@
     margin-left: 0;
     margin-right: 0;
     background-color: rgb(245, 244, 243);
+
+    
   }
+  
   
   .logo{
     padding: 50px 50px;
@@ -118,11 +121,17 @@
     }
 
   .selector{
-
       width: 22%;
       position: absolute;
       left: 45%;
       top: 43px;
+    }
+    .solicitud-label {
+      left: 30%;
+      position: absolute;
+      font-size: 1.2 rem;
+      font-weight: 400;
+      top: 40px;
     }
     .input:optional {
       border-color: gray;
@@ -134,13 +143,5 @@
       border-color: red;
     }
 
-    .ocultar {
-      display: none;
   }
-   
-  .mostrar {
-      display: block;
-  }
-    
-    
-}
+

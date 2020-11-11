@@ -143,7 +143,8 @@ return (
 
         
         <form>
-        <label>
+       
+         <label>
                 <div>
                 <b> Nombres:</b>
                 <input
@@ -200,9 +201,8 @@ return (
                       </label>
               <br />
               <div></div>
-              
 
-              <label className="radio" >
+              <label className="radio">
                 <b>Género:</b>  
                       </label>
               <input
@@ -240,25 +240,30 @@ return (
                 Otro
                       </label>
               <br />
+              
               <label> 
                 <div><b>Pais:</b> 
-              <select  className="imput" required
+                <select  className="imput" required
                       >
                       <option value ="" >Seleccione una opción</option>
                       <option value ="1" >{"---"}</option>
                       <option value ="2" >{"----"}</option>
                       
                       </select></div>
+                
               </label>
               <br />
               
-              <label> <div><b>Ciudad:</b> 
-              <select  className="imput" required
+              <label> 
+              <div>
+                <b>Ciudad:</b> 
+                <select  className="imput" required
                       >
                       <option value ="" >Seleccione una opción</option>
                       <option value ="1" >{"---"}</option>
                       <option value ="2" >{"----"}</option>
                       </select></div>
+                
               </label>
               <br />
               
@@ -274,8 +279,9 @@ return (
                 maxLength="250"
                 required
               />
-              </div>
-                      </label>
+                </div>
+                
+              </label>
               <br />
               
               <label>
@@ -288,11 +294,10 @@ return (
                 minLength="3"
                 placeholder="Ingrese su dirección de correo"
                 name="correo"
-                pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
                 required
               />
-              </div>
-                      </label>
+                </div>
+              </label>
               <br />
               
               <label>
@@ -306,9 +311,10 @@ return (
                 name="telefono"
                 maxLength="8"
                 required
-              />
-              </div>
-                      </label>
+               />
+                </div>
+                
+                </label>
               <br />
               
               <label>
@@ -341,54 +347,55 @@ return (
                   })
               }
               />
-              </div>
+                </div>
+                
                       </label>
               <br />
               
               <label> 
-                <div><b>Tipo de usuario:</b> 
-              <select  className="imput" required
+                <div>
+                <b>Tipo de usuario:</b> 
+                <select  className="imput" required
                       >
                       <option value ="" >Seleccione una opción</option>
                       <option value ="1" >{"---"}</option>
                       <option value ="2" >{"----"}</option>
                       
                       </select>
-                      </div>
+
+                </div>
+                
               </label>
               <br />
-              <label >
+              <label>
                 <div>
                 <b>Contraseña:</b>
                 <input
                 type="password"
                 className="imput"
-                id="password"
                 size="60"
                 placeholder="Ingrese su contraseña"
-                name="clave1"
+                name="password"
                 minLength="8"
                 required
               />
-              </div>
+                </div>
+                
                       </label>
               <br />
               
-              <label >
-                <div>
-                <b>Confirmar contraseña:</b>
+              <label>
+                <div><b>Confirmar contraseña:</b>
                 <input
                 type="password"
                 className="imput"
-                id="password2"
                 size="60"
                 placeholder="Confirme su contraseña"
-                name="clave2"
+                name="conf-password"
                 minLength="8"
                 required
-              />
-              </div>
-                      </label>
+              /></div>
+              </label>
               <br />
   
                   <div className="checkbox-confirmar">
@@ -404,9 +411,12 @@ return (
                   <div>
              
                   <button className="btn btn-cancelar" value="Login" type="reset" onClick={restartForm} href="/" >Cancelar</button>
+
                   <button className="btn btn-aceptar " value="Login" >Registrar</button>
                   </div>
                   
+
+
         </form>
         
       </div>
@@ -415,6 +425,8 @@ return (
 
   </Fragment>
 
+
 );
 }
+
 export default NewAccount;

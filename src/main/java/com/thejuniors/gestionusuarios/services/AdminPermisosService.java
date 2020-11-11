@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Component;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class AdminPermisosService {
     
     @Autowired		
@@ -24,7 +26,7 @@ public class AdminPermisosService {
         List<Permisos> permisos = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement("SELECT permisosId, nombrePermiso, permisoDescripcion FROM Permisos");
+                PreparedStatement ps = con.prepareStatement("SELECT permisoId, nombrePermiso, permisoDescripcion FROM Permisos");
                 return ps;
             }
         }, new ResultSetExtractor <List<Permisos>>(){

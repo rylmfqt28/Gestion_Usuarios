@@ -21,7 +21,7 @@ const BarraMenu = props => {
     return (
         <div className="barraNav">
             <nav className="navbar navbar-light justify-content-between">
-                <a className="navbar-brand" href="/crearTipoUsuario">
+                <a className="navbar-brand" href="/home">
                     <img className="logo" src={logo} height="35" alt="logo" />
                 </a>
                 <a className="nav-menu" id="btn-menu"  onClick={mostrarMenu}>

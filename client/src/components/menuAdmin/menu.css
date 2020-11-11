@@ -2,7 +2,7 @@
 .nav{
 	position: absolute;
 	top: 62px;
-	right: -100%;
+	right: -230px;
 	width: 227px;
     transition: all 0.5s;
     margin-right: 0;

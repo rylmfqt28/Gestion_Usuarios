@@ -11,22 +11,23 @@ class Home extends Component {
             user: {},
 
         }
-        //this.updateList = this.updateList.bind(this)
+        
     }
     componentDidMount() {
-        //console.log(sessionStorage.getItem("ci"));
-        //console.log(ciAdmin);
-    //PersonaService.getUser(ciAdmin).then(data => this.setState({ Usuarios: data }));
-    //console.log(this.state.user.nombre);
+
+    PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
+    
+    console.log(this.state.Usuarios.nombre);
     }
     render() {
+        const Usuarios = this.state.Usuarios;
         return (
             <div>
                 <NavMenu />
                 <br />
                 <div className='bienvenida'>
                     <h2>Usuario Administrador</h2>
-                    <h3>Bienvenido: {} {}</h3>
+                    <h3>Bienvenido: {Usuarios.nombre} {Usuarios.apellido}</h3>
                 </div>
 
             </div>

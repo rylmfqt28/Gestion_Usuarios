@@ -79,7 +79,7 @@ const {nombre,apellido,ci,genero,pais, ciudad, direccion, correo,telefono,userNa
       }
 
       if(datosRegistro.ci.length!==9){
-          setDatosRegistro({
+          setDatosRegistro({  
               ...datosRegistro,
               [event.target.name]: event.target.value + tecla
           });

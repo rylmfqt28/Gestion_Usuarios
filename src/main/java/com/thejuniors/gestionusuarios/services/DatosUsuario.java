@@ -31,7 +31,7 @@ public class DatosUsuario{
         return userdao.findAll();
     }
 
-    @GetMapping("obtener/{ci}")
+    @GetMapping("/obtener/{ci}")
     public @ResponseBody Optional<Usuario> obtener(@PathVariable("ci") String ci) {
         return userdao.findById(ci);
     }

@@ -9,6 +9,7 @@ const BarraMenu = props => {
 
     const salir = () => {
         sessionStorage.removeItem("authToken");
+        sessionStorage.removeItem("ci");
     }
     const mostrarMenu=()=> {
         var btnMenu = document.getElementById('btn-menu');

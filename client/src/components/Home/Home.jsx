@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import NavMenu from '../menuAdmin/NavMenu';
 import PersonaService from '../../Service/PersonaService';
+import './Home.css';
 
 class Home extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            Usuarios: [],
-            user: {},
+            Usuarios: []
 
         }
         
@@ -16,8 +16,6 @@ class Home extends Component {
     componentDidMount() {
 
     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
-    
-    console.log(this.state.Usuarios.nombre);
     }
     render() {
         const Usuarios = this.state.Usuarios;
@@ -26,8 +24,8 @@ class Home extends Component {
                 <NavMenu />
                 <br />
                 <div className='bienvenida'>
-                    <h2>Usuario Administrador</h2>
-                    <h3>Bienvenido: {Usuarios.nombre} {Usuarios.apellido}</h3>
+                    <h1><b>Usuario Administrador</b></h1>
+                    <h2>Bienvenido: {Usuarios.nombre} {Usuarios.apellido}</h2>
                 </div>
 
             </div>

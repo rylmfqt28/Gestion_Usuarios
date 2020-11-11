@@ -1,5 +1,5 @@
 import React from "react";
-import '../menuAdmin/menu.css';
+import './menu.css';
 
 import logo from '../img/logo.png';
 import menu from '../img/menu.png';
@@ -12,7 +12,7 @@ const BarraMenu = props => {
         sessionStorage.removeItem("ci");
     }
     const mostrarMenu=()=> {
-        var btnMenu = document.getElementById('btn-menu');
+        //var btnMenu = document.getElementById('btn-menu');
         var nav = document.getElementById('nav');
         nav.classList.toggle('mostrar');
 

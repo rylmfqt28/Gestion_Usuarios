@@ -157,7 +157,7 @@ return (
                 onKeyDown={handleDeleteKey}
                
                 value={nombre}
-                
+                required
                             
                 />
                 </div>
@@ -177,6 +177,7 @@ return (
                 onKeyPress={validar}
                 onKeyDown={handleDeleteKey}
                 value={apellido}
+                required
                 />
                 </div>
                
@@ -194,6 +195,7 @@ return (
                 onKeyPress={validar}
                 onKeyDown={handleDeleteKey}
                 value={ci}
+                required
                 
               />
                       </label>
@@ -208,6 +210,7 @@ return (
                 id="male"
                 name="gender"
                 value="male"
+                required
                 
               />
               <label for="male" className="radio">
@@ -219,6 +222,7 @@ return (
                 id="female"
                 name="gender"
                 value="female"
+                required
               />
               <label for="female" className="radio">
                 Femenino
@@ -230,6 +234,7 @@ return (
                 className="radioButton"
                 name="gender"
                 value="other"
+                required
               />
               <label for="other" className="radio">
                 Otro
@@ -238,9 +243,11 @@ return (
               
               <label> 
                 <div><b>Pais:</b> 
-                <select  className="imput" 
+                <select  className="imput" required
                       >
-                      <option value =" " >{"---"}</option>
+                      <option value ="" >Seleccione una opción</option>
+                      <option value ="1" >{"---"}</option>
+                      <option value ="2" >{"----"}</option>
                       
                       </select></div>
                 
@@ -250,10 +257,11 @@ return (
               <label> 
               <div>
                 <b>Ciudad:</b> 
-              <select  className="imput" 
+                <select  className="imput" required
                       >
-                      <option value =" " >{"---"}</option>
-                      
+                      <option value ="" >Seleccione una opción</option>
+                      <option value ="1" >{"---"}</option>
+                      <option value ="2" >{"----"}</option>
                       </select></div>
                 
               </label>
@@ -269,6 +277,7 @@ return (
                 placeholder="Ingrese su dirección"
                 name="direccion"
                 maxLength="250"
+                required
               />
                 </div>
                 
@@ -285,6 +294,7 @@ return (
                 minLength="3"
                 placeholder="Ingrese su dirección de correo"
                 name="correo"
+                required
               />
                 </div>
               </label>
@@ -300,6 +310,7 @@ return (
                 placeholder="Ingrese su número telefónico"
                 name="telefono"
                 maxLength="8"
+                required
                />
                 </div>
                 
@@ -317,6 +328,7 @@ return (
                 name="nombres"
                 minLength="5"
                 maxLength="15"
+                required
                 ref={
                   register({
                       required: {
@@ -343,9 +355,11 @@ return (
               <label> 
                 <div>
                 <b>Tipo de usuario:</b> 
-                <select  className="imput" 
+                <select  className="imput" required
                       >
-                      <option value =" " >{"---"}</option>
+                      <option value ="" >Seleccione una opción</option>
+                      <option value ="1" >{"---"}</option>
+                      <option value ="2" >{"----"}</option>
                       
                       </select>
 
@@ -363,6 +377,7 @@ return (
                 placeholder="Ingrese su contraseña"
                 name="password"
                 minLength="8"
+                required
               />
                 </div>
                 
@@ -378,13 +393,14 @@ return (
                 placeholder="Confirme su contraseña"
                 name="conf-password"
                 minLength="8"
+                required
               /></div>
               </label>
               <br />
   
                   <div className="checkbox-confirmar">
 
-                  <input type="checkbox" name="aceppt" value=""/>  <label>
+                  <input type="checkbox" name="aceppt" required value=""/>  <label>
                   <b>acepto los</b> 
                   <a href="/register">
                    <b>Términos y condiciones</b>

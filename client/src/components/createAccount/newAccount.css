@@ -1,128 +1,147 @@
 .containerPrincipal {
   
-    position: absolute;
+  position: absolute;
+  
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(124, 210, 250, 0.623);
+  padding:  50px;
+  margin-top: 25px;
+  background-color: rgb(245, 244, 243);
+  
+}
+.registerForm{
+  text-align: center;
+  
+}
+
+.contenedor{
+
+  text-align: right;
+  margin-top: 10px;
+  margin-right: 500px;
+
+}
+
+.title-inicio{
+  font-size:larger;
+  color:rgb(2, 129, 146);;
+}
+
+.checkbox-confirmar{
+  font-size: small;
+  margin-right: 120px;
+}
+.imput{
+  text-align: center;
+  margin-left: 10px;
+  display: inline-block;
+  width: 350px;
     
+}
+.radio{
+  margin-right: 37px;
+}
+
+.navbar-light{
+  background-color:rgb(2, 129, 146);
+  text-decoration-color: aliceblue;
+}
+.btn-aceptar{
+
+  background-color:rgb(245, 244, 243);
+  margin-right: 30px;
+  border-color: rgba(2, 2, 2, 0.623);
+  width: 200px;
+}
+.btn-cancelar{
+  background-color:rgb(2, 129, 146);
+  border-color: rgba(124, 210, 250, 0.623);
+  width: 200px;
+  margin-right: 10px;
+  color: white;
+}
+.btn-cancelar:hover {
+  background: rgb(0, 174, 255);
+  border-color: rgba(124, 210, 250, 0.623);
+  color:white
+}
+.btn-cancelar:active {
+  background: rgb(2, 173, 185);
+  border-color: rgba(124, 210, 250, 0.623);
+  color:white
+}
+#avisoValido{
+  display: none;
+}
+#avisoVacio{
+  display: none;
+}
+#avisoNo{
+  display: none;
+}
+#avisoPendiente{
+  display: none;
+}
+#avisoReachazado{
+  display: none;
+}
+#avisoDeshabilitado{
+  display: none;
+}
+@media(max-width:360px){
+  .containerPrincipal {
+    width: 80%;
+    position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     border: 2px solid rgba(124, 210, 250, 0.623);
-    padding:  50px;
-    margin-top: 25px;
+    padding:  20px;
+    margin-left: 0;
+    margin-right: 0;
     background-color: rgb(245, 244, 243);
-    
-  }
-  .registerForm{
-    text-align: center;
+
     
   }
   
-  .contenedor{
   
-    text-align: right;
-    margin-top: 10px;
-    margin-right: 500px;
-  
+  .logo{
+    padding: 50px 50px;
   }
-  
-  .title-inicio{
-    font-size:larger;
-    color:rgb(2, 129, 146);;
-  }
-  
-  .checkbox-confirmar{
-    font-size: small;
-    margin-right: 120px;
-  }
-  .imput{
-    text-align: center;
-    margin-left: 10px;
-    display: inline-block;
-      width: 350px;
-  }
-  .radio{
-    margin-right: 37px;
-  }
-  
-  .navbar-light{
-    background-color:rgb(2, 129, 146);
-    text-decoration-color: aliceblue;
-  }
-  .btn-aceptar{
-  
-    background-color:rgb(245, 244, 243);
-    margin-right: 30px;
-    border-color: rgba(2, 2, 2, 0.623);
-    width: 200px;
-  }
-  .btn-cancelar{
-    background-color:rgb(2, 129, 146);
-    border-color: rgba(124, 210, 250, 0.623);
-    width: 200px;
-    margin-right: 10px;
-    color: white;
-  }
-  .btn-cancelar:hover {
-    background: rgb(0, 174, 255);
-    border-color: rgba(124, 210, 250, 0.623);
-    color:white
-  }
-  .btn-cancelar:active {
-    background: rgb(2, 173, 185);
-    border-color: rgba(124, 210, 250, 0.623);
-    color:white
-  }
-  #avisoValido{
-    display: none;
-  }
-  #avisoVacio{
-    display: none;
-  }
-  #avisoNo{
-    display: none;
-  }
-  #avisoPendiente{
-    display: none;
-  }
-  #avisoReachazado{
-    display: none;
-  }
-  #avisoDeshabilitado{
-    display: none;
-  }
-  @media(max-width:360px){
-    .containerPrincipal {
-      width: 80%;
+
+
+  .solicitud-label {
+      left: 30%;
       position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      border: 2px solid rgba(124, 210, 250, 0.623);
-      padding:  20px;
-      margin-left: 0;
-      margin-right: 0;
-      background-color: rgb(245, 244, 243);
-    }
-    
-    .logo{
-      padding: 50px 50px;
+      font-size: 1.2 rem;
+      font-weight: 400;
+      top: 40px;
     }
 
-
+  .selector{
+      width: 22%;
+      position: absolute;
+      left: 45%;
+      top: 43px;
+    }
     .solicitud-label {
-        left: 30%;
-        position: absolute;
-        font-size: 1.2 rem;
-        font-weight: 400;
-        top: 40px;
-      }
-
-    .selector{
-
-        width: 22%;
-        position: absolute;
-        left: 45%;
-        top: 43px;
-      }
-     
+      left: 30%;
+      position: absolute;
+      font-size: 1.2 rem;
+      font-weight: 400;
+      top: 40px;
+    }
+    .input:optional {
+      border-color: gray;
+    }
+    .input:required:valid {
+      border-color: green;
+    }
+    .input:invalid {
+      border-color: red;
+    }
 
   }
+

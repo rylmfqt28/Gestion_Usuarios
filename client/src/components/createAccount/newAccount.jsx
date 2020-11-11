@@ -404,7 +404,6 @@ return (
                   <div>
              
                   <button className="btn btn-cancelar" value="Login" type="reset" onClick={restartForm} href="/" >Cancelar</button>
-
                   <button className="btn btn-aceptar " value="Login" >Registrar</button>
                   </div>
                   
@@ -415,7 +414,6 @@ return (
   </div>
 
   </Fragment>
-
 
 );
 }

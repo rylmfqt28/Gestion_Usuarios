@@ -52,6 +52,7 @@ const {nombre,apellido,ci,genero,pais, ciudad, direccion, correo,telefono,userNa
       let key = event.keyCode || event.which;
       let tecla = String.fromCharCode(key);
       let letras = " áéíóúñÑ";
+      let letrasContraseña="áéíóúñÑ*";
       let numeros = "1234567890"
       if (datosRegistro.nombre.length !== 50) {
           console.log('llego malditod');
@@ -77,17 +78,70 @@ const {nombre,apellido,ci,genero,pais, ciudad, direccion, correo,telefono,userNa
       } else {
           alert('El maximo de caracteres es de 50');
       }
+      // validacion nombre de usuario
+      if (datosRegistro.userName.length !== 15) {
+        console.log('llego malditod');
+        if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+            setDatosRegistro({
+                ...datosRegistro,
+                [event.target.name]: event.target.value + tecla
+            });
+        }
+    } else {
+        alert('El maximo de caracteres es de 50');
+    }
+      //validacion contraseña
+      if (datosRegistro.password.length !== 20) {
+        console.log('llego malditod');
+        if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+            setDatosRegistro({
+                ...datosRegistro,
+                [event.target.name]: event.target.value + tecla
+            });
+        }
+    } else {
+        alert('Minimo 8 caracteres');
+    }
 
-      if(datosRegistro.ci.length!==9){
-          setDatosRegistro({
-              ...datosRegistro,
-              [event.target.name]: event.target.value + tecla
-          });
-      }else{
-        alert('El maximo de numeros es de 9')
-      }
+
+      
   }
-  
+  const validarNumeros =(event)=>{
+    let key = event.keyCode || event.which;
+    let tecla = String.fromCharCode(key);
+    if(datosRegistro.ci.length!==9){
+      if(datosRegistro.ci.length<=7){
+        setDatosRegistro({  
+            ...datosRegistro,
+            [event.target.name]: event.target.value + tecla
+        });
+      }else{
+      alert('El minimo de digitos en el campo es de 7')
+      }
+    
+      setDatosRegistro({  
+          ...datosRegistro,
+          [event.target.name]: event.target.value + tecla
+      });
+    }else{
+    alert('El maximo de digitos en el campo es de 9')
+    }
+    
+
+  }
+  const validarTelefono =(event)=>{
+    let key = event.keyCode || event.which;
+    let tecla = String.fromCharCode(key);
+    if(datosRegistro.telefono.length!==8){
+      
+        setDatosRegistro({  
+            ...datosRegistro,
+            [event.target.name]: event.target.value + tecla
+        });    
+      }else{
+        alert('El maximo de digitos en el campo es de 8')
+        }
+}
   const handleDeleteKey = (event) => {
         
     let key = event.keyCode || event.which;
@@ -115,7 +169,36 @@ const {nombre,apellido,ci,genero,pais, ciudad, direccion, correo,telefono,userNa
           [event.target.name]: nuevo
       });
 
-  }
+    }
+      //borra campo telefono
+    if (datosRegistro.telefono.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = datosRegistro.telefono.substring(0, datosRegistro.telefono.length - 1);
+      setDatosRegistro({
+          ...datosRegistro,
+          [event.target.name]: nuevo
+      });
+
+    }
+
+      //borra campo nombre de usuario
+      if (datosRegistro.userName.length !== 0 && (key === 8 || key === 127)) {
+        let nuevo = datosRegistro.userName.substring(0, datosRegistro.userName.length - 1);
+        setDatosRegistro({
+            ...datosRegistro,
+            [event.target.name]: nuevo
+        });
+  
+      }
+      //borra campo contraseña
+      if (datosRegistro.password.length !== 0 && (key === 8 || key === 127)) {
+        let nuevo = datosRegistro.password.substring(0, datosRegistro.password.length - 1);
+        setDatosRegistro({
+            ...datosRegistro,
+            [event.target.name]: nuevo
+        });
+  
+      }
+
 }
  
 
@@ -191,8 +274,15 @@ return (
                 size="60"
                 placeholder="Ingrese su cédula de identidad"
                 name="ci"
-                max="9"
-                onKeyPress={validar}
+                
+                ref={
+                  register({
+                      max: {
+                          value: 7, message: 'son 7 digitos como minimo'
+                      }
+                    })
+                  }
+                onKeyPress={validarNumeros}
                 onKeyDown={handleDeleteKey}
                 value={ci}
                 required
@@ -311,6 +401,9 @@ return (
                 name="telefono"
                 maxLength="8"
                 required
+                onKeyPress={validarTelefono}
+                onKeyDown={handleDeleteKey}
+                value={telefono}
                />
                 </div>
                 
@@ -325,27 +418,14 @@ return (
                 className="imput"
                 size="60"
                 placeholder="Ingrese su nombre de usuario"
-                name="nombres"
+                name="userName"
                 minLength="5"
                 maxLength="15"
+                onKeyPress={validar}
+                onKeyDown={handleDeleteKey}
+                value={userName}
                 required
-                ref={
-                  register({
-                      required: {
-                          value: true, message: 'Ingrese Tipo de Usuario'
-                      },
-                      maxLength: {
-                          value: 20,
-                          message: 'No más de 20 carácteres!'
-                      },
-                      minLength: {
-                          value: 5,
-                          message: 'Mínimo 5 carácteres'
-
-                      },
-
-                  })
-              }
+              
               />
                 </div>
                 
@@ -378,7 +458,10 @@ return (
                 name="password"
                 minLength="8"
                 required
-              />
+              /*  onClick={validar}
+                onKeyDown={handleDeleteKey}
+                value={password}
+              *//>
                 </div>
                 
                       </label>

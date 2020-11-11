@@ -52,7 +52,7 @@ public class AdminPermisosService {
         List<Permisos> permisos = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement("SELECT p.permisoId, p.nombrePermiso, p.permisoDescripcion FROM Permisos p, UsuarioPermisos up, TipoUsuario tp WHERE tp.tipoUsuarioNombre=? AND tp.tipoUsuarioID=up.tipoUsuarioID");
+                PreparedStatement ps = con.prepareStatement("SELECT p.permisoId, p.nombrePermiso, p.permisoDescripcion FROM Permisos p, UsuarioPermisos up, TipoUsuario tp WHERE tp.tipoUsuarioNombre=? AND tp.tipoUsuarioID=up.tipoUsuarioID AND p.permisoId=up.permisoId");
                 ps.setString(1, tipoUsuarioNombre);
                 return ps;
             }

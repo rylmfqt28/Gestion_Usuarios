@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 //import org.springframework.web.bind.annotation.RequestBody;
@@ -22,6 +23,11 @@ public class AdminPermisosController {
     @GetMapping(value="/api/listarPermisos", produces={"application/json"})
     public List<Permisos> listarPermisos(){
         return adminPermiso.listaPermisos();
+    }
+
+    @GetMapping(value="/api/listarPermisosUsuario/{tipoUsuarioNombre}", produces={"application/json"})
+    public List<Permisos> listarPermisosUsuario(@PathVariable("tipoUsuarioNombre") String tipoUsuarioNombre){
+        return adminPermiso.listaPermisosUsaurio(tipoUsuarioNombre.replace("+", " "));
     }
 
 }

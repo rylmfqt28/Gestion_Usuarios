@@ -47,4 +47,31 @@ public class AdminPermisosService {
         }
     }
 
+    // Lista de permisos asignados a un tipo de usuario solicitado
+    public List<Permisos> listaPermisosUsaurio(String tipoUsuarioNombre){
+        List<Permisos> permisos = jdbcTemplate.query(new PreparedStatementCreator(){
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps = con.prepareStatement("SELECT p.permisoId, p.nombrePermiso, p.permisoDescripcion FROM Permisos p, UsuarioPermisos up, TipoUsuario tp WHERE tp.tipoUsuarioNombre=? AND tp.tipoUsuarioID=up.tipoUsuarioID");
+                ps.setString(1, tipoUsuarioNombre);
+                return ps;
+            }
+        }, new ResultSetExtractor <List<Permisos>>(){
+            @Override
+            public List<Permisos> extractData(ResultSet rs) throws SQLException {
+                List<Permisos> permisosLista = new ArrayList<>();
+                while (rs.next()){
+                    Permisos permisos = new Permisos(rs.getInt("permisoId"), rs.getString("nombrePermiso"), rs.getString("permisoDescripcion"));
+                    permisosLista.add(permisos);
+                } 
+                return permisosLista;
+            }
+        });
+        if(permisos != null){
+            return permisos;
+        }else{
+            return null;
+        }
+    }
+
 }

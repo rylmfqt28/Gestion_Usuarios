@@ -4,6 +4,7 @@ import './newAccount.css'
 import { Link } from "react-router-dom"
 import axios from 'axios';
 import logo from '../img/logo.png';
+import ModalSolicitudC from './ModalSolicitudC';
 import { useForm } from 'react-hook-form';
 //import handleDeleteKey from './validacionesNewAccount';
 //import ValidacionesNewAccount from './validacionesNewAccount';
@@ -436,13 +437,14 @@ return (
                 <div>
                 <b>Tipo de usuario:</b> 
                 <select  className="imput" required
-                      >
-                      <option value ="" >Seleccione una opción</option>
-                      <option value ="1" >{"---"}</option>
-                      <option value ="2" >{"----"}</option>
-                      
-                      </select>
-
+                      data-toggle="modal"
+                      data-target="#TipoUserData"
+                       onChange={""}  >
+                      <option value ="1" >{"Administrador"}</option>
+                      <option value ="2" >{"Delivery"}</option>
+                   
+       
+                 </select>
                 </div>
                 
               </label>
@@ -496,12 +498,24 @@ return (
                   <button className="btn btn-cancelar" value="Login" type="reset" onClick={restartForm} href="/" >Cancelar</button>
 
                   <button className="btn btn-aceptar " value="Login" >Registrar</button>
+          
                   </div>
                   
 
 
         </form>
-        
+        <ModalSolicitudC
+            ci= {"33"}
+            usuarioNombre = {"JOSE"}
+            usuarioApellido = {"ALF"}
+            paisID={"BOL"}
+            ciudadID={"CBBA"}
+            correo = {"JAAA"}
+            telefono={"5656"}
+            tipoUsuario = {"AA"}
+            nombreUsuario = {"DD"}
+            motivo = {"AA"}
+        />
       </div>
 
   </div>

@@ -11,9 +11,13 @@ class Home extends Component {
             user: {},
 
         }
+        //this.updateList = this.updateList.bind(this)
     }
     componentDidMount() {
-    PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data }));
+        //console.log(sessionStorage.getItem("ci"));
+        //console.log(ciAdmin);
+    //PersonaService.getUser(ciAdmin).then(data => this.setState({ Usuarios: data }));
+    //console.log(this.state.user.nombre);
     }
     render() {
         return (
@@ -22,7 +26,7 @@ class Home extends Component {
                 <br />
                 <div className='bienvenida'>
                     <h2>Usuario Administrador</h2>
-                    <h3>Bienvenido:{sessionStorage.getItem("ci")}</h3>
+                    <h3>Bienvenido: {} {}</h3>
                 </div>
 
             </div>

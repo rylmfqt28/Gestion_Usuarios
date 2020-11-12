@@ -7,6 +7,9 @@ class ModalEditarPermiso extends Component{
                 nombre:"titulo",
                 descripcion:"descripcion"         
         }
+        this.handleSave=this.handleSave.bind(this)
+        this.nombreHandler=this.nombreHandler.bind(this)
+        this.handleDeleteKey=this.handleDeleteKey.bind(this) 
     }
 
     componentWillReceiveProps(nextProps){
@@ -33,7 +36,7 @@ class ModalEditarPermiso extends Component{
         console.log(tecla)
         if (this.state.nombre.length !== 20 || (key === 8)) {
             console.log('llego malditod');
-            if ((key === 8)||(key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
+            if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
                 this.setState({nombre: e.target.value+tecla})
             }
         } else {
@@ -78,8 +81,8 @@ class ModalEditarPermiso extends Component{
                         <div className="modal-body" id="Cuerpo">
                             <div className="row justify-content-md-center">
                                 <div className="col-9">
-                                    <p><input className="form-control text-center" value={this.state.nombre}></input></p>
-                                    <textarea className="form-control" id="textoArea" aria-label="With textarea" value={this.state.descripcion}></textarea>
+                                    <p><input className="form-control text-center" value={this.state.nombre} onKeyDownCapture={(e)=>this.handleDeleteKey(e)} onKeyPress={(e)=>this.nombreHandler(e)}></input></p>
+                                    <textarea className="form-control" id="textoArea" aria-label="With textarea" value={this.state.descripcion} onChange={(e)=>this.descripcionHandler(e)}></textarea>
                                 </div>
                             </div>
                         </div>

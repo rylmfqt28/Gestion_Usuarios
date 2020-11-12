@@ -8,15 +8,18 @@ import logo from '../img/logo.png';
 
 
 
-var timeout = setTimeout(function(){  
-                                     
-              localStorage.clear()}, 300000);
+
+var timeout = setTimeout(function () {
+
+  localStorage.clear()
+}, 300000);
 
 window.onload = timeout;
 
 const Login = () => {
 
   const [datos, setDatos] = useState({
+    CI:'',
     username: '',
     password: '',
     isChecked: false,
@@ -32,37 +35,43 @@ const Login = () => {
   const onChangeCheckbox = event => {
     setDatos({
       ...datos,
-        isChecked: event.target.checked
+      isChecked: event.target.checked
     })
-}
-  
-   const componentDidMount = () => {
-  if (localStorage.checkbox && localStorage.username !== "") {
-    setDatos({
-      ...datos,
-          isChecked: true,
-          username: localStorage.username,
-          password: localStorage.password
-      })
   }
-}
+
+  const componentDidMount = () => {
+    if (localStorage.checkbox && localStorage.username !== "") {
+      setDatos({
+        ...datos,
+        isChecked: true,
+        username: localStorage.username,
+        password: localStorage.password
+      })
+    }
+  }
 
   const loginSubmit = () => {
-  const { username, password, isChecked } = datos
-  if (isChecked && username !== "") {
+    const { username, password, isChecked } = datos
+    if (isChecked && username !== "") {
       localStorage.username = username
       localStorage.password = password
       localStorage.checkbox = isChecked
+    }
+    // here call the API to signup/login
   }
-  // here call the API to signup/login
-}
 
   //funcion que permite direccionear
   function ingersar(rol) {
-    
+
     switch (rol) {
 
       case 'Administrador':
+
+        /*<Home
+        CI= {this.datos.CI}
+         
+        />*/
+        sessionStorage.setItem("ci", datos.CI);
         window.location.pathname = '/home';
         sessionStorage.setItem("authToken", true);
         break;
@@ -78,16 +87,17 @@ const Login = () => {
 
   }
   const startButtonEvent = async (event) => {
-    
+
     event.preventDefault();
 
     if (datos.username !== '' && datos.password !== '') {
       const res = await axios.get('/api/user/' + datos.username);
       if (res.data !== null) {
         if (res.data.nombreUsuario === datos.username && res.data.password === datos.password) {
-          console.log(res.data.nombreEstado);
-          if(res.data.nombreEstado === "Habilitado"){
+          
+          if (res.data.nombreEstado === "Habilitado") {
             //redireccionar a la pagina de crear usuario
+            datos.CI=res.data.CI;
             document.getElementById('avisoValido').style.display = "block";
             document.getElementById('avisoVacio').style.display = "none";
             document.getElementById('avisoNo').style.display = "none";
@@ -95,8 +105,9 @@ const Login = () => {
             document.getElementById('avisoReachazado').style.display = "none";
             document.getElementById('avisoDeshabilitado').style.display = "none";
             ingersar(res.data.tipoUsuarioNombre);
-          }else{
-            if(res.data.nombreEstado === "Pendiente"){
+          
+          } else {
+            if (res.data.nombreEstado === "Pendiente") {
               document.getElementById('avisoValido').style.display = "none";
               document.getElementById('avisoVacio').style.display = "none";
               document.getElementById('avisoNo').style.display = "none";
@@ -104,7 +115,7 @@ const Login = () => {
               document.getElementById('avisoReachazado').style.display = "none";
               document.getElementById('avisoDeshabilitado').style.display = "none";
             }
-            if(res.data.nombreEstado === "Deshabilitado"){
+            if (res.data.nombreEstado === "Deshabilitado") {
               document.getElementById('avisoValido').style.display = "none";
               document.getElementById('avisoVacio').style.display = "none";
               document.getElementById('avisoNo').style.display = "none";
@@ -112,7 +123,7 @@ const Login = () => {
               document.getElementById('avisoReachazado').style.display = "none";
               document.getElementById('avisoDeshabilitado').style.display = "block";
             }
-            if(res.data.nombreEstado === "Rechazado"){
+            if (res.data.nombreEstado === "Rechazado") {
               document.getElementById('avisoValido').style.display = "none";
               document.getElementById('avisoVacio').style.display = "none";
               document.getElementById('avisoNo').style.display = "none";
@@ -121,7 +132,7 @@ const Login = () => {
               document.getElementById('avisoDeshabilitado').style.display = "none";
             }
           }
-          
+
 
         } else {
           //Mensaje de "Cuenta de usuario no valida"
@@ -151,8 +162,8 @@ const Login = () => {
       document.getElementById('avisoDeshabilitado').style.display = "none";
     }
   }
-  
-  const { username, password, isChecked} = datos
+
+  const { CI, username, password, isChecked } = datos
 
   return (
     <Fragment>
@@ -162,7 +173,7 @@ const Login = () => {
           <nav className="navbar navbar-light justify-content-between">
             <a className="navbar-brand" href="/">
               <img className="logo" src={logo} height="35" alt="logo" />
-             </a>
+            </a>
 
             <div>
               <Link
@@ -223,7 +234,7 @@ const Login = () => {
                 <br />
                 <div className="checkbox">
 
-                  <input type="checkbox" checked={isChecked} onChange={onChangeCheckbox} name="IsRememberMe" value=""/>  <label>
+                  <input type="checkbox" checked={isChecked} onChange={onChangeCheckbox} name="IsRememberMe" value="" />  <label>
                     Recordar cuenta
                           </label>
 
@@ -246,7 +257,7 @@ const Login = () => {
                   <div id="avisoReachazado" className="alert alert-warning">Tu solicitud fue rechazada</div>
                   <div id="avisoDeshabilitado" className="alert alert-danger">Tu cuenta fue deshabilitada</div>
                 </div>
-              
+
               </div>
             </div>
           </form>

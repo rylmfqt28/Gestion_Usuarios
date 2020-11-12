@@ -9,7 +9,7 @@ import TipoUser from '../../Service/TipoUser';
 //import { data } from 'jquery';
 import NavMenu from '../menuAdmin/NavMenu'
 import { Link } from 'react-router-dom';
-
+import ModalCreatePermit from './ModalCreatePermit';
 
 
 class PageAuxiliar extends Component {
@@ -27,9 +27,18 @@ class PageAuxiliar extends Component {
             <div>
                 <NavMenu />
                 <br/>
-                <Link className="btn btn-primary">Crear Permiso</Link>
+                <Link 
+                className="btn btn-info col-sm-3"
+                data-toggle="modal"
+                data-target="#UserData"
+                >Crear Permiso</Link>
 
+                <div>
+                <ModalCreatePermit/>
+                </div>
+           
             </div>
+            
         )
     }
 

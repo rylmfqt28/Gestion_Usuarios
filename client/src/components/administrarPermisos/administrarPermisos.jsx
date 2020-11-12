@@ -147,6 +147,10 @@ class administrarPermisos extends Component{
                                 <div className="col">
                                     <select className="form-control form-control-sm" onChange={this.updateList}>
                                         <option value =" " >{"---"}</option>    
+                                        {this.state.TUsuarios.map((elemento,index) => (
+                                        <option key={index} value = {elemento.crearTipo}>
+                                            {elemento.crearTipo} 
+                                        </option> ))}
                                     </select>
                                 </div>
                             

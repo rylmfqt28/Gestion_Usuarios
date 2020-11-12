@@ -8,6 +8,60 @@ class ModalEditarPermiso extends Component{
                 descripcion:"descripcion"         
         }
     }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            nombre: nextProps.nombre,
+            descripcion: nextProps.descripcion,
+        });
+    }
+
+    handleDeleteKey(e){
+        let key = e.keyCode || e.which;
+        console.log(key)
+        if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
+            let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
+            console.log(nuevo)
+            this.setState({nombre: nuevo})
+        }
+    }
+
+    nombreHandler(e){
+        let key = e.keyCode || e.which;
+        let tecla = String.fromCharCode(key);
+        let letras = " áéíóúñÑ";
+        console.log(tecla)
+        if (this.state.nombre.length !== 20 || (key === 8)) {
+            console.log('llego malditod');
+            if ((key === 8)||(key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
+                this.setState({nombre: e.target.value+tecla})
+            }
+        } else {
+            alert('El maximo de caracteres es de 20');
+        }
+        /*if(!e.target.value){
+            console.log("este campo no debe estar vacio")
+        }
+        if(this.state.nombre.length != 20){ 
+            if(e.target.value.match("^[a-zA-Z ]*$")!=null){
+                this.setState({nombre: e.target.value})
+            }
+        }else{
+            alert("El maximo de caracteres es de 20")
+        }*/
+    }
+     
+    descripcionHandler(e){
+        this.setState({descripcion: e.target.value})
+    }
+
+    handleSave(){
+        if(this.state.validate){
+            const Permiso = this.state;
+            console.log(this.state.validate)
+            this.props.saveDetails(Permiso);
+        }
+    }
      
     render(){
         return(

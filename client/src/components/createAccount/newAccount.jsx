@@ -9,6 +9,7 @@ import RegistroService from '../../Service/RegistroService'
 import { Component } from 'react';
 //import handleDeleteKey from './validacionesNewAccount';
 //import ValidacionesNewAccount from './validacionesNewAccount';
+
 class NewAccount extends Component {
   constructor(props){
     super (props);
@@ -28,14 +29,10 @@ class NewAccount extends Component {
 
     }
 
+
   }
-
-
- 
-
-
-
      validarNombre = (event) => {
+
       let key = event.keyCode || event.which;
       let tecla = String.fromCharCode(key);
       let letras = " áéíóúñÑ";
@@ -65,8 +62,6 @@ class NewAccount extends Component {
       
   }
   
-
-
   validarApellido = (event) => {
     let key = event.keyCode || event.which;
       let tecla = String.fromCharCode(key);
@@ -123,7 +118,6 @@ if (this.state.userName.length !== 15) {
     }else{
     alert('El maximo de digitos en el campo es de 9')
     }
-    
 
   }
   validarTelefono =(event)=>{
@@ -187,6 +181,7 @@ if (this.state.userName.length !== 15) {
           [event.target.name]: nuevo
       });
 
+
     }
       //borra campo telefono
     if (this.state.telefono.length !== 0 && (key === 8 || key === 127)) {
@@ -249,7 +244,7 @@ render (){
         
 
       <div>
-      <h1 align="center"> Formulario de registro </h1>
+      <h1 align="center" className="titulo-registro"> Formulario de registro </h1>
       </div>
       <div className="contenedor">
 
@@ -262,7 +257,7 @@ render (){
                 <input
                 type="text"
                 class="imput"
-                size="60"
+                size="70"
                 placeholder="Ingrese sus nombres"
                 name="nombre"
                 onKeyPress={this.validarNombre}
@@ -482,8 +477,8 @@ render (){
                 size="60"
                 placeholder="Ingrese su contraseña"
                 name="password"
+                id="password"
                 minLength="8"
-               
                 required
                 
                 />
@@ -499,8 +494,11 @@ render (){
                 className="imput"
                 size="60"
                 placeholder="Confirme su contraseña"
-                name="conf-password"
+                name="confPassword"
+                id="confPassword"
                 minLength="8"
+                onBlur={this.validarContraseña}
+                /*onKeyDown={handleDeleteKey}*/
                 required
               /></div>
               </label>

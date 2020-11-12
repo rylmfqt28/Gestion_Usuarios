@@ -4,6 +4,7 @@ class PersonaService{
     baseUrl ="/persona"
     baseUrl2 ="/api/listaSolicitud"
     baseUrlPut="/api/cambio"
+    baseUrlUser="/api/admin"
 
 
     getAll(){
@@ -16,9 +17,9 @@ class PersonaService{
     putListaUser(CI,tipoEstado){
         return axios.put(this.baseUrlPut + "/"+CI+"/"+tipoEstado);
     }
-    /*getUser(String){
-        return axios.get(this.baseUrl + "/user/{id}",String).then(res =>res.data);
-    }*/
+    getUser(ci){
+        return axios.get(this.baseUrlUser + "/"+ci).then(res =>res.data);
+    }
 }
 
 export default new PersonaService()

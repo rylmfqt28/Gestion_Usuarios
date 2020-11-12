@@ -18,31 +18,42 @@
 
 .contenedor{
 
-  text-align: right;
-  margin-top: 10px;
+  text-align: left;
+  margin-top: 1px;
   margin-right: 500px;
+  position: absolute;
+  
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid rgba(124, 210, 250, 0.623);
+  padding:  50px;
+  margin-top: 300px;
+  background-color: rgb(245, 244, 243);
 
 }
 
-.title-inicio{
-  font-size:larger;
+.titulo-registro{
+  
   color:rgb(2, 129, 146);;
 }
 
 .checkbox-confirmar{
   font-size: small;
-  margin-right: 120px;
+  margin-left: 68px;
 }
 .imput{
   text-align: center;
-  margin-left: 10px;
+  margin-right: 10px;
   display: inline-block;
-  width: 350px;
+  width: 340px;
+  /*border-radius: 5px;
+  border: black;*/
     
 }
 
 .radio{
-  margin-right: 37px;
+  margin-left: 1px;
 }
 
 .navbar-light{
@@ -52,7 +63,7 @@
 .btn-aceptar{
 
   background-color:rgb(245, 244, 243);
-  margin-right: 30px;
+  margin-left: 75px;
   border-color: rgba(2, 2, 2, 0.623);
   width: 200px;
 }
@@ -60,7 +71,7 @@
   background-color:rgb(2, 129, 146);
   border-color: rgba(124, 210, 250, 0.623);
   width: 200px;
-  margin-right: 10px;
+  margin-left: 75px;
   color: white;
 }
 .btn-cancelar:hover {
@@ -92,7 +103,7 @@
   display: none;
 }
 @media(max-width:360px){
-  .containerPrincipal {
+  .contenedor {
     width: 80%;
     position: absolute;
     left: 50%;
@@ -127,22 +138,7 @@
       left: 45%;
       top: 43px;
     }
-    .solicitud-label {
-      left: 30%;
-      position: absolute;
-      font-size: 1.2 rem;
-      font-weight: 400;
-      top: 40px;
-    }
-    .input:optional {
-      border-color: gray;
-    }
-    .input:required:valid {
-      border-color: green;
-    }
-    .input:invalid {
-      border-color: red;
-    }
-
+    
+    
   }
 

@@ -11,25 +11,29 @@ import{faPlusCircle, faEdit, faTrashAlt, faMinusCircle} from '@fortawesome/free-
 import "./administrarPermisos.css";
 
 import NavMenu from '../menuAdmin/NavMenu'
+import AdminPermisosService from '../../Service/AdminPermisosService';
 
 
 class administrarPermisos extends Component{
     constructor(props){
         super(props);
         this.state = {
-            permisos: ["solicitud","administrar","listar","crear"],
-            permisosAsignados: ["solicitud","administrar","listar","crear"],
+            permisos: [],
+            permisosAsignados: [],
+
             TUsuarios: [],
             tipo: "",
         }
+        this.updateList = this.updateList.bind(this)
     }
     componentDidMount() {
         TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
-     
+        AdminPermisosService.getListaPermisos().then(data=>this.setState({permisos: data}))
     }
 
     updateList(e){
-        PersonaService.getTiposUser(e.target.value).then(data => this.setState({permisos: data}))
+        AdminPermisosService.getListaPermisosNoAsignados(e.target.value).then(data => this.setState({permisos: data}))
+        AdminPermisosService.getListaPermisosAsignados(e.target.value).then(data => this.setState({permisosAsignados: data}))
         console.log(e.target.value);
     }
 
@@ -39,7 +43,7 @@ class administrarPermisos extends Component{
           return (
             <tr key={index} >
     
-              <td>{Permiso}</td>
+              <td>{Permiso.nombrePermiso}</td>
     
               <td>
                 <button className="btn btn-default btn-sm">
@@ -66,7 +70,7 @@ class administrarPermisos extends Component{
             return (
               <tr key={index} >
       
-                <td>{PermisoA}</td>
+                <td>{PermisoA.nombrePermiso}</td>
       
                 <td>
                   <button className="btn btn-default btn-sm">
@@ -88,11 +92,7 @@ class administrarPermisos extends Component{
               </tr>
             )
           });
-    
           
-        const salir = () => {
-            sessionStorage.removeItem("authToken");
-        }
     
         return (
     

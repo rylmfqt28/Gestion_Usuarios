@@ -7,6 +7,7 @@ import logo from '../img/logo.png';
 import { useForm } from 'react-hook-form';
 //import handleDeleteKey from './validacionesNewAccount';
 //import ValidacionesNewAccount from './validacionesNewAccount';
+
 const NewAccount = () => {
 
 const [datosRegistro, setDatosRegistro] = useState({
@@ -20,7 +21,8 @@ const [datosRegistro, setDatosRegistro] = useState({
         correo: '',
         telefono: '', 
         userName: '',
-        password: ''  
+        password: '',
+        confPassword: '',  
 })
 
 
@@ -38,6 +40,7 @@ const restartForm = () => {
         telefono: '', 
         userName: '',
         password: '', 
+        confPassword: '', 
   });
 }
 
@@ -47,7 +50,7 @@ const { register, errors, handleSubmit } = useForm();
         e.target.reset()
     }
 
-const {nombre,apellido,ci,genero,pais, ciudad, direccion, correo,telefono,userName, password}=datosRegistro
+const {nombre,apellido,ci,genero,pais, ciudad, direccion, correo,telefono,userName, password, confPassword}=datosRegistro
     const validar = (event) => {
       let key = event.keyCode || event.which;
       let tecla = String.fromCharCode(key);
@@ -86,6 +89,16 @@ const {nombre,apellido,ci,genero,pais, ciudad, direccion, correo,telefono,userNa
       }else{
         alert('El maximo de numeros es de 9')
       }
+
+      if(datosRegistro.password.length === datosRegistro.confPassword.length){
+        setDatosRegistro({
+          ...datosRegistro,
+          [event.target.name]: event.target.value + tecla
+        });
+      }else{
+        alert('Las contraseñas no coinciden')
+      }
+
   }
   
   const handleDeleteKey = (event) => {
@@ -116,6 +129,7 @@ const {nombre,apellido,ci,genero,pais, ciudad, direccion, correo,telefono,userNa
       });
 
   }
+    
 }
  
 
@@ -137,7 +151,7 @@ return (
         
 
       <div>
-      <h1 align="center"> Formulario de registro </h1>
+      <h1 align="center" className="titulo-registro"> Formulario de registro </h1>
       </div>
       <div className="contenedor">
 
@@ -150,7 +164,7 @@ return (
                 <input
                 type="text"
                 class="imput"
-                size="60"
+                size="70"
                 placeholder="Ingrese sus nombres"
                 name="nombre"
                 onKeyPress={validar}
@@ -376,7 +390,10 @@ return (
                 size="60"
                 placeholder="Ingrese su contraseña"
                 name="password"
+                id="password"
                 minLength="8"
+                /*onKeyPress={validar}
+                onKeyDown={handleDeleteKey}*/
                 required
               />
                 </div>
@@ -391,8 +408,11 @@ return (
                 className="imput"
                 size="60"
                 placeholder="Confirme su contraseña"
-                name="conf-password"
+                name="confPassword"
+                id="confPassword"
                 minLength="8"
+                onBlur={validar}
+                /*onKeyDown={handleDeleteKey}*/
                 required
               /></div>
               </label>

@@ -144,4 +144,9 @@
     }
 
   }
+  textarea {
+    resize: none;
+    width: 50%;
+}
+
 

@@ -21,7 +21,7 @@ const [datosRegistro, setDatosRegistro] = useState({
         correo: '',
         telefono: '', 
         userName: '',
-        password: ''  
+        password: '', 
 })
 
 
@@ -41,6 +41,7 @@ const restartForm = () => {
         password: '', 
   });
 }
+
 
 const { register, errors, handleSubmit } = useForm();
     const onSubmit = (data, e) => {
@@ -437,13 +438,11 @@ return (
                 <div>
                 <b>Tipo de usuario:</b> 
                 <select  className="imput" required
-                      data-toggle="modal"
-                      data-target="#TipoUserData"
-                       onChange={""}  >
+                         data-toggle="modal"
+                         data-target="#TipoUserData"  
+                         onChange={""}>
                       <option value ="1" >{"Administrador"}</option>
                       <option value ="2" >{"Delivery"}</option>
-                   
-       
                  </select>
                 </div>
                 
@@ -500,22 +499,15 @@ return (
                   <button className="btn btn-aceptar " value="Login" >Registrar</button>
           
                   </div>
-                  
-
-
         </form>
-        <ModalSolicitudC
-            ci= {"33"}
-            usuarioNombre = {"JOSE"}
-            usuarioApellido = {"ALF"}
-            paisID={"BOL"}
-            ciudadID={"CBBA"}
-            correo = {"JAAA"}
-            telefono={"5656"}
-            tipoUsuario = {"AA"}
-            nombreUsuario = {"DD"}
-            motivo = {"AA"}
-        />
+
+            <div>
+             <ModalSolicitudC
+               crearTipo= {"Administrador"}
+               descripcionTipo= {""}
+             />
+           </div> 
+
       </div>
 
   </div>

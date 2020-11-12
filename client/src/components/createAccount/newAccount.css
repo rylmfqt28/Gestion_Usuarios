@@ -47,7 +47,8 @@
   margin-right: 10px;
   display: inline-block;
   width: 340px;
-  
+  /*border-radius: 5px;
+  border: black;*/
 }
 .radio{
   margin-left: 1px;

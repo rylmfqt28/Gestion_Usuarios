@@ -507,9 +507,9 @@ render (){
                   <div className="checkbox-confirmar">
 
                   <input type="checkbox" name="aceppt" required value=""/>  <label>
-                  <b>acepto los</b> 
-                  <a href="/register">
-                   <b>Términos y condiciones</b>
+                  <b>Acepto los</b> 
+                  <a href="/eula" target="_blank">
+                   <b> Términos y condiciones</b>
                         </a>
                   </label>
                   </div>

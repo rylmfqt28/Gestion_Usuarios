@@ -92,7 +92,6 @@ class administrarPermisos extends Component{
               </tr>
             )
           });
-          
     
         return (
     

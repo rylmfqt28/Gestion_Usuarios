@@ -9,7 +9,9 @@ class ModalEditarPermiso extends Component{
         }
         this.handleSave=this.handleSave.bind(this)
         this.nombreHandler=this.nombreHandler.bind(this)
-        this.handleDeleteKey=this.handleDeleteKey.bind(this) 
+        this.handleDeleteKeyName=this.handleDeleteKeyName.bind(this) 
+        this.descripcionHandler=this.descripcionHandler.bind(this)
+        this.handleDeleteKeyDesc=this.handleDeleteKeyDesc.bind(this)
     }
 
     componentWillReceiveProps(nextProps){
@@ -19,7 +21,7 @@ class ModalEditarPermiso extends Component{
         });
     }
 
-    handleDeleteKey(e){
+    handleDeleteKeyName(e){
         let key = e.keyCode || e.which;
         console.log(key)
         if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
@@ -30,7 +32,7 @@ class ModalEditarPermiso extends Component{
     }
 
     nombreHandler(e){
-        let key = e.keyCode || e.which;
+        /*let key = e.keyCode || e.which;
         let tecla = String.fromCharCode(key);
         let letras = " áéíóúñÑ";
         console.log(tecla)
@@ -44,18 +46,30 @@ class ModalEditarPermiso extends Component{
         }
         /*if(!e.target.value){
             console.log("este campo no debe estar vacio")
-        }
+        }*/
         if(this.state.nombre.length != 20){ 
             if(e.target.value.match("^[a-zA-Z ]*$")!=null){
                 this.setState({nombre: e.target.value})
             }
         }else{
             alert("El maximo de caracteres es de 20")
-        }*/
+        }
     }
-     
+    handleDeleteKeyDesc(e){
+        let key = e.keyCode || e.which;
+        console.log(key)
+        if (this.state.descripcion.length !== 0 && (key === 8 || key === 127)) {
+            let nuevo = this.state.descripcion.substring(0, this.state.descripcion.length - 1);
+            console.log(nuevo)
+            this.setState({descripcion: nuevo})
+        }
+    }
     descripcionHandler(e){
-        this.setState({descripcion: e.target.value})
+        if(this.state.descripcion.length != 250){
+            this.setState({descripcion: e.target.value})
+        }else{
+            alert("maximo 250 caracteres")
+        }
     }
 
     handleSave(){
@@ -81,8 +95,8 @@ class ModalEditarPermiso extends Component{
                         <div className="modal-body" id="Cuerpo">
                             <div className="row justify-content-md-center">
                                 <div className="col-9">
-                                    <p><input className="form-control text-center" value={this.state.nombre} onKeyDownCapture={(e)=>this.handleDeleteKey(e)} onKeyPress={(e)=>this.nombreHandler(e)}></input></p>
-                                    <textarea className="form-control" id="textoArea" aria-label="With textarea" value={this.state.descripcion} onChange={(e)=>this.descripcionHandler(e)}></textarea>
+                                    <p><input className="form-control text-center" value={this.state.nombre} onKeyDownCapture={(e)=>this.handleDeleteKeyName(e)} onChange={(e)=>this.nombreHandler(e)}></input></p>
+                                    <textarea className="form-control" id="textoArea" aria-label="With textarea" value={this.state.descripcion} onKeyDownCapture={(e)=>this.handleDeleteKeyDesc(e)} onChange={(e)=>this.descripcionHandler(e)}></textarea>
                                 </div>
                             </div>
                         </div>

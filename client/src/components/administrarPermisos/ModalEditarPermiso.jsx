@@ -32,21 +32,6 @@ class ModalEditarPermiso extends Component{
     }
 
     nombreHandler(e){
-        /*let key = e.keyCode || e.which;
-        let tecla = String.fromCharCode(key);
-        let letras = " áéíóúñÑ";
-        console.log(tecla)
-        if (this.state.nombre.length !== 20 || (key === 8)) {
-            console.log('llego malditod');
-            if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
-                this.setState({nombre: e.target.value+tecla})
-            }
-        } else {
-            alert('El maximo de caracteres es de 20');
-        }
-        /*if(!e.target.value){
-            console.log("este campo no debe estar vacio")
-        }*/
         if(this.state.nombre.length != 20){ 
             if(e.target.value.match("^[a-zA-Z ]*$")!=null){
                 this.setState({nombre: e.target.value})

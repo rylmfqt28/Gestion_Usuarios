@@ -25,7 +25,6 @@ class ModalSolicitudC extends Component{
             <div className="modal fade" id="TipoUserData" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-lg">
                     <div className="modal-content" id="VentanaEmergente">
-                        <pre>{JSON.stringify(this.state, null, 2)} </pre>
                         <div className="modal-header" id ="Encabezado">
                           
                             <h5 className="modal-title">SOLICITAR CUENTA DE TIPO:</h5>

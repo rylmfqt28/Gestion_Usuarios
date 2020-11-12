@@ -26,7 +26,7 @@ class NewAccount extends Component {
       userName: "",
       tipoUsuario:[],
       password: "",
-
+      
     }
 
 
@@ -218,25 +218,35 @@ if (this.state.userName.length !== 15) {
  updateListContries=(e)=>{
   RegistroService.getAllCountries(e.target.value).then(data => this.setState({pais: data}))
     console.log(e.target.value);
+    this.updateListCities(e.target.value);
+}
+/*updateListCities=(e)=>{
+  RegistroService.getAllCities(e.target.value).then(data => this.setState({ciudad: data}))
+  console.log(e.target.value);
+}*/
+
+updateListCities=(pais)=>{
+  RegistroService.getAllCities(pais).then(data => this.setState({ciudad: data}))
+}
+componentDidMount() {
+  RegistroService.getAllCountries().then(data => this.setState({pais: data}))
+
 }
 
 
 
 
-
-
-
-
 render (){
+  
   return(
- 
+      
             <div>
       <div className="barraNav">
         <nav className="navbar navbar-light justify-content-between">
           <a className="navbar-brand" href="/">
             <img className="logo" src={logo} height="35" alt="logo" />
            </a>
-
+           <Link className="btn btn-outline-info" value="Login" type="reset"  to="/" >Iniciar Sesión</Link>
         </nav>
       </div>
 
@@ -352,13 +362,11 @@ render (){
               <label> 
                 <div><b>Pais:</b> 
                 <select  className="imput" required onChange={this.updateListContries}>
-                      <option value ="" >{'Seleccione una opción'}</option>
-                     {this.state.pais.map((elemento,index) => (
-                       <option key={index} value = {elemento.paisNombre}>
+                      <option value ="1" >{"Seleccione una Opción"}</option>
+                     {this.state.pais.map((elemento,i) => (
+                       <option key={i} value = {elemento.paisNombre}>
                         {elemento.paisNombre}
                       </option> ))}
-                      <option value ="1" >{"---"}</option>
-                      <option value ="2" >{"----"}</option>
                       </select>
                       </div>
                 
@@ -368,11 +376,13 @@ render (){
               <label> 
               <div>
                 <b>Ciudad:</b> 
-                <select  className="imput" required
-                      >
-                      <option value ="" >Seleccione una opción</option>
-                      <option value ="1" >{"---"}</option>
-                      <option value ="2" >{"----"}</option>
+                <select  className="imput" required >
+                      <option value =" " >{"Seleccione una Opción"}</option>
+                     {this.state.ciudad.map((elemento,i) => (
+                       <option key={i} value = {elemento.ciudad}>
+                        {elemento.ciudadNombre}
+                      </option> ))}
+                      
                       </select></div>
                 
               </label>
@@ -516,9 +526,9 @@ render (){
 
                   <div>
              
-                  <button className="btn btn-cancelar" value="Login" type="reset"  href="/" >Cancelar</button>
+                  <Link className="btn btn-cancelar" value="Login" type="reset"  to="/" >Cancelar</Link>
 
-                  <button className="btn btn-aceptar " value="Login" >Registrar</button>
+                  <Link className="btn btn-aceptar " value="Login" >Registrar</Link>
                   </div>
                   
 

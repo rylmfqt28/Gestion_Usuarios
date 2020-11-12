@@ -2,6 +2,7 @@ package com.thejuniors.gestionusuarios.controllers;
 
 import com.thejuniors.gestionusuarios.services.AdminPermisosService;
 import com.thejuniors.gestionusuarios.model.Permisos;
+import com.thejuniors.gestionusuarios.model.UsuarioPermisos;
 
 import java.util.List;
 
@@ -37,6 +38,8 @@ public class AdminPermisosController {
     }
 
     @PostMapping(value = "/api/asignarPermiso", consumes={"application/json"})
-    public void agregarPermiso(){}
+    public void agregarPermiso(@RequestBody UsuarioPermisos userp){
+        adminPermiso.asignarPermiso(userp.getTipoUsuarioId(), userp.getPermisoId());
+    }
 
 }

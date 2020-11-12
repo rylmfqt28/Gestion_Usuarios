@@ -112,7 +112,10 @@ public class AdminPermisosService {
 
     // Quitar permiso a un tipo de usuario
     public void quitarPermiso(Integer tipoUsuarioId, Integer permisoId){
-
+        jdbcTemplate.update(
+                "DELETE FROM UsuarioPermisos WHERE tipoUsuarioId=? AND permisoId=?",
+                tipoUsuarioId, permisoId
+            );
     }
 
     // Eliminar un permiso existente

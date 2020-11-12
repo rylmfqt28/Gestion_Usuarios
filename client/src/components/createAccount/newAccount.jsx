@@ -339,7 +339,7 @@ render (){
               <input
                 type="radio"
                 id="other"
-                className="radioButton"
+                className="radioLink"
                 name="gender"
                 value="other"
                 required
@@ -516,9 +516,9 @@ render (){
 
                   <div>
              
-                  <button className="btn btn-cancelar" value="Login" type="reset"  href="/" >Cancelar</button>
+                  <Link className="btn btn-cancelar" value="Login" type="reset"  to="/home" >Cancelar</Link>
 
-                  <button className="btn btn-aceptar " value="Login" >Registrar</button>
+                  <Link className="btn btn-aceptar " value="Login" >Registrar</Link>
                   </div>
                   
 

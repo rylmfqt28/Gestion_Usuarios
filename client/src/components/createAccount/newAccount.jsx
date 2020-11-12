@@ -5,63 +5,44 @@ import { Link } from "react-router-dom"
 import axios from 'axios';
 import logo from '../img/logo.png';
 import { useForm } from 'react-hook-form';
+import RegistroService from '../../Service/RegistroService'
+import { Component } from 'react';
 //import handleDeleteKey from './validacionesNewAccount';
 //import ValidacionesNewAccount from './validacionesNewAccount';
 
-const NewAccount = () => {
+class NewAccount extends Component {
+  constructor(props){
+    super (props);
+    this.state={
+      nombre: "",
+      apellido: "",
+      ci: "",
+      genero: "",
+      pais: [],
+      ciudad: [],
+      direccion: "",
+      correo: "",
+      telefono: "", 
+      userName: "",
+      tipoUsuario:[],
+      password: "",
 
-const [datosRegistro, setDatosRegistro] = useState({
-        nombre: '',
-        apellido: '',
-        ci: '',
-        genero: '',
-        pais: '',
-        ciudad: '',
-        direccion: '',
-        correo: '',
-        telefono: '', 
-        userName: '',
-        password: '',
-        confPassword: '',  
-})
-
-
-const restartForm = () => {
-  setDatosRegistro({
-      ...datosRegistro,
-      nombre: '',
-        apellido: '',
-        ci: '',
-        genero: '',
-        pais: '',
-        ciudad: '',
-        direccion: '',
-        correo: '',
-        telefono: '', 
-        userName: '',
-        password: '', 
-        confPassword: '', 
-  });
-}
-
-const { register, errors, handleSubmit } = useForm();
-    const onSubmit = (data, e) => {
-        console.log(data)
-        e.target.reset()
     }
 
-const {nombre,apellido,ci,genero,pais, ciudad, direccion, correo,telefono,userName, password, confPassword}=datosRegistro
-    const validar = (event) => {
+
+  }
+     validarNombre = (event) => {
+
       let key = event.keyCode || event.which;
       let tecla = String.fromCharCode(key);
       let letras = " áéíóúñÑ";
       let letrasContraseña="áéíóúñÑ*";
-      let numeros = "1234567890"
-      if (datosRegistro.nombre.length !== 50) {
+      
+      if (this.state.nombre.length !== 50) {
           console.log('llego malditod');
           if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
-              setDatosRegistro({
-                  ...datosRegistro,
+              this.setState ({
+                  ...this.state,
                   [event.target.name]: event.target.value + tecla
               });
           }
@@ -70,143 +51,162 @@ const {nombre,apellido,ci,genero,pais, ciudad, direccion, correo,telefono,userNa
       }
       //Validacion campo apellido
       
-      if (datosRegistro.apellido.length !== 50) {
-          console.log('llego malditod');
-          if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
-              setDatosRegistro({
-                  ...datosRegistro,
-                  [event.target.name]: event.target.value + tecla
-              });
-          }
-      } else {
-          alert('El maximo de caracteres es de 50');
-      }
+      
+      
       // validacion nombre de usuario
-      if (datosRegistro.userName.length !== 15) {
-        console.log('llego malditod');
-        if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
-            setDatosRegistro({
-                ...datosRegistro,
-                [event.target.name]: event.target.value + tecla
-            });
-        }
-    } else {
-        alert('El maximo de caracteres es de 50');
-    }
+      
       //validacion contraseña
-      if (datosRegistro.password.length !== 20) {
-        console.log('llego malditod');
-        if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
-            setDatosRegistro({
-                ...datosRegistro,
-                [event.target.name]: event.target.value + tecla
-            });
-        }
-    } else {
-        alert('Minimo 8 caracteres');
-    }
+      
 
 
       
   }
-  const validarNumeros =(event)=>{
+  
+  validarApellido = (event) => {
+    let key = event.keyCode || event.which;
+      let tecla = String.fromCharCode(key);
+      let letras = " áéíóúñÑ";
+  if (this.state.apellido.length !== 50) {
+    console.log('llego malditod');
+    if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
+        this.setState({
+            ...this.state,
+            [event.target.name]: event.target.value + tecla
+        });
+    }
+} else {
+    alert('El maximo de caracteres es de 50');
+}
+
+}
+
+  validarNombreUsuario =(event)=>{
+let key = event.keyCode || event.which;
+      let tecla = String.fromCharCode(key);
+      let letras = " áéíóúñÑ";
+      let letrasContraseña="áéíóúñÑ*";
+      let numeros = "1234567890"
+if (this.state.userName.length !== 15) {
+  console.log('llego malditod');
+  if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+      this.setState({
+          ...this.state,
+          [event.target.name]: event.target.value + tecla
+      });
+  }
+} else {
+  alert('El maximo de caracteres es de 50');
+}
+  }
+   validarNumeros =(event)=>{
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
-    if(datosRegistro.ci.length!==9){
-      if(datosRegistro.ci.length<=7){
-        setDatosRegistro({  
-            ...datosRegistro,
+    if(this.state.ci.length!==9){
+      if(this.state.ci.length<=7){
+        this.setState({  
+            ...this.setState,
             [event.target.name]: event.target.value + tecla
         });
       }else{
       alert('El minimo de digitos en el campo es de 7')
       }
     
-      setDatosRegistro({  
-          ...datosRegistro,
+      this.setState({  
+          ...this.state,
           [event.target.name]: event.target.value + tecla
       });
     }else{
     alert('El maximo de digitos en el campo es de 9')
     }
 
-    if(datosRegistro.password.length === datosRegistro.confPassword.length){
-      setDatosRegistro({
-        ...datosRegistro,
-        [event.target.name]: event.target.value + tecla
-      });
-    }else{
-      alert('Las contraseñas no coinciden')
-    }
-
-
   }
-  const validarTelefono =(event)=>{
+  validarTelefono =(event)=>{
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
-    if(datosRegistro.telefono.length!==8){
+    if(this.state.telefono.length!==8){
       
-        setDatosRegistro({  
-            ...datosRegistro,
+        this.setState({  
+            ...this.state,
             [event.target.name]: event.target.value + tecla
         });    
       }else{
         alert('El maximo de digitos en el campo es de 8')
         }
-}
-  const handleDeleteKey = (event) => {
+  }
+
+
+
+
+    validarContraseña=(event) =>{
+      let key = event.keyCode || event.which;
+      let tecla = String.fromCharCode(key);
+      let numeros = "1234567890"
+      let letrasContraseña="áéíóúñÑ*";
+  if (this.password !== 8) {
+    console.log('llego malditod');
+    if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+        this.setState({
+            ...this.state,
+            [event.target.name]: event.target.value + tecla
+        });
+    }
+  } else {
+    alert('Minimo 8 caracteres');
+  }
+  }
+   handleDeleteKey = (event) => {
         
     let key = event.keyCode || event.which;
-    if (datosRegistro.nombre.length !== 0 && (key === 8 || key === 127)) {
-        let nuevo = datosRegistro.nombre.substring(0, datosRegistro.nombre.length - 1);
-        setDatosRegistro({
-            ...datosRegistro,
+    if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
+        let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
+        this.setState({
+            ...this.state,
             [event.target.name]: nuevo
         });
     }
     // Borra para el campo apellido
-    if (datosRegistro.apellido.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = datosRegistro.apellido.substring(0, datosRegistro.apellido.length - 1);
-      setDatosRegistro({
-          ...datosRegistro,
+    if (this.state.apellido.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.apellido.substring(0, this.state.apellido.length - 1);
+      this.setState({
+          ...this.state,
           [event.target.name]: nuevo
       });
       // Borra para el campo CI
       
     }   
-    if (datosRegistro.ci.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = datosRegistro.ci.substring(0, datosRegistro.ci.length - 1);
-      setDatosRegistro({
-          ...datosRegistro,
+    if (this.state.ci.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.ci.substring(0, this.state.ci.length - 1);
+      this.setState({
+          ...this.state,
           [event.target.name]: nuevo
       });
 
 
     }
       //borra campo telefono
-    if (datosRegistro.telefono.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = datosRegistro.telefono.substring(0, datosRegistro.telefono.length - 1);
-      setDatosRegistro({
-          ...datosRegistro,
+    if (this.state.telefono.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.telefono.substring(0, this.state.telefono.length - 1);
+      this.setState({
+          ...this.state,
           [event.target.name]: nuevo
       });
 
     }
 
       //borra campo nombre de usuario
-      if (datosRegistro.userName.length !== 0 && (key === 8 || key === 127)) {
-        let nuevo = datosRegistro.userName.substring(0, datosRegistro.userName.length - 1);
-        setDatosRegistro({
-            ...datosRegistro,
+      if (this.state.userName.length !== 0 && (key === 8 || key === 127)) {
+        let nuevo = this.state.userName.substring(0, this.state.userName.length - 1);
+        this.setState({
+            ...this.state,
             [event.target.name]: nuevo
         });
   
       }
       //borra campo contraseña
-      if (datosRegistro.password.length !== 0 && (key === 8 || key === 127)) {
-        let nuevo = datosRegistro.password.substring(0, datosRegistro.password.length - 1);
-        setDatosRegistro({
-            ...datosRegistro,
+      if (this.state.password.length !== 0 && (key === 8 || key === 127)) {
+        let nuevo = this.state.password.substring(0, this.state.password.length - 1);
+        this.setState({
+            ...this.state,
             [event.target.name]: nuevo
         });
   
@@ -215,10 +215,21 @@ const {nombre,apellido,ci,genero,pais, ciudad, direccion, correo,telefono,userNa
 }
  
 
+ updateListContries=(e)=>{
+  RegistroService.getAllCountries(e.target.value).then(data => this.setState({pais: data}))
+    console.log(e.target.value);
+}
 
-return (
-  
-  <Fragment>
+
+
+
+
+
+
+
+render (){
+  return(
+ 
             <div>
       <div className="barraNav">
         <nav className="navbar navbar-light justify-content-between">
@@ -249,10 +260,10 @@ return (
                 size="70"
                 placeholder="Ingrese sus nombres"
                 name="nombre"
-                onKeyPress={validar}
-                onKeyDown={handleDeleteKey}
+                onKeyPress={this.validarNombre}
+                onKeyDown={this.handleDeleteKey}
                
-                value={nombre}
+                value={this.state.nombre}
                 required
                             
                 />
@@ -270,9 +281,9 @@ return (
                 size="60"
                 placeholder="Ingrese su Apellidos"
                 name="apellido"
-                onKeyPress={validar}
-                onKeyDown={handleDeleteKey}
-                value={apellido}
+                onKeyPress={this.validarApellido}
+                onKeyDown={this.handleDeleteKey}
+                value={this.state.apellido}
                 required
                 />
                 </div>
@@ -288,16 +299,10 @@ return (
                 placeholder="Ingrese su cédula de identidad"
                 name="ci"
                 
-                ref={
-                  register({
-                      max: {
-                          value: 7, message: 'son 7 digitos como minimo'
-                      }
-                    })
-                  }
-                onKeyPress={validarNumeros}
-                onKeyDown={handleDeleteKey}
-                value={ci}
+              
+                onKeyPress={this.validarNumeros}
+                onKeyDown={this.handleDeleteKey}
+                value={this.state.ci}
                 required
                 
               />
@@ -346,13 +351,16 @@ return (
               
               <label> 
                 <div><b>Pais:</b> 
-                <select  className="imput" required
-                      >
-                      <option value ="" >Seleccione una opción</option>
+                <select  className="imput" required onChange={this.updateListContries}>
+                      <option value ="" >{'Seleccione una opción'}</option>
+                     {this.state.pais.map((elemento,index) => (
+                       <option key={index} value = {elemento.paisNombre}>
+                        {elemento.paisNombre}
+                      </option> ))}
                       <option value ="1" >{"---"}</option>
                       <option value ="2" >{"----"}</option>
-                      
-                      </select></div>
+                      </select>
+                      </div>
                 
               </label>
               <br />
@@ -414,9 +422,9 @@ return (
                 name="telefono"
                 maxLength="8"
                 required
-                onKeyPress={validarTelefono}
-                onKeyDown={handleDeleteKey}
-                value={telefono}
+                onKeyPress={this.validarTelefono}
+                onKeyDown={this.handleDeleteKey}
+                value={this.state.telefono}
                />
                 </div>
                 
@@ -434,9 +442,9 @@ return (
                 name="userName"
                 minLength="5"
                 maxLength="15"
-                onKeyPress={validar}
-                onKeyDown={handleDeleteKey}
-                value={userName}
+                onKeyPress={this.validarNombreUsuario}
+                onKeyDown={this.handleDeleteKey}
+                value={this.state.userName}
                 required
               
               />
@@ -449,7 +457,7 @@ return (
                 <div>
                 <b>Tipo de usuario:</b> 
                 <select  className="imput" required
-                      >
+                >
                       <option value ="" >Seleccione una opción</option>
                       <option value ="1" >{"---"}</option>
                       <option value ="2" >{"----"}</option>
@@ -471,13 +479,9 @@ return (
                 name="password"
                 id="password"
                 minLength="8"
-                /*onKeyPress={validar}
-                onKeyDown={handleDeleteKey}*/
                 required
-              /*  onClick={validar}
-                onKeyDown={handleDeleteKey}
-                value={password}
-              *//>
+                
+                />
                 </div>
                 
                       </label>
@@ -493,7 +497,7 @@ return (
                 name="confPassword"
                 id="confPassword"
                 minLength="8"
-                onBlur={validar}
+                onBlur={this.validarContraseña}
                 /*onKeyDown={handleDeleteKey}*/
                 required
               /></div>
@@ -512,7 +516,7 @@ return (
 
                   <div>
              
-                  <button className="btn btn-cancelar" value="Login" type="reset" onClick={restartForm} href="/" >Cancelar</button>
+                  <button className="btn btn-cancelar" value="Login" type="reset"  href="/" >Cancelar</button>
 
                   <button className="btn btn-aceptar " value="Login" >Registrar</button>
                   </div>
@@ -524,11 +528,9 @@ return (
       </div>
 
   </div>
+    )
 
-  </Fragment>
-
-
-);
+}
 }
 
 export default NewAccount;

@@ -26,8 +26,13 @@ public class AdminPermisosController {
     }
 
     @GetMapping(value="/api/listarPermisosUsuario/{tipoUsuarioNombre}", produces={"application/json"})
-    public List<Permisos> listarPermisosUsuario(@PathVariable("tipoUsuarioNombre") String tipoUsuarioNombre){
+    public List<Permisos> listarPermisosAsignadosUsuario(@PathVariable("tipoUsuarioNombre") String tipoUsuarioNombre){
         return adminPermiso.listaPermisosUsaurio(tipoUsuarioNombre.replace("+", " "));
+    }
+
+    @GetMapping(value="/api/listarPermisosNoUsuario/{tipoUsuarioNombre}", produces={"application/json"})
+    public List<Permisos> listarPermisosNoAsignadosUsuario(@PathVariable("tipoUsuarioNombre") String tipoUsuarioNombre){
+        return adminPermiso.listaPermisosNoUsaurio(tipoUsuarioNombre.replace("+", " "));
     }
 
 }

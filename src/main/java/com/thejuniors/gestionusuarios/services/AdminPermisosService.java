@@ -102,4 +102,22 @@ public class AdminPermisosService {
         }
     }
 
+    // Agregar permiso a un tipo de usuario
+    public void asignarPermiso(Integer tipoUsuarioId, Integer permisoId){
+        jdbcTemplate.update(
+            "INSERT INTO UsuarioPermisos (tipoUsuarioId, permisoId) VALUES (?, ?)",
+            tipoUsuarioId, permisoId
+        );
+    }
+
+    // Quitar permiso a un tipo de usuario
+    public void quitarPermiso(Integer tipoUsuarioId, Integer permisoId){
+
+    }
+
+    // Eliminar un permiso existente
+    public void eliminarPermiso(Integer permisoId){
+
+    }
+
 }

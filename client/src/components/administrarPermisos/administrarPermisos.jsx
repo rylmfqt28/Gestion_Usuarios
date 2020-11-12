@@ -25,16 +25,23 @@ class administrarPermisos extends Component{
             tipo: "",
         }
         this.updateList = this.updateList.bind(this)
+        this.updateTipoUsuario = this.updateTipoUsuario.bind(this)
     }
     componentDidMount() {
         TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
         AdminPermisosService.getListaPermisos().then(data=>this.setState({permisos: data}))
     }
 
-    updateList(e){
+    updateTipoUsuario(e){
+        this.setState({tipo: e.target.value})
         AdminPermisosService.getListaPermisosNoAsignados(e.target.value).then(data => this.setState({permisos: data}))
         AdminPermisosService.getListaPermisosAsignados(e.target.value).then(data => this.setState({permisosAsignados: data}))
-        console.log(e.target.value);
+    }
+
+    updateList(){
+        AdminPermisosService.getListaPermisosNoAsignados(this.state.tipo).then(data => this.setState({permisos: data}))
+        AdminPermisosService.getListaPermisosAsignados(this.state.tipo).then(data => this.setState({permisosAsignados: data}))
+        console.log(this.state.tipo);
     }
 
     render() {
@@ -144,7 +151,7 @@ class administrarPermisos extends Component{
                                     <label>Permisos Asignados </label>
                                 </div>
                                 <div className="col">
-                                    <select className="form-control form-control-sm" onChange={this.updateList}>
+                                    <select className="form-control form-control-sm" onChange={this.updateTipoUsuario}>
                                         <option value =" " >{"---"}</option>    
                                         {this.state.TUsuarios.map((elemento,index) => (
                                         <option key={index} value = {elemento.crearTipo}>

@@ -26,7 +26,7 @@ class NewAccount extends Component {
       userName: "",
       tipoUsuario:[],
       password: "",
-
+      
     }
 
 
@@ -36,7 +36,7 @@ class NewAccount extends Component {
       let key = event.keyCode || event.which;
       let tecla = String.fromCharCode(key);
       let letras = " áéíóúñÑ";
-      let letrasContraseña="áéíóúñÑ*";
+      
       
       if (this.state.nombre.length !== 50) {
           console.log('llego malditod');
@@ -99,22 +99,16 @@ if (this.state.userName.length !== 15) {
 }
   }
    validarNumeros =(event)=>{
+    let numeros = "1234567890"
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
     if(this.state.ci.length!==9){
-      if(this.state.ci.length<=7){
-        this.setState({  
-            ...this.setState,
+      if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla)!==-1)) {
+        this.setState({
+            ...this.state,
             [event.target.name]: event.target.value + tecla
         });
-      }else{
-      alert('El minimo de digitos en el campo es de 7')
       }
-    
-      this.setState({  
-          ...this.state,
-          [event.target.name]: event.target.value + tecla
-      });
     }else{
     alert('El maximo de digitos en el campo es de 9')
     }
@@ -123,13 +117,15 @@ if (this.state.userName.length !== 15) {
   validarTelefono =(event)=>{
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
-    if(this.state.telefono.length!==8){
-      
-        this.setState({  
-            ...this.state,
-            [event.target.name]: event.target.value + tecla
-        });    
-      }else{
+    let numeros = "1234567890"
+    if(this.state.telefono.length!==8 ){
+    if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla)!==-1)) {
+      this.setState({
+          ...this.state,
+          [event.target.name]: event.target.value + tecla
+      });
+    }
+    }else{
         alert('El maximo de digitos en el campo es de 8')
         }
   }
@@ -165,15 +161,11 @@ if (this.state.userName.length !== 15) {
         });
     }
     // Borra para el campo apellido
-    if (this.state.apellido.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.apellido.substring(0, this.state.apellido.length - 1);
-      this.setState({
-          ...this.state,
-          [event.target.name]: nuevo
-      });
-      // Borra para el campo CI
-      
-    }   
+     
+
+
+
+
     if (this.state.ci.length !== 0 && (key === 8 || key === 127)) {
       let nuevo = this.state.ci.substring(0, this.state.ci.length - 1);
       this.setState({
@@ -213,30 +205,49 @@ if (this.state.userName.length !== 15) {
       }
 
 }
- 
-
+handleDeleteKeyAp = (event) => {
+  let key = event.keyCode || event.which;
+if (this.state.apellido.length !== 0 && (key === 8 || key === 127)) {
+  let nuevo = this.state.apellido.substring(0, this.state.apellido.length - 1);
+  this.setState({
+      ...this.state,
+      [event.target.name]: nuevo
+  });
+  
+}  
+}
  updateListContries=(e)=>{
   RegistroService.getAllCountries(e.target.value).then(data => this.setState({pais: data}))
     console.log(e.target.value);
+    this.updateListCities(e.target.value);
+}
+/*updateListCities=(e)=>{
+  RegistroService.getAllCities(e.target.value).then(data => this.setState({ciudad: data}))
+  console.log(e.target.value);
+}*/
+
+updateListCities=(pais)=>{
+  RegistroService.getAllCities(pais).then(data => this.setState({ciudad: data}))
+}
+componentDidMount() {
+  RegistroService.getAllCountries().then(data => this.setState({pais: data}))
+
 }
 
 
 
 
-
-
-
-
 render (){
+  
   return(
- 
+      
             <div>
       <div className="barraNav">
         <nav className="navbar navbar-light justify-content-between">
           <a className="navbar-brand" href="/">
             <img className="logo" src={logo} height="35" alt="logo" />
            </a>
-
+           <Link className="btn btn-outline-info" value="Login" type="reset"  to="/" >Iniciar Sesión</Link>
         </nav>
       </div>
 
@@ -262,7 +273,7 @@ render (){
                 name="nombre"
                 onKeyPress={this.validarNombre}
                 onKeyDown={this.handleDeleteKey}
-               
+                autocomplete="off"
                 value={this.state.nombre}
                 required
                             
@@ -282,7 +293,7 @@ render (){
                 placeholder="Ingrese su Apellidos"
                 name="apellido"
                 onKeyPress={this.validarApellido}
-                onKeyDown={this.handleDeleteKey}
+                onKeyDown={this.handleDeleteKeyAp}
                 value={this.state.apellido}
                 required
                 />
@@ -293,7 +304,7 @@ render (){
               <label>
                 <b>Cédula de Identidad:</b>
                 <input
-                type="number"
+                type="text"
                 className="imput"
                 size="60"
                 placeholder="Ingrese su cédula de identidad"
@@ -352,13 +363,11 @@ render (){
               <label> 
                 <div><b>Pais:</b> 
                 <select  className="imput" required onChange={this.updateListContries}>
-                      <option value ="" >{'Seleccione una opción'}</option>
-                     {this.state.pais.map((elemento,index) => (
-                       <option key={index} value = {elemento.paisNombre}>
+                      <option value ="1" >{"Seleccione una Opción"}</option>
+                     {this.state.pais.map((elemento,i) => (
+                       <option key={i} value = {elemento.paisNombre}>
                         {elemento.paisNombre}
                       </option> ))}
-                      <option value ="1" >{"---"}</option>
-                      <option value ="2" >{"----"}</option>
                       </select>
                       </div>
                 
@@ -368,11 +377,13 @@ render (){
               <label> 
               <div>
                 <b>Ciudad:</b> 
-                <select  className="imput" required
-                      >
-                      <option value ="" >Seleccione una opción</option>
-                      <option value ="1" >{"---"}</option>
-                      <option value ="2" >{"----"}</option>
+                <select  className="imput" required >
+                      <option value =" " >{"Seleccione una Opción"}</option>
+                     {this.state.ciudad.map((elemento,i) => (
+                       <option key={i} value = {elemento.ciudad}>
+                        {elemento.ciudadNombre}
+                      </option> ))}
+                      
                       </select></div>
                 
               </label>
@@ -415,7 +426,7 @@ render (){
                 <div>
                 <b>Teléfono:</b>
                 <input
-                type="number"
+                type="text"
                 className="imput"
                 size="60"
                 placeholder="Ingrese su número telefónico"
@@ -516,9 +527,9 @@ render (){
 
                   <div>
              
-                  <button className="btn btn-cancelar" value="Login" type="reset"  href="/" >Cancelar</button>
+                  <Link className="btn btn-cancelar" value="Login" type="reset"  to="/" >Cancelar</Link>
 
-                  <button className="btn btn-aceptar " value="Login" >Registrar</button>
+                  <Link className="btn btn-aceptar " value="Login" >Registrar</Link>
                   </div>
                   
 

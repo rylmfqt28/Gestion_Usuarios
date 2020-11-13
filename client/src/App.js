@@ -11,10 +11,14 @@ import crearTipoUsuario from './components/createTypeUser/crearTipoUsuario';
 import newAccount from './components/createAccount/newAccount';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
+
+import administrarPermisos from './components/administrarPermisos/administrarPermisos'
+
 import Home from './components/Home/Home';
 import AdministrarCuenta from './components/register/AdministrarCuenta';
 import ListaUsuarios from './components/register/ListaUsuarios';
 import ModificarTipoUser from './components/register/ModificarTipoUser';
+
 
 class App extends Component{
 
@@ -35,6 +39,7 @@ class App extends Component{
         <PrivateRoute path="/administrar" component={AdministrarCuenta}/>
         <PrivateRoute path="/lista" component={ListaUsuarios}/>
         <PrivateRoute path="/modificar" component={ModificarTipoUser}/>
+        <PublicRoute path="/administrarPermisos" component={administrarPermisos}/>
 
         </Switch>
       </Router>

@@ -11,13 +11,24 @@
   background-color: rgb(245, 244, 243);
   
 }
-.registerForm{
-  text-align: center;
+.form-register{
+  padding:  10px;
+  width: 50%;
+  background-color: rgb(245, 244, 243);
+  margin: auto;
   
 }
+.col{
+  width: 100%;
+  text-align: center;
+}
+.from{
+  margin-left: 0;
+  text-align: center;
+}
 
-.contenedor{
-
+/*.contenedor{
+ 
   text-align: left;
   margin-top: 1px;
   margin-right: 500px;
@@ -31,25 +42,22 @@
   margin-top: 300px;
   background-color: rgb(245, 244, 243);
 
-}
+}*/
 
 .titulo-registro{
   
-  color:rgb(2, 129, 146);;
+  color:rgb(2, 129, 146);
+  margin: auto;
+}
+.losbtn{
+  margin: auto;
 }
 
 .checkbox-confirmar{
   font-size: small;
   margin-left: 68px;
 }
-.imput{
-  text-align: center;
-  margin-right: 10px;
-  display: inline-block;
-  width: 340px;
-  /*border-radius: 5px;
-  border: black;*/
-}
+
 .input-error:invalid {
   border-color: #dc3545;
   padding-right: calc(1.5em + .75rem);
@@ -124,22 +132,15 @@
   margin-left: 75px;
   position: absolute;
 }
-@media(max-width:360px){
-  .contenedor {
-    width: 80%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border: 2px solid rgba(124, 210, 250, 0.623);
-    padding:  20px;
-    margin-left: 0;
-    margin-right: 0;
+@media(max-width:400px){
+  
+  .form-register{
+    padding:  10px;
+    width: 90%;
     background-color: rgb(245, 244, 243);
-
+    margin: auto;
     
   }
-  
   
   .logo{
     padding: 50px 50px;

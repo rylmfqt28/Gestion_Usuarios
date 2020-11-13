@@ -159,9 +159,9 @@ class NewAccount extends Component {
       alert('El maximo de digitos en el campo es de 8')
     }
   }
-  
-  validarVacios=()=> {
-    
+
+  validarVacios = () => {
+
     const name = document.getElementById('name');
     const lastName = document.getElementById('lastName');
     const cedula = document.getElementById('cedula');
@@ -288,7 +288,7 @@ class NewAccount extends Component {
   componentDidMount() {
     RegistroService.getAllCountries().then(data => this.setState({ pais: data }))
     TipoUser.getAll().then(data => this.setState({ TUsuarios: data, tipo: data[0].crearTipo }))
-    
+
   }
   updateList(e) {
     PersonaService.getTiposUser(e.target.value).then(data => this.setState({ Usuarios: data }))
@@ -312,304 +312,310 @@ class NewAccount extends Component {
 
 
 
+        <div className="col" align="center">
+          <div>
+            <div className="form-register">
+              <div className="row">
+                <h1 className="titulo-registro"> Formulario de registro </h1>
+              </div>
+              <br/>
+              <form id="form-control" onSubmit={this.validarVacios}>
 
-        <div>
-          <h1 align="center" className="titulo-registro"> Formulario de registro </h1>
+                <label>
+                  <div>
+                    <b> Nombres:</b>
+                    <input
+                      id="name"
+                      type="text"
+                      class="form-control"
+                      size="60"
+                      placeholder="Ingrese sus nombres"
+                      name="nombre"
+                      onKeyPress={this.validarNombre}
+                      onKeyDown={this.handleDeleteKey}
+                      autocomplete="off"
+                      value={this.state.nombre}
+                      required
+
+                    />
+                  </div>
+                </label>
+                <br />
+
+                <label>
+
+                  <div>
+                    <b>Apellidos: </b>
+                    <input
+                      id="lastName"
+                      type="text"
+                      className="form-control"
+                      size="60"
+                      placeholder="Ingrese su Apellidos"
+                      name="apellido"
+                      onKeyPress={this.validarApellido}
+                      onKeyDown={this.handleDeleteKeyAp}
+                      value={this.state.apellido}
+                      required
+                    />
+                  </div>
+
+                </label>
+                <br />
+                <label>
+                  <b>Cédula de Identidad:</b>
+                  <input
+                    id="cedula"
+                    type="text"
+                    className="form-control"
+                    size="60"
+                    placeholder="Ingrese su cédula de identidad"
+                    name="ci"
+
+
+                    onKeyPress={this.validarNumeros}
+                    onKeyDown={this.handleDeleteKey}
+                    value={this.state.ci}
+                    required
+
+                  />
+                </label>
+                <br />
+                <div>
+                  <label className="radio">
+                    <b>Género:</b>
+                  </label>
+                  <input
+                    type="radio"
+                    id="male"
+                    name="gender"
+                    value="male"
+                    required
+
+                  />
+                  <label for="male" className="radio">
+                    Masculino
+                      </label>
+
+                  <input
+                    type="radio"
+                    id="female"
+                    name="gender"
+                    value="female"
+                    required
+                  />
+                  <label for="female" className="radio">
+                    Femenino
+                      </label>
+
+                  <input
+                    type="radio"
+                    id="other"
+                    className="radioLink"
+                    name="gender"
+                    value="other"
+                    required
+                  />
+                  <label for="other" className="radio">
+                    Otro
+                      </label>
+                </div>
+
+
+                <br />
+
+                <label>
+                  <div><b>Pais:</b>
+                    <select className="form-control" id="country" /*onChange={this.updateListContries}*/>
+                      <option value="1" >{"Seleccione una Opción"}</option>
+                      {this.state.pais.map((elemento, i) => (
+                        <option key={i} value={elemento.paisNombre}>
+                          {elemento.paisNombre}
+                        </option>))}
+                    </select>
+                  </div>
+
+                </label>
+                <br />
+
+                <label>
+                  <div>
+                    <b>Ciudad:</b>
+                    <select className="form-control" id="city" required >
+                      <option value=" " >{"Seleccione una Opción"}</option>
+                      {this.state.ciudad.map((elemento, i) => (
+                        <option key={i} value={elemento.ciudad}>
+                          {elemento.ciudadNombre}
+                        </option>))}
+
+                    </select></div>
+
+                </label>
+                <br />
+
+                <label>
+                  <div>
+                    <b>Dirección:</b>
+                    <input
+                      id="address"
+                      type="text"
+                      className="form-control"
+                      size="60"
+                      placeholder="Ingrese su dirección"
+                      name="direccion"
+                      maxLength="250"
+                      required
+                    />
+                  </div>
+
+                </label>
+                <br />
+
+                <label>
+                  <div>
+                    <b>Correo Electronico:</b>
+                    <input
+                      id="email"
+                      type="text"
+                      className="form-control"
+                      size="60"
+                      minLength="3"
+                      placeholder="Ingrese su dirección de correo"
+                      name="correo"
+                      required
+                    />
+                  </div>
+                </label>
+                <br />
+
+                <label>
+                  <div>
+                    <b>Teléfono:</b>
+                    <input
+                      id="phone"
+                      type="text"
+                      className="form-control"
+                      size="60"
+                      placeholder="Ingrese su número telefónico"
+                      name="telefono"
+                      maxLength="8"
+                      required
+                      onKeyPress={this.validarTelefono}
+                      onKeyDown={this.handleDeleteKey}
+                      value={this.state.telefono}
+                    />
+                  </div>
+
+                </label>
+                <br />
+
+                <label>
+                  <div>
+                    <b>Nombre de usuario:</b>
+                    <input
+                      id="userName"
+                      type="text"
+                      className="form-control"
+                      size="60"
+                      placeholder="Ingrese su nombre de usuario"
+                      name="userName"
+                      minLength="5"
+                      maxLength="15"
+                      onKeyPress={this.validarNombreUsuario}
+                      onKeyDown={this.handleDeleteKey}
+                      value={this.state.userName}
+                      required
+
+                    />
+                  </div>
+
+                </label>
+                <br />
+
+                <label>
+                  <div>
+                    <b>Tipo de usuario:</b>
+                    <select className="form-control" id="typeUser" required
+                      onChange={this.updateList}>
+                      <option value=" " >{"Cliente"}</option>
+                      {this.state.TUsuarios.map((elemento, index) => (
+                        <option key={index} value={elemento.crearTipo}>
+                          {elemento.crearTipo}
+                        </option>))}
+                    </select>
+
+                  </div>
+
+                </label>
+                <br />
+                <label>
+                  <div>
+                    <b>Contraseña:</b>
+                    <input
+                      type="password"
+                      className="form-control"
+                      size="60"
+                      placeholder="Ingrese su contraseña"
+                      name="password"
+                      id="password"
+                      minLength="8"
+                      required
+
+                    />
+                  </div>
+
+                </label>
+                <br />
+
+                <label>
+                  <div><b>Confirmar contraseña:</b>
+                    <input
+                      type="password"
+                      className="form-control"
+                      size="60"
+                      placeholder="Confirme su contraseña"
+                      name="confPassword"
+                      id="confPassword"
+                      minLength="8"
+                      onBlur={this.validarContraseña}
+                      /*onKeyDown={handleDeleteKey}*/
+                      required
+                    /></div>
+                </label>
+                <br />
+
+                <div className="checkbox-confirmar">
+
+                  <input type="checkbox" name="aceppt" required value="" />  <label>
+                    <b>acepto los</b>
+                    <a href="/register">
+                      <b>Términos y condiciones</b>
+                    </a>
+                  </label>
+                </div>
+
+                <div className="losbtn">
+
+                  <Link className="btn btn-cancelar" value="Login" type="reset" to="/" >Cancelar</Link>
+
+                  <Link className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Registrar</Link>
+                </div>
+
+                <div className="avisos">
+                  <div id="avisoCorrecto" className="alert alert-success">Datos correctos!</div>
+                  <div id="avisoNuevo" className="alert alert-warning">Existen campos vacios</div>
+                  <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
+                </div>
+                  <br/>
+                  <br/>
+              </form>
+
+            </div>
+          </div>
+
         </div>
-        <div className="contenedor">
 
 
-          <form id="form" onSubmit={this.validarVacios}>
-
-            <label>
-              <div>
-                <b> Nombres:</b>
-                <input
-                  id="name"
-                  type="text"
-                  class="form-control"
-                  size="70"
-                  placeholder="Ingrese sus nombres"
-                  name="nombre"
-                  onKeyPress={this.validarNombre}
-                  onKeyDown={this.handleDeleteKey}
-                  autocomplete="off"
-                  value={this.state.nombre}
-                  required
-
-                />
-              </div>
-            </label>
-            <br />
-
-            <label>
-
-              <div>
-                <b>Apellidos: </b>
-                <input
-                id="lastName"
-                  type="text"
-                  className="form-control"
-                  size="60"
-                  placeholder="Ingrese su Apellidos"
-                  name="apellido"
-                  onKeyPress={this.validarApellido}
-                  onKeyDown={this.handleDeleteKeyAp}
-                  value={this.state.apellido}
-                  required
-                />
-              </div>
-
-            </label>
-            <br />
-            <label>
-              <b>Cédula de Identidad:</b>
-              <input
-              id="cedula"
-                type="text"
-                className="form-control"
-                size="60"
-                placeholder="Ingrese su cédula de identidad"
-                name="ci"
-
-
-                onKeyPress={this.validarNumeros}
-                onKeyDown={this.handleDeleteKey}
-                value={this.state.ci}
-                required
-
-              />
-            </label>
-            <br />
-            <div>
-            <label className="radio">
-              <b>Género:</b>
-            </label>
-            <input
-              type="radio"
-              id="male"
-              name="gender"
-              value="male"
-              required
-
-            />
-            <label for="male" className="radio">
-              Masculino
-                      </label>
-
-            <input
-              type="radio"
-              id="female"
-              name="gender"
-              value="female"
-              required
-            />
-            <label for="female" className="radio">
-              Femenino
-                      </label>
-
-            <input
-              type="radio"
-              id="other"
-              className="radioLink"
-              name="gender"
-              value="other"
-              required
-            />
-            <label for="other" className="radio">
-              Otro
-                      </label>
-            </div>
-
-            
-            <br />
-
-            <label>
-              <div><b>Pais:</b>
-                <select className="form-control" id="country" /*onChange={this.updateListContries}*/>
-                  <option value="1" >{"Seleccione una Opción"}</option>
-                  {this.state.pais.map((elemento, i) => (
-                    <option key={i} value={elemento.paisNombre}>
-                      {elemento.paisNombre}
-                    </option>))}
-                </select>
-              </div>
-
-            </label>
-            <br />
-
-            <label>
-              <div>
-                <b>Ciudad:</b>
-                <select className="form-control" id="city" required >
-                  <option value=" " >{"Seleccione una Opción"}</option>
-                  {this.state.ciudad.map((elemento, i) => (
-                    <option key={i} value={elemento.ciudad}>
-                      {elemento.ciudadNombre}
-                    </option>))}
-
-                </select></div>
-
-            </label>
-            <br />
-
-            <label>
-              <div>
-                <b>Dirección:</b>
-                <input
-                id="address"
-                  type="text"
-                  className="form-control"
-                  size="60"
-                  placeholder="Ingrese su dirección"
-                  name="direccion"
-                  maxLength="250"
-                  required
-                />
-              </div>
-
-            </label>
-            <br />
-
-            <label>
-              <div>
-                <b>Correo Electronico:</b>
-                <input
-                id="email"
-                  type="text"
-                  className="form-control"
-                  size="60"
-                  minLength="3"
-                  placeholder="Ingrese su dirección de correo"
-                  name="correo"
-                  required
-                />
-              </div>
-            </label>
-            <br />
-
-            <label>
-              <div>
-                <b>Teléfono:</b>
-                <input
-                id="phone"
-                  type="text"
-                  className="form-control"
-                  size="60"
-                  placeholder="Ingrese su número telefónico"
-                  name="telefono"
-                  maxLength="8"
-                  required
-                  onKeyPress={this.validarTelefono}
-                  onKeyDown={this.handleDeleteKey}
-                  value={this.state.telefono}
-                />
-              </div>
-
-            </label>
-            <br />
-
-            <label>
-              <div>
-                <b>Nombre de usuario:</b>
-                <input
-                id="userName"
-                  type="text"
-                  className="form-control"
-                  size="60"
-                  placeholder="Ingrese su nombre de usuario"
-                  name="userName"
-                  minLength="5"
-                  maxLength="15"
-                  onKeyPress={this.validarNombreUsuario}
-                  onKeyDown={this.handleDeleteKey}
-                  value={this.state.userName}
-                  required
-
-                />
-              </div>
-
-            </label>
-            <br />
-
-            <label>
-              <div>
-                <b>Tipo de usuario:</b>
-                <select className="form-control" id="typeUser" required
-                  onChange={this.updateList}>
-                  <option value=" " >{"Cliente"}</option>
-                  {this.state.TUsuarios.map((elemento, index) => (
-                    <option key={index} value={elemento.crearTipo}>
-                      {elemento.crearTipo}
-                    </option>))}
-                </select>
-
-              </div>
-
-            </label>
-            <br />
-            <label>
-              <div>
-                <b>Contraseña:</b>
-                <input
-                  type="password"
-                  className="form-control"
-                  size="60"
-                  placeholder="Ingrese su contraseña"
-                  name="password"
-                  id="password"
-                  minLength="8"
-                  required
-
-                />
-              </div>
-
-            </label>
-            <br />
-
-            <label>
-              <div><b>Confirmar contraseña:</b>
-                <input
-                  type="password"
-                  className="form-control"
-                  size="60"
-                  placeholder="Confirme su contraseña"
-                  name="confPassword"
-                  id="confPassword"
-                  minLength="8"
-                  onBlur={this.validarContraseña}
-                  /*onKeyDown={handleDeleteKey}*/
-                  required
-                /></div>
-            </label>
-            <br />
-
-            <div className="checkbox-confirmar">
-
-              <input type="checkbox" name="aceppt" required value="" />  <label>
-                <b>acepto los</b>
-                <a href="/register">
-                  <b>Términos y condiciones</b>
-                </a>
-              </label>
-            </div>
-
-            <div>
-
-              <Link className="btn btn-cancelar" value="Login" type="reset" to="/" >Cancelar</Link>
-
-              <Link className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Registrar</Link>
-            </div>
-
-            <div className="avisos">
-              <div id="avisoCorrecto" className="alert alert-success">Datos correctos!</div>
-              <div id="avisoNuevo" className="alert alert-warning">Existen campos vacios</div>
-              <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
-            </div>
-
-          </form>
-
-        </div>
 
       </div>
     )

@@ -1,6 +1,7 @@
 package com.thejuniors.gestionusuarios.services;
 
 import com.thejuniors.gestionusuarios.model.Register;
+import com.thejuniors.gestionusuarios.model.UsuarioCredenciales;
 import com.thejuniors.gestionusuarios.model.Ciudad;
 import com.thejuniors.gestionusuarios.model.Pais;
 
@@ -89,6 +90,33 @@ public class RegisterService {
         });
         if(ciudades != null){
             return ciudades;
+        }else{
+            return null;
+        }
+    }
+
+    // Busca si un usuario existe por su CI
+    public UsuarioCredenciales buscarUsuarioCI(String ci){
+        UsuarioCredenciales user = jdbcTemplate.query(new PreparedStatementCreator(){
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps = con.prepareStatement("select uc.CI, uc.nombreUsuario, uc.password, tu.tipoUsuarioNombre, eu.nombreEstado from UsuarioCredenciales uc , UsuarioTipoUsuario ut, TipoUsuario tu, UsuarioEstadoUsuario ue, EstadoUsuario eu where uc.CI=? and ut.CI=uc.CI and ue.CI=uc.CI and ut.tipoUsuarioID=tu.tipoUsuarioID and eu.tipoEstado=ue.tipoEstado");
+                ps.setString(1, ci);
+                return ps;
+            }
+        }, new ResultSetExtractor<UsuarioCredenciales>(){
+            @Override
+            public UsuarioCredenciales extractData(ResultSet rs) throws SQLException{
+                if (rs.next()){
+                    UsuarioCredenciales user = new UsuarioCredenciales(rs.getString("CI"), rs.getString("nombreUsuario"), rs.getString("password"), rs.getString("tipoUsuarioNombre"), rs.getString("nombreEstado"));
+                    return user;
+                } else{
+                    return null;
+                }
+            }
+        });
+        if(user != null){
+            return user;
         }else{
             return null;
         }

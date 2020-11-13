@@ -4,8 +4,9 @@ class ModalEditarPermiso extends Component{
     constructor(props){
         super(props)
         this.state={ 
-                nombre:"titulo",
-                descripcion:"descripcion"         
+                permisoId:this.props.permisoId,
+                nombrePermiso:this.props.nombrePermiso,
+                permisoDescripcion:this.props.permisoDescripcion         
         }
         this.handleSave=this.handleSave.bind(this)
         this.nombreHandler=this.nombreHandler.bind(this)
@@ -16,25 +17,26 @@ class ModalEditarPermiso extends Component{
 
     componentWillReceiveProps(nextProps){
         this.setState({
-            nombre: nextProps.nombre,
-            descripcion: nextProps.descripcion,
+            nombrePermiso: nextProps.nombrePermiso,
+            permisoDescripcion: nextProps.permisoDescripcion,
         });
     }
 
     handleDeleteKeyName(e){
         let key = e.keyCode || e.which;
         console.log(key)
-        if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
-            let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
+        if (this.state.nombrePermiso.length !== 0 && (key === 8 || key === 127)) {
+            let nuevo = this.state.nombrePermiso.substring(0, this.state.nombrePermiso.length - 1);
             console.log(nuevo)
-            this.setState({nombre: nuevo})
+            this.setState({nombrePermiso: nuevo})
         }
     }
 
     nombreHandler(e){
-        if(this.state.nombre.length != 20){ 
+        console.log(e.target.value)
+        if(this.state.nombrePermiso.length != 20){ 
             if(e.target.value.match("^[a-zA-Z ]*$")!=null){
-                this.setState({nombre: e.target.value})
+                this.setState({nombrePermiso: e.target.value})
             }
         }else{
             alert("El maximo de caracteres es de 20")
@@ -43,15 +45,15 @@ class ModalEditarPermiso extends Component{
     handleDeleteKeyDesc(e){
         let key = e.keyCode || e.which;
         console.log(key)
-        if (this.state.descripcion.length !== 0 && (key === 8 || key === 127)) {
-            let nuevo = this.state.descripcion.substring(0, this.state.descripcion.length - 1);
+        if (this.state.permisoDescripcion.length !== 0 && (key === 8 || key === 127)) {
+            let nuevo = this.state.permisoDescripcion.substring(0, this.state.permisoDescripcion.length - 1);
             console.log(nuevo)
-            this.setState({descripcion: nuevo})
+            this.setState({permisoDescripcion: nuevo})
         }
     }
     descripcionHandler(e){
-        if(this.state.descripcion.length != 250){
-            this.setState({descripcion: e.target.value})
+        if(this.state.permisoDescripcion.length != 250){
+            this.setState({permisoDescripcion: e.target.value})
         }else{
             alert("maximo 250 caracteres")
         }
@@ -80,8 +82,8 @@ class ModalEditarPermiso extends Component{
                         <div className="modal-body" id="Cuerpo">
                             <div className="row justify-content-md-center">
                                 <div className="col-9">
-                                    <p><input className="form-control text-center" value={this.state.nombre} onKeyDownCapture={(e)=>this.handleDeleteKeyName(e)} onChange={(e)=>this.nombreHandler(e)}></input></p>
-                                    <textarea className="form-control" id="textoArea" aria-label="With textarea" value={this.state.descripcion} onKeyDownCapture={(e)=>this.handleDeleteKeyDesc(e)} onChange={(e)=>this.descripcionHandler(e)}></textarea>
+                                    <p><input className="form-control text-center" value={this.state.nombrePermiso} onKeyDownCapture={(e)=>this.handleDeleteKeyName(e)} onChange={(e)=>this.nombreHandler(e)}></input></p>
+                                    <textarea className="form-control" id="textoArea" aria-label="With textarea" value={this.state.permisoDescripcion} onKeyDownCapture={(e)=>this.handleDeleteKeyDesc(e)} onChange={(e)=>this.descripcionHandler(e)}></textarea>
                                 </div>
                             </div>
                         </div>

@@ -20,7 +20,7 @@ class administrarPermisos extends Component{
         this.state = {
             permisos: [],
             permisosAsignados: [],
-
+            permiso:{},
             TUsuarios: [],
             tipo: "",
         }
@@ -44,6 +44,11 @@ class administrarPermisos extends Component{
         console.log(this.state.tipo);
     }
 
+    replaceModalItem(Permiso) {
+        this.setState({ permiso: Permiso})
+        console.log(Permiso)
+    }
+
     render() {
 
         const Permisos = this.state.permisos.map((Permiso, index) => {
@@ -60,6 +65,7 @@ class administrarPermisos extends Component{
                     className="btn btn-default btn-sm"
                     data-toggle="modal"
                     data-target="#editPermiso"
+                    onClick={() => this.replaceModalItem(Permiso)}
                   //onClick={() => this.replaceModalItem(index)}>VER USUARIO</button>{' '}
                 >
                     <FontAwesomeIcon icon={faEdit} style={{fontSize:"20px"}}></FontAwesomeIcon>
@@ -87,6 +93,7 @@ class administrarPermisos extends Component{
                     className="btn btn-default btn-sm"
                     data-toggle="modal"
                     data-target="#editPermiso"
+                    onClick={() => this.replaceModalItem(PermisoA)}
                     //onClick={() => this.replaceModalItem(index)}>VER USUARIO</button>{' '}
                   >
                       <FontAwesomeIcon icon={faEdit} style={{fontSize:"20px"}}></FontAwesomeIcon>
@@ -187,6 +194,9 @@ class administrarPermisos extends Component{
             </div>
     
             <ModalEditarPermiso
+                permisoId={this.state.permiso.permisoId}
+                nombrePermiso={this.state.permiso.nombrePermiso}
+                permisoDescripcion={this.state.permiso.permisoDescripcion}
             />
 
           </div>

@@ -33,7 +33,7 @@ class NewAccount extends Component {
       TUsuarios: [],
       
     }
-    
+
     this.updateList = this.updateList.bind(this)
   }
   startButtonEvent (event) {
@@ -59,12 +59,13 @@ class NewAccount extends Component {
       document.getElementById('avisoPass').style.display = "none";
     }}
   
+     
      validarNombre = (event) => {
 
       let key = event.keyCode || event.which;
       let tecla = String.fromCharCode(key);
       let letras = " áéíóúñÑ";
-      let letrasContraseña="áéíóúñÑ*";
+      
       
       if (this.state.nombre.length !== 50) {
           console.log('llego malditod');
@@ -127,22 +128,16 @@ if (this.state.userName.length !== 15) {
 }
   }
    validarNumeros =(event)=>{
+    let numeros = "1234567890"
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
     if(this.state.ci.length!==9){
-      if(this.state.ci.length<=7){
-        this.setState({  
-            ...this.setState,
+      if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla)!==-1)) {
+        this.setState({
+            ...this.state,
             [event.target.name]: event.target.value + tecla
         });
-      }else{
-      alert('El minimo de digitos en el campo es de 7')
       }
-    
-      this.setState({  
-          ...this.state,
-          [event.target.name]: event.target.value + tecla
-      });
     }else{
     alert('El maximo de digitos en el campo es de 9')
     }
@@ -151,13 +146,15 @@ if (this.state.userName.length !== 15) {
   validarTelefono =(event)=>{
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
-    if(this.state.telefono.length!==8){
-      
-        this.setState({  
-            ...this.state,
-            [event.target.name]: event.target.value + tecla
-        });    
-      }else{
+    let numeros = "1234567890"
+    if(this.state.telefono.length!==8 ){
+    if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla)!==-1)) {
+      this.setState({
+          ...this.state,
+          [event.target.name]: event.target.value + tecla
+      });
+    }
+    }else{
         alert('El maximo de digitos en el campo es de 8')
         }
   }
@@ -193,15 +190,11 @@ if (this.state.userName.length !== 15) {
         });
     }
     // Borra para el campo apellido
-    if (this.state.apellido.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.apellido.substring(0, this.state.apellido.length - 1);
-      this.setState({
-          ...this.state,
-          [event.target.name]: nuevo
-      });
-      // Borra para el campo CI
-      
-    }   
+     
+
+
+
+
     if (this.state.ci.length !== 0 && (key === 8 || key === 127)) {
       let nuevo = this.state.ci.substring(0, this.state.ci.length - 1);
       this.setState({
@@ -241,8 +234,17 @@ if (this.state.userName.length !== 15) {
       }
 
 }
- 
-
+handleDeleteKeyAp = (event) => {
+  let key = event.keyCode || event.which;
+if (this.state.apellido.length !== 0 && (key === 8 || key === 127)) {
+  let nuevo = this.state.apellido.substring(0, this.state.apellido.length - 1);
+  this.setState({
+      ...this.state,
+      [event.target.name]: nuevo
+  });
+  
+}  
+}
  updateListContries=(e)=>{
   RegistroService.getAllCountries(e.target.value).then(data => this.setState({pais: data}))
     console.log(e.target.value);
@@ -257,13 +259,11 @@ updateListCities=(pais)=>{
   RegistroService.getAllCities(pais).then(data => this.setState({ciudad: data}))
 }
 componentDidMount() {
-  RegistroService.getAllCountries().then(data => this.setState({pais: data}));
+  RegistroService.getAllCountries().then(data => this.setState({pais: data}))
   TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
-
 }
 updateList(e){
   PersonaService.getTiposUser(e.target.value).then(data => this.setState({Usuarios: data}))
-  /*console.log(e.target.value);*/
 }
 
 
@@ -271,7 +271,7 @@ updateList(e){
 render (){
   
   return(
-    <Fragment>
+      
             <div>
       <div className="barraNav">
         <nav className="navbar navbar-light justify-content-between">
@@ -289,10 +289,10 @@ render (){
       <h1 align="center" className="titulo-registro"> Formulario de registro </h1>
       </div>
       <div className="contenedor">
-          
+
         
         <form /*onSubmit={this.startButtonEvent()}*/>
-          
+       
          <label>
                 <div>
                 <b> Nombres:</b>
@@ -304,7 +304,7 @@ render (){
                 name="nombre"
                 onKeyPress={this.validarNombre}
                 onKeyDown={this.handleDeleteKey}
-               
+                autocomplete="off"
                 value={this.state.nombre}
                 required
                             
@@ -324,7 +324,7 @@ render (){
                 placeholder="Ingrese su Apellidos"
                 name="apellido"
                 onKeyPress={this.validarApellido}
-                onKeyDown={this.handleDeleteKey}
+                onKeyDown={this.handleDeleteKeyAp}
                 value={this.state.apellido}
                 required
                 />
@@ -335,7 +335,7 @@ render (){
               <label>
                 <b>Cédula de Identidad:</b>
                 <input
-                type="number"
+                type="text"
                 className="imput"
                 size="60"
                 placeholder="Ingrese su cédula de identidad"
@@ -457,7 +457,7 @@ render (){
                 <div>
                 <b>Teléfono:</b>
                 <input
-                type="number"
+                type="text"
                 className="imput"
                 size="60"
                 placeholder="Ingrese su número telefónico"
@@ -563,7 +563,7 @@ render (){
 
                   <button className="btn btn-aceptar " value="Login" >Registrar</button>
                   </div>
-
+                  
                   <div className="avisos">
                   <div id="avisoCorrecto" className="alert alert-success">Datos correctos!</div>
                   <div id="avisoNuevo" className="alert alert-warning">Existen campos vacios</div>
@@ -575,9 +575,7 @@ render (){
       </div>
 
   </div>
-  </Fragment>
     )
-    
 
 }
 }

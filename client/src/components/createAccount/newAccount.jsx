@@ -529,7 +529,7 @@ render (){
              
                   <Link className="btn btn-cancelar" value="Login" type="reset"  to="/" >Cancelar</Link>
 
-                  <Link className="btn btn-aceptar " value="Login" >Registrar</Link>
+                  <button className="btn btn-aceptar " value="Login" >Registrar</button>
                   </div>
                   
 
@@ -541,7 +541,7 @@ render (){
   </div>
     )
 
-}
+ }
 }
 
 export default NewAccount;

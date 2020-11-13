@@ -22,7 +22,6 @@ import java.util.ArrayList;
 
 
 @Component
-
 public class DatosTipoUser{
 
 
@@ -33,7 +32,7 @@ public class DatosTipoUser{
         List<CrearTipo> user = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement("SELECT tipoUsuarioNombre, tipoUsuarioDescripcion FROM TipoUsuario");
+                PreparedStatement ps = con.prepareStatement("SELECT tipoUsuarioID, tipoUsuarioNombre, tipoUsuarioDescripcion FROM TipoUsuario");
 
                 return ps;
             }
@@ -43,11 +42,7 @@ public class DatosTipoUser{
 
                 List<CrearTipo> user = new ArrayList<>();
                 while (rs.next()){
-                    //CrearTipo usuario = new CrearTipo();
-                 
-                  //  user.add(usuario);
-                    user.add(new CrearTipo(rs.getString("tipoUsuarioNombre"), rs.getString("tipoUsuarioDescripcion") )); 
-                   
+                    user.add(new CrearTipo(rs.getInt("tipoUsuarioID"), rs.getString("tipoUsuarioNombre"), rs.getString("tipoUsuarioDescripcion") ));
                 } 
                 return user;
             }

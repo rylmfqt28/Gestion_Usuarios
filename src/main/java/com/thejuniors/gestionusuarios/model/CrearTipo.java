@@ -1,6 +1,7 @@
 package com.thejuniors.gestionusuarios.model;
 
 public class CrearTipo {
+    private Integer tipoUsuarioID;
     private String crearTipo;
     private String descripcionTipo;
 
@@ -9,6 +10,12 @@ public class CrearTipo {
     }
 
     public CrearTipo(String crearTipo,String descTipo){
+        this.crearTipo = crearTipo;
+        this.descripcionTipo = descTipo;
+    }
+
+    public CrearTipo(Integer tipoUsuarioID, String crearTipo,String descTipo){
+        this.tipoUsuarioID = tipoUsuarioID;
         this.crearTipo = crearTipo;
         this.descripcionTipo = descTipo;
     }
@@ -27,6 +34,14 @@ public class CrearTipo {
 
     public void setDescripcionTipo(String descripcionTipo) {
         this.descripcionTipo = descripcionTipo;
+    }
+
+    public Integer getTipoUsuarioID() {
+        return tipoUsuarioID;
+    }
+
+    public void setTipoUsuarioId(Integer tipoUsuarioID) {
+        this.tipoUsuarioID = tipoUsuarioID;
     }
     
 }

@@ -13,7 +13,7 @@ class ModalCreatePermit extends Component{
      
     render(){
         return(
-            <div className="modal fade" id="UserData" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="CreatePermiso" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-lg">
                     <div className="modal-content" id="VentanaEmergente">
                         <div className="modal-header" id ="Encabezado">

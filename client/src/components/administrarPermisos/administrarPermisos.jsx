@@ -9,6 +9,7 @@ import "./administrarPermisos.css";
 
 import NavMenu from '../menuAdmin/NavMenu'
 import AdminPermisosService from '../../Service/AdminPermisosService';
+import { data } from 'jquery';
 
 
 class administrarPermisos extends Component{
@@ -23,6 +24,7 @@ class administrarPermisos extends Component{
         }
         this.updateList = this.updateList.bind(this)
         this.updateTipoUsuario = this.updateTipoUsuario.bind(this)
+        this.add = this.add.bind(this)
     }
     componentDidMount() {
         TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
@@ -46,6 +48,31 @@ class administrarPermisos extends Component{
         console.log(Permiso)
     }
 
+    saveDetails(){
+        //$("#editPermiso").modal("hide");
+    }
+
+    add(){
+        const add = {
+            tipoUsuarioId: 11,
+            permisoId: 6
+        }
+        console.log(add)
+        AdminPermisosService.postAsignarPermiso(add)
+         const v = () => { console.log(add)}
+        //this.updateList()
+        //this.updateList()
+        AdminPermisosService.getListaPermisosNoAsignados(this.state.tipo).then((data) => {this.setState({permisos: data})})
+        AdminPermisosService.getListaPermisosAsignados(this.state.tipo).then((data) => {this.setState({permisosAsignados: data});});
+        
+    }
+
+    remove(){
+        AdminPermisosService.deletePermiso(11,6);
+        this.updateList()
+        this.updateList()     
+    }
+
     render() {
 
         const Permisos = this.state.permisos.map((Permiso, index) => {
@@ -55,7 +82,7 @@ class administrarPermisos extends Component{
               <td>{Permiso.nombrePermiso}</td>
     
               <td>
-                <button className="btn btn-default btn-sm">
+                <button className="btn btn-default btn-sm" onClick={() => this.add()} >
                     <FontAwesomeIcon icon={faPlusCircle} style={{fontSize:"20px", color:"green"}}></FontAwesomeIcon> 
                 </button>{' '}
                 <button
@@ -83,7 +110,7 @@ class administrarPermisos extends Component{
                 <td>{PermisoA.nombrePermiso}</td>
       
                 <td>
-                  <button className="btn btn-default btn-sm">
+                  <button className="btn btn-default btn-sm" onClick={() => this.remove()}>
                       <FontAwesomeIcon icon={faMinusCircle} style={{fontSize:"20px", color:"red"}}></FontAwesomeIcon> 
                   </button>{' '}
                   <button

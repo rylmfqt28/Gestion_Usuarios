@@ -7,6 +7,9 @@ import logo from '../img/logo.png';
 import { useForm } from 'react-hook-form';
 import RegistroService from '../../Service/RegistroService'
 import { Component } from 'react';
+import PersonaService from '../../Service/PersonaService';
+import TipoUser from '../../Service/TipoUser';
+import { Button } from 'bootstrap';
 //import handleDeleteKey from './validacionesNewAccount';
 //import ValidacionesNewAccount from './validacionesNewAccount';
 
@@ -26,11 +29,37 @@ class NewAccount extends Component {
       userName: "",
       tipoUsuario:[],
       password: "",
+      Usuarios: [],
+      TUsuarios: [],
       
     }
 
-
+    this.updateList = this.updateList.bind(this)
   }
+  startButtonEvent (event) {
+
+    /*event.preventDefault();*/
+    if (this.state.nombre !== '' && this.state.apellido !== '' && this.state.ci !== '' /*&& datosRegistro.direccion !== '' && datosRegistro.correo !== '' && datosRegistro.telefono !== '' && datosRegistro.userName !== '' && datosRegistro.password !== '' && datosRegistro.confPassword !== ''*/) 
+    {
+      if (this.state.password !== this.state.confPassword) {
+        //mensaje contraseña "Las constraseñas no coinciden"
+        document.getElementById('avisoCorrecto').style.display = "none";
+        document.getElementById('avisoNuevo').style.display = "none";
+        document.getElementById('avisoPass').style.display = "block";
+      }else{
+        //mesaje datos correctos
+      document.getElementById('avisoCorrecto').style.display = "block";
+      document.getElementById('avisoNuevo').style.display = "none";
+      document.getElementById('avisoPass').style.display = "none";
+    }}
+    else {
+      //mensaje campos vacios "Existen campos vacios"
+      document.getElementById("avisoCorrecto").style.display = "none";
+      document.getElementById('avisoNuevo').style.display = "block";
+      document.getElementById('avisoPass').style.display = "none";
+    }}
+  
+     
      validarNombre = (event) => {
 
       let key = event.keyCode || event.which;
@@ -231,9 +260,11 @@ updateListCities=(pais)=>{
 }
 componentDidMount() {
   RegistroService.getAllCountries().then(data => this.setState({pais: data}))
-
+  TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
 }
-
+updateList(e){
+  PersonaService.getTiposUser(e.target.value).then(data => this.setState({Usuarios: data}))
+}
 
 
 
@@ -260,7 +291,7 @@ render (){
       <div className="contenedor">
 
         
-        <form>
+        <form /*onSubmit={this.startButtonEvent()}*/>
        
          <label>
                 <div>
@@ -468,12 +499,13 @@ render (){
                 <div>
                 <b>Tipo de usuario:</b> 
                 <select  className="imput" required
-                >
-                      <option value ="" >Seleccione una opción</option>
-                      <option value ="1" >{"---"}</option>
-                      <option value ="2" >{"----"}</option>
-                      
-                      </select>
+                onChange={this.updateList}>
+                <option value =" " >{"Cliente"}</option>
+                {this.state.TUsuarios.map((elemento,index) => (
+                <option key={index} value = {elemento.crearTipo}>
+                  {elemento.crearTipo} 
+                </option> ))}
+              </select>
 
                 </div>
                 
@@ -529,10 +561,14 @@ render (){
              
                   <Link className="btn btn-cancelar" value="Login" type="reset"  to="/" >Cancelar</Link>
 
-                  <Link className="btn btn-aceptar " value="Login" >Registrar</Link>
+                  <button className="btn btn-aceptar " value="Login" >Registrar</button>
                   </div>
                   
-
+                  <div className="avisos">
+                  <div id="avisoCorrecto" className="alert alert-success">Datos correctos!</div>
+                  <div id="avisoNuevo" className="alert alert-warning">Existen campos vacios</div>
+                  <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
+                  </div>
 
         </form>
         

@@ -49,7 +49,6 @@
   width: 340px;
   /*border-radius: 5px;
   border: black;*/
-    
 }
 
 .radio{
@@ -88,7 +87,7 @@
   display: none;
 }
 #avisoVacio{
-  display: none;
+  display: none;  
 }
 #avisoNo{
   display: none;
@@ -101,6 +100,21 @@
 }
 #avisoDeshabilitado{
   display: none;
+}
+#avisoCorrecto{
+  display: none;
+  margin-left: 100px;
+  position: absolute;
+}
+#avisoNuevo{
+  display: none;
+  margin-left: 75px;
+  position: absolute;
+}
+#avisoPass{
+  display: none;
+  margin-left: 75px;
+  position: absolute;
 }
 @media(max-width:360px){
   .contenedor {

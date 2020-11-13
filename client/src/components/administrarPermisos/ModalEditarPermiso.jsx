@@ -10,9 +10,7 @@ class ModalEditarPermiso extends Component{
         }
         this.handleSave=this.handleSave.bind(this)
         this.nombreHandler=this.nombreHandler.bind(this)
-        this.handleDeleteKeyName=this.handleDeleteKeyName.bind(this) 
         this.descripcionHandler=this.descripcionHandler.bind(this)
-        this.handleDeleteKeyDesc=this.handleDeleteKeyDesc.bind(this)
     }
 
     componentWillReceiveProps(nextProps){
@@ -22,19 +20,10 @@ class ModalEditarPermiso extends Component{
         });
     }
 
-    handleDeleteKeyName(e){
-        let key = e.keyCode || e.which;
-        console.log(key)
-        if (this.state.nombrePermiso.length !== 0 && (key === 8 || key === 127)) {
-            let nuevo = this.state.nombrePermiso.substring(0, this.state.nombrePermiso.length - 1);
-            console.log(nuevo)
-            this.setState({nombrePermiso: nuevo})
-        }
-    }
-
     nombreHandler(e){
         console.log(e.target.value)
-        if(this.state.nombrePermiso.length != 20){ 
+        console.log(e.target.value.length)
+        if(e.target.value.length != 21){ 
             if(e.target.value.match("^[a-zA-Z ]*$")!=null){
                 this.setState({nombrePermiso: e.target.value})
             }
@@ -42,17 +31,8 @@ class ModalEditarPermiso extends Component{
             alert("El maximo de caracteres es de 20")
         }
     }
-    handleDeleteKeyDesc(e){
-        let key = e.keyCode || e.which;
-        console.log(key)
-        if (this.state.permisoDescripcion.length !== 0 && (key === 8 || key === 127)) {
-            let nuevo = this.state.permisoDescripcion.substring(0, this.state.permisoDescripcion.length - 1);
-            console.log(nuevo)
-            this.setState({permisoDescripcion: nuevo})
-        }
-    }
     descripcionHandler(e){
-        if(this.state.permisoDescripcion.length != 250){
+        if(e.target.value.length != 251){
             this.setState({permisoDescripcion: e.target.value})
         }else{
             alert("maximo 250 caracteres")
@@ -82,8 +62,8 @@ class ModalEditarPermiso extends Component{
                         <div className="modal-body" id="Cuerpo">
                             <div className="row justify-content-md-center">
                                 <div className="col-9">
-                                    <p><input className="form-control text-center" value={this.state.nombrePermiso} onKeyDownCapture={(e)=>this.handleDeleteKeyName(e)} onChange={(e)=>this.nombreHandler(e)}></input></p>
-                                    <textarea className="form-control" id="textoArea" aria-label="With textarea" value={this.state.permisoDescripcion} onKeyDownCapture={(e)=>this.handleDeleteKeyDesc(e)} onChange={(e)=>this.descripcionHandler(e)}></textarea>
+                                    <p><input className="form-control text-center" value={this.state.nombrePermiso} onChange={(e)=>this.nombreHandler(e)}></input></p>
+                                    <textarea className="form-control" id="textoArea" aria-label="With textarea" value={this.state.permisoDescripcion} onChange={(e)=>this.descripcionHandler(e)}></textarea>
                                 </div>
                             </div>
                         </div>

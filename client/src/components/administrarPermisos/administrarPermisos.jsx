@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from "react-router-dom"
-import logo from '../img/logo.png';
-import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser';
 import ModalEditarPermiso from './ModalEditarPermiso';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'

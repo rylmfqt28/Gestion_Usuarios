@@ -12,7 +12,9 @@ import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser'
 
 import { Button } from 'bootstrap';
-import { event } from 'jquery';
+import $ from 'jquery';
+
+import ModalSolicitudC from './ModalSolicitudC';
 //import handleDeleteKey from './validacionesNewAccount';
 //import ValidacionesNewAccount from './validacionesNewAccount';
 
@@ -43,8 +45,9 @@ class NewAccount extends Component {
       tipoID: 11
 
     }
-
+    this.capturarDatosModal=this.capturarDatosModal.bind(this);
     this.updateList = this.updateList.bind(this)
+    this.insertarDatoRegistro=this.insertarDatoRegistro.bind(this);
   }
   startButtonEvent() {
     //document.addEventListener('DOMContentLoaded', (event) => {
@@ -454,6 +457,54 @@ class NewAccount extends Component {
 
   }
 
+insertarDatoRegistro = async() =>{
+  try {
+    if (this.state.userName.trim() !== '') {
+      const res = await axios.get('/api/user/' + this.state.userName.trim());
+
+      console.log(res.data);
+      if (res.data === null) {
+        console.log(this.state.paisID)
+        try {
+          const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
+            usuarioNombre: this.state.nombre,
+            usuarioApellido: this.state.apellido,
+            CI: this.state.ci,
+            genero: this.state.genero,
+            paisID: this.state.paisID,
+            ciudadID: this.state.ciudadID,
+            direccion: this.state.direccion,
+            correo: this.state.correo,
+            telefono: this.state.telefono,
+            nombreUsuario: this.state.userName,
+            password: this.state.password,
+            tipoUsuarioID: this.state.tipoID,
+            motivo: this.state.motivo
+          })
+
+
+          // console.log(resp.data);
+          alert('Se creo el tipo de usuario Exitosamente');
+          // console.log("Se registro el usuario exitosamente:"+resp.data );
+        } catch (err) {
+          // Handle Error Here
+          console.error(err);
+        }
+
+      } else {
+        alert('El Nombre de usuario ya existe');
+        console.log("El nombre de usuario ya existe");
+      }
+    } else {
+      //mensaje campos vacios "Existen campos vacios"
+      alert('Existen campos vacíos, rellenar los campos restantes');
+      console.log("");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
   /*updateListCities=(e)=>{
   RegistroService.getAllCities(e.target.value).then(data => this.setState({ciudad: data}))
   console.log(e.target.value);
@@ -474,7 +525,10 @@ class NewAccount extends Component {
 
   //Registra los usuarios
 
-
+capturarDatosModal = (motivo) => {
+  this.setState({ motivo: motivo })
+  console.log("El motivo es: " + motivo)
+}
 
   registerButtonEvent = async (event) => {
     event.preventDefault();
@@ -491,54 +545,18 @@ class NewAccount extends Component {
         document.getElementById('avisoCorrecto').style.display = "block";
         document.getElementById('avisoNuevo').style.display = "none";
         document.getElementById('avisoPass').style.display = "none";
-
-        try {
-          if (this.state.userName.trim() !== '') {
-            const res = await axios.get('/api/user/' + this.state.userName.trim());
-
-            console.log(res.data);
-            if (res.data === null) {
-              console.log(this.state.paisID)
-              try {
-                const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
-                  usuarioNombre: this.state.nombre,
-                  usuarioApellido: this.state.apellido,
-                  CI: this.state.ci,
-                  genero: this.state.genero,
-                  paisID: this.state.paisID,
-                  ciudadID: this.state.ciudadID,
-                  direccion: this.state.direccion,
-                  correo: this.state.correo,
-                  telefono: this.state.telefono,
-                  nombreUsuario: this.state.userName,
-                  password: this.state.password,
-                  tipoUsuarioID: this.state.tipoID,
-                  motivo: this.state.motivo
-                })
-
-
-                // console.log(resp.data);
-                alert('Se creo el tipo de usuario Exitosamente');
-                // console.log("Se registro el usuario exitosamente:"+resp.data );
-              } catch (err) {
-                // Handle Error Here
-                console.error(err);
-              }
-
-            } else {
-              alert('El Nombre de usuario ya existe');
-              console.log("El nombre de usuario ya existe");
-            }
-          } else {
-            //mensaje campos vacios "Existen campos vacios"
-            alert('Existen campos vacíos, rellenar los campos restantes');
-            console.log("");
-          }
-        } catch (error) {
-          console.log(error);
+        
+        //modal de tipo usuario
+        if (this.state.tipoID !== 11)
+        {
+          $(function(){
+            $("#TipoUserData").modal('show')
+        })
+        this.insertarDatoRegistro()
         }
-
-
+        else {
+        this.insertarDatoRegistro()
+        }
 
       }
     } else {
@@ -851,6 +869,9 @@ class NewAccount extends Component {
             </div>
             <div>
               <ModalEula />
+              <ModalSolicitudC
+              capturarDatosModal = {this.capturarDatosModal}
+              />
             </div>
           </div>
         </div >

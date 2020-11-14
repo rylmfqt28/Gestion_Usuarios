@@ -1,4 +1,4 @@
-.containerPrincipal {
+/*.containerPrincipal {
   
   position: absolute;
   
@@ -10,21 +10,21 @@
   margin-top: 25px;
   background-color: rgb(245, 244, 243);
   
-}
+}*/
 .form-register{
-  padding:  10px;
+  padding:  50px;
   width: 50%;
   background-color: rgb(245, 244, 243);
   margin: auto;
-  
+  text-align: left;
 }
 .col{
   width: 100%;
   text-align: center;
 }
-.from{
+.from-group{
   margin-left: 0;
-  text-align: center;
+  text-align: auto;
 }
 
 /*.contenedor{
@@ -132,6 +132,16 @@
   margin-left: 75px;
   position: absolute;
 }
+@media(max-width:900px){
+  .form-register{
+    padding:  50px;
+    width: 65%;
+    background-color: rgb(245, 244, 243);
+    margin: auto;
+    
+  }
+
+}
 @media(max-width:400px){
   
   .form-register{
@@ -142,10 +152,12 @@
     
   }
   
-  .logo{
+  /*.logo{
     padding: 50px 50px;
+  }*/
+  .losbtn{
+    margin: auto;
   }
-
 
   .solicitud-label {
       left: 30%;
@@ -163,5 +175,5 @@
     }
     
     
-  }
+}
 

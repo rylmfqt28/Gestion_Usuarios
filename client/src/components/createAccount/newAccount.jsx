@@ -318,33 +318,32 @@ class NewAccount extends Component {
               <div className="row">
                 <h1 className="titulo-registro"> Formulario de registro </h1>
               </div>
-              <br/>
-              <form id="form-control" onSubmit={this.validarVacios}>
+              <br />
+              <form onSubmit={this.validarVacios}>
 
-                <label>
-                  <div>
-                    <b> Nombres:</b>
-                    <input
-                      id="name"
-                      type="text"
-                      class="form-control"
-                      size="60"
-                      placeholder="Ingrese sus nombres"
-                      name="nombre"
-                      onKeyPress={this.validarNombre}
-                      onKeyDown={this.handleDeleteKey}
-                      autocomplete="off"
-                      value={this.state.nombre}
-                      required
 
-                    />
-                  </div>
-                </label>
-                <br />
+                <div className="form-group">
+                  <label>
+                   <b>Nombres:</b>
+                    </label>
 
-                <label>
+                  <input
+                    id="name"
+                    type="text"
+                    class="form-control"
+                    size="60"
+                    placeholder="Ingrese sus nombres"
+                    name="nombre"
+                    onKeyPress={this.validarNombre}
+                    onKeyDown={this.handleDeleteKey}
+                    autocomplete="off"
+                    value={this.state.nombre}
+                    required
 
-                  <div>
+                  />
+
+
+                  <div className="form-group">
                     <b>Apellidos: </b>
                     <input
                       id="lastName"
@@ -360,72 +359,66 @@ class NewAccount extends Component {
                     />
                   </div>
 
-                </label>
-                <br />
-                <label>
-                  <b>Cédula de Identidad:</b>
-                  <input
-                    id="cedula"
-                    type="text"
-                    className="form-control"
-                    size="60"
-                    placeholder="Ingrese su cédula de identidad"
-                    name="ci"
+                  <div className="form-group">
+                    <b>Cédula de Identidad:</b>
+                    <input
+                      id="cedula"
+                      type="text"
+                      className="form-control"
+                      size="60"
+                      placeholder="Ingrese su cédula de identidad"
+                      name="ci"
 
 
-                    onKeyPress={this.validarNumeros}
-                    onKeyDown={this.handleDeleteKey}
-                    value={this.state.ci}
-                    required
+                      onKeyPress={this.validarNumeros}
+                      onKeyDown={this.handleDeleteKey}
+                      value={this.state.ci}
+                      required
 
-                  />
-                </label>
-                <br />
-                <div>
-                  <label className="radio">
-                    <b>Género:</b>
-                  </label>
-                  <input
-                    type="radio"
-                    id="male"
-                    name="gender"
-                    value="male"
-                    required
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label className="form-check-label">
+                      <b>Género: </b>
+                    </label>
+                    <div class="form-check form-check-inline">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      id="male"
+                      name="gender"
+                      value="male"
+                      required
 
-                  />
-                  <label for="male" className="radio">
-                    Masculino
-                      </label>
+                    />
+                    <label for="male" className="form-check-label"> Masculino</label>
 
-                  <input
-                    type="radio"
-                    id="female"
-                    name="gender"
-                    value="female"
-                    required
-                  />
-                  <label for="female" className="radio">
-                    Femenino
-                      </label>
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      id="female"
+                      name="gender"
+                      value="female"
+                      required
+                    />
+                    <label for="female" className="form-check-label"> Femenino</label>
 
-                  <input
-                    type="radio"
-                    id="other"
-                    className="radioLink"
-                    name="gender"
-                    value="other"
-                    required
-                  />
-                  <label for="other" className="radio">
-                    Otro
-                      </label>
-                </div>
+                    <input
+                      type="radio"
+                      id="other"
+                      className="form-check-input"
+                      name="gender"
+                      value="other"
+                      required
+                    />
+                    <label for="other" className="form-check-label"> Otro</label>
 
+                    </div>
+                   
+                  </div>
 
-                <br />
-
-                <label>
-                  <div><b>Pais:</b>
+                  <div className="form-group">
+                    <b>Pais:</b>
                     <select className="form-control" id="country" /*onChange={this.updateListContries}*/>
                       <option value="1" >{"Seleccione una Opción"}</option>
                       {this.state.pais.map((elemento, i) => (
@@ -435,11 +428,11 @@ class NewAccount extends Component {
                     </select>
                   </div>
 
-                </label>
-                <br />
 
-                <label>
-                  <div>
+
+
+
+                  <div className="form-group">
                     <b>Ciudad:</b>
                     <select className="form-control" id="city" required >
                       <option value=" " >{"Seleccione una Opción"}</option>
@@ -448,13 +441,12 @@ class NewAccount extends Component {
                           {elemento.ciudadNombre}
                         </option>))}
 
-                    </select></div>
+                    </select>
+                  </div>
 
-                </label>
-                <br />
 
-                <label>
-                  <div>
+
+                  <div className="form-group">
                     <b>Dirección:</b>
                     <input
                       id="address"
@@ -468,11 +460,11 @@ class NewAccount extends Component {
                     />
                   </div>
 
-                </label>
-                <br />
 
-                <label>
-                  <div>
+
+
+
+                  <div className="form-group">
                     <b>Correo Electronico:</b>
                     <input
                       id="email"
@@ -485,11 +477,11 @@ class NewAccount extends Component {
                       required
                     />
                   </div>
-                </label>
-                <br />
 
-                <label>
-                  <div>
+
+
+
+                  <div className="form-group">
                     <b>Teléfono:</b>
                     <input
                       id="phone"
@@ -506,11 +498,11 @@ class NewAccount extends Component {
                     />
                   </div>
 
-                </label>
-                <br />
 
-                <label>
-                  <div>
+
+
+
+                  <div className="form-group">
                     <b>Nombre de usuario:</b>
                     <input
                       id="userName"
@@ -529,11 +521,11 @@ class NewAccount extends Component {
                     />
                   </div>
 
-                </label>
-                <br />
 
-                <label>
-                  <div>
+
+
+
+                  <div className="form-group">
                     <b>Tipo de usuario:</b>
                     <select className="form-control" id="typeUser" required
                       onChange={this.updateList}>
@@ -546,10 +538,10 @@ class NewAccount extends Component {
 
                   </div>
 
-                </label>
-                <br />
-                <label>
-                  <div>
+
+
+
+                  <div className="form-group">
                     <b>Contraseña:</b>
                     <input
                       type="password"
@@ -564,11 +556,11 @@ class NewAccount extends Component {
                     />
                   </div>
 
-                </label>
-                <br />
 
-                <label>
-                  <div><b>Confirmar contraseña:</b>
+
+
+
+                  <div className="form-group"><b>Confirmar contraseña:</b>
                     <input
                       type="password"
                       className="form-control"
@@ -581,33 +573,34 @@ class NewAccount extends Component {
                       /*onKeyDown={handleDeleteKey}*/
                       required
                     /></div>
-                </label>
-                <br />
 
-                <div className="checkbox-confirmar">
 
-                  <input type="checkbox" name="aceppt" required value="" />  <label>
-                    <b>acepto los</b>
-                    <a href="/register">
-                      <b>Términos y condiciones</b>
-                    </a>
-                  </label>
+
+                  <div className="checkbox-confirmar">
+
+                    <input type="checkbox" name="aceppt" required value="" />  <label>
+                      <b>acepto los</b>
+                      <a href="/register">
+                        <b> Términos y condiciones</b>
+                      </a>
+                    </label>
+                  </div>
+                  <br />
+                  <div className="losbtn">
+
+                    <Link className="btn btn-cancelar" value="Login" type="reset" to="/" >Cancelar</Link>
+
+                    <Link className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Registrar</Link>
+                  </div>
+
+                  <div className="avisos">
+                    <div id="avisoCorrecto" className="alert alert-success">Datos correctos!</div>
+                    <div id="avisoNuevo" className="alert alert-warning">Existen campos vacios</div>
+                    <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
+                  </div>
+                  <br />
+                  <br />
                 </div>
-
-                <div className="losbtn">
-
-                  <Link className="btn btn-cancelar" value="Login" type="reset" to="/" >Cancelar</Link>
-
-                  <Link className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Registrar</Link>
-                </div>
-
-                <div className="avisos">
-                  <div id="avisoCorrecto" className="alert alert-success">Datos correctos!</div>
-                  <div id="avisoNuevo" className="alert alert-warning">Existen campos vacios</div>
-                  <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
-                </div>
-                  <br/>
-                  <br/>
               </form>
 
             </div>

@@ -21,8 +21,6 @@ class ModalEditarPermiso extends Component{
     }
 
     nombreHandler(e){
-        console.log(e.target.value)
-        console.log(e.target.value.length)
         if(e.target.value.length != 21){ 
             if(e.target.value.match("^[a-zA-Z ]*$")!=null){
                 this.setState({nombrePermiso: e.target.value})

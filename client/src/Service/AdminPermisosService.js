@@ -23,8 +23,8 @@ class RegistroService
         axios.post(this.base3,add).then(response => response.data);
     }
 
-    deletePermiso(tipoUsuario,permiso){
-        axios.delete(this.base4 + tipoUsuario + "/" + permiso).then(response => response.data)
+    deletePermiso(tipoUsuarioId,permisoId){
+        axios.delete(this.base4 + tipoUsuarioId + "/" + permisoId).then(response => response.data)
     }
 }
 export default new RegistroService();

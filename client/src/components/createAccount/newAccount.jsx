@@ -13,6 +13,14 @@ import { Button } from 'bootstrap';
 //import handleDeleteKey from './validacionesNewAccount';
 //import ValidacionesNewAccount from './validacionesNewAccount';
 
+  document.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+  });
+
+for( let i = 0; i < 1000000000; i++)
+{} // This synchronous script is going to delay parsing of the DOM,
+   // so the DOMContentLoaded event is going to launch later.
+
 class NewAccount extends Component {
   constructor(props){
     super (props);
@@ -29,6 +37,7 @@ class NewAccount extends Component {
       userName: "",
       tipoUsuario:[],
       password: "",
+      confPassword: "",
       Usuarios: [],
       TUsuarios: [],
       
@@ -36,235 +45,334 @@ class NewAccount extends Component {
 
     this.updateList = this.updateList.bind(this)
   }
-  startButtonEvent (event) {
-
+  startButtonEvent () {
+    //document.addEventListener('DOMContentLoaded', (event) => {
     /*event.preventDefault();*/
-    if (this.state.nombre !== '' && this.state.apellido !== '' && this.state.ci !== '' /*&& datosRegistro.direccion !== '' && datosRegistro.correo !== '' && datosRegistro.telefono !== '' && datosRegistro.userName !== '' && datosRegistro.password !== '' && datosRegistro.confPassword !== ''*/) 
+    if (this.state.nombre !== '' && this.state.apellido !== '' && this.state.ci !== '' && this.state.direccion !== '' && this.state.correo !== '' && this.state.telefono !== '' && this.state.userName !== '' && this.state.password !== '' && this.state.confPassword !== '') 
     {
       if (this.state.password !== this.state.confPassword) {
+        
         //mensaje contraseña "Las constraseñas no coinciden"
         document.getElementById('avisoCorrecto').style.display = "none";
         document.getElementById('avisoNuevo').style.display = "none";
         document.getElementById('avisoPass').style.display = "block";
       }else{
+        
         //mesaje datos correctos
       document.getElementById('avisoCorrecto').style.display = "block";
       document.getElementById('avisoNuevo').style.display = "none";
       document.getElementById('avisoPass').style.display = "none";
-    }}
-    else {
+      }
+    } else {
+      document.addEventListener('DOMContentLoaded', (event) => {
       //mensaje campos vacios "Existen campos vacios"
       document.getElementById("avisoCorrecto").style.display = "none";
       document.getElementById('avisoNuevo').style.display = "block";
-      document.getElementById('avisoPass').style.display = "none";
-    }}
+      document.getElementById('avisoPass').style.display = "none";})
+    }
+  //})
+}
   
      
-     validarNombre = (event) => {
+validarNombre = (event) => {
 
-      let key = event.keyCode || event.which;
-      let tecla = String.fromCharCode(key);
-      let letras = " áéíóúñÑ";
-      
-      
-      if (this.state.nombre.length !== 50) {
-          console.log('llego malditod');
-          if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
-              this.setState ({
-                  ...this.state,
-                  [event.target.name]: event.target.value + tecla
-              });
-          }
-      } else {
-          alert('El maximo de caracteres es de 50');
-      }
-      //Validacion campo apellido
-      
-      
-      
-      // validacion nombre de usuario
-      
-      //validacion contraseña
-      
-
-
-      
-  }
-  
-  validarApellido = (event) => {
-    let key = event.keyCode || event.which;
-      let tecla = String.fromCharCode(key);
-      let letras = " áéíóúñÑ";
-  if (this.state.apellido.length !== 50) {
-    console.log('llego malditod');
-    if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
-        this.setState({
-            ...this.state,
-            [event.target.name]: event.target.value + tecla
-        });
-    }
-} else {
-    alert('El maximo de caracteres es de 50');
-}
-
-}
-
-  validarNombreUsuario =(event)=>{
-let key = event.keyCode || event.which;
-      let tecla = String.fromCharCode(key);
-      let letras = " áéíóúñÑ";
-      let letrasContraseña="áéíóúñÑ*";
-      let numeros = "1234567890"
-if (this.state.userName.length !== 15) {
-  console.log('llego malditod');
-  if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
-      this.setState({
-          ...this.state,
-          [event.target.name]: event.target.value + tecla
-      });
-  }
-} else {
-  alert('El maximo de caracteres es de 50');
-}
-  }
-   validarNumeros =(event)=>{
-    let numeros = "1234567890"
-    let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    if(this.state.ci.length!==9){
-      if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla)!==-1)) {
-        this.setState({
-            ...this.state,
-            [event.target.name]: event.target.value + tecla
-        });
-      }
-    }else{
-    alert('El maximo de digitos en el campo es de 9')
-    }
-
-  }
-  validarTelefono =(event)=>{
-    let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    let numeros = "1234567890"
-    if(this.state.telefono.length!==8 ){
-    if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla)!==-1)) {
-      this.setState({
-          ...this.state,
-          [event.target.name]: event.target.value + tecla
-      });
-    }
-    }else{
-        alert('El maximo de digitos en el campo es de 8')
-        }
-  }
-
-
-
-
-    validarContraseña=(event) =>{
-      let key = event.keyCode || event.which;
-      let tecla = String.fromCharCode(key);
-      let numeros = "1234567890"
-      let letrasContraseña="áéíóúñÑ*";
-  if (this.password !== 8) {
-    console.log('llego malditod');
-    if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
-        this.setState({
-            ...this.state,
-            [event.target.name]: event.target.value + tecla
-        });
-    }
-  } else {
-    alert('Minimo 8 caracteres');
-  }
-  }
-   handleDeleteKey = (event) => {
-        
-    let key = event.keyCode || event.which;
-    if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
-        let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
-        this.setState({
-            ...this.state,
-            [event.target.name]: nuevo
-        });
-    }
-    // Borra para el campo apellido
-     
-
-
-
-
-    if (this.state.ci.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.ci.substring(0, this.state.ci.length - 1);
-      this.setState({
-          ...this.state,
-          [event.target.name]: nuevo
-      });
-
-
-    }
-      //borra campo telefono
-    if (this.state.telefono.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.telefono.substring(0, this.state.telefono.length - 1);
-      this.setState({
-          ...this.state,
-          [event.target.name]: nuevo
-      });
-
-    }
-
-      //borra campo nombre de usuario
-      if (this.state.userName.length !== 0 && (key === 8 || key === 127)) {
-        let nuevo = this.state.userName.substring(0, this.state.userName.length - 1);
-        this.setState({
-            ...this.state,
-            [event.target.name]: nuevo
-        });
-  
-      }
-      //borra campo contraseña
-      if (this.state.password.length !== 0 && (key === 8 || key === 127)) {
-        let nuevo = this.state.password.substring(0, this.state.password.length - 1);
-        this.setState({
-            ...this.state,
-            [event.target.name]: nuevo
-        });
-  
-      }
-
-}
-handleDeleteKeyAp = (event) => {
   let key = event.keyCode || event.which;
-if (this.state.apellido.length !== 0 && (key === 8 || key === 127)) {
-  let nuevo = this.state.apellido.substring(0, this.state.apellido.length - 1);
+  let tecla = String.fromCharCode(key);
+  let letras = " áéíóúñÑ";
+  
+  
+  if (this.state.nombre.length !== 50) {
+      console.log('llego malditod');
+      if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
+          this.setState ({
+              ...this.state,
+              [event.target.name]: event.target.value + tecla
+          });
+      }
+  } else {
+      alert('El maximo de caracteres es de 50');
+  }
+  //Validacion campo apellido
+  
+  
+  
+  // validacion nombre de usuario
+  
+  //validacion contraseña
+  
+
+
+  
+}
+
+validarApellido = (event) => {
+let key = event.keyCode || event.which;
+  let tecla = String.fromCharCode(key);
+  let letras = " áéíóúñÑ";
+if (this.state.apellido.length !== 50) {
+console.log('llego malditod');
+if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
+    this.setState({
+        ...this.state,
+        [event.target.name]: event.target.value + tecla
+    });
+}
+} else {
+alert('El maximo de caracteres es de 50');
+}
+
+}
+
+validarNombreUsuario =(event)=>{
+let key = event.keyCode || event.which;
+  let tecla = String.fromCharCode(key);
+  let letras = " áéíóúñÑ@_";
+  let letrasContraseña="áéíóúñÑ*";
+  let numeros = "1234567890"
+  if (this.state.userName.length !== 15) {
+  console.log('llego malditod');
+  if ((key <= 90 && key >= 64) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (key ===95) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+  this.setState({
+      ...this.state,
+      [event.target.name]: event.target.value + tecla
+  });
+  }
+  } else {
+alert('El maximo de caracteres es de 50');
+}
+}
+validarNumeros =(event)=>{
+let numeros = "1234567890"
+let key = event.keyCode || event.which;
+let tecla = String.fromCharCode(key);
+if(this.state.ci.length!==9){
+  if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla)!==-1)) {
+    this.setState({
+        ...this.state,
+        [event.target.name]: event.target.value + tecla
+    });
+  }
+}else{
+alert('El maximo de digitos en el campo es de 9')
+}
+
+}
+validarCorreo =(event) =>{
+
+let key = event.keyCode || event.which;
+  let tecla = String.fromCharCode(key);
+  let letras = " áéíóúñÑ";
+  let letrasContraseña="áéíóúñÑ*";
+  let numeros = "1234567890"
+  if (this.state.correo.length !== 200) {
+  console.log('llego malditod');
+  //if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+  this.setState({
+      ...this.state,
+      [event.target.name]: event.target.value + tecla
+  });
+  //}
+  } else {
+alert('El maximo de caracteres es de 200');
+}
+
+}
+validarTelefono =(event)=>{
+let key = event.keyCode || event.which;
+let tecla = String.fromCharCode(key);
+let numeros = "1234567890"
+if(this.state.telefono.length!==8 ){
+if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla)!==-1)) {
+  this.setState({
+      ...this.state,
+      [event.target.name]: event.target.value + tecla
+  });
+}
+}else{
+    alert('El maximo de digitos en el campo es de 8')
+    }
+}
+
+
+
+
+validarContraseña=(event) =>{
+  let key = event.keyCode || event.which;
+  let tecla = String.fromCharCode(key);
+  let numeros = "1234567890"
+  let letrasContraseña="áéíóúñÑ*";
+if (this.password !== 8) {
+console.log('llego malditod');
+if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+    this.setState({
+        ...this.state,
+        [event.target.name]: event.target.value + tecla
+    });
+}
+} else {
+alert('Minimo 8 caracteres');
+}
+}
+
+validarDir = (event) =>{
+let key = event.keyCode || event.which;
+  let tecla = String.fromCharCode(key);
+  let letras = " áéíóúñÑ";
+  let letrasContraseña="áéíóúñÑ*";
+  let numeros = "1234567890"
+if (this.state.direccion.length !== 250) {
+console.log('llego malditod');
+//if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+  this.setState({
+      ...this.state,
+      [event.target.name]: event.target.value + tecla
+  });
+//}
+} else {
+alert('El maximo de caracteres es de 250');
+}
+
+
+}
+handleDeleteKey = (event) => {
+    
+let key = event.keyCode || event.which;
+if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
+    let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
+    this.setState({
+        ...this.state,
+        [event.target.name]: nuevo
+    });
+}
+// Borra para el campo apellido
+
+
+if (this.state.ci.length !== 0 && (key === 8 || key === 127)) {
+  let nuevo = this.state.ci.substring(0, this.state.ci.length - 1);
   this.setState({
       ...this.state,
       [event.target.name]: nuevo
   });
-  
-}  
+
+
 }
- updateListContries=(e)=>{
-  RegistroService.getAllCountries(e.target.value).then(data => this.setState({pais: data}))
-    console.log(e.target.value);
-    this.updateListCities(e.target.value);
+  //borra campo telefono
+if (this.state.telefono.length !== 0 && (key === 8 || key === 127)) {
+  let nuevo = this.state.telefono.substring(0, this.state.telefono.length - 1);
+  this.setState({
+      ...this.state,
+      [event.target.name]: nuevo
+  });
+
+}
+
+  //borra campo nombre de usuario
+  if (this.state.userName.length !== 0 && (key === 8 || key === 127)) {
+    let nuevo = this.state.userName.substring(0, this.state.userName.length - 1);
+    this.setState({
+        ...this.state,
+        [event.target.name]: nuevo
+    });
+
+  }
+  //borra campo contraseña
+  if (this.state.password.length !== 0 && (key === 8 || key === 127)) {
+    let nuevo = this.state.password.substring(0, this.state.password.length - 1);
+    this.setState({
+        ...this.state,
+        [event.target.name]: nuevo
+    });
+
+  }
+  //borra campo confirmar-contraseña
+  if (this.state.confPassword.length !== 0 && (key === 8 || key === 127)) {
+    let nuevo = this.state.confPassword.substring(0, this.state.confPassword.length - 1);
+    this.setState({
+        ...this.state,
+        [event.target.name]: nuevo
+    });
+
+  }
+
+}
+handleDeleteKeyAp = (event) => {
+let key = event.keyCode || event.which;
+if (this.state.apellido.length !== 0 && (key === 8 || key === 127)) {
+let nuevo = this.state.apellido.substring(0, this.state.apellido.length - 1);
+this.setState({
+  ...this.state,
+  [event.target.name]: nuevo
+});
+
+}  
+
+
+}
+
+handleDeleteKeyDir = (event) => {      
+let key = event.keyCode || event.which;
+if (this.state.direccion.length !== 0 && (key === 8 || key === 127)) {
+  let nuevo = this.state.direccion.substring(0, this.state.direccion.length - 1);
+  this.setState({
+      ...this.state,
+      [event.target.name]: nuevo
+  });
+}
+}
+
+updateListContries=(e)=>{
+RegistroService.getAllCountries(e.target.value).then(data => this.setState({pais: data}))
+console.log(e.target.value);
+this.updateListCities(e.target.value);
 }
 /*updateListCities=(e)=>{
-  RegistroService.getAllCities(e.target.value).then(data => this.setState({ciudad: data}))
-  console.log(e.target.value);
+RegistroService.getAllCities(e.target.value).then(data => this.setState({ciudad: data}))
+console.log(e.target.value);
 }*/
-
+//actualiza la lista de los paises
 updateListCities=(pais)=>{
-  RegistroService.getAllCities(pais).then(data => this.setState({ciudad: data}))
+RegistroService.getAllCities(pais).then(data => this.setState({ciudad: data}))
 }
+//visualiza paises y tipos de usuario 
 componentDidMount() {
-  RegistroService.getAllCountries().then(data => this.setState({pais: data}))
-  TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
+RegistroService.getAllCountries().then(data => this.setState({pais: data}))
+TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
 }
+//Actualiza lista de usuarios
 updateList(e){
-  PersonaService.getTiposUser(e.target.value).then(data => this.setState({Usuarios: data}))
+PersonaService.getTiposUser(e.target.value).then(data => this.setState({Usuarios: data}))
 }
+
+//Registra los usuarios
+registerButtonEvent = async (event) => {
+event.preventDefault();
+try {
+  if (this.state.userName.trim() !== '' ) {
+      const res = await axios.get('/api/userName/' + this.state.userName.trim());
+      console.log(res.data);
+      if (res.data === null) {
+          const registrar = await axios.post('/api/nuevoUsuario', this.state);
+          alert('Se creo el tipo de usuario Exitosamente');
+          console.log("Se registro el usuario exitosamente:" + registrar.data);
+      } else {
+          alert('El Nombre de usuario ya existe');
+          console.log("El nombre de usuario ya existe");
+      }
+  } else {
+      //mensaje campos vacios "Existen campos vacios"
+      alert('Existen campos vacíos, rellenar los campos restantes');
+      console.log("");
+  }
+
+} catch (error) {
+  console.log(error);
+}
+}
+
+
+
+
+
 
 
 
@@ -291,7 +399,7 @@ render (){
       <div className="contenedor">
 
         
-        <form /*onSubmit={this.startButtonEvent()}*/>
+        <form onSubmit={this.startButtonEvent()}>
        
          <label>
                 <div>
@@ -304,7 +412,7 @@ render (){
                 name="nombre"
                 onKeyPress={this.validarNombre}
                 onKeyDown={this.handleDeleteKey}
-                autocomplete="off"
+                
                 value={this.state.nombre}
                 required
                             
@@ -430,6 +538,9 @@ render (){
                 placeholder="Ingrese su dirección"
                 name="direccion"
                 maxLength="250"
+                onKeyPress={this.validarDir}
+                onKeyDown={this.handleDeleteKeyDir}
+                value={this.state.direccion}
                 required
               />
                 </div>
@@ -447,6 +558,10 @@ render (){
                 minLength="3"
                 placeholder="Ingrese su dirección de correo"
                 name="correo"
+                onKeyPress={this.validarCorreo}
+                onKeyDown={this.handleDeleteKey}
+                value={this.state.correo}
+                pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
                 required
               />
                 </div>
@@ -523,7 +638,9 @@ render (){
                 id="password"
                 minLength="8"
                 required
-                
+                onKeyPress={this.validarContraseña}
+                onKeyDown={this.handleDeleteKey}
+                value={this.state.password}
                 />
                 </div>
                 
@@ -540,8 +657,9 @@ render (){
                 name="confPassword"
                 id="confPassword"
                 minLength="8"
-                onBlur={this.validarContraseña}
-                /*onKeyDown={handleDeleteKey}*/
+                onKeyPress={this.validarContraseña}
+                onKeyDown={this.handleDeleteKey}
+                value={this.state.confPassword}
                 required
               /></div>
               </label>
@@ -561,7 +679,7 @@ render (){
              
                   <Link className="btn btn-cancelar" value="Login" type="reset"  to="/" >Cancelar</Link>
 
-                  <button className="btn btn-aceptar " value="Login" >Registrar</button>
+                  <button className="btn btn-aceptar "  value="Login" >Registrar</button>
                   </div>
                   
                   <div className="avisos">
@@ -569,7 +687,7 @@ render (){
                   <div id="avisoNuevo" className="alert alert-warning">Existen campos vacios</div>
                   <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
                   </div>
-
+                  
         </form>
         
       </div>

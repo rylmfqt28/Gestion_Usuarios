@@ -20,7 +20,7 @@ public class PermisosService {
     private JdbcTemplate jdbcTemplate;
 
     // Verifica si existe el permiso
-    public Permisos buscarUsuario(String nombrePermiso){
+    public Permisos buscarPermiso(String nombrePermiso){
         Permisos permiso = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {

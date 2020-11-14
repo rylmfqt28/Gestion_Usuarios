@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from "react-router-dom"
-import logo from '../img/logo.png';
-import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser';
 import ModalEditarPermiso from './ModalEditarPermiso';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -11,26 +8,42 @@ import{faPlusCircle, faEdit, faTrashAlt, faMinusCircle} from '@fortawesome/free-
 import "./administrarPermisos.css";
 
 import NavMenu from '../menuAdmin/NavMenu'
+import AdminPermisosService from '../../Service/AdminPermisosService';
 
 
 class administrarPermisos extends Component{
     constructor(props){
         super(props);
         this.state = {
-            permisos: ["solicitud","administrar","listar","crear"],
-            permisosAsignados: ["solicitud","administrar","listar","crear"],
+            permisos: [],
+            permisosAsignados: [],
+            permiso:{},
             TUsuarios: [],
             tipo: "",
         }
+        this.updateList = this.updateList.bind(this)
+        this.updateTipoUsuario = this.updateTipoUsuario.bind(this)
     }
     componentDidMount() {
         TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
-     
+        AdminPermisosService.getListaPermisos().then(data=>this.setState({permisos: data}))
     }
 
-    updateList(e){
-        PersonaService.getTiposUser(e.target.value).then(data => this.setState({permisos: data}))
-        console.log(e.target.value);
+    updateTipoUsuario(e){
+        this.setState({tipo: e.target.value})
+        AdminPermisosService.getListaPermisosNoAsignados(e.target.value).then(data => this.setState({permisos: data}))
+        AdminPermisosService.getListaPermisosAsignados(e.target.value).then(data => this.setState({permisosAsignados: data}))
+    }
+
+    updateList(){
+        AdminPermisosService.getListaPermisosNoAsignados(this.state.tipo).then(data => this.setState({permisos: data}))
+        AdminPermisosService.getListaPermisosAsignados(this.state.tipo).then(data => this.setState({permisosAsignados: data}))
+        console.log(this.state.tipo);
+    }
+
+    replaceModalItem(Permiso) {
+        this.setState({ permiso: Permiso})
+        console.log(Permiso)
     }
 
     render() {
@@ -39,7 +52,7 @@ class administrarPermisos extends Component{
           return (
             <tr key={index} >
     
-              <td>{Permiso}</td>
+              <td>{Permiso.nombrePermiso}</td>
     
               <td>
                 <button className="btn btn-default btn-sm">
@@ -49,6 +62,7 @@ class administrarPermisos extends Component{
                     className="btn btn-default btn-sm"
                     data-toggle="modal"
                     data-target="#editPermiso"
+                    onClick={() => this.replaceModalItem(Permiso)}
                   //onClick={() => this.replaceModalItem(index)}>VER USUARIO</button>{' '}
                 >
                     <FontAwesomeIcon icon={faEdit} style={{fontSize:"20px"}}></FontAwesomeIcon>
@@ -66,7 +80,7 @@ class administrarPermisos extends Component{
             return (
               <tr key={index} >
       
-                <td>{PermisoA}</td>
+                <td>{PermisoA.nombrePermiso}</td>
       
                 <td>
                   <button className="btn btn-default btn-sm">
@@ -76,6 +90,7 @@ class administrarPermisos extends Component{
                     className="btn btn-default btn-sm"
                     data-toggle="modal"
                     data-target="#editPermiso"
+                    onClick={() => this.replaceModalItem(PermisoA)}
                     //onClick={() => this.replaceModalItem(index)}>VER USUARIO</button>{' '}
                   >
                       <FontAwesomeIcon icon={faEdit} style={{fontSize:"20px"}}></FontAwesomeIcon>
@@ -88,11 +103,6 @@ class administrarPermisos extends Component{
               </tr>
             )
           });
-    
-          
-        const salir = () => {
-            sessionStorage.removeItem("authToken");
-        }
     
         return (
     
@@ -145,7 +155,7 @@ class administrarPermisos extends Component{
                                     <label>Permisos Asignados </label>
                                 </div>
                                 <div className="col">
-                                    <select className="form-control form-control-sm" onChange={this.updateList}>
+                                    <select className="form-control form-control-sm" onChange={this.updateTipoUsuario}>
                                         <option value =" " >{"---"}</option>    
                                         {this.state.TUsuarios.map((elemento,index) => (
                                         <option key={index} value = {elemento.crearTipo}>
@@ -181,6 +191,9 @@ class administrarPermisos extends Component{
             </div>
     
             <ModalEditarPermiso
+                permisoId={this.state.permiso.permisoId}
+                nombrePermiso={this.state.permiso.nombrePermiso}
+                permisoDescripcion={this.state.permiso.permisoDescripcion}
             />
 
           </div>

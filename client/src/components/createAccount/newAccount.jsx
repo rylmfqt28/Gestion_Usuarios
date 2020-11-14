@@ -1,68 +1,24 @@
-import React, { Fragment, useState } from 'react';
+import React, {Fragment, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './newAccount.css'
 import ModalEula from './modalEula.js';
+import ModalSolicitudC from './ModalSolicitudC';
 import { Link } from "react-router-dom"
 import axios from 'axios';
 import logo from '../img/logo.png';
-import ModalSolicitudC from './ModalSolicitudC';
 import { useForm } from 'react-hook-form';
 import RegistroService from '../../Service/RegistroService'
 import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser';
 import { Button } from 'bootstrap';
-import { event } from 'jquery';
 //import handleDeleteKey from './validacionesNewAccount';
 //import ValidacionesNewAccount from './validacionesNewAccount';
-<<<<<<< HEAD
-const NewAccount = () => {
-
-const [datosRegistro, setDatosRegistro] = useState({
-        nombre: '',
-        apellido: '',
-        ci: '',
-        genero: '',
-        pais: '',
-        ciudad: '',
-        direccion: '',
-        correo: '',
-        telefono: '', 
-        userName: '',
-        password: '', 
-})
-
-
-const restartForm = () => {
-  setDatosRegistro({
-      ...datosRegistro,
-      nombre: '',
-        apellido: '',
-        ci: '',
-        genero: '',
-        pais: '',
-        ciudad: '',
-        direccion: '',
-        correo: '',
-        telefono: '', 
-        userName: '',
-        password: '', 
-  });
-}
-
-
-const { register, errors, handleSubmit } = useForm();
-    const onSubmit = (data, e) => {
-        console.log(data)
-        e.target.reset()
-=======
-
-
 
 class NewAccount extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  constructor(props){
+    super (props);
+    this.state={
       nombre: "",
       apellido: "",
       ci: "",
@@ -71,87 +27,99 @@ class NewAccount extends Component {
       ciudad: [],
       direccion: "",
       correo: "",
-      telefono: "",
+      telefono: "", 
       userName: "",
-      tipoUsuario: [],
+      tipoUsuario:[],
       password: "",
-      confPassword: "",
       Usuarios: [],
       TUsuarios: [],
-      motivo: " ",
-
->>>>>>> db8c3759fc3784dc6443efbdad6ded957db8fcea
+      
     }
 
     this.updateList = this.updateList.bind(this)
   }
-  startButtonEvent() {
-    //document.addEventListener('DOMContentLoaded', (event) => {
-    /*event.preventDefault();*/
-    if (this.state.nombre !== '' && this.state.apellido !== '' && this.state.ci !== '' && this.state.direccion !== '' && this.state.correo !== '' && this.state.telefono !== '' && this.state.userName !== '' && this.state.password !== '' && this.state.confPassword !== '') {
-      if (this.state.password !== this.state.confPassword) {
+  startButtonEvent (event) {
 
+    /*event.preventDefault();*/
+    if (this.state.nombre !== '' && this.state.apellido !== '' && this.state.ci !== '' /*&& datosRegistro.direccion !== '' && datosRegistro.correo !== '' && datosRegistro.telefono !== '' && datosRegistro.userName !== '' && datosRegistro.password !== '' && datosRegistro.confPassword !== ''*/) 
+    {
+      if (this.state.password !== this.state.confPassword) {
         //mensaje contraseña "Las constraseñas no coinciden"
         document.getElementById('avisoCorrecto').style.display = "none";
         document.getElementById('avisoNuevo').style.display = "none";
         document.getElementById('avisoPass').style.display = "block";
-      } else {
-
+      }else{
         //mesaje datos correctos
-        document.getElementById('avisoCorrecto').style.display = "block";
-        document.getElementById('avisoNuevo').style.display = "none";
-        document.getElementById('avisoPass').style.display = "none";
+      document.getElementById('avisoCorrecto').style.display = "block";
+      document.getElementById('avisoNuevo').style.display = "none";
+      document.getElementById('avisoPass').style.display = "none";
+    }}
+    else {
+      //mensaje campos vacios "Existen campos vacios"
+      document.getElementById("avisoCorrecto").style.display = "none";
+      document.getElementById('avisoNuevo').style.display = "block";
+      document.getElementById('avisoPass').style.display = "none";
+    }}
+  
+     
+     validarNombre = (event) => {
+
+      let key = event.keyCode || event.which;
+      let tecla = String.fromCharCode(key);
+      let letras = " áéíóúñÑ";
+      
+      
+      if (this.state.nombre.length !== 50) {
+          console.log('llego malditod');
+          if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
+              this.setState ({
+                  ...this.state,
+                  [event.target.name]: event.target.value + tecla
+              });
+          }
+      } else {
+          alert('El maximo de caracteres es de 50');
       }
-    } else {
-      document.addEventListener('DOMContentLoaded', (event) => {
-        //mensaje campos vacios "Existen campos vacios"
-        document.getElementById("avisoCorrecto").style.display = "none";
-        document.getElementById('avisoNuevo').style.display = "block";
-        document.getElementById('avisoPass').style.display = "none";
-      })
-    }
-    //})
+      //Validacion campo apellido
+      
+      
+      
+      // validacion nombre de usuario
+      
+      //validacion contraseña
+      
+
+
+      
   }
-
-
-  validarNombre = (event) => {
-
+  
+  validarApellido = (event) => {
     let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    let letras = " áéíóúñÑ";
-    
-    
-    if (this.state.nombre.length !== 50) {
-        console.log('llego malditod');
-        if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
-            this.setState ({
-                ...this.state,
-                [event.target.name]: event.target.value + tecla
-            });
-        }
-    } else {
-        alert('El maximo de caracteres es de 50');
+      let tecla = String.fromCharCode(key);
+      let letras = " áéíóúñÑ";
+  if (this.state.apellido.length !== 50) {
+    console.log('llego malditod');
+    if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
+        this.setState({
+            ...this.state,
+            [event.target.name]: event.target.value + tecla
+        });
     }
-    //Validacion campo apellido
-    
-    
-    
-    // validacion nombre de usuario
-    
-    //validacion contraseña
-    
-
-
-    
+} else {
+    alert('El maximo de caracteres es de 50');
 }
 
-validarApellido = (event) => {
-  let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    let letras = " áéíóúñÑ";
-if (this.state.apellido.length !== 50) {
+}
+
+  validarNombreUsuario =(event)=>{
+let key = event.keyCode || event.which;
+      let tecla = String.fromCharCode(key);
+      let letras = " áéíóúñÑ";
+      let letrasContraseña="áéíóúñÑ*";
+      let numeros = "1234567890"
+if (this.state.userName.length !== 15) {
   console.log('llego malditod');
-  if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
+  if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
       this.setState({
           ...this.state,
           [event.target.name]: event.target.value + tecla
@@ -160,264 +128,151 @@ if (this.state.apellido.length !== 50) {
 } else {
   alert('El maximo de caracteres es de 50');
 }
-
-}
-
-validarNombreUsuario =(event)=>{
-  let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    let letras = " áéíóúñÑ@_";
-    let letrasContraseña="áéíóúñÑ*";
-    let numeros = "1234567890"
-    if (this.state.userName.length !== 15) {
-    console.log('llego malditod');
-    if ((key <= 90 && key >= 64) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (key ===95) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
-    this.setState({
-        ...this.state,
-        [event.target.name]: event.target.value + tecla
-    });
-    }
-    } else {
-  alert('El maximo de caracteres es de 50');
   }
-}
- validarNumeros =(event)=>{
-  let numeros = "1234567890"
-  let key = event.keyCode || event.which;
-  let tecla = String.fromCharCode(key);
-  if(this.state.ci.length!==9){
+   validarNumeros =(event)=>{
+    let numeros = "1234567890"
+    let key = event.keyCode || event.which;
+    let tecla = String.fromCharCode(key);
+    if(this.state.ci.length!==9){
+      if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla)!==-1)) {
+        this.setState({
+            ...this.state,
+            [event.target.name]: event.target.value + tecla
+        });
+      }
+    }else{
+    alert('El maximo de digitos en el campo es de 9')
+    }
+
+  }
+  validarTelefono =(event)=>{
+    let key = event.keyCode || event.which;
+    let tecla = String.fromCharCode(key);
+    let numeros = "1234567890"
+    if(this.state.telefono.length!==8 ){
     if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla)!==-1)) {
       this.setState({
           ...this.state,
           [event.target.name]: event.target.value + tecla
       });
     }
-  }else{
-  alert('El maximo de digitos en el campo es de 9')
+    }else{
+        alert('El maximo de digitos en el campo es de 8')
+        }
   }
 
-}
-validarCorreo =(event) =>{
-  
-  let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    let letras = " áéíóúñÑ";
-    let letrasContraseña="áéíóúñÑ*";
-    let numeros = "1234567890"
-    if (this.state.correo.length !== 200) {
+
+
+
+    validarContraseña=(event) =>{
+      let key = event.keyCode || event.which;
+      let tecla = String.fromCharCode(key);
+      let numeros = "1234567890"
+      let letrasContraseña="áéíóúñÑ*";
+  if (this.password !== 8) {
     console.log('llego malditod');
-    //if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
-    this.setState({
-        ...this.state,
-        [event.target.name]: event.target.value + tecla
-    });
-    //}
-    } else {
-  alert('El maximo de caracteres es de 200');
-  }
-
-}
-validarTelefono =(event)=>{
-  let key = event.keyCode || event.which;
-  let tecla = String.fromCharCode(key);
-  let numeros = "1234567890"
-  if(this.state.telefono.length!==8 ){
-  if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla)!==-1)) {
-    this.setState({
-        ...this.state,
-        [event.target.name]: event.target.value + tecla
-    });
-  }
-  }else{
-      alert('El maximo de digitos en el campo es de 8')
-      }
-}
-
-
-
-
-  validarContraseña=(event) =>{
-    let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    let numeros = "1234567890"
-    let letrasContraseña="áéíóúñÑ*";
-if (this.password !== 8) {
-  console.log('llego malditod');
-  if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
-      this.setState({
-          ...this.state,
-          [event.target.name]: event.target.value + tecla
-      });
-  }
-} else {
-  alert('Minimo 8 caracteres');
-}
-}
-
- validarDir = (event) =>{
-  let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    let letras = " áéíóúñÑ";
-    let letrasContraseña="áéíóúñÑ*";
-    let numeros = "1234567890"
-if (this.state.direccion.length !== 250) {
-console.log('llego malditod');
-  //if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
-    this.setState({
-        ...this.state,
-        [event.target.name]: event.target.value + tecla
-    });
-  //}
+    if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+        this.setState({
+            ...this.state,
+            [event.target.name]: event.target.value + tecla
+        });
+    }
   } else {
-  alert('El maximo de caracteres es de 250');
+    alert('Minimo 8 caracteres');
   }
+  }
+   handleDeleteKey = (event) => {
+        
+    let key = event.keyCode || event.which;
+    if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
+        let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
+        this.setState({
+            ...this.state,
+            [event.target.name]: nuevo
+        });
+    }
+    // Borra para el campo apellido
+     
 
 
- }
- handleDeleteKey = (event) => {
-      
-  let key = event.keyCode || event.which;
-  if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
+
+
+    if (this.state.ci.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.ci.substring(0, this.state.ci.length - 1);
       this.setState({
           ...this.state,
           [event.target.name]: nuevo
       });
-  }
-  // Borra para el campo apellido
 
 
-  if (this.state.ci.length !== 0 && (key === 8 || key === 127)) {
-    let nuevo = this.state.ci.substring(0, this.state.ci.length - 1);
-    this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-    });
-
-
-  }
-    //borra campo telefono
-  if (this.state.telefono.length !== 0 && (key === 8 || key === 127)) {
-    let nuevo = this.state.telefono.substring(0, this.state.telefono.length - 1);
-    this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-    });
-
-  }
-
-    //borra campo nombre de usuario
-    if (this.state.userName.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.userName.substring(0, this.state.userName.length - 1);
+    }
+      //borra campo telefono
+    if (this.state.telefono.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.telefono.substring(0, this.state.telefono.length - 1);
       this.setState({
           ...this.state,
           [event.target.name]: nuevo
       });
 
     }
-    //borra campo contraseña
-    if (this.state.password.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.password.substring(0, this.state.password.length - 1);
-      this.setState({
-          ...this.state,
-          [event.target.name]: nuevo
-      });
 
-    }
-    //borra campo confirmar-contraseña
-    if (this.state.confPassword.length !== 0 && (key === 8 || key === 127)) {
-    let nuevo = this.state.confPassword.substring(0, this.state.confPassword.length - 1);
-    this.setState({
-      ...this.state,
-      [event.target.name]: nuevo
-    });
-
-  }
+      //borra campo nombre de usuario
+      if (this.state.userName.length !== 0 && (key === 8 || key === 127)) {
+        let nuevo = this.state.userName.substring(0, this.state.userName.length - 1);
+        this.setState({
+            ...this.state,
+            [event.target.name]: nuevo
+        });
+  
+      }
+      //borra campo contraseña
+      if (this.state.password.length !== 0 && (key === 8 || key === 127)) {
+        let nuevo = this.state.password.substring(0, this.state.password.length - 1);
+        this.setState({
+            ...this.state,
+            [event.target.name]: nuevo
+        });
+  
+      }
 
 }
 handleDeleteKeyAp = (event) => {
-let key = event.keyCode || event.which;
+  let key = event.keyCode || event.which;
 if (this.state.apellido.length !== 0 && (key === 8 || key === 127)) {
-let nuevo = this.state.apellido.substring(0, this.state.apellido.length - 1);
-this.setState({
-    ...this.state,
-    [event.target.name]: nuevo
-});
-
+  let nuevo = this.state.apellido.substring(0, this.state.apellido.length - 1);
+  this.setState({
+      ...this.state,
+      [event.target.name]: nuevo
+  });
+  
 }  
-
-
 }
-
-handleDeleteKeyDir = (event) => {      
-let key = event.keyCode || event.which;
-if (this.state.direccion.length !== 0 && (key === 8 || key === 127)) {
-    let nuevo = this.state.direccion.substring(0, this.state.direccion.length - 1);
-    this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-    });
-}
-}
-
-updateListContries=(e)=>{
-RegistroService.getAllCountries(e.target.value).then(data => this.setState({pais: data}))
-  console.log(e.target.value);
-  this.updateListCities(e.target.value);
+ updateListContries=(e)=>{
+  RegistroService.getAllCountries(e.target.value).then(data => this.setState({pais: data}))
+    console.log(e.target.value);
+    this.updateListCities(e.target.value);
 }
 /*updateListCities=(e)=>{
-RegistroService.getAllCities(e.target.value).then(data => this.setState({ciudad: data}))
-console.log(e.target.value);
+  RegistroService.getAllCities(e.target.value).then(data => this.setState({ciudad: data}))
+  console.log(e.target.value);
 }*/
-//actualiza la lista de los paises
+
 updateListCities=(pais)=>{
-RegistroService.getAllCities(pais).then(data => this.setState({ciudad: data}))
+  RegistroService.getAllCities(pais).then(data => this.setState({ciudad: data}))
 }
-//visualiza paises y tipos de usuario 
 componentDidMount() {
-RegistroService.getAllCountries().then(data => this.setState({pais: data}))
-TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
+  RegistroService.getAllCountries().then(data => this.setState({pais: data}))
+  TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
 }
-//Actualiza lista de usuarios
 updateList(e){
-PersonaService.getTiposUser(e.target.value).then(data => this.setState({Usuarios: data}))
-}
-
-//Registra los usuarios
-registerButtonEvent = async (event) => {
-event.preventDefault();
-try {
-    if (this.state.userName.trim() !== '' ) {
-        const res = await axios.get('/api/userName/' + this.state.userName.trim());
-        console.log(res.data);
-        if (res.data === null) {
-            const registrar = await axios.post('/api/nuevoUsuario', this.state);
-            alert('Se creo el tipo de usuario Exitosamente');
-            console.log("Se registro el usuario exitosamente:" + registrar.data);
-        } else {
-            alert('El Nombre de usuario ya existe');
-            console.log("El nombre de usuario ya existe");
-        }
-    } else {
-        //mensaje campos vacios "Existen campos vacios"
-        alert('Existen campos vacíos, rellenar los campos restantes');
-        console.log("");
-    }
-
-} catch (error) {
-    console.log(error);
-}
+  PersonaService.getTiposUser(e.target.value).then(data => this.setState({Usuarios: data}))
 }
 
 
 
-
-
-
-
-      render(){
-
-        return (
+render (){
+  
+  return(
       
             <div>
       <div className="barraNav">
@@ -438,7 +293,7 @@ try {
       <div className="contenedor">
 
         
-        <form onSubmit={this.startButtonEvent()}>
+        <form /*onSubmit={this.startButtonEvent()}*/>
        
          <label>
                 <div>
@@ -451,7 +306,7 @@ try {
                 name="nombre"
                 onKeyPress={this.validarNombre}
                 onKeyDown={this.handleDeleteKey}
-                
+                autocomplete="off"
                 value={this.state.nombre}
                 required
                             
@@ -506,23 +361,23 @@ try {
                 type="radio"
                 id="male"
                 name="gender"
-                value={this.state.genero}
+                value="male"
                 required
                 
               />
               <label for="male" className="radio">
-                  Masculino
+                Masculino
                       </label>
               
               <input
                 type="radio"
                 id="female"
                 name="gender"
-                value={this.state.genero}
+                value="female"
                 required
               />
               <label for="female" className="radio">
-                  Femenino
+                Femenino
                       </label>
               
               <input
@@ -530,11 +385,11 @@ try {
                 id="other"
                 className="radioButton"
                 name="gender"
-                value={this.state.genero}
+                value="other"
                 required
               />
               <label for="other" className="radio">
-                  Otro
+                Otro
                       </label>
               <br />
               
@@ -577,9 +432,6 @@ try {
                 placeholder="Ingrese su dirección"
                 name="direccion"
                 maxLength="250"
-                onKeyPress={this.validarDir}
-                onKeyDown={this.handleDeleteKeyDir}    
-                value={this.state.direccion}
                 required
               />
                 </div>
@@ -597,10 +449,6 @@ try {
                 minLength="3"
                 placeholder="Ingrese su dirección de correo"
                 name="correo"
-                onKeyPress={this.validarCorreo}
-                onKeyDown={this.handleDeleteKey}
-                value={this.state.correo}
-                pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
                 required
               />
                 </div>
@@ -652,24 +500,15 @@ try {
               <label> 
                 <div>
                 <b>Tipo de usuario:</b> 
+                
                 <select  className="imput" required
-<<<<<<< HEAD
                          data-toggle="modal"
                          data-target="#TipoUserData"  
                          onChange={""}>
                       <option value ="1" >{"Administrador"}</option>
                       <option value ="2" >{"Delivery"}</option>
                  </select>
-=======
-                onChange={this.updateList}>
-                <option value =" " >{"Cliente"}</option>
-                {this.state.TUsuarios.map((elemento,index) => (
-                <option key={index} value = {elemento.crearTipo}>
-                  {elemento.crearTipo} 
-                </option> ))}
-              </select>
 
->>>>>>> db8c3759fc3784dc6443efbdad6ded957db8fcea
                 </div>
                 
               </label>
@@ -686,9 +525,7 @@ try {
                 id="password"
                 minLength="8"
                 required
-                onKeyPress={this.validarContraseña}
-                onKeyDown={this.handleDeleteKey}
-                value={this.state.password}
+                
                 />
                 </div>
                 
@@ -705,10 +542,8 @@ try {
                 name="confPassword"
                 id="confPassword"
                 minLength="8"
-                onKeyPress={this.validarContraseña}
-                onKeyDown={this.handleDeleteKey}
-                value={this.state.confPassword}
-
+                onBlur={this.validarContraseña}
+                /*onKeyDown={handleDeleteKey}*/
                 required
               /></div>
               </label>
@@ -729,45 +564,37 @@ try {
              
                   <Link className="btn btn-cancelar" value="Login" type="reset"  to="/" >Cancelar</Link>
 
-<<<<<<< HEAD
                   <button className="btn btn-aceptar " value="Login" >Registrar</button>
-          
                   </div>
-        </form>
-=======
-                  <button className="btn btn-aceptar " value="Login" onClick={this.registerButtonEvent} >Registrar</button>
-                  </div>
->>>>>>> db8c3759fc3784dc6443efbdad6ded957db8fcea
-
-            <div>
-             <ModalSolicitudC
-               crearTipo= {"Administrador"}
-               descripcionTipo= {""}
-             />
-           </div> 
-
-<<<<<<< HEAD
-      </div>
-=======
->>>>>>> db8c3759fc3784dc6443efbdad6ded957db8fcea
-
-              <div className="avisos">
-                <div id="avisoCorrecto" className="alert alert-success">Datos correctos!</div>
-                <div id="avisoNuevo" className="alert alert-warning">Existen campos vacios</div>
-                <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
-              </div>
                   
-        </form>
-            <div>
 
-            </div>
 
-          </div>
-          <ModalEula />
-                  </div >
+                  <div className="avisos">
+                  <div id="avisoCorrecto" className="alert alert-success">Datos correctos!</div>
+                  <div id="avisoNuevo" className="alert alert-warning">Existen campos vacios</div>
+                  <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
+                  </div>
+
+        </form> 
+
+        <div>
+             
+        <div>
+                  
+      </div>
+
+  </div>
+  
+   </div>
+   <ModalEula/>
+  <ModalSolicitudC
+  crearTipo= {"Administrador"}
+  descripcionTipo= {""}/> </div>
+  
+  
     )
 
-      }
-    }
+}
+}
 
-    export default NewAccount;
+export default NewAccount;

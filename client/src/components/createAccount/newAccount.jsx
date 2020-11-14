@@ -8,7 +8,8 @@ import { useForm } from 'react-hook-form';
 import RegistroService from '../../Service/RegistroService'
 import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
-import TipoUser from '../../Service/TipoUser';
+import TipoUser from '../../Service/TipoUser'
+
 import { Button } from 'bootstrap';
 import { event } from 'jquery';
 //import handleDeleteKey from './validacionesNewAccount';
@@ -33,7 +34,9 @@ class NewAccount extends Component {
       Usuarios: [],
       TUsuarios: [],
       motivo: " ",
-      
+      paisID: 0,
+      ciudadID:0,
+      tipoID: 11
     }
 
     this.updateList = this.updateList.bind(this)
@@ -160,16 +163,19 @@ class NewAccount extends Component {
           [event.target.name]: event.target.value + tecla
       });
       }
+
       } else {
     alert('El maximo de caracteres es de 200');
     }
 
   }
+  
   validarTelefono =(event)=>{
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
     let numeros = "1234567890"
     if(this.state.telefono.length!==8 ){
+      console.log('llego malditod');
     if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla)!==-1)) {
       this.setState({
           ...this.state,
@@ -222,6 +228,41 @@ if (this.state.direccion.length !== 250) {
 
 
    }
+
+   handleDeleteName= (event) =>{
+    let key = event.keyCode || event.which;
+    if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
+        let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
+        this.setState({
+            ...this.state,
+            [event.target.name]: nuevo
+        });
+    }
+   }
+   handleDeleteKeyEmail=(event)=>{
+    let key = event.keyCode || event.which;
+    if (this.state.correo.length !== 0 && (key === 8 || key === 127)) {
+        let nuevo = this.state.correo.substring(0, this.state.correo.length - 1);
+        this.setState({
+            ...this.state,
+            [event.target.name]: nuevo
+        });
+    }
+  }
+  
+
+    handleDeleteKeyTelf=(event)=>{
+      let key = event.keyCode || event.which;
+      if (this.state.telefono.length !== 0 && (key === 8 || key === 127)) {
+        let nuevo = this.state.telefono.substring(0, this.state.telefono.length - 1);
+        this.setState({
+            ...this.state,
+            [event.target.name]: nuevo
+        });
+  
+      }
+
+    }
    handleDeleteKey = (event) => {
         
     let key = event.keyCode || event.which;
@@ -244,15 +285,7 @@ if (this.state.direccion.length !== 250) {
 
 
     }
-      //borra campo telefono
-    if (this.state.telefono.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.telefono.substring(0, this.state.telefono.length - 1);
-      this.setState({
-          ...this.state,
-          [event.target.name]: nuevo
-      });
-
-    }
+    
 
       //borra campo nombre de usuario
       if (this.state.userName.length !== 0 && (key === 8 || key === 127)) {
@@ -300,10 +333,36 @@ handleDeleteKeyDir = (event) => {
 }
 
  updateListContries=(e)=>{
+
+  for(const value of this.state.pais){
+    if(value.paisNombre===e.target.value){
+        console.log(value.paisID)
+        this.setState({paisID: value.paisID})
+    }
+  }
   RegistroService.getAllCountries(e.target.value).then(data => this.setState({pais: data}))
-    console.log(e.target.value);
-    this.updateListCities(e.target.value);
+    this.updateListCities(e.target.value);    
 }
+
+updateCityId=(e)=>{
+  for(const value of this.state.ciudad){
+    if(value.ciudadNombre===e.target.value){
+        console.log(value.ciudadID)
+        this.setState({ciudadID: value.ciudadID})
+    }
+  }
+}
+
+updateTypeUserID=(e)=>{
+  for(const value of this.state.TUsuarios){
+    if(value.crearTipo===e.target.value){
+        console.log(value.tipoUsuarioID)
+        this.setState({tipoID: value.tipoUsuarioID})
+    }
+  }
+  
+}
+
 /*updateListCities=(e)=>{
   RegistroService.getAllCities(e.target.value).then(data => this.setState({ciudad: data}))
   console.log(e.target.value);
@@ -323,16 +382,42 @@ updateList(e){
 }
 
 //Registra los usuarios
+
+
+
 registerButtonEvent = async (event) => {
   event.preventDefault();
   try {
       if (this.state.userName.trim() !== '' ) {
-          const res = await axios.get('/api/userName/' + this.state.userName.trim());
+          const res = await axios.get('/api/user/' + this.state.userName.trim());
+          const prueba = 
           console.log(res.data);
           if (res.data === null) {
-              const registrar = await axios.post('/api/nuevoUsuario', this.state);
+            console.log(this.state.paisID)
+            try {
+              const resp = await axios.post("http://localhost:8080/api/nuevoUsuario",{usuarioNombre: this.state.nombre ,
+                    usuarioApellido: this.state.apellido,
+                    CI: this.state.ci,
+                    genero: this.state.genero,
+                    paisID: this.state.paisID,
+                    ciudadID: this.state.ciudadID,
+                    direccion: this.state.direccion,
+                    correo: this.state.correo,
+                    telefono: this.state.telefono,
+                    nombreUsuario: this.state.userName,
+                    password: this.state.password,
+                    tipoUsuarioID: this.state.tipoID,
+                    motivo: this.state.motivo })
+      
+               
+             // console.log(resp.data);
               alert('Se creo el tipo de usuario Exitosamente');
-              console.log("Se registro el usuario exitosamente:" + registrar.data);
+             // console.log("Se registro el usuario exitosamente:"+resp.data );
+          } catch (err) {
+              // Handle Error Here
+              console.error(err);
+          }  
+              
           } else {
               alert('El Nombre de usuario ya existe');
               console.log("El nombre de usuario ya existe");
@@ -342,17 +427,27 @@ registerButtonEvent = async (event) => {
           alert('Existen campos vacíos, rellenar los campos restantes');
           console.log("");
       }
-
   } catch (error) {
       console.log(error);
   }
 }
 
+handleInputChange = () => {
+   
+     
+  
+}
+handleOnChange(e) {
+  //console.log('selected option', e.target.value);
 
+  this.setState({ genero: e.target.value});
+  console.log(this.state.genero);
+}
 
+verificar(tipo){
+  if(tipo==="Cliente"){return true}else{ return false}
 
-
-
+}
 
 
 render (){
@@ -378,20 +473,20 @@ render (){
       <div className="contenedor">
 
         
-        <form /*onSubmit={this.startButtonEvent()}*/>
+        <form onSubmit={this.registerButtonEvent}>
        
          <label>
                 <div>
                 <b> Nombres:</b>
                 <input
                 type="text"
-                class="imput"
+                className="imput"
                 size="70"
                 placeholder="Ingrese sus nombres"
                 name="nombre"
                 onKeyPress={this.validarNombre}
-                onKeyDown={this.handleDeleteKey}
-                
+                onKeyDown={this.handleDeleteName}
+                onChange={this.handleInputChange}
                 value={this.state.nombre}
                 required
                             
@@ -412,6 +507,7 @@ render (){
                 name="apellido"
                 onKeyPress={this.validarApellido}
                 onKeyDown={this.handleDeleteKeyAp}
+                onChange={this.handleInputChange}
                 value={this.state.apellido}
                 required
                 />
@@ -427,10 +523,9 @@ render (){
                 size="60"
                 placeholder="Ingrese su cédula de identidad"
                 name="ci"
-                
-              
                 onKeyPress={this.validarNumeros}
                 onKeyDown={this.handleDeleteKey}
+                onChange={this.handleInputChange}
                 value={this.state.ci}
                 required
                 
@@ -446,22 +541,23 @@ render (){
                 type="radio"
                 id="male"
                 name="gender"
-                value={this.state.genero}
+                onChange={(e)=>this.handleOnChange(e)} 
+                value="Masculino"
                 required
                 
               />
-              <label for="male" className="radio">
+              <label htmlFor="male" className="radio">
                 Masculino
                       </label>
-              
               <input
                 type="radio"
                 id="female"
                 name="gender"
-                value={this.state.genero}
+                onChange={(e)=>this.handleOnChange(e)}
+                value="Femenino"
                 required
               />
-              <label for="female" className="radio">
+              <label htmlFor="gender" className="radio">
                 Femenino
                       </label>
               
@@ -470,10 +566,11 @@ render (){
                 id="other"
                 className="radioButton"
                 name="gender"
-                value={this.state.genero}
+                onChange={(e)=>this.handleOnChange(e)}
+                value="Otro"
                 required
               />
-              <label for="other" className="radio">
+              <label htmlFor="other" className="radio">
                 Otro
                       </label>
               <br />
@@ -481,7 +578,7 @@ render (){
               <label> 
                 <div><b>Pais:</b> 
                 <select  className="imput" required onChange={this.updateListContries}>
-                      <option value ="1" >{"Seleccione una Opción"}</option>
+                      <option id="" value =" " >{"Seleccione una Opción"}</option>
                      {this.state.pais.map((elemento,i) => (
                        <option key={i} value = {elemento.paisNombre}>
                         {elemento.paisNombre}
@@ -495,7 +592,7 @@ render (){
               <label> 
               <div>
                 <b>Ciudad:</b> 
-                <select  className="imput" required >
+                <select  className="imput" required onChange={this.updateCityId}>
                       <option value =" " >{"Seleccione una Opción"}</option>
                      {this.state.ciudad.map((elemento,i) => (
                        <option key={i} value = {elemento.ciudad}>
@@ -518,7 +615,8 @@ render (){
                 name="direccion"
                 maxLength="250"
                 onKeyPress={this.validarDir}
-                onKeyDown={this.handleDeleteKeyDir}    
+                onKeyDown={this.handleDeleteKeyDir} 
+                onChange={this.handleInputChange}   
                 value={this.state.direccion}
                 required
               />
@@ -538,7 +636,8 @@ render (){
                 placeholder="Ingrese su dirección de correo"
                 name="correo"
                 onKeyPress={this.validarCorreo}
-                onKeyDown={this.handleDeleteKey}
+                onKeyDown={this.handleDeleteKeyEmail}
+                onChange={this.handleInputChange}
                 value={this.state.correo}
                 required
               />
@@ -558,7 +657,8 @@ render (){
                 maxLength="8"
                 required
                 onKeyPress={this.validarTelefono}
-                onKeyDown={this.handleDeleteKey}
+                onKeyDown={this.handleDeleteKeyTelf}
+                onChange={this.handleInputChange}
                 value={this.state.telefono}
                />
                 </div>
@@ -579,6 +679,7 @@ render (){
                 maxLength="15"
                 onKeyPress={this.validarNombreUsuario}
                 onKeyDown={this.handleDeleteKey}
+                onChange={this.handleInputChange}
                 value={this.state.userName}
                 required
               
@@ -591,11 +692,11 @@ render (){
               <label> 
                 <div>
                 <b>Tipo de usuario:</b> 
-                <select  className="imput" required
-                onChange={this.updateList}>
-                <option value =" " >{"Cliente"}</option>
+                <select  className="imput" required 
+                onChange={this.updateTypeUserID}>
+                
                 {this.state.TUsuarios.map((elemento,index) => (
-                <option key={index} value = {elemento.crearTipo}>
+                <option key={index} defaultValue={this.verificar(elemento.crearTipo)} value= {elemento.crearTipo}>
                   {elemento.crearTipo} 
                 </option> ))}
               </select>
@@ -618,6 +719,7 @@ render (){
                 required
                 onKeyPress={this.validarContraseña}
                 onKeyDown={this.handleDeleteKey}
+                onChange={this.handleInputChange}
                 value={this.state.password}
                 />
                 </div>
@@ -657,7 +759,7 @@ render (){
              
                   <Link className="btn btn-cancelar" value="Login" type="reset"  to="/" >Cancelar</Link>
 
-                  <button className="btn btn-aceptar " value="Login" onClick={this.registerButtonEvent} >Registrar</button>
+                  <button className="btn btn-aceptar " value="Login" /*onClick={this.registerButtonEvent}*/ >Registrar</button>
                   </div>
                   
                   <div className="avisos">

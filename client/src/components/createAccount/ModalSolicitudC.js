@@ -28,6 +28,7 @@ class ModalSolicitudC extends Component{
                     <div className="modal-dialog modal-lg">
                     <div className="modal-content" id="VentanaEmergente">
                         <div className="modal-header" id ="Encabezado">
+                       
                         <h5 className="modal-title">SOLICITAR CUENTA DE TIPO: {this.props.crearTipo}</h5>  
                     
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">

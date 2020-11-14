@@ -1,12 +1,17 @@
 import React, {Fragment, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './newAccount.css'
+import ModalEula from './modalEula.js';
 import { Link } from "react-router-dom"
 import axios from 'axios';
 import logo from '../img/logo.png';
 import { useForm } from 'react-hook-form';
 import RegistroService from '../../Service/RegistroService'
 import { Component } from 'react';
+import PersonaService from '../../Service/PersonaService';
+import TipoUser from '../../Service/TipoUser';
+import { Button } from 'bootstrap';
+import { event } from 'jquery';
 //import handleDeleteKey from './validacionesNewAccount';
 //import ValidacionesNewAccount from './validacionesNewAccount';
 
@@ -26,11 +31,38 @@ class NewAccount extends Component {
       userName: "",
       tipoUsuario:[],
       password: "",
+      Usuarios: [],
+      TUsuarios: [],
+      motivo: " ",
       
     }
 
-
+    this.updateList = this.updateList.bind(this)
   }
+  startButtonEvent (event) {
+
+    /*event.preventDefault();*/
+    if (this.state.nombre !== '' && this.state.apellido !== '' && this.state.ci !== '' /*&& datosRegistro.direccion !== '' && datosRegistro.correo !== '' && datosRegistro.telefono !== '' && datosRegistro.userName !== '' && datosRegistro.password !== '' && datosRegistro.confPassword !== ''*/) 
+    {
+      if (this.state.password !== this.state.confPassword) {
+        //mensaje contraseña "Las constraseñas no coinciden"
+        document.getElementById('avisoCorrecto').style.display = "none";
+        document.getElementById('avisoNuevo').style.display = "none";
+        document.getElementById('avisoPass').style.display = "block";
+      }else{
+        //mesaje datos correctos
+      document.getElementById('avisoCorrecto').style.display = "block";
+      document.getElementById('avisoNuevo').style.display = "none";
+      document.getElementById('avisoPass').style.display = "none";
+    }}
+    else {
+      //mensaje campos vacios "Existen campos vacios"
+      document.getElementById("avisoCorrecto").style.display = "none";
+      document.getElementById('avisoNuevo').style.display = "block";
+      document.getElementById('avisoPass').style.display = "none";
+    }}
+  
+     
      validarNombre = (event) => {
 
       let key = event.keyCode || event.which;
@@ -81,22 +113,22 @@ class NewAccount extends Component {
 }
 
   validarNombreUsuario =(event)=>{
-let key = event.keyCode || event.which;
+    let key = event.keyCode || event.which;
       let tecla = String.fromCharCode(key);
-      let letras = " áéíóúñÑ";
+      let letras = " áéíóúñÑ@_";
       let letrasContraseña="áéíóúñÑ*";
       let numeros = "1234567890"
-if (this.state.userName.length !== 15) {
-  console.log('llego malditod');
-  if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+      if (this.state.userName.length !== 15) {
+      console.log('llego malditod');
+      if ((key <= 90 && key >= 64) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (key ===95) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
       this.setState({
           ...this.state,
           [event.target.name]: event.target.value + tecla
       });
-  }
-} else {
-  alert('El maximo de caracteres es de 50');
-}
+      }
+      } else {
+    alert('El maximo de caracteres es de 50');
+    }
   }
    validarNumeros =(event)=>{
     let numeros = "1234567890"
@@ -111,6 +143,26 @@ if (this.state.userName.length !== 15) {
       }
     }else{
     alert('El maximo de digitos en el campo es de 9')
+    }
+
+  }
+  validarCorreo =(event) =>{
+    
+    let key = event.keyCode || event.which;
+      let tecla = String.fromCharCode(key);
+      let letras = " áéíóúñÑ";
+      let letrasContraseña="áéíóúñÑ*";
+      let numeros = "1234567890"
+      if (this.state.correo.length !== 200) {
+      console.log('llego malditod');
+      if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+      this.setState({
+          ...this.state,
+          [event.target.name]: event.target.value + tecla
+      });
+      }
+      } else {
+    alert('El maximo de caracteres es de 200');
     }
 
   }
@@ -150,6 +202,27 @@ if (this.state.userName.length !== 15) {
     alert('Minimo 8 caracteres');
   }
   }
+
+   validarDir = (event) =>{
+    let key = event.keyCode || event.which;
+      let tecla = String.fromCharCode(key);
+      let letras = " áéíóúñÑ";
+      let letrasContraseña="áéíóúñÑ*";
+      let numeros = "1234567890"
+if (this.state.direccion.length !== 250) {
+  console.log('llego malditod');
+  if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+      this.setState({
+          ...this.state,
+          [event.target.name]: event.target.value + tecla
+      });
+    }
+    } else {
+    alert('El maximo de caracteres es de 250');
+    }
+
+
+   }
    handleDeleteKey = (event) => {
         
     let key = event.keyCode || event.which;
@@ -161,10 +234,7 @@ if (this.state.userName.length !== 15) {
         });
     }
     // Borra para el campo apellido
-     
-
-
-
+  
 
     if (this.state.ci.length !== 0 && (key === 8 || key === 127)) {
       let nuevo = this.state.ci.substring(0, this.state.ci.length - 1);
@@ -215,7 +285,21 @@ if (this.state.apellido.length !== 0 && (key === 8 || key === 127)) {
   });
   
 }  
+
+
 }
+
+handleDeleteKeyDir = (event) => {      
+  let key = event.keyCode || event.which;
+  if (this.state.direccion.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.direccion.substring(0, this.state.direccion.length - 1);
+      this.setState({
+          ...this.state,
+          [event.target.name]: nuevo
+      });
+  }
+}
+
  updateListContries=(e)=>{
   RegistroService.getAllCountries(e.target.value).then(data => this.setState({pais: data}))
     console.log(e.target.value);
@@ -225,14 +309,49 @@ if (this.state.apellido.length !== 0 && (key === 8 || key === 127)) {
   RegistroService.getAllCities(e.target.value).then(data => this.setState({ciudad: data}))
   console.log(e.target.value);
 }*/
-
+//actualiza la lista de los paises
 updateListCities=(pais)=>{
   RegistroService.getAllCities(pais).then(data => this.setState({ciudad: data}))
 }
+//visualiza paises y tipos de usuario 
 componentDidMount() {
   RegistroService.getAllCountries().then(data => this.setState({pais: data}))
-
+  TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
 }
+//Actualiza lista de usuarios
+updateList(e){
+  PersonaService.getTiposUser(e.target.value).then(data => this.setState({Usuarios: data}))
+}
+
+//Registra los usuarios
+registerButtonEvent = async (event) => {
+  event.preventDefault();
+  try {
+      if (this.state.userName.trim() !== '' ) {
+          const res = await axios.get('/api/userName/' + this.state.userName.trim());
+          console.log(res.data);
+          if (res.data === null) {
+              const registrar = await axios.post('/api/nuevoUsuario', this.state);
+              alert('Se creo el tipo de usuario Exitosamente');
+              console.log("Se registro el usuario exitosamente:" + registrar.data);
+          } else {
+              alert('El Nombre de usuario ya existe');
+              console.log("El nombre de usuario ya existe");
+          }
+      } else {
+          //mensaje campos vacios "Existen campos vacios"
+          alert('Existen campos vacíos, rellenar los campos restantes');
+          console.log("");
+      }
+
+  } catch (error) {
+      console.log(error);
+  }
+}
+
+
+
+
 
 
 
@@ -260,7 +379,7 @@ render (){
       <div className="contenedor">
 
         
-        <form>
+        <form /*onSubmit={this.startButtonEvent()}*/>
        
          <label>
                 <div>
@@ -273,7 +392,7 @@ render (){
                 name="nombre"
                 onKeyPress={this.validarNombre}
                 onKeyDown={this.handleDeleteKey}
-                autocomplete="off"
+                
                 value={this.state.nombre}
                 required
                             
@@ -328,7 +447,7 @@ render (){
                 type="radio"
                 id="male"
                 name="gender"
-                value="male"
+                value={this.state.genero}
                 required
                 
               />
@@ -340,7 +459,7 @@ render (){
                 type="radio"
                 id="female"
                 name="gender"
-                value="female"
+                value={this.state.genero}
                 required
               />
               <label for="female" className="radio">
@@ -352,7 +471,7 @@ render (){
                 id="other"
                 className="radioButton"
                 name="gender"
-                value="other"
+                value={this.state.genero}
                 required
               />
               <label for="other" className="radio">
@@ -399,6 +518,9 @@ render (){
                 placeholder="Ingrese su dirección"
                 name="direccion"
                 maxLength="250"
+                onKeyPress={this.validarDir}
+                onKeyDown={this.handleDeleteKeyDir}    
+                value={this.state.direccion}
                 required
               />
                 </div>
@@ -416,6 +538,9 @@ render (){
                 minLength="3"
                 placeholder="Ingrese su dirección de correo"
                 name="correo"
+                onKeyPress={this.validarCorreo}
+                onKeyDown={this.handleDeleteKey}
+                value={this.state.correo}
                 required
               />
                 </div>
@@ -468,12 +593,13 @@ render (){
                 <div>
                 <b>Tipo de usuario:</b> 
                 <select  className="imput" required
-                >
-                      <option value ="" >Seleccione una opción</option>
-                      <option value ="1" >{"---"}</option>
-                      <option value ="2" >{"----"}</option>
-                      
-                      </select>
+                onChange={this.updateList}>
+                <option value =" " >{"Cliente"}</option>
+                {this.state.TUsuarios.map((elemento,index) => (
+                <option key={index} value = {elemento.crearTipo}>
+                  {elemento.crearTipo} 
+                </option> ))}
+              </select>
 
                 </div>
                 
@@ -491,7 +617,9 @@ render (){
                 id="password"
                 minLength="8"
                 required
-                
+                onKeyPress={this.validarContraseña}
+                onKeyDown={this.handleDeleteKey}
+                value={this.state.password}
                 />
                 </div>
                 
@@ -508,8 +636,9 @@ render (){
                 name="confPassword"
                 id="confPassword"
                 minLength="8"
-                onBlur={this.validarContraseña}
-                /*onKeyDown={handleDeleteKey}*/
+                onKeyPress={this.validarContraseña}
+                onKeyDown={this.handleDeleteKey}
+                
                 required
               /></div>
               </label>
@@ -518,10 +647,11 @@ render (){
                   <div className="checkbox-confirmar">
 
                   <input type="checkbox" name="aceppt" required value=""/>  <label>
-                  <b>acepto los</b> 
-                  <a href="/register">
+                  <b>Acepto los </b>
+
+                  <a href="#eulaPage" data-toggle="modal" onClick={""}>
                    <b>Términos y condiciones</b>
-                        </a>
+                      </a>
                   </label>
                   </div>
 
@@ -529,19 +659,28 @@ render (){
              
                   <Link className="btn btn-cancelar" value="Login" type="reset"  to="/" >Cancelar</Link>
 
-                  <Link className="btn btn-aceptar " value="Login" >Registrar</Link>
+                  <button className="btn btn-aceptar " value="Login" onClick={this.registerButtonEvent} >Registrar</button>
                   </div>
                   
 
 
+                  <div className="avisos">
+                  <div id="avisoCorrecto" className="alert alert-success">Datos correctos!</div>
+                  <div id="avisoNuevo" className="alert alert-warning">Existen campos vacios</div>
+                  <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
+                  </div>
+
         </form>
-        
+        <div>
+                  
       </div>
 
   </div>
+  <ModalEula/>
+                  </div>
     )
 
-}
+ }
 }
 
 export default NewAccount;

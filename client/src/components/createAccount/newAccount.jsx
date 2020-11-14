@@ -1,6 +1,7 @@
 import React, {Fragment, useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './newAccount.css'
+import ModalEula from './modalEula.js';
 import { Link } from "react-router-dom"
 import axios from 'axios';
 import logo from '../img/logo.png';
@@ -550,10 +551,11 @@ render (){
                   <div className="checkbox-confirmar">
 
                   <input type="checkbox" name="aceppt" required value=""/>  <label>
-                  <b>acepto los</b> 
-                  <a href="/register">
+                  <b>Acepto los </b>
+
+                  <a href="#eulaPage" data-toggle="modal" onClick={""}>
                    <b>Términos y condiciones</b>
-                        </a>
+                      </a>
                   </label>
                   </div>
 
@@ -564,6 +566,8 @@ render (){
                   <button className="btn btn-aceptar " value="Login" >Registrar</button>
                   </div>
                   
+
+
                   <div className="avisos">
                   <div id="avisoCorrecto" className="alert alert-success">Datos correctos!</div>
                   <div id="avisoNuevo" className="alert alert-warning">Existen campos vacios</div>
@@ -571,10 +575,13 @@ render (){
                   </div>
 
         </form>
-        
+        <div>
+                  
       </div>
 
   </div>
+  <ModalEula/>
+                  </div>
     )
 
 }

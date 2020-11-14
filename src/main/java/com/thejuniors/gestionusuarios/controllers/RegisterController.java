@@ -2,6 +2,7 @@ package com.thejuniors.gestionusuarios.controllers;
 
 import java.util.List;
 
+import com.google.gson.Gson;
 import com.thejuniors.gestionusuarios.model.Ciudad;
 import com.thejuniors.gestionusuarios.model.Pais;
 import com.thejuniors.gestionusuarios.model.Register;
@@ -23,6 +24,9 @@ public class RegisterController {
     @Autowired
     RegisterService registerService;
 
+    @Autowired
+    Gson gson;
+
     @PostMapping(value = "/api/nuevoUsuario", consumes={"application/json"})
     public void nuevoUsuario(@RequestBody Register newRegister){
         registerService.agregarUsuario(newRegister);
@@ -36,6 +40,11 @@ public class RegisterController {
     @GetMapping(value="/api/listaCiudades/{paisNombre}", produces={"application/json"})
     public List<Ciudad> listarCiudades(@PathVariable("paisNombre") String paisNombre){
         return registerService.listaCiudades(paisNombre);
+    }
+
+    @GetMapping(value="/api/userci/{CI}", produces={"application/json"})
+    public String buscarCi(@PathVariable("CI") String ci){
+        return gson.toJson(registerService.buscarUsuarioCI(ci));
     }
 
 }

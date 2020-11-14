@@ -338,7 +338,7 @@ class NewAccount extends Component {
                     onKeyDown={this.handleDeleteKey}
                     autocomplete="off"
                     value={this.state.nombre}
-                    /*required*/
+                    required
 
                   />
 
@@ -355,7 +355,7 @@ class NewAccount extends Component {
                       onKeyPress={this.validarApellido}
                       onKeyDown={this.handleDeleteKeyAp}
                       value={this.state.apellido}
-                     /* required*/
+                     required
                     />
                   </div>
 
@@ -371,7 +371,7 @@ class NewAccount extends Component {
                       onKeyPress={this.validarNumeros}
                       onKeyDown={this.handleDeleteKey}
                       value={this.state.ci}
-                      /*required*/
+                      required
 
                     />
                   </div>
@@ -454,7 +454,7 @@ class NewAccount extends Component {
                       placeholder="Ingrese su dirección"
                       name="direccion"
                       maxLength="250"
-                      
+                      required
                     />
                   </div>
 
@@ -470,9 +470,9 @@ class NewAccount extends Component {
                       className="form-control"
                       size="60"
                       minLength="3"
-                      placeholder="Ingrese su dirección de correo"
+                      /*placeholder="Ingrese su dirección de correo"*/
                       name="correo"
-                      
+                      required
                     />
                   </div>
 
@@ -489,7 +489,7 @@ class NewAccount extends Component {
                       placeholder="Ingrese su número telefónico"
                       name="telefono"
                       maxLength="8"
-                      
+                      required
                       onKeyPress={this.validarTelefono}
                       onKeyDown={this.handleDeleteKey}
                       value={this.state.telefono}
@@ -514,7 +514,7 @@ class NewAccount extends Component {
                       onKeyPress={this.validarNombreUsuario}
                       onKeyDown={this.handleDeleteKey}
                       value={this.state.userName}
-                      
+                      required
 
                     />
                   </div>
@@ -549,7 +549,7 @@ class NewAccount extends Component {
                       name="password"
                       id="password"
                       minLength="8"
-                      
+                      required
 
                     />
                   </div>
@@ -569,7 +569,7 @@ class NewAccount extends Component {
                       minLength="8"
                       onBlur={this.validarContraseña}
                       /*onKeyDown={handleDeleteKey}*/
-                      
+                      required
                     /></div>
 
 
@@ -596,6 +596,7 @@ class NewAccount extends Component {
                     <div id="avisoNuevo" className="alert alert-warning">Existen campos vacios</div>
                     <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
                   </div>
+                  
                   <br />
                 </div>
               </form>

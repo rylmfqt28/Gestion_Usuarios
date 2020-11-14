@@ -1,5 +1,5 @@
 import React from "react";
-import '../menuAdmin/menu.css';
+import './menu.css';
 
 import logo from '../img/logo.png';
 import menu from '../img/menu.png';
@@ -9,9 +9,10 @@ const BarraMenu = props => {
 
     const salir = () => {
         sessionStorage.removeItem("authToken");
+        sessionStorage.removeItem("ci");
     }
     const mostrarMenu=()=> {
-        var btnMenu = document.getElementById('btn-menu');
+        //var btnMenu = document.getElementById('btn-menu');
         var nav = document.getElementById('nav');
         nav.classList.toggle('mostrar');
 
@@ -20,7 +21,7 @@ const BarraMenu = props => {
     return (
         <div className="barraNav">
             <nav className="navbar navbar-light justify-content-between">
-                <a className="navbar-brand" href="/crearTipoUsuario">
+                <a className="navbar-brand" href="/home">
                     <img className="logo" src={logo} height="35" alt="logo" />
                 </a>
                 <a className="nav-menu" id="btn-menu"  onClick={mostrarMenu}>

@@ -25,6 +25,7 @@
 .from-group{
   margin-left: 0;
   text-align: auto;
+  
 }
 
 /*.contenedor{
@@ -49,8 +50,9 @@
   color:rgb(2, 129, 146);
   margin: auto;
 }
-.losbtn{
+.contenedor-btn{
   margin: auto;
+  text-align: center;
 }
 
 .checkbox-confirmar{
@@ -77,19 +79,27 @@
 }
 .btn-aceptar{
 
-  background-color:rgb(245, 244, 243);
+  background-color:rgb(252, 248, 244);
   margin-left: 75px;
-  border-color: rgba(2, 2, 2, 0.623);
-  width: 200px;
+  border-color: rgb(2, 129, 146);
+  width: 150px;
+  margin: auto 10px;
+  color: rgb(2, 129, 146);
 }
 .btn-cancelar{
   background-color:rgb(2, 129, 146);
   border-color: rgba(124, 210, 250, 0.623);
-  width: 200px;
+  width: 150px;
   margin-left: 75px;
   color: white;
+  margin: auto 5px;
 }
 .btn-cancelar:hover {
+  background: rgb(0, 174, 255);
+  border-color: rgba(124, 210, 250, 0.623);
+  color:white
+}
+.btn-aceptar:hover {
   background: rgb(0, 174, 255);
   border-color: rgba(124, 210, 250, 0.623);
   color:white
@@ -132,7 +142,7 @@
   margin-left: 75px;
   position: absolute;
 }
-@media(max-width:900px){
+@media(max-width:950px){
   .form-register{
     padding:  50px;
     width: 65%;
@@ -140,9 +150,28 @@
     margin: auto;
     
   }
+  .btn-aceptar{
+
+    background-color:rgb(245, 244, 243);
+    margin-left: 75px;
+    border-color: rgb(2, 129, 146);
+    width: 120px;
+    margin: auto 5px;
+    margin-bottom:5px ;
+    color: rgb(2, 129, 146);
+  }
+  .btn-cancelar{
+    background-color:rgb(2, 129, 146);
+    border-color: rgba(124, 210, 250, 0.623);
+    width: 120px;
+    margin-left: 75px;
+    color: white;
+    margin: auto 5px;
+    margin-bottom:5px ;
+  }
 
 }
-@media(max-width:400px){
+@media(max-width:408px){
   
   .form-register{
     padding:  10px;
@@ -155,7 +184,7 @@
   /*.logo{
     padding: 50px 50px;
   }*/
-  .losbtn{
+  .contenedor-btn{
     margin: auto;
   }
 

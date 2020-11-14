@@ -319,13 +319,13 @@ class NewAccount extends Component {
                 <h1 className="titulo-registro"> Formulario de registro </h1>
               </div>
               <br />
-              <form onSubmit={this.validarVacios}>
+              <form /*onSubmit={this.validarVacios}*/>
 
 
                 <div className="form-group">
                   <label>
-                   <b>Nombres:</b>
-                    </label>
+                    <b>Nombres:</b>
+                  </label>
 
                   <input
                     id="name"
@@ -338,7 +338,7 @@ class NewAccount extends Component {
                     onKeyDown={this.handleDeleteKey}
                     autocomplete="off"
                     value={this.state.nombre}
-                    required
+                    /*required*/
 
                   />
 
@@ -355,7 +355,7 @@ class NewAccount extends Component {
                       onKeyPress={this.validarApellido}
                       onKeyDown={this.handleDeleteKeyAp}
                       value={this.state.apellido}
-                      required
+                     /* required*/
                     />
                   </div>
 
@@ -368,12 +368,10 @@ class NewAccount extends Component {
                       size="60"
                       placeholder="Ingrese su cédula de identidad"
                       name="ci"
-
-
                       onKeyPress={this.validarNumeros}
                       onKeyDown={this.handleDeleteKey}
                       value={this.state.ci}
-                      required
+                      /*required*/
 
                     />
                   </div>
@@ -382,39 +380,39 @@ class NewAccount extends Component {
                       <b>Género: </b>
                     </label>
                     <div class="form-check form-check-inline">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      id="male"
-                      name="gender"
-                      value="male"
-                      required
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        id="male"
+                        name="gender"
+                        value="male"
+                        required
 
-                    />
-                    <label for="male" className="form-check-label"> Masculino</label>
+                      />
+                      <label for="male" className="form-check-label"> Masculino</label>
 
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      id="female"
-                      name="gender"
-                      value="female"
-                      required
-                    />
-                    <label for="female" className="form-check-label"> Femenino</label>
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        id="female"
+                        name="gender"
+                        value="female"
+                        required
+                      />
+                      <label for="female" className="form-check-label"> Femenino</label>
 
-                    <input
-                      type="radio"
-                      id="other"
-                      className="form-check-input"
-                      name="gender"
-                      value="other"
-                      required
-                    />
-                    <label for="other" className="form-check-label"> Otro</label>
+                      <input
+                        type="radio"
+                        id="other"
+                        className="form-check-input"
+                        name="gender"
+                        value="other"
+                        required
+                      />
+                      <label for="other" className="form-check-label"> Otro</label>
 
                     </div>
-                   
+
                   </div>
 
                   <div className="form-group">
@@ -456,7 +454,7 @@ class NewAccount extends Component {
                       placeholder="Ingrese su dirección"
                       name="direccion"
                       maxLength="250"
-                      required
+                      
                     />
                   </div>
 
@@ -474,7 +472,7 @@ class NewAccount extends Component {
                       minLength="3"
                       placeholder="Ingrese su dirección de correo"
                       name="correo"
-                      required
+                      
                     />
                   </div>
 
@@ -491,7 +489,7 @@ class NewAccount extends Component {
                       placeholder="Ingrese su número telefónico"
                       name="telefono"
                       maxLength="8"
-                      required
+                      
                       onKeyPress={this.validarTelefono}
                       onKeyDown={this.handleDeleteKey}
                       value={this.state.telefono}
@@ -516,7 +514,7 @@ class NewAccount extends Component {
                       onKeyPress={this.validarNombreUsuario}
                       onKeyDown={this.handleDeleteKey}
                       value={this.state.userName}
-                      required
+                      
 
                     />
                   </div>
@@ -551,7 +549,7 @@ class NewAccount extends Component {
                       name="password"
                       id="password"
                       minLength="8"
-                      required
+                      
 
                     />
                   </div>
@@ -571,7 +569,7 @@ class NewAccount extends Component {
                       minLength="8"
                       onBlur={this.validarContraseña}
                       /*onKeyDown={handleDeleteKey}*/
-                      required
+                      
                     /></div>
 
 
@@ -586,11 +584,11 @@ class NewAccount extends Component {
                     </label>
                   </div>
                   <br />
-                  <div className="losbtn">
+                  <div className="contenedor-btn">
 
                     <Link className="btn btn-cancelar" value="Login" type="reset" to="/" >Cancelar</Link>
 
-                    <Link className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Registrar</Link>
+                    <button className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Registrar</button>
                   </div>
 
                   <div className="avisos">
@@ -598,7 +596,6 @@ class NewAccount extends Component {
                     <div id="avisoNuevo" className="alert alert-warning">Existen campos vacios</div>
                     <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
                   </div>
-                  <br />
                   <br />
                 </div>
               </form>

@@ -634,7 +634,7 @@ capturarDatosModal = (motivo) => {
                     <label className="form-check-label">
                       <b>Género: </b>
                     </label>
-                    <div class="form-check form-check-inline">
+                    <div className="form-check form-check-inline">
                       <input
                         className="form-check-input"
                         type="radio"
@@ -804,6 +804,7 @@ capturarDatosModal = (motivo) => {
                       minLength="8"
                       onKeyPress={this.validarContraseña}
                       onKeyDown={this.handleDeleteKeyPassword}
+                      onChange={this.handleInputChange}
                       value={this.state.confPassword}
                       required
                     /></div>
@@ -811,7 +812,7 @@ capturarDatosModal = (motivo) => {
 
                     <input type="checkbox" name="aceppt" required value="" />  <label>
                       <b>acepto los</b>
-                      <a href="#eulaPage" data-toggle="modal" onClick={""}>
+                      <a href="#eulaPage" data-toggle="modal">
                         <b>Términos y condiciones</b>
                       </a>
                     </label>

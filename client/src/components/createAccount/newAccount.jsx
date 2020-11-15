@@ -42,8 +42,8 @@ class NewAccount extends Component {
       motivo: " ",
       paisID: 0,
       ciudadID: 0,
-      tipoID: 11
-
+      tipoID: 11,
+      value: ''
     }
     this.capturarDatosModal=this.capturarDatosModal.bind(this);
     this.updateList = this.updateList.bind(this)
@@ -330,6 +330,16 @@ class NewAccount extends Component {
       });
     }
   }
+  handleDeleteKeyEmail = (event) => {
+    let key = event.keyCode || event.which;
+    if (this.state.correo.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.correo.substring(0, this.state.correo.length - 1);
+      this.setState({
+        ...this.state,
+        [event.target.name]: nuevo
+      });
+    }
+  }
 
 
   handleDeleteKeyTelf = (event) => {
@@ -446,7 +456,7 @@ class NewAccount extends Component {
       }
     }
   }
-
+//aquiiiiiiiiii
   updateTypeUserID = (e) => {
     for (const value of this.state.TUsuarios) {
       if (value.crearTipo === e.target.value) {
@@ -454,20 +464,17 @@ class NewAccount extends Component {
         this.setState({ tipoID: value.tipoUsuarioID })
       }
     }
-
+    this.setState({value: e.target.value});
   }
 
 insertarDatoRegistro = async() =>{
-
-  console.log("motivo2: "+ this.state.motivo)
   try {
     if (this.state.userName.trim() !== '') {
       const res = await axios.get('/api/user/' + this.state.userName.trim());
 
       console.log(res.data);
       if (res.data === null) {
-        
-        console.log("el genero es: "+this.state.genero);
+        console.log(this.state.paisID)
         try {
           const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
             usuarioNombre: this.state.nombre,
@@ -886,6 +893,7 @@ capturarDatosModal = (motivo) => {
               <ModalEula />
               <ModalSolicitudC
               capturarDatosModal = {this.capturarDatosModal}
+              crearTipo = {this.state.value}
               insertarDatoRegistro={this.insertarDatoRegistro}
               />
             </div>

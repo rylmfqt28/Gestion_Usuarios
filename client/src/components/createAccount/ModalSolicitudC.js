@@ -1,6 +1,8 @@
 import React,{Component} from 'react'
 import './newAccount.css'
 import swal from 'sweetalert'
+import { Alert } from 'bootstrap'
+import { data } from 'jquery'
 
 
 class ModalSolicitudC extends Component{
@@ -11,15 +13,36 @@ class ModalSolicitudC extends Component{
             crearTipo: '',
             descripcionTipo: '',        
         }
+        
     }
 
 
      
     valueToState = ({ name, value}) => {
+    console.log("El VALOR es: " + value)
     this.setState(() => {
     return { [name]: value };
         });
      };
+
+     mostrarAlerta=(date)=>
+{  console.log("El DATO es: " + date)
+    if(date.length == 0)
+    {
+        swal("ERROR", "La descripción está vacia. Por favor ingrese una descripción válida.", "error");
+    }
+    else
+    {
+        if(date.length <20 || date.length > 500){
+            swal("ERROR", "La descripción debe contener 20 caracteres como mínimo y 500 caracteres como máximo.", "error");
+            
+        } else{     
+            swal("ACEPTADO", "Solicitud enviada con éxito, espere a que el administrador apruebe su solicitud", "success");
+            this.props.capturarDatosModal(date)
+    }
+    
+}
+}
 
       render(){
         return(
@@ -29,7 +52,7 @@ class ModalSolicitudC extends Component{
                     <div className="modal-content" id="VentanaEmergente">
                         <div className="modal-header" id ="Encabezado">
                        
-                        <h5 className="modal-title">SOLICITAR CUENTA DE TIPO: {this.props.crearTipo}</h5>  
+                        <h5 className="modal-title" style={{textTransform: 'uppercase'}}>SOLICITAR CUENTA DE TIPO: {this.props.crearTipo}</h5>  
                     
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -50,7 +73,7 @@ class ModalSolicitudC extends Component{
 
                         <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" className="btn btn-secondary" onClick={()=>mostrarAlerta(this.state.descripcionTipo)}>Enviar</button>
+                        <button type="button" className="btn btn-secondary" onClick={()=>this.mostrarAlerta(this.state.descripcionTipo)}>Aceptar</button>
                         </div>
                     </div>
                     </div>
@@ -60,11 +83,5 @@ class ModalSolicitudC extends Component{
 }
 export default ModalSolicitudC;
 
-const mostrarAlerta=(date)=>
-{  if(date.length <=20){
-    swal("ERROR!", "Debe ingresar un motivo de solicitud valido", "error");
-    
-} else{
-    swal("ACEPTADO!", "Solicitud enviada con éxito, espere a que el administrador apruebe su solicitud", "success");
-}
-}
+
+

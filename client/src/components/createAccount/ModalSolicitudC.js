@@ -1,7 +1,6 @@
 import React,{Component} from 'react'
 import './newAccount.css'
 import swal from 'sweetalert'
-import { Alert } from 'bootstrap'
 import $ from 'jquery'
 
 
@@ -19,14 +18,14 @@ class ModalSolicitudC extends Component{
 
      
     valueToState = ({ name, value}) => {
-    console.log("El VALOR es: " + value)
+    //console.log("El VALOR es: " + value)
     this.setState(() => {
     return { [name]: value };
         });
      };
 
      mostrarAlerta=(date)=>{
-        console.log("El DATO es: " + date)
+        //console.log("El DATO es: " + date)
         if(date.length == 0){
             swal("ERROR", "La descripción está vacia. Por favor ingrese una descripción válida.", "error");
         }

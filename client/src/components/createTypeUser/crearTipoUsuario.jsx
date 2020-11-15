@@ -3,7 +3,6 @@ import './crearTipoUsuario.css';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import NavMenu from '../menuAdmin/NavMenu'
-import { Link } from "react-router-dom"
 
 const CrearTipoUsuario = () => {
 
@@ -92,10 +91,6 @@ const CrearTipoUsuario = () => {
         } catch (error) {
             console.log(error);
         }
-    }
-
-    const salir = () => {
-        sessionStorage.removeItem("authToken");
     }
 
     return (

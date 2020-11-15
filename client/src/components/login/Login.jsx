@@ -163,7 +163,7 @@ const Login = () => {
     }
   }
 
-  const { CI, username, password, isChecked } = datos
+  const { username, password, isChecked } = datos
 
   return (
     <Fragment>

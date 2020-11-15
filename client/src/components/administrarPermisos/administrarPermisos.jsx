@@ -19,18 +19,26 @@ class administrarPermisos extends Component{
             permisosAsignados: [],
             permiso:{},
             TUsuarios: [],
-            tipo: "",
+            tipo: " ",
+            tipoId:0
         }
         this.updateList = this.updateList.bind(this)
         this.updateTipoUsuario = this.updateTipoUsuario.bind(this)
+        this.add = this.add.bind(this)
     }
     componentDidMount() {
-        TipoUser.getAll().then(data => this.setState({TUsuarios: data, tipo: data[0].crearTipo}))
+        TipoUser.getAll().then(data => this.setState({TUsuarios: data}))
         AdminPermisosService.getListaPermisos().then(data=>this.setState({permisos: data}))
     }
 
     updateTipoUsuario(e){
         this.setState({tipo: e.target.value})
+        for(const value of this.state.TUsuarios ){
+            if(value.crearTipo===e.target.value){
+                console.log(value.tipoUsuarioID)
+                this.setState({tipoId: value.tipoUsuarioID})
+            }
+        }
         AdminPermisosService.getListaPermisosNoAsignados(e.target.value).then(data => this.setState({permisos: data}))
         AdminPermisosService.getListaPermisosAsignados(e.target.value).then(data => this.setState({permisosAsignados: data}))
     }
@@ -46,6 +54,34 @@ class administrarPermisos extends Component{
         console.log(Permiso)
     }
 
+    saveDetails(){
+        //$("#editPermiso").modal("hide");
+    }
+
+    add(permisoID){
+        console.log(this.state.tipo)
+        if(this.state.tipo!==" "){
+            console.log(permisoID)
+            const add = {
+                tipoUsuarioId: this.state.tipoId,
+                permisoId: permisoID
+            }
+            console.log(add)
+            AdminPermisosService.postAsignarPermiso(add)
+        }else{
+            alert("seleccione un tipo de Usuario")
+        }
+        this.updateList()
+        this.updateList() 
+    }
+
+    remove(permisoID){
+        AdminPermisosService.deletePermiso(this.state.tipoId,permisoID);
+        
+        this.updateList()
+        this.updateList()     
+    }
+
     render() {
 
         const Permisos = this.state.permisos.map((Permiso, index) => {
@@ -55,7 +91,7 @@ class administrarPermisos extends Component{
               <td>{Permiso.nombrePermiso}</td>
     
               <td>
-                <button className="btn btn-default btn-sm">
+                <button className="btn btn-default btn-sm" onClick={() => this.add(Permiso.permisoId)} >
                     <FontAwesomeIcon icon={faPlusCircle} style={{fontSize:"20px", color:"green"}}></FontAwesomeIcon> 
                 </button>{' '}
                 <button
@@ -83,7 +119,7 @@ class administrarPermisos extends Component{
                 <td>{PermisoA.nombrePermiso}</td>
       
                 <td>
-                  <button className="btn btn-default btn-sm">
+                  <button className="btn btn-default btn-sm" onClick={() => this.remove(PermisoA.permisoId)}>
                       <FontAwesomeIcon icon={faMinusCircle} style={{fontSize:"20px", color:"red"}}></FontAwesomeIcon> 
                   </button>{' '}
                   <button
@@ -194,6 +230,7 @@ class administrarPermisos extends Component{
                 permisoId={this.state.permiso.permisoId}
                 nombrePermiso={this.state.permiso.nombrePermiso}
                 permisoDescripcion={this.state.permiso.permisoDescripcion}
+                saveDetails={this.saveDetails}
             />
 
           </div>

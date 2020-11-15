@@ -1,4 +1,5 @@
 import React,{Component} from 'react'
+import $ from 'jquery'
 
 class ModalEditarPermiso extends Component{
     constructor(props){
@@ -6,7 +7,8 @@ class ModalEditarPermiso extends Component{
         this.state={ 
                 permisoId:this.props.permisoId,
                 nombrePermiso:this.props.nombrePermiso,
-                permisoDescripcion:this.props.permisoDescripcion         
+                permisoDescripcion:this.props.permisoDescripcion,
+                validate:true,
         }
         this.handleSave=this.handleSave.bind(this)
         this.nombreHandler=this.nombreHandler.bind(this)
@@ -39,9 +41,12 @@ class ModalEditarPermiso extends Component{
 
     handleSave(){
         if(this.state.validate){
-            const Permiso = this.state;
-            console.log(this.state.validate)
-            this.props.saveDetails(Permiso);
+            this.props.saveDetails();
+            $(function(){
+                $("#editPermiso").modal('hide')
+            })
+        }else{
+            alert("incorrecto")
         }
     }
      
@@ -67,7 +72,7 @@ class ModalEditarPermiso extends Component{
                         </div>
                         <div className="modal-footer justify-content-center" >
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-secondary">Guardar Cambios</button>
+                            <button type="button" className="btn btn-secondary" onClick={this.handleSave}>Guardar Cambios</button>
                         </div>
                     </div>
                     </div>

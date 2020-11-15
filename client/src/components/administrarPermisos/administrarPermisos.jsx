@@ -230,6 +230,7 @@ class administrarPermisos extends Component{
                 permisoId={this.state.permiso.permisoId}
                 nombrePermiso={this.state.permiso.nombrePermiso}
                 permisoDescripcion={this.state.permiso.permisoDescripcion}
+                saveDetails={this.saveDetails}
             />
 
           </div>

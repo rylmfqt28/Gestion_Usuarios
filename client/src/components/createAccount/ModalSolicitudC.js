@@ -26,7 +26,7 @@ class ModalSolicitudC extends Component{
 
      mostrarAlerta=(date)=>{
         //console.log("El DATO es: " + date)
-        if(date.length == 0){
+        if(date.length === 0){
             swal("ERROR", "La descripción está vacia. Por favor ingrese una descripción válida.", "error");
         }
         else

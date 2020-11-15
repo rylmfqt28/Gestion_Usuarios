@@ -456,7 +456,7 @@ insertarDatoRegistro = async() =>{
             tipoUsuarioID: this.state.tipoID,
             motivo: this.state.motivo
           })
-
+          console.log(resp);
           alert('Se creo el tipo de usuario Exitosamente');
         } catch (err) {
           // Handle Error Here

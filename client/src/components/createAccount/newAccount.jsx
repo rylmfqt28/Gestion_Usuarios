@@ -48,6 +48,7 @@ class NewAccount extends Component {
     this.capturarDatosModal=this.capturarDatosModal.bind(this);
     this.updateList = this.updateList.bind(this)
     this.insertarDatoRegistro=this.insertarDatoRegistro.bind(this);
+    this.verficarTipo=this.verficarTipo.bind(this)
   }
   startButtonEvent() {
     //document.addEventListener('DOMContentLoaded', (event) => {
@@ -329,6 +330,16 @@ class NewAccount extends Component {
       });
     }
   }
+  handleDeleteKeyEmail = (event) => {
+    let key = event.keyCode || event.which;
+    if (this.state.correo.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.correo.substring(0, this.state.correo.length - 1);
+      this.setState({
+        ...this.state,
+        [event.target.name]: nuevo
+      });
+    }
+  }
 
 
 
@@ -483,7 +494,7 @@ insertarDatoRegistro = async() =>{
           })
 
 
-          // console.log(resp.data);
+          console.log("los datos son"+resp.data);
           alert('Se creo el tipo de usuario Exitosamente');
           // console.log("Se registro el usuario exitosamente:"+resp.data );
         } catch (err) {
@@ -547,7 +558,8 @@ capturarDatosModal = (motivo) => {
         document.getElementById('avisoPass').style.display = "none";
         
         //modal de tipo usuario
-        if (this.state.tipoID !== 11)
+        this.verficarTipo()
+        /*if (this.state.tipoID !== 11)
         {
           $(function(){
             $("#TipoUserData").modal('show')
@@ -556,7 +568,7 @@ capturarDatosModal = (motivo) => {
         }
         else {
         this.insertarDatoRegistro()
-        }
+        }*/
 
       }
     } else {
@@ -581,7 +593,18 @@ capturarDatosModal = (motivo) => {
     //console.log('selected option', e.target.value);
 
     this.setState({ genero: e.target.value });
-    console.log(this.state.genero);
+  }
+
+  verficarTipo(){
+    console.log("llego a verificar tipo")
+
+    if (this.state.tipoID !== 11){
+      $(function(){
+        $("#TipoUserData").modal('show')
+      })
+    }else {
+      this.insertarDatoRegistro()
+    }
   }
 
   verificar(tipo) {
@@ -872,6 +895,7 @@ capturarDatosModal = (motivo) => {
               <ModalSolicitudC
               capturarDatosModal = {this.capturarDatosModal}
               crearTipo = {this.state.value}
+              insertarDatoRegistro={this.insertarDatoRegistro}
               />
             </div>
           </div>

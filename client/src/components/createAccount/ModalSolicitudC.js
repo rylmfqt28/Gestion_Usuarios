@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import './newAccount.css'
 import swal from 'sweetalert'
 import { Alert } from 'bootstrap'
-import { data } from 'jquery'
+import $ from 'jquery'
 
 
 class ModalSolicitudC extends Component{
@@ -25,24 +25,27 @@ class ModalSolicitudC extends Component{
         });
      };
 
-     mostrarAlerta=(date)=>
-{  console.log("El DATO es: " + date)
-    if(date.length == 0)
-    {
-        swal("ERROR", "La descripción está vacia. Por favor ingrese una descripción válida.", "error");
+     mostrarAlerta=(date)=>{
+        console.log("El DATO es: " + date)
+        if(date.length == 0){
+            swal("ERROR", "La descripción está vacia. Por favor ingrese una descripción válida.", "error");
+        }
+        else
+        {
+            if(date.length <20 || date.length > 500){
+                swal("ERROR", "La descripción debe contener 20 caracteres como mínimo y 500 caracteres como máximo.", "error");
+                
+            } else{     
+                swal("ACEPTADO", "Solicitud enviada con éxito, espere a que el administrador apruebe su solicitud", "success");
+                this.props.capturarDatosModal(date)
+                this.props.insertarDatoRegistro()
+                $(function(){
+                    $("#TipoUserData").modal('hide')
+                })
+            }
+        
+        }
     }
-    else
-    {
-        if(date.length <20 || date.length > 500){
-            swal("ERROR", "La descripción debe contener 20 caracteres como mínimo y 500 caracteres como máximo.", "error");
-            
-        } else{     
-            swal("ACEPTADO", "Solicitud enviada con éxito, espere a que el administrador apruebe su solicitud", "success");
-            this.props.capturarDatosModal(date)
-    }
-    
-}
-}
 
       render(){
         return(

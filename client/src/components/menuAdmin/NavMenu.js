@@ -37,7 +37,7 @@ const BarraMenu = props => {
                         <div className="menu__item"><Link className="menu__link" to="/lista">Lista de usuarios</Link></div>
                         <div className="menu__item"><Link className="menu__link" to="/modificar">Modificar tipo de usuario</Link></div>
                         <div className="menu__item"><Link className="menu__link" to="/solicitudes">Solicitudes</Link></div>
-                        <div className="menu__item"><Link className="menu__link" to="/home">Administrar permisos</Link></div>
+                        <div className="menu__item"><Link className="menu__link" to="/administrarPermisos">Administrar permisos</Link></div>
                         <div className="menu__item"><Link className="menu__link" to="/" onClick={salir} >Salir</Link></div>
 
                     </ul>

@@ -29,7 +29,7 @@ public class RegisterService {
 
         jdbcTemplate.update(
             "INSERT INTO Usuario (CI, usuarioNombre, usuarioApellido, paisID, ciudadID, direccion, correo, telefono, genero) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-            register.getCI(), register.getUsuarioNombre(), register.getUsuarioApellido(), register.getPaisID(), register.getCiudadID(), register.getDireccion(), register.getCorreo(), register.getTelefono(), register.getTelefono() 
+            register.getCI(), register.getUsuarioNombre(), register.getUsuarioApellido(), register.getPaisID(), register.getCiudadID(), register.getDireccion(), register.getCorreo(), register.getTelefono(), register.getGenero() 
         );
         
         agregarTipo(register.getCI(), register.getTipoUsuarioID(), register.getMotivo());

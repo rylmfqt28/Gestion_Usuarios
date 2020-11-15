@@ -12,7 +12,9 @@ import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser'
 
 import { Button } from 'bootstrap';
-import { event } from 'jquery';
+import $ from 'jquery';
+
+import ModalSolicitudC from './ModalSolicitudC';
 //import handleDeleteKey from './validacionesNewAccount';
 //import ValidacionesNewAccount from './validacionesNewAccount';
 
@@ -43,8 +45,10 @@ class NewAccount extends Component {
       tipoID: 11
 
     }
-
+    this.capturarDatosModal=this.capturarDatosModal.bind(this);
     this.updateList = this.updateList.bind(this)
+    this.insertarDatoRegistro=this.insertarDatoRegistro.bind(this);
+    this.verficarTipo=this.verficarTipo.bind(this)
   }
   startButtonEvent() {
     //document.addEventListener('DOMContentLoaded', (event) => {
@@ -454,6 +458,57 @@ class NewAccount extends Component {
 
   }
 
+insertarDatoRegistro = async() =>{
+
+  console.log("motivo2: "+ this.state.motivo)
+  try {
+    if (this.state.userName.trim() !== '') {
+      const res = await axios.get('/api/user/' + this.state.userName.trim());
+
+      console.log(res.data);
+      if (res.data === null) {
+        
+        console.log("el genero es: "+this.state.genero);
+        try {
+          const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
+            usuarioNombre: this.state.nombre,
+            usuarioApellido: this.state.apellido,
+            CI: this.state.ci,
+            genero: this.state.genero,
+            paisID: this.state.paisID,
+            ciudadID: this.state.ciudadID,
+            direccion: this.state.direccion,
+            correo: this.state.correo,
+            telefono: this.state.telefono,
+            nombreUsuario: this.state.userName,
+            password: this.state.password,
+            tipoUsuarioID: this.state.tipoID,
+            motivo: this.state.motivo
+          })
+
+
+          console.log("los datos son"+resp.data);
+          alert('Se creo el tipo de usuario Exitosamente');
+          // console.log("Se registro el usuario exitosamente:"+resp.data );
+        } catch (err) {
+          // Handle Error Here
+          console.error(err);
+        }
+
+      } else {
+        alert('El Nombre de usuario ya existe');
+        console.log("El nombre de usuario ya existe");
+      }
+    } else {
+      //mensaje campos vacios "Existen campos vacios"
+      alert('Existen campos vacíos, rellenar los campos restantes');
+      console.log("");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
   /*updateListCities=(e)=>{
   RegistroService.getAllCities(e.target.value).then(data => this.setState({ciudad: data}))
   console.log(e.target.value);
@@ -474,7 +529,10 @@ class NewAccount extends Component {
 
   //Registra los usuarios
 
-
+capturarDatosModal = (motivo) => {
+  this.setState({ motivo: motivo })
+  console.log("El motivo es: " + motivo)
+}
 
   registerButtonEvent = async (event) => {
     event.preventDefault();
@@ -491,54 +549,19 @@ class NewAccount extends Component {
         document.getElementById('avisoCorrecto').style.display = "block";
         document.getElementById('avisoNuevo').style.display = "none";
         document.getElementById('avisoPass').style.display = "none";
-
-        try {
-          if (this.state.userName.trim() !== '') {
-            const res = await axios.get('/api/user/' + this.state.userName.trim());
-
-            console.log(res.data);
-            if (res.data === null) {
-              console.log(this.state.paisID)
-              try {
-                const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
-                  usuarioNombre: this.state.nombre,
-                  usuarioApellido: this.state.apellido,
-                  CI: this.state.ci,
-                  genero: this.state.genero,
-                  paisID: this.state.paisID,
-                  ciudadID: this.state.ciudadID,
-                  direccion: this.state.direccion,
-                  correo: this.state.correo,
-                  telefono: this.state.telefono,
-                  nombreUsuario: this.state.userName,
-                  password: this.state.password,
-                  tipoUsuarioID: this.state.tipoID,
-                  motivo: this.state.motivo
-                })
-
-
-                // console.log(resp.data);
-                alert('Se creo el tipo de usuario Exitosamente');
-                // console.log("Se registro el usuario exitosamente:"+resp.data );
-              } catch (err) {
-                // Handle Error Here
-                console.error(err);
-              }
-
-            } else {
-              alert('El Nombre de usuario ya existe');
-              console.log("El nombre de usuario ya existe");
-            }
-          } else {
-            //mensaje campos vacios "Existen campos vacios"
-            alert('Existen campos vacíos, rellenar los campos restantes');
-            console.log("");
-          }
-        } catch (error) {
-          console.log(error);
+        
+        //modal de tipo usuario
+        this.verficarTipo()
+        /*if (this.state.tipoID !== 11)
+        {
+          $(function(){
+            $("#TipoUserData").modal('show')
+        })
+        this.insertarDatoRegistro()
         }
-
-
+        else {
+        this.insertarDatoRegistro()
+        }*/
 
       }
     } else {
@@ -563,7 +586,18 @@ class NewAccount extends Component {
     //console.log('selected option', e.target.value);
 
     this.setState({ genero: e.target.value });
-    console.log(this.state.genero);
+  }
+
+  verficarTipo(){
+    console.log("llego a verificar tipo")
+
+    if (this.state.tipoID !== 11){
+      $(function(){
+        $("#TipoUserData").modal('show')
+      })
+    }else {
+      this.insertarDatoRegistro()
+    }
   }
 
   verificar(tipo) {
@@ -851,6 +885,10 @@ class NewAccount extends Component {
             </div>
             <div>
               <ModalEula />
+              <ModalSolicitudC
+              capturarDatosModal = {this.capturarDatosModal}
+              insertarDatoRegistro={this.insertarDatoRegistro}
+              />
             </div>
           </div>
         </div >

@@ -718,7 +718,6 @@ capturarDatosModal = (motivo) => {
                       type="text"
                       className="form-control"
                       size="60"
-                      size="60"
                       minLength="3"
                       placeholder="Ingrese su dirección de correo"
                       name="correo"

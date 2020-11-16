@@ -1,22 +1,18 @@
-import React, { Fragment, useState } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './newAccount.css'
 import ModalEula from './modalEula.js';
 import { Link } from "react-router-dom"
 import axios from 'axios';
 import logo from '../img/logo.png';
-import { useForm } from 'react-hook-form';
 import RegistroService from '../../Service/RegistroService'
 import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser'
 
-import { Button } from 'bootstrap';
-import { event } from 'jquery';
-//import handleDeleteKey from './validacionesNewAccount';
-//import ValidacionesNewAccount from './validacionesNewAccount';
+import $ from 'jquery';
 
-
+import ModalSolicitudC from './ModalSolicitudC';
 
 class NewAccount extends Component {
   constructor(props) {
@@ -40,11 +36,13 @@ class NewAccount extends Component {
       motivo: " ",
       paisID: 0,
       ciudadID: 0,
-      tipoID: 11
-
+      tipoID: 11,
+      value: ''
     }
-
+    this.capturarDatosModal=this.capturarDatosModal.bind(this);
     this.updateList = this.updateList.bind(this)
+    this.insertarDatoRegistro=this.insertarDatoRegistro.bind(this);
+    this.verficarTipo=this.verficarTipo.bind(this)
   }
   startButtonEvent() {
     //document.addEventListener('DOMContentLoaded', (event) => {
@@ -80,9 +78,8 @@ class NewAccount extends Component {
     let tecla = String.fromCharCode(key);
     let letras = " áéíóúñÑ";
 
-
     if (this.state.nombre.length !== 50) {
-      console.log('llego malditod');
+      //console.log('llego malditod');
       if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
         this.setState({
           ...this.state,
@@ -92,17 +89,6 @@ class NewAccount extends Component {
     } else {
       alert('El maximo de caracteres es de 50');
     }
-    //Validacion campo apellido
-
-
-
-    // validacion nombre de usuario
-
-    //validacion contraseña
-
-
-
-
   }
 
   validarApellido = (event) => {
@@ -110,7 +96,7 @@ class NewAccount extends Component {
     let tecla = String.fromCharCode(key);
     let letras = " áéíóúñÑ";
     if (this.state.apellido.length !== 50) {
-      console.log('llego malditod');
+      //console.log('llego malditod');
       if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
         this.setState({
           ...this.state,
@@ -127,10 +113,9 @@ class NewAccount extends Component {
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
     let letras = " áéíóúñÑ@_";
-    let letrasContraseña = "áéíóúñÑ*";
     let numeros = "1234567890"
     if (this.state.userName.length !== 15) {
-      console.log('llego malditod');
+      //console.log('llego malditod');
       if ((key <= 90 && key >= 64) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (key === 95) || (letras.indexOf(tecla) !== -1) || (numeros.indexOf(tecla) !== -1)) {
         this.setState({
           ...this.state,
@@ -161,12 +146,8 @@ class NewAccount extends Component {
 
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
-    let letras = " áéíóúñÑ";
-    let letrasContraseña = "áéíóúñÑ*";
-    let numeros = "1234567890"
     if (this.state.correo.length !== 200) {
-      console.log('llego malditod');
-      //if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+      //console.log('llego malditod');
       this.setState({
         ...this.state,
         [event.target.name]: event.target.value + tecla
@@ -250,7 +231,7 @@ class NewAccount extends Component {
     let numeros = "1234567890"
     let letrasContraseña = "áéíóúñÑ*";
     if (this.password !== 8) {
-      console.log('llego malditod');
+      //console.log('llego malditod');
       if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1) || (numeros.indexOf(tecla) !== -1)) {
         this.setState({
           ...this.state,
@@ -264,23 +245,17 @@ class NewAccount extends Component {
   validarDir = (event) => {
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
-    let letras = " áéíóúñÑ";
-    let letrasContraseña = "áéíóúñÑ*";
-    let numeros = "1234567890"
     if (this.state.direccion.length !== 250) {
-      console.log('llego malditod');
-      //if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)|| (numeros.indexOf(tecla)!==-1)) {
+      //console.log('llego malditod');
       this.setState({
         ...this.state,
         [event.target.name]: event.target.value + tecla
       });
-      //}
     } else {
       alert('El maximo de caracteres es de 250');
     }
-
-
   }
+
   handleDeleteKeyUserName = (event) => {
     let key = event.keyCode || event.which;
     if (this.state.userName.length !== 0 && (key === 8 || key === 127)) {
@@ -293,7 +268,6 @@ class NewAccount extends Component {
 
   }
   handleDeleteKey = (event) => {
-
     let key = event.keyCode || event.which;
     if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
       let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
@@ -302,9 +276,7 @@ class NewAccount extends Component {
         [event.target.name]: nuevo
       });
     }
-
   }
-
 
   handleDeleteName = (event) => {
     let key = event.keyCode || event.which;
@@ -326,8 +298,16 @@ class NewAccount extends Component {
       });
     }
   }
-
-
+  handleDeleteKeyEmail = (event) => {
+    let key = event.keyCode || event.which;
+    if (this.state.correo.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.correo.substring(0, this.state.correo.length - 1);
+      this.setState({
+        ...this.state,
+        [event.target.name]: nuevo
+      });
+    }
+  }
 
   handleDeleteKeyTelf = (event) => {
     let key = event.keyCode || event.which;
@@ -407,8 +387,6 @@ class NewAccount extends Component {
       });
 
     }
-
-
   }
 
   handleDeleteKeyDir = (event) => {
@@ -426,7 +404,7 @@ class NewAccount extends Component {
 
     for (const value of this.state.pais) {
       if (value.paisNombre === e.target.value) {
-        console.log(value.paisID)
+        //console.log(value.paisID)
         this.setState({ paisID: value.paisID })
       }
     }
@@ -438,26 +416,67 @@ class NewAccount extends Component {
   updateCityId = (e) => {
     for (const value of this.state.ciudad) {
       if (value.ciudadNombre === e.target.value) {
-        console.log(value.ciudadID)
+        //console.log(value.ciudadID)
         this.setState({ ciudadID: value.ciudadID })
       }
     }
   }
-
+//aquiiiiiiiiii
   updateTypeUserID = (e) => {
     for (const value of this.state.TUsuarios) {
       if (value.crearTipo === e.target.value) {
-        console.log(value.tipoUsuarioID)
+        //console.log(value.tipoUsuarioID)
         this.setState({ tipoID: value.tipoUsuarioID })
       }
     }
-
+    this.setState({value: e.target.value});
   }
 
-  /*updateListCities=(e)=>{
-  RegistroService.getAllCities(e.target.value).then(data => this.setState({ciudad: data}))
-  console.log(e.target.value);
-  }*/
+insertarDatoRegistro = async() =>{
+  try {
+    if (this.state.userName.trim() !== '') {
+      const res = await axios.get('/api/user/' + this.state.userName.trim());
+
+      //console.log(res.data);
+      if (res.data === null) {
+        //console.log(this.state.paisID)
+        try {
+          const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
+            usuarioNombre: this.state.nombre,
+            usuarioApellido: this.state.apellido,
+            CI: this.state.ci,
+            genero: this.state.genero,
+            paisID: this.state.paisID,
+            ciudadID: this.state.ciudadID,
+            direccion: this.state.direccion,
+            correo: this.state.correo,
+            telefono: this.state.telefono,
+            nombreUsuario: this.state.userName,
+            password: this.state.password,
+            tipoUsuarioID: this.state.tipoID,
+            motivo: this.state.motivo
+          })
+          console.log(resp);
+          alert('Se creo el tipo de usuario Exitosamente');
+        } catch (err) {
+          // Handle Error Here
+          console.error(err);
+        }
+
+      } else {
+        alert('El Nombre de usuario ya existe');
+        //console.log("El nombre de usuario ya existe");
+      }
+    } else {
+      //mensaje campos vacios "Existen campos vacios"
+      alert('Existen campos vacíos, rellenar los campos restantes');
+      //console.log("");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
   //actualiza la lista de los paises
   updateListCities = (pais) => {
     RegistroService.getAllCities(pais).then(data => this.setState({ ciudad: data }))
@@ -474,7 +493,10 @@ class NewAccount extends Component {
 
   //Registra los usuarios
 
-
+capturarDatosModal = (motivo) => {
+  this.setState({ motivo: motivo })
+  //console.log("El motivo es: " + motivo)
+}
 
   registerButtonEvent = async (event) => {
     event.preventDefault();
@@ -491,55 +513,9 @@ class NewAccount extends Component {
         document.getElementById('avisoCorrecto').style.display = "block";
         document.getElementById('avisoNuevo').style.display = "none";
         document.getElementById('avisoPass').style.display = "none";
-
-        try {
-          if (this.state.userName.trim() !== '') {
-            const res = await axios.get('/api/user/' + this.state.userName.trim());
-
-            console.log(res.data);
-            if (res.data === null) {
-              console.log(this.state.paisID)
-              try {
-                const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
-                  usuarioNombre: this.state.nombre,
-                  usuarioApellido: this.state.apellido,
-                  CI: this.state.ci,
-                  genero: this.state.genero,
-                  paisID: this.state.paisID,
-                  ciudadID: this.state.ciudadID,
-                  direccion: this.state.direccion,
-                  correo: this.state.correo,
-                  telefono: this.state.telefono,
-                  nombreUsuario: this.state.userName,
-                  password: this.state.password,
-                  tipoUsuarioID: this.state.tipoID,
-                  motivo: this.state.motivo
-                })
-
-
-                // console.log(resp.data);
-                alert('Se creo el tipo de usuario Exitosamente');
-                // console.log("Se registro el usuario exitosamente:"+resp.data );
-              } catch (err) {
-                // Handle Error Here
-                console.error(err);
-              }
-
-            } else {
-              alert('El Nombre de usuario ya existe');
-              console.log("El nombre de usuario ya existe");
-            }
-          } else {
-            //mensaje campos vacios "Existen campos vacios"
-            alert('Existen campos vacíos, rellenar los campos restantes');
-            console.log("");
-          }
-        } catch (error) {
-          console.log(error);
-        }
-
-
-
+        
+        //modal de tipo usuario
+        this.verficarTipo()
       }
     } else {
       document.addEventListener('DOMContentLoaded', (event) => {
@@ -556,14 +532,23 @@ class NewAccount extends Component {
 
   handleInputChange = () => {
 
-
-
   }
   handleOnChange(e) {
     //console.log('selected option', e.target.value);
 
     this.setState({ genero: e.target.value });
-    console.log(this.state.genero);
+  }
+
+  verficarTipo(){
+    //console.log("llego a verificar tipo")
+
+    if (this.state.tipoID !== 11){
+      $(function(){
+        $("#TipoUserData").modal('show')
+      })
+    }else {
+      this.insertarDatoRegistro()
+    }
   }
 
   verificar(tipo) {
@@ -601,7 +586,7 @@ class NewAccount extends Component {
                   <input
                     id="name"
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     size="60"
                     placeholder="Ingrese sus nombres"
                     name="nombre"
@@ -649,7 +634,7 @@ class NewAccount extends Component {
                     <label className="form-check-label">
                       <b>Género: </b>
                     </label>
-                    <div class="form-check form-check-inline">
+                    <div className="form-check form-check-inline">
                       <input
                         className="form-check-input"
                         type="radio"
@@ -660,7 +645,7 @@ class NewAccount extends Component {
                         required
 
                       />
-                      <label for="male" className="form-check-label"> Masculino</label>
+                      <label htmlFor="male" className="form-check-label"> Masculino</label>
 
                       <input
                         className="form-check-input"
@@ -671,7 +656,7 @@ class NewAccount extends Component {
                         value="Femenino"
                         required
                       />
-                      <label for="female" className="form-check-label"> Femenino</label>
+                      <label htmlFor="female" className="form-check-label"> Femenino</label>
 
                       <input
                         type="radio"
@@ -682,7 +667,7 @@ class NewAccount extends Component {
                         value="Otro"
                         required
                       />
-                      <label for="other" className="form-check-label"> Otro</label>
+                      <label htmlFor="other" className="form-check-label"> Otro</label>
 
                     </div>
 
@@ -732,7 +717,6 @@ class NewAccount extends Component {
                       id="email"
                       type="text"
                       className="form-control"
-                      size="60"
                       size="60"
                       minLength="3"
                       placeholder="Ingrese su dirección de correo"
@@ -820,6 +804,7 @@ class NewAccount extends Component {
                       minLength="8"
                       onKeyPress={this.validarContraseña}
                       onKeyDown={this.handleDeleteKeyPassword}
+                      onChange={this.handleInputChange}
                       value={this.state.confPassword}
                       required
                     /></div>
@@ -827,7 +812,7 @@ class NewAccount extends Component {
 
                     <input type="checkbox" name="aceppt" required value="" />  <label>
                       <b>acepto los</b>
-                      <a href="#eulaPage" data-toggle="modal" onClick={""}>
+                      <a href="#eulaPage" data-toggle="modal">
                         <b>Términos y condiciones</b>
                       </a>
                     </label>
@@ -851,6 +836,11 @@ class NewAccount extends Component {
             </div>
             <div>
               <ModalEula />
+              <ModalSolicitudC
+              capturarDatosModal = {this.capturarDatosModal}
+              crearTipo = {this.state.value}
+              insertarDatoRegistro={this.insertarDatoRegistro}
+              />
             </div>
           </div>
         </div >

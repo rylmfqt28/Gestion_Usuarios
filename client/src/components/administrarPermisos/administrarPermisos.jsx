@@ -60,7 +60,7 @@ class administrarPermisos extends Component{
 
     add(permisoID){
         console.log(this.state.tipo)
-        if(this.state.tipo!=" "){
+        if(this.state.tipo!==" "){
             console.log(permisoID)
             const add = {
                 tipoUsuarioId: this.state.tipoId,

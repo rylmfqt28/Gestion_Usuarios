@@ -23,7 +23,7 @@ class ModalEditarPermiso extends Component{
     }
 
     nombreHandler(e){
-        if(e.target.value.length != 21){ 
+        if(e.target.value.length !== 21){ 
             if(e.target.value.match("^[a-zA-Z ]*$")!=null){
                 this.setState({nombrePermiso: e.target.value})
             }
@@ -32,7 +32,7 @@ class ModalEditarPermiso extends Component{
         }
     }
     descripcionHandler(e){
-        if(e.target.value.length != 251){
+        if(e.target.value.length !== 251){
             this.setState({permisoDescripcion: e.target.value})
         }else{
             alert("maximo 250 caracteres")

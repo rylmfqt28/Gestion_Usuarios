@@ -55,4 +55,12 @@ public class PermisosService {
         );
     }
 
+    // query para actualizar un permiso
+    public void updatePermiso(Permisos permiso){
+        jdbcTemplate.update(
+            "UPDATE Permisos SET nombrePermimso=?, permisoDescripcion=? WHERE permisoId=?",
+            permiso.getNombrePermiso(), permiso.getPermisoDescripcion(), permiso.getPermisoId()
+        );
+    }
+
 }

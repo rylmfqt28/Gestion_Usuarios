@@ -46,4 +46,12 @@ public class PermisosService {
         }
     }
 
+    // query para crear un nuevo dato en la tabla Permisos
+    public void nuevoPermiso(Permisos permiso){
+        jdbcTemplate.update(
+            "INSERT INTO Permisos (nombrePermiso, permisoDescripcion) VALUE (?, ?)",
+            permiso.getNombrePermiso(), permiso.getPermisoDescripcion()
+        );
+    }
+
 }

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.thejuniors.gestionusuarios.model.EditPermiso;
 import com.thejuniors.gestionusuarios.model.Permisos;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,22 @@ public class PermisosService {
         }else{
             return null;
         }
+    }
+
+    // query para crear un nuevo dato en la tabla Permisos
+    public void nuevoPermiso(EditPermiso permiso){
+        jdbcTemplate.update(
+            "INSERT INTO Permisos (nombrePermiso, permisoDescripcion) VALUE (?, ?)",
+            permiso.getNombrePermiso(), permiso.getPermisoDescripcion()
+        );
+    }
+
+    // query para actualizar un permiso
+    public void updatePermiso(Permisos permiso){
+        jdbcTemplate.update(
+            "UPDATE Permisos SET nombrePermiso=?, permisoDescripcion=? WHERE permisoId=?",
+            permiso.getNombrePermiso(), permiso.getPermisoDescripcion(), permiso.getPermisoId()
+        );
     }
 
 }

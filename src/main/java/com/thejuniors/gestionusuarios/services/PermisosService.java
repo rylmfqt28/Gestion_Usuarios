@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.thejuniors.gestionusuarios.model.EditPermiso;
 import com.thejuniors.gestionusuarios.model.Permisos;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class PermisosService {
     }
 
     // query para crear un nuevo dato en la tabla Permisos
-    public void nuevoPermiso(Permisos permiso){
+    public void nuevoPermiso(EditPermiso permiso){
         jdbcTemplate.update(
             "INSERT INTO Permisos (nombrePermiso, permisoDescripcion) VALUE (?, ?)",
             permiso.getNombrePermiso(), permiso.getPermisoDescripcion()

@@ -41,7 +41,7 @@ public class PermisosController {
     public void actualizarPermiso(@PathVariable("permisoId") Integer permisoId, @PathVariable("nombrePermiso") String nombrePermiso, @PathVariable("permisoDescripcion") String permisoDescripcion){
         permisos.updatePermiso(new Permisos(permisoId, nombrePermiso, permisoDescripcion));
     }*/
-
+    // Actualiza el nombre y descripcion de un permiso mediante su id
     @PutMapping(value = "/api/actualizarPermiso/{permisoId}", consumes = {"application/json"})
     public void actualizarPermiso(@PathVariable("permisoId") Integer permisoId, @RequestBody EditPermiso edtPermiso){
         permisos.updatePermiso(new Permisos(permisoId, edtPermiso.getNombrePermiso(), edtPermiso.getPermisoDescripcion()));

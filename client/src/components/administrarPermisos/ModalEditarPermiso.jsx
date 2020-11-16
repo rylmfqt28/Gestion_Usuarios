@@ -24,7 +24,7 @@ class ModalEditarPermiso extends Component{
 
     nombreHandler(e){
         if(e.target.value.length != 21){ 
-            if(e.target.value.match("^[a-zA-Z ]*$")!=null){
+            if(e.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null){
                 this.setState({nombrePermiso: e.target.value})
             }
         }else{

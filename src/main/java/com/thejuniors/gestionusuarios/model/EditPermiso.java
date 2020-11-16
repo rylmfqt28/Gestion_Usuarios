@@ -1,23 +1,13 @@
 package com.thejuniors.gestionusuarios.model;
 
-public class Permisos {
-    
-    private Integer permisoId;
+public class EditPermiso {
+
     private String nombrePermiso;
     private String permisoDescripcion;
 
-    public Permisos(Integer permisoId, String nombrePermiso, String permisoDescripcion) {
-        this.permisoId = permisoId;
+    public EditPermiso(String nombrePermiso, String permisoDescripcion) {
         this.nombrePermiso = nombrePermiso;
         this.permisoDescripcion = permisoDescripcion;
-    }
-
-    public Integer getPermisoId() {
-        return permisoId;
-    }
-
-    public void setPermisoId(Integer permisoId) {
-        this.permisoId = permisoId;
     }
 
     public String getNombrePermiso() {

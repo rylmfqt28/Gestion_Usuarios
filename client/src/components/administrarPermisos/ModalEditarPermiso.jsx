@@ -23,17 +23,21 @@ class ModalEditarPermiso extends Component{
     }
 
     nombreHandler(e){
-        if(e.target.value.length !== 21){
-            if(e.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null){
-                this.setState({nombrePermiso: e.target.value})
-                this.setState({validate: true})
-                console.log(true)
+        if(e.target.value[0]!==" "){
+            if(e.target.value.length !== 21){
+                if(e.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null){
+                    this.setState({nombrePermiso: e.target.value})
+                    this.setState({validate: true})
+                    console.log(true)
+                }else{
+                    this.setState({validate: false})
+                    console.log(false)
+                }
             }else{
-                this.setState({validate: false})
-                console.log(false)
+                alert("El maximo de caracteres es de 20")
             }
         }else{
-            alert("El maximo de caracteres es de 20")
+            alert("El nombre debe empezar con un caracter")
         }
     }
     descripcionHandler(e){
@@ -46,11 +50,15 @@ class ModalEditarPermiso extends Component{
 
     handleSave(){
         if(this.state.validate && this.state.nombrePermiso!=""){
-            //this.props.saveDetails();
-            $(function(){
-                $("#editPermiso").modal('hide')
-            })
-            console.log("se guardo")
+            if(this.state.nombrePermiso.length>=4){
+                //this.props.saveDetails();
+                $(function(){
+                    $("#editPermiso").modal('hide')
+                })
+                console.log("se guardo")
+            }else{
+                alert("el nombre debe contener un minimo de 4 caracteres")
+            }
         }else{
             alert("el campo nombre no debe estar vacio")
         }

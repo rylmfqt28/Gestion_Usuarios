@@ -23,9 +23,14 @@ class ModalEditarPermiso extends Component{
     }
 
     nombreHandler(e){
-        if(e.target.value.length !== 21){ 
+        if(e.target.value.length !== 21){
             if(e.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null){
                 this.setState({nombrePermiso: e.target.value})
+                this.setState({validate: true})
+                console.log(true)
+            }else{
+                this.setState({validate: false})
+                console.log(false)
             }
         }else{
             alert("El maximo de caracteres es de 20")
@@ -40,13 +45,14 @@ class ModalEditarPermiso extends Component{
     }
 
     handleSave(){
-        if(this.state.validate){
-            this.props.saveDetails();
+        if(this.state.validate && this.state.nombrePermiso!=""){
+            //this.props.saveDetails();
             $(function(){
                 $("#editPermiso").modal('hide')
             })
+            console.log("se guardo")
         }else{
-            alert("incorrecto")
+            alert("el campo nombre no debe estar vacio")
         }
     }
      

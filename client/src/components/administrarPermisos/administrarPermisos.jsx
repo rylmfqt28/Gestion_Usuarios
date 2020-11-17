@@ -55,6 +55,8 @@ class administrarPermisos extends Component{
     }
 
     saveDetails(){
+        this.updateList()
+        this.updateList()
         //$("#editPermiso").modal("hide");
     }
 

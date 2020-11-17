@@ -28,7 +28,7 @@ class PageAuxiliar extends Component {
                 <NavMenu />
                 <br/>
                 <Link 
-                className="btn btn-primary"
+                className="btn btn-info btn-sm"
                 data-toggle="modal"
                 data-target="#CreatePermiso"
                 >Crear Permiso</Link>

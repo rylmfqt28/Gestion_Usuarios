@@ -65,7 +65,7 @@ class ModalEliminarPermiso extends Component{
                         <div className="modal-body" id="Cuerpo">
 
                         
-                           <h6>Decea eliminar el permiso:"{this.props.nombrePermiso}" ?</h6>
+                           <h6>Decea eliminar el permisos: "{this.props.nombrePermiso}" ?</h6>
 
                         </div>
                         <div className="modal-footer justify-content-center" >

@@ -84,4 +84,3 @@ class ModalSolicitudC extends Component{
     }
 }
 export default ModalSolicitudC;
-

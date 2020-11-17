@@ -7,6 +7,7 @@ class RegistroService
     base2="/api/listarPermisosNoUsuario/"
     base3="/api/asignarPermiso/"
     base4="/api/quitarPermiso/"
+    base5="/api/editarPermiso/"
     getListaPermisos(){
         return axios.get(this.base).then(res => res.data);
     }
@@ -25,6 +26,9 @@ class RegistroService
 
     deletePermiso(tipoUsuarioId,permisoId){
         axios.delete(this.base4 + tipoUsuarioId + "/" + permisoId).then(response => response.data)
+    }
+    updatePermiso(tipoUsuarioId,permisoId){
+        axios.put(this.base5 + tipoUsuarioId + "/" + permisoId).then(response => response.data)
     }
 }
 export default new RegistroService();

@@ -66,6 +66,10 @@ public class PermisosService {
     // Solicitud para eliminar un permiso
     public void deletePermiso(Integer permisoId){
         eliminarUsuarioPermiso(permisoId);
+        jdbcTemplate.update(
+            "DELETE FROM Permisos WHERE permisoId=?",
+            permisoId
+        );
     }
 
     // Elimina las relaciones del permiso en la tabla UsuarioPermiso

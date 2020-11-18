@@ -253,6 +253,7 @@ class administrarPermisos extends Component{
             <ModalEliminarPermiso
              permisoId={this.state.permiso.permisoId}
              nombrePermiso={this.state.permiso.nombrePermiso}
+       
             />
           </div>
         )

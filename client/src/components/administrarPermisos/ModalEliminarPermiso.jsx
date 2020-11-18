@@ -1,5 +1,7 @@
 import React,{Component} from 'react'
 import $ from 'jquery'
+import PermisosController from '../../Service/PermisosController';
+
 
 class ModalEliminarPermiso extends Component{
     constructor(props){
@@ -7,48 +9,28 @@ class ModalEliminarPermiso extends Component{
         this.state={ 
                 permisoId:this.props.permisoId,
                 nombrePermiso:this.props.nombrePermiso,
-                permisoDescripcion:this.props.permisoDescripcion,
                 validate:true,
         }
         this.handleSave=this.handleSave.bind(this)
-        this.nombreHandler=this.nombreHandler.bind(this)
-        this.descripcionHandler=this.descripcionHandler.bind(this)
     }
-
-    componentWillReceiveProps(nextProps){
-        this.setState({
-            nombrePermiso: nextProps.nombrePermiso,
-            permisoDescripcion: nextProps.permisoDescripcion,
-        });
-    }
-
-    nombreHandler(e){
-        if(e.target.value.length != 21){ 
-            if(e.target.value.match("^[a-zA-Z ]*$")!=null){
-                this.setState({nombrePermiso: e.target.value})
-            }
-        }else{
-            alert("El maximo de caracteres es de 20")
-        }
-    }
-    descripcionHandler(e){
-        if(e.target.value.length != 251){
-            this.setState({permisoDescripcion: e.target.value})
-        }else{
-            alert("maximo 250 caracteres")
-        }
-    }
-
     handleSave(){
         if(this.state.validate){
-            this.props.saveDetails();
+            this.remove(this.props.permisoId);
             $(function(){
-                $("#editPermiso").modal('hide')
+               
+                $("#erasePermiso").modal('hide')
+
             })
         }else{
             alert("incorrecto")
         }
     }
+    remove(permisoId){
+        PermisosController.deletePermiso(permisoId);
+    }
+    
+   
+    
      
     render(){
         return(
@@ -63,14 +45,11 @@ class ModalEliminarPermiso extends Component{
                             </button>
                         </div>
                         <div className="modal-body" id="Cuerpo">
-
-                        
-                           <h6>Decea eliminar el permisos: "{this.props.nombrePermiso}" ?</h6>
-
+                           <h6>Decea eliminar el permiso: "{this.props.nombrePermiso}" ?</h6>
                         </div>
                         <div className="modal-footer justify-content-center" >
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-secondary" onClick={this.handleSave}>Aceptar</button>
+                            <button type="button" className="btn btn-secondary"  onClick={this.handleSave}>Aceptar</button>
                         </div>
                     </div>
                     </div>

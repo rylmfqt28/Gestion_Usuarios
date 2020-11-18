@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TipoUser from '../../Service/TipoUser';
 import ModalEditarPermiso from './ModalEditarPermiso';
+import ModalEliminarPermiso from './ModalEliminarPermiso';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import{faPlusCircle, faEdit, faTrashAlt, faMinusCircle} from '@fortawesome/free-solid-svg-icons'
 
@@ -94,6 +95,8 @@ class administrarPermisos extends Component{
                 <button className="btn btn-default btn-sm" onClick={() => this.add(Permiso.permisoId)} >
                     <FontAwesomeIcon icon={faPlusCircle} style={{fontSize:"20px", color:"green"}}></FontAwesomeIcon> 
                 </button>{' '}
+              
+
                 <button
                     className="btn btn-default btn-sm"
                     data-toggle="modal"
@@ -104,9 +107,20 @@ class administrarPermisos extends Component{
                     <FontAwesomeIcon icon={faEdit} style={{fontSize:"20px"}}></FontAwesomeIcon>
                 </button>{' '}
     
-                <button className="btn btn-default btn-sm">
-                    <FontAwesomeIcon icon={faTrashAlt} style={{fontSize:"20px", color:"blue"}}></FontAwesomeIcon>
+
+
+                <button
+                    className="btn btn-default btn-sm"
+                    data-toggle="modal"
+                    data-target="#erasePermiso"
+                    onClick={() => this.replaceModalItem(Permiso)}
+                  //onClick={() => this.replaceModalItem(index)}>VER USUARIO</button>{' '}
+                >
+                    <FontAwesomeIcon   icon={faTrashAlt} style={{fontSize:"20px", color:"blue"}}></FontAwesomeIcon>
                 </button>{' '}
+
+
+                
               </td>
             </tr>
           )
@@ -232,7 +246,10 @@ class administrarPermisos extends Component{
                 permisoDescripcion={this.state.permiso.permisoDescripcion}
                 saveDetails={this.saveDetails}
             />
-
+            <ModalEliminarPermiso
+             permisoId={this.state.permiso.permisoId}
+             nombrePermiso={this.state.permiso.nombrePermiso}
+            />
           </div>
         )
     }

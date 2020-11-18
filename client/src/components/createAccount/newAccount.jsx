@@ -813,9 +813,9 @@ capturarDatosModal = (motivo) => {
                     /></div>
                   <div className="checkbox-confirmar">
 
-                    <input type="checkbox" name="aceppt" required value="" />  <label>
-                      <b>acepto los</b>
-                      <a href="#eulaPage" data-toggle="modal">
+                    <input type="checkbox" id="checkbox" name="aceppt" required value="" />  <label>
+                      <b>Acepto los </b>
+                      <a href="#eulaPage" onClick={this.check} data-toggle="modal">
                         <b>Términos y condiciones</b>
                       </a>
                     </label>

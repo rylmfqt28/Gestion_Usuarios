@@ -3,7 +3,7 @@
 	position: absolute;
     top: 62px;
     display: none;
-    
+    z-index: 100;
 	/*right: -230px;*/
 	width: 0px;
     margin-right: 0;

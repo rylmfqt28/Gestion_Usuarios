@@ -7,6 +7,7 @@ import com.thejuniors.gestionusuarios.services.PermisosService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,14 +38,16 @@ public class PermisosController {
         permisos.nuevoPermiso(edtPermiso);
     }
 
-    /*@PutMapping(value = "/api/actualizarPermiso/{permisoId}/{nombrePermiso}/{permisoDescripcion}", produces = {"application/json"})
-    public void actualizarPermiso(@PathVariable("permisoId") Integer permisoId, @PathVariable("nombrePermiso") String nombrePermiso, @PathVariable("permisoDescripcion") String permisoDescripcion){
-        permisos.updatePermiso(new Permisos(permisoId, nombrePermiso, permisoDescripcion));
-    }*/
     // Actualiza el nombre y descripcion de un permiso mediante su id
     @PutMapping(value = "/api/actualizarPermiso/{permisoId}", consumes = {"application/json"})
     public void actualizarPermiso(@PathVariable("permisoId") Integer permisoId, @RequestBody EditPermiso edtPermiso){
         permisos.updatePermiso(new Permisos(permisoId, edtPermiso.getNombrePermiso(), edtPermiso.getPermisoDescripcion()));
+    }
+
+    // Eliminar un permiso funcion trash del frontend
+    @DeleteMapping(value="/api/eliminarPermiso/{permisoId}", produces={"application/json"})
+    public void eliminarPermiso(@PathVariable("permisoId") Integer permisoId){
+        permisos.deletePermiso(permisoId);
     }
 
 }

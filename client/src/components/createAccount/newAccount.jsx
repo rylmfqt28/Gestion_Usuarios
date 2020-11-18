@@ -309,6 +309,7 @@ class NewAccount extends Component {
     }
   }
 
+
   handleDeleteKeyTelf = (event) => {
     let key = event.keyCode || event.which;
     if (this.state.telefono.length !== 0 && (key === 8 || key === 127)) {
@@ -632,7 +633,7 @@ capturarDatosModal = (motivo) => {
                   </div>
                   <div className="form-group">
                     <label className="form-check-label">
-                      <b>Género: </b>
+                      <b className="genero">Género: </b>
                     </label>
                     <div className="form-check form-check-inline">
                       <input
@@ -645,10 +646,11 @@ capturarDatosModal = (motivo) => {
                         required
 
                       />
-                      <label htmlFor="male" className="form-check-label"> Masculino</label>
 
+                      <label htmlFor="male" className="form-check-label"> Masculino</label>
+                      
                       <input
-                        className="form-check-input"
+                        className="form-check-inputM"
                         type="radio"
                         id="female"
                         name="gender"
@@ -656,12 +658,13 @@ capturarDatosModal = (motivo) => {
                         value="Femenino"
                         required
                       />
-                      <label htmlFor="female" className="form-check-label"> Femenino</label>
+                      <br></br>
+                      <label htmlFor="female" className="form-check-label">Femenino</label>
 
                       <input
                         type="radio"
                         id="other"
-                        className="form-check-input"
+                        className="form-check-inputF"
                         name="gender"
                         onChange={(e) => this.handleOnChange(e)}
                         value="Otro"

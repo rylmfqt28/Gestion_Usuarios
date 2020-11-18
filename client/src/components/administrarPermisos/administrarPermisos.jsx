@@ -83,6 +83,10 @@ class administrarPermisos extends Component{
         this.updateList()
         this.updateList()     
     }
+    
+    
+    
+
 
     render() {
 

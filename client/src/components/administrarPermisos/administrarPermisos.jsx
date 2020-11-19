@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import{faPlusCircle, faEdit, faTrashAlt, faMinusCircle} from '@fortawesome/free-solid-svg-icons'
 
 import "./administrarPermisos.css";
-
+import $ from 'jquery';
 import NavMenu from '../menuAdmin/NavMenu'
 import AdminPermisosService from '../../Service/AdminPermisosService';
 
@@ -25,6 +25,8 @@ class administrarPermisos extends Component{
         this.updateList = this.updateList.bind(this)
         this.updateTipoUsuario = this.updateTipoUsuario.bind(this)
         this.add = this.add.bind(this)
+    
+        
     }
     componentDidMount() {
         TipoUser.getAll().then(data => this.setState({TUsuarios: data}))
@@ -55,7 +57,10 @@ class administrarPermisos extends Component{
     }
 
     saveDetails(){
-        //$("#editPermiso").modal("hide");
+        $("#editPermiso").modal("hide");
+        window.location.reload();
+       // this.updateList();
+       // this.updateList();
     }
 
     add(permisoID){
@@ -83,7 +88,7 @@ class administrarPermisos extends Component{
     }
     
     
-    
+
 
 
     render() {
@@ -235,6 +240,7 @@ class administrarPermisos extends Component{
                 nombrePermiso={this.state.permiso.nombrePermiso}
                 permisoDescripcion={this.state.permiso.permisoDescripcion}
                 saveDetails={this.saveDetails}
+                updateList ={this.updateList}
             />
 
           </div>

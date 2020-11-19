@@ -1,9 +1,13 @@
 import React,{Component} from 'react'
 import './newAccount.css'
 import swal from 'sweetalert'
-
+import $ from 'jquery'
 
 class ModalEula extends Component{
+
+    check() {
+        $("#checkbox").prop('checked', true);
+      }
 
       render(){
         return(
@@ -90,7 +94,7 @@ class ModalEula extends Component{
                         </div>
 
                         <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Aceptar</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.check} data-dismiss="modal">Aceptar</button>
                         </div>
                     </div>
                     </div>

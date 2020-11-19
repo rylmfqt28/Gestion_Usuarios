@@ -44,33 +44,7 @@ class NewAccount extends Component {
     this.insertarDatoRegistro=this.insertarDatoRegistro.bind(this);
     this.verficarTipo=this.verficarTipo.bind(this)
   }
-  startButtonEvent() {
-    //document.addEventListener('DOMContentLoaded', (event) => {
-    /*event.preventDefault();*/
-    if (this.state.nombre !== '' && this.state.apellido !== '' && this.state.ci !== '' && this.state.direccion !== '' && this.state.correo !== '' && this.state.telefono !== '' && this.state.userName !== '' && this.state.password !== '' && this.state.confPassword !== '') {
-      if (this.state.password !== this.state.confPassword) {
-
-        //mensaje contraseña "Las constraseñas no coinciden"
-        document.getElementById('avisoCorrecto').style.display = "none";
-        document.getElementById('avisoNuevo').style.display = "none";
-        document.getElementById('avisoPass').style.display = "block";
-      } else {
-        //mesaje datos correctos
-        document.getElementById('avisoCorrecto').style.display = "block";
-        document.getElementById('avisoNuevo').style.display = "none";
-        document.getElementById('avisoPass').style.display = "none";
-      }
-    } else {
-      document.addEventListener('DOMContentLoaded', (event) => {
-        //mensaje campos vacios "Existen campos vacios"
-        document.getElementById("avisoCorrecto").style.display = "none";
-        document.getElementById('avisoNuevo').style.display = "block";
-        document.getElementById('avisoPass').style.display = "none";
-      })
-    }
-    //})
-  }
-
+  
 
   validarNombre = (event) => {
 
@@ -813,9 +787,9 @@ capturarDatosModal = (motivo) => {
                     /></div>
                   <div className="checkbox-confirmar">
 
-                    <input type="checkbox" name="aceppt" required value="" />  <label>
+                    <input type="checkbox" id="checkbox" name="aceppt" required value="" />  <label>
                       <b>acepto los</b>
-                      <a href="#eulaPage" data-toggle="modal">
+                      <a href="#eulaPage" onClick={this.check} data-toggle="modal">
                         <b>Términos y condiciones</b>
                       </a>
                     </label>
@@ -825,7 +799,7 @@ capturarDatosModal = (motivo) => {
 
                     <Link className="btn btn-cancelar" value="Login" type="reset" to="/" >Cancelar</Link>
 
-                    <button className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Registrar</button>
+                    <button className="btn btn-aceptar " type='submit' value="Login"  >Registrar</button>
                   </div>
 
                   <div className="avisos">

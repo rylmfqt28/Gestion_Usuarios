@@ -43,8 +43,8 @@ class ModalEliminarPermiso extends Component{
         return(
             <div className="modal fade" id="erasePermiso" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-lg">
-                    <div className="modal-content" id="ModalErasePermiso">
-                        <div className="modal-header" id ="EncabezadoErasePermiso">
+                    <div className="modal-content" >
+                        <div className="modal-header">
                             <h5 className="modal-title">Eliminar Permiso</h5>
                         </div>
                         <div className="modal-body" id="Cuerpo">
@@ -61,3 +61,7 @@ class ModalEliminarPermiso extends Component{
     }
 }
 export default ModalEliminarPermiso;
+
+
+
+

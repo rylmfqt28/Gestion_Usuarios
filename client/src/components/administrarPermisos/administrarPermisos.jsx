@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import TipoUser from '../../Service/TipoUser';
 import ModalEditarPermiso from './ModalEditarPermiso';
 import ModalEliminarPermiso from './ModalEliminarPermiso';
+import ModalCrearPermiso from './ModalCrearPermiso';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import{faPlusCircle, faEdit, faTrashAlt, faMinusCircle} from '@fortawesome/free-solid-svg-icons'
 
@@ -176,7 +177,13 @@ class administrarPermisos extends Component{
                                 <label>Lista de Permisos: </label>
                             </div>
                             <div className="col">
-                                <button className="btn btn-info btn-sm" > Crear Permiso</button>
+
+                             <button className="btn btn-info btn-sm" 
+                                data-toggle="modal"
+                                data-target="#newPermiso"
+                                onClick={() => ("")}
+                                > Crear Permiso                                              
+                             </button>
                                 
                             </div>
                         </div>
@@ -254,6 +261,8 @@ class administrarPermisos extends Component{
              permisoId={this.state.permiso.permisoId}
              nombrePermiso={this.state.permiso.nombrePermiso}
              updateList={this.updateList}
+            />
+             <ModalCrearPermiso
             />
           </div>
         )

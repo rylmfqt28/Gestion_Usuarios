@@ -164,11 +164,12 @@ class administrarPermisos extends Component {
                                     <label>Lista de Permisos: </label>
                                 </div>
                                 <div className="col">
-                                    <Link
+                                    <button
                                         className="btn btn-info btn-sm"
                                         data-toggle="modal"
                                         data-target="#CreatePermiso"
-                                    >Crear Permiso</Link>
+                                        //onClick={this.updateList}
+                                    >Crear Permiso</button>
 
                                 </div>
 

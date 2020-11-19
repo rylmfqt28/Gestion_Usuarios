@@ -67,6 +67,7 @@ class ModalEditarPermiso extends Component{
                   })
                   console.log(resp);
                   alert('Se guardaron los cambios');
+                 
                 } catch (err) {
                   // Handle Error Here
                   console.error(err);

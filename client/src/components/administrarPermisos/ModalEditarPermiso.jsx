@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
-import $ from 'jquery';
 import axios from 'axios';
-import AdminPermisosService from '../../Service/AdminPermisosService';
+
 class ModalEditarPermiso extends Component{
     constructor(props){
         super(props)

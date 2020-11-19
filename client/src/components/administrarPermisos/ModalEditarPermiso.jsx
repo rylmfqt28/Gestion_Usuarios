@@ -1,12 +1,15 @@
-import React,{Component} from 'react'
-
+import React,{Component} from 'react';
+import $ from 'jquery';
+import axios from 'axios';
+import AdminPermisosService from '../../Service/AdminPermisosService';
 class ModalEditarPermiso extends Component{
     constructor(props){
         super(props)
         this.state={ 
                 permisoId:this.props.permisoId,
                 nombrePermiso:this.props.nombrePermiso,
-                permisoDescripcion:this.props.permisoDescripcion         
+                permisoDescripcion:this.props.permisoDescripcion,
+                validate:true,
         }
         this.handleSave=this.handleSave.bind(this)
         this.nombreHandler=this.nombreHandler.bind(this)
@@ -21,9 +24,7 @@ class ModalEditarPermiso extends Component{
     }
 
     nombreHandler(e){
-        console.log(e.target.value)
-        console.log(e.target.value.length)
-        if(e.target.value.length != 21){ 
+        if(e.target.value.length !== 21){ 
             if(e.target.value.match("^[a-zA-Z ]*$")!=null){
                 this.setState({nombrePermiso: e.target.value})
             }
@@ -32,7 +33,7 @@ class ModalEditarPermiso extends Component{
         }
     }
     descripcionHandler(e){
-        if(e.target.value.length != 251){
+        if(e.target.value.length !== 251){
             this.setState({permisoDescripcion: e.target.value})
         }else{
             alert("maximo 250 caracteres")
@@ -41,11 +42,60 @@ class ModalEditarPermiso extends Component{
 
     handleSave(){
         if(this.state.validate){
-            const Permiso = this.state;
-            console.log(this.state.validate)
-            this.props.saveDetails(Permiso);
+            this.props.saveDetails();
+            $(function(){
+                $("#editPermiso").modal('hide')
+
+            })
+        }else{
+            alert("incorrecto")
         }
     }
+    guardarCambios = async ()=>{
+        try {
+            if (this.state.nombrePermiso.trim() !== '') {
+              const res = await axios.get('/api/permiso/' + this.state.userName.trim());
+        
+              //console.log(res.data);
+              if (res.data === null) {
+                //console.log(this.state.paisID)
+                try {
+                  const resp = await axios.put("http://localhost:8080/api/actualizarPermiso", {
+                    nombrePermiso: this.state.nombrePermiso,
+                    permisoDescripcion: this.state.permisoDescripcion
+                    
+                  })
+                  console.log(resp);
+                  alert('Se guardaron los cambios');
+                } catch (err) {
+                  // Handle Error Here
+                  console.error(err);
+                }
+        
+              } 
+            } else {
+              //mensaje campos vacios "Existen campos vacios"
+              alert('No se guardaron los cambios');
+              //console.log("");
+            }
+          } catch (error) {
+            console.log(error);
+          }
+
+    }
+    /*put(permisoID){
+        AdminPermisosService.updatePermiso(this.state.tipoId, permisoId);
+       
+    }*/
+    verificarCambio(){
+        if (this.state.validate !== false){
+            $(function(){
+              $("#TipoUserData").modal('show')
+              this.guardarCambios()
+            })
+          }
+    }
+   
      
     render(){
         return(
@@ -69,7 +119,7 @@ class ModalEditarPermiso extends Component{
                         </div>
                         <div className="modal-footer justify-content-center" >
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-secondary">Guardar Cambios</button>
+                            <button type="button" className="btn btn-secondary" onClick={this.handleSave}>Guardar Cambios</button>
                         </div>
                     </div>
                     </div>

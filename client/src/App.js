@@ -18,7 +18,7 @@ import Home from './components/Home/Home';
 import AdministrarCuenta from './components/register/AdministrarCuenta';
 import ListaUsuarios from './components/register/ListaUsuarios';
 import ModificarTipoUser from './components/register/ModificarTipoUser';
-import Pagina from './components/register/PageAuxiliar';
+//import Pagina from './components/register/PageAuxiliar';
 
 
 class App extends Component{

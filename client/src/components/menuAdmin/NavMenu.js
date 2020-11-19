@@ -26,7 +26,7 @@ const BarraMenu = props => {
                 </a>
                 <a className="nav-menu" id="btn-menu"  onClick={mostrarMenu}>
 
-                    <img className="icono-menu" height="40" src={menu} />
+                    <img className="icono-menu" height="40" src={menu} alt="menu"/>
 
                 </a>
 

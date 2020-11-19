@@ -25,8 +25,7 @@ class administrarPermisos extends Component{
         this.updateList = this.updateList.bind(this)
         this.updateTipoUsuario = this.updateTipoUsuario.bind(this)
         this.add = this.add.bind(this)
-    
-        
+        this.updateListAfterEdit = this.updateListAfterEdit.bind(this)
     }
     componentDidMount() {
         TipoUser.getAll().then(data => this.setState({TUsuarios: data}))
@@ -58,9 +57,16 @@ class administrarPermisos extends Component{
 
     saveDetails(){
         $("#editPermiso").modal("hide");
-        window.location.reload();
+        //window.location.reload();
+        this.updateListAfterEdit();
+        this.updateListAfterEdit();
        // this.updateList();
        // this.updateList();
+    }
+
+    updateListAfterEdit(){
+        AdminPermisosService.getListaPermisos().then(data=>this.setState({permisos: data}));
+        //console.log(this.state.tipo);
     }
 
     add(permisoID){
@@ -241,6 +247,7 @@ class administrarPermisos extends Component{
                 permisoDescripcion={this.state.permiso.permisoDescripcion}
                 saveDetails={this.saveDetails}
                 updateList ={this.updateList}
+                updateListAfterEdit = {this.updateListAfterEdit}
             />
 
           </div>

@@ -51,7 +51,7 @@ class ModalEditarPermiso extends Component{
     }
 
     handleSave(){
-        if(this.state.validate && this.state.nombrePermiso!=""){
+        if(this.state.validate && this.state.nombrePermiso!==""){
             if(this.state.nombrePermiso.length>=4){
                 this.saveChanges();
                 

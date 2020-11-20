@@ -263,6 +263,8 @@ class administrarPermisos extends Component{
              updateList={this.updateList}
             />
              <ModalCrearPermiso
+               saveDetails={this.saveDetails}
+               updateList={this.updateList}
             />
           </div>
         )

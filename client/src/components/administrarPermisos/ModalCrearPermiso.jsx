@@ -5,17 +5,73 @@ import axios from 'axios';
 class ModalCrearPermiso extends Component{
     constructor(props){
         super(props)
-        this.state={ 
-                permisoId:this.props.permisoId,
-                nombrePermiso:this.props.nombrePermiso,
-                permisoDescripcion:this.props.permisoDescripcion,
-                validate:true,
-        }
-      
+        this.state={           
+            nombrePermiso:"",
+            permisoDescripcion:"",
+            validate:true,
     }
+    this.handleSave=this.handleSave.bind(this)
+    this.nombreHandler=this.nombreHandler.bind(this)
+    this.descripcionHandler=this.descripcionHandler.bind(this)
+}
 
+nombreHandler(e){
     
-     
+            this.setState({nombrePermiso: e.target.value})
+         
+    
+}
+descripcionHandler(e){
+    if(e.target.value.length !== 251){
+        this.setState({permisoDescripcion: e.target.value})
+        console.log({permisoDescripcion: e.target.value})
+    }else{
+        alert("maximo 250 caracteres")
+    }
+}
+
+handleSave(){
+    if(this.state.validate){
+        this.newPermiso();
+        $(function(){
+            $("#newPermiso").modal('hide')
+
+        })
+    }else{
+        alert("incorrecto")
+    }
+}
+newPermiso = async ()=>{
+    try {
+        const resp = await axios.post("http://localhost:8080/api/nuevoPermiso", {
+          nombrePermiso: this.state.nombrePermiso,
+          permisoDescripcion: this.state.permisoDescripcion,
+          
+        }
+        )
+        console.log(resp);
+        alert('Permiso creado exitosamente');
+        
+      } catch (err) {
+        // Handle Error Here
+        alert('No se creo el permiso');
+        console.error(err);
+      }
+
+}
+/*put(permisoID){
+    AdminPermisosService.updatePermiso(this.state.tipoId, permisoId);
+   
+}*/
+verificarCambio(){
+    if (this.state.validate !== false){
+        $(function(){
+          $("#newPermiso").modal('show')
+          this.newPermiso()
+        })
+      }
+}
+  
     render(){
         return(
             <div className="modal fade" id="newPermiso" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -32,7 +88,7 @@ class ModalCrearPermiso extends Component{
                                     <p><input className="form-control text-center"
                                       placeholder="Ingresar Nombre del Permiso"
                                      
-                                     onChange={(e)=>("")}></input>
+                                      onChange={(e)=>this.nombreHandler(e)}></input>
                                      </p>
 
                                     <textarea className="form-control" 
@@ -40,7 +96,7 @@ class ModalCrearPermiso extends Component{
                                     id="textoArea" 
                                     aria-label="With textarea" 
                                     
-                                    onChange={(e)=>("")}>
+                                    onChange={(e)=>this.descripcionHandler(e)}>
 
                                     </textarea>
                                 </div>
@@ -48,7 +104,7 @@ class ModalCrearPermiso extends Component{
                         </div>
                         <div className="modal-footer justify-content-center" >
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-secondary" onClick={this.handleSave}>Guardar Cambios</button>
+                            <button type="button" className="btn btn-secondary" onClick={this.handleSave}>Crear</button>
                         </div>
                     </div>
                     </div>

@@ -2,22 +2,23 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TipoUser from '../../Service/TipoUser';
 import ModalEditarPermiso from './ModalEditarPermiso';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import{faPlusCircle, faEdit, faTrashAlt, faMinusCircle} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlusCircle, faEdit, faTrashAlt, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
+import ModalCreatePermit from './ModalCreatePermit';
 
 import "./administrarPermisos.css";
-
+import $ from 'jquery';
 import NavMenu from '../menuAdmin/NavMenu'
 import AdminPermisosService from '../../Service/AdminPermisosService';
 
 
-class administrarPermisos extends Component{
-    constructor(props){
+class administrarPermisos extends Component {
+    constructor(props) {
         super(props);
         this.state = {
             permisos: [],
             permisosAsignados: [],
-            permiso:{},
+            permiso: {},
             TUsuarios: [],
             tipo: " ",
             tipoId:0
@@ -25,6 +26,7 @@ class administrarPermisos extends Component{
         this.updateList = this.updateList.bind(this)
         this.updateTipoUsuario = this.updateTipoUsuario.bind(this)
         this.add = this.add.bind(this)
+        this.updateListAfterEdit = this.updateListAfterEdit.bind(this)
     }
     componentDidMount() {
         TipoUser.getAll().then(data => this.setState({TUsuarios: data}))
@@ -43,21 +45,36 @@ class administrarPermisos extends Component{
         AdminPermisosService.getListaPermisosAsignados(e.target.value).then(data => this.setState({permisosAsignados: data}))
     }
 
-    updateList(){
-        AdminPermisosService.getListaPermisosNoAsignados(this.state.tipo).then(data => this.setState({permisos: data}))
-        AdminPermisosService.getListaPermisosAsignados(this.state.tipo).then(data => this.setState({permisosAsignados: data}))
+    updateList() {
+        AdminPermisosService.getListaPermisosNoAsignados(this.state.tipo).then(data => this.setState({ permisos: data }))
+        AdminPermisosService.getListaPermisosAsignados(this.state.tipo).then(data => this.setState({ permisosAsignados: data }))
         console.log(this.state.tipo);
     }
+    
 
     replaceModalItem(Permiso) {
-        this.setState({ permiso: Permiso})
+        this.setState({ permiso: Permiso })
         console.log(Permiso)
     }
 
     saveDetails(){
+<<<<<<< HEAD
         this.updateList()
         this.updateList()
         //$("#editPermiso").modal("hide");
+=======
+        $("#editPermiso").modal("hide");
+        //window.location.reload();
+        this.updateListAfterEdit();
+        this.updateListAfterEdit();
+       // this.updateList();
+       // this.updateList();
+    }
+
+    updateListAfterEdit(){
+        AdminPermisosService.getListaPermisos().then(data=>this.setState({permisos: data}));
+        //console.log(this.state.tipo);
+>>>>>>> develop
     }
 
     add(permisoID){
@@ -85,7 +102,7 @@ class administrarPermisos extends Component{
     }
     
     
-    
+
 
 
     render() {
@@ -144,34 +161,40 @@ class administrarPermisos extends Component{
                 </td>
               </tr>
             )
-          });
-    
+        });
+
         return (
-    
-          <div>
-            <NavMenu/>
-    
-            <div >
-              <h1 align="center"> Solicitudes de personal </h1>
-              <br></br>
-            </div> 
-            <div className = "container">
-                <div className="row">
-                    <div className="col ">
-                        {/*ttulo permisos y boton crear permiso*/}
-                        <div className ="row">
-                            <div className="col">
-                                <label>Lista de Permisos: </label>
+
+            <div>
+                <NavMenu />
+
+                <div >
+                    <h1 align="center"> Solicitudes de personal </h1>
+                    <br></br>
+                </div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col ">
+                            {/*ttulo permisos y boton crear permiso*/}
+                            <div className="row">
+                                <div className="col">
+                                    <label>Lista de Permisos: </label>
+                                </div>
+                                <div className="col">
+                                    <button
+                                        className="btn btn-info btn-sm"
+                                        data-toggle="modal"
+                                        data-target="#CreatePermiso"
+                                        //onClick={this.updateList}
+                                    >Crear Permiso</button>
+
+                                </div>
+
                             </div>
-                            <div className="col">
-                                <button className="btn btn-info btn-sm" > Crear Permiso</button>
-                                
-                            </div>
-                        </div>
-                        <br></br>
-                        {/*lista de permisos*/}
-                        <div className ="row" id="permisos">
-                            
+                            <br></br>
+                            {/*lista de permisos*/}
+                            <div className="row" id="permisos">
+
                                 <div className="table-responsive">
                                     <div className="containertable">
                                         <table className="tableFixHead" id="listaPermisos">
@@ -187,30 +210,30 @@ class administrarPermisos extends Component{
                                         </table>
                                     </div>
                                 </div>
-                            
+
+                            </div>
                         </div>
-                    </div>
-                    <div className = "col">
-                        {/*titulo de permisos asigandos y combobox tipo de usuario*/}
-                        <div className ="row">
+                        <div className="col">
+                            {/*titulo de permisos asigandos y combobox tipo de usuario*/}
+                            <div className="row">
                                 <div className="col">
                                     <label>Permisos Asignados </label>
                                 </div>
                                 <div className="col">
                                     <select className="form-control form-control-sm" onChange={this.updateTipoUsuario}>
-                                        <option value =" " >{"---"}</option>    
-                                        {this.state.TUsuarios.map((elemento,index) => (
-                                        <option key={index} value = {elemento.crearTipo}>
-                                            {elemento.crearTipo} 
-                                        </option> ))}
+                                        <option value=" " >{"---"}</option>
+                                        {this.state.TUsuarios.map((elemento, index) => (
+                                            <option key={index} value={elemento.crearTipo}>
+                                                {elemento.crearTipo}
+                                            </option>))}
                                     </select>
                                 </div>
-                            
-                        </div>
-                        <br></br>
-                        {/*Lista de permisos Asignados */}
-                        <div className ="row" id="asignados">
-                            
+
+                            </div>
+                            <br></br>
+                            {/*Lista de permisos Asignados */}
+                            <div className="row" id="asignados">
+
                                 <div className="table-responsive" >
                                     <div className="containertable">
                                         <table className="tableFixHead" id="listaPermisos">
@@ -226,20 +249,27 @@ class administrarPermisos extends Component{
                                         </table>
                                     </div>
                                 </div>
-                            
+
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-    
-            <ModalEditarPermiso
+
+                <ModalEditarPermiso
                 permisoId={this.state.permiso.permisoId}
                 nombrePermiso={this.state.permiso.nombrePermiso}
                 permisoDescripcion={this.state.permiso.permisoDescripcion}
                 saveDetails={this.saveDetails}
-            />
+                updateList ={this.updateList}
+                updateListAfterEdit = {this.updateListAfterEdit}
+                />
+                
+                <ModalCreatePermit
+                actualizar={this.updateList}
+                />
 
           </div>
+
         )
     }
 }

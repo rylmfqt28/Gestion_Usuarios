@@ -50,6 +50,7 @@ class administrarPermisos extends Component {
         AdminPermisosService.getListaPermisosAsignados(this.state.tipo).then(data => this.setState({ permisosAsignados: data }))
         console.log(this.state.tipo);
     }
+    
 
     replaceModalItem(Permiso) {
         this.setState({ permiso: Permiso })
@@ -244,7 +245,9 @@ class administrarPermisos extends Component {
                     permisoDescripcion={this.state.permiso.permisoDescripcion}
                 />
                 
-                <ModalCreatePermit/>
+                <ModalCreatePermit
+                actualizar={this.updateList}
+                />
 
           </div>
 

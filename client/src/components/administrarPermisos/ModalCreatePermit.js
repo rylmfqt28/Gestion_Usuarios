@@ -13,13 +13,14 @@ class ModalCreatePermit extends Component {
         this.descripcionHandler = this.descripcionHandler.bind(this)
     }
     nombreHandler(e) {
-        if (e.target.value.length === 20) {
-            alert("El maximo de caracteres es de 20")
-        } else {
-
+        if (e.target.value.length < 20) {
             if (e.target.value.match("^[a-zA-Z ]*$") != null) {
                 this.setState({ nombrePermiso: e.target.value })
             }
+            
+        } else {
+            alert("El maximo de caracteres es de 20")
+            
         }
     }
     descripcionHandler(e) {
@@ -33,7 +34,7 @@ class ModalCreatePermit extends Component {
         try {
             if (this.state.nombrePermiso.trim() !== '') {
 
-                if (this.state.nombrePermiso.length < 4) { 
+                if (this.state.nombrePermiso.length < 4) {
                     alert("minimo 4 caracteres")
                 } else {
                     const res = await axios.get('/api/permiso/' + this.state.nombrePermiso.trim());
@@ -49,13 +50,17 @@ class ModalCreatePermit extends Component {
                             })
                             console.log(resp);
                             alert('Se guardaron los cambios');
-                            window.location.reload(); 
+                            //window.location.reload();
+                            this.props.actualizar();
+                            this.props.actualizar();
+
                         } catch (err) {
                             // Handle Error Here
                             console.error(err);
                         }
 
                     }
+
                 }
             } else {
                 //mensaje campos vacios "Existen campos vacios"

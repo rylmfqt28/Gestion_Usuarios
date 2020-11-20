@@ -26,7 +26,6 @@ class administrarPermisos extends Component {
         this.updateList = this.updateList.bind(this)
         this.updateTipoUsuario = this.updateTipoUsuario.bind(this)
         this.add = this.add.bind(this)
-        this.updateListAfterEdit = this.updateListAfterEdit.bind(this)
     }
     componentDidMount() {
         TipoUser.getAll().then(data => this.setState({TUsuarios: data}))
@@ -41,13 +40,24 @@ class administrarPermisos extends Component {
                 this.setState({tipoId: value.tipoUsuarioID})
             }
         }
-        AdminPermisosService.getListaPermisosNoAsignados(e.target.value).then(data => this.setState({permisos: data}))
-        AdminPermisosService.getListaPermisosAsignados(e.target.value).then(data => this.setState({permisosAsignados: data}))
+        if(e.target.value===" "){
+            AdminPermisosService.getListaPermisos().then(data=>this.setState({permisos: data}))
+            this.setState({permisosAsignados: []})
+        }else{
+            AdminPermisosService.getListaPermisosNoAsignados(e.target.value).then(data => this.setState({permisos: data}))
+            AdminPermisosService.getListaPermisosAsignados(e.target.value).then(data => this.setState({permisosAsignados: data}))
+        }
     }
 
-    updateList() {
-        AdminPermisosService.getListaPermisosNoAsignados(this.state.tipo).then(data => this.setState({ permisos: data }))
-        AdminPermisosService.getListaPermisosAsignados(this.state.tipo).then(data => this.setState({ permisosAsignados: data }))
+    updateList() {   
+        if(this.state.tipo===" "){
+            AdminPermisosService.getListaPermisos().then(data=>this.setState({permisos: data}))
+        }else{
+            AdminPermisosService.getListaPermisosNoAsignados(this.state.tipo).then(data => this.setState({permisos: data}))
+            AdminPermisosService.getListaPermisosAsignados(this.state.tipo).then(data => this.setState({permisosAsignados: data}))
+        }
+        //AdminPermisosService.getListaPermisosNoAsignados(this.state.tipo).then(data => this.setState({ permisos: data }))
+        //AdminPermisosService.getListaPermisosAsignados(this.state.tipo).then(data => this.setState({ permisosAsignados: data }))
         console.log(this.state.tipo);
     }
     
@@ -59,18 +69,10 @@ class administrarPermisos extends Component {
 
     saveDetails(){
         $("#editPermiso").modal("hide");
-        //window.location.reload();
-        this.updateListAfterEdit();
-        this.updateListAfterEdit();
-       // this.updateList();
-       // this.updateList();
+        this.updateList();
+        this.updateList();
     }
-
-    updateListAfterEdit(){
-        AdminPermisosService.getListaPermisos().then(data=>this.setState({permisos: data}));
-        //console.log(this.state.tipo);
-    }
-
+    
     add(permisoID){
         console.log(this.state.tipo)
         if(this.state.tipo!==" "){

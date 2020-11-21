@@ -142,6 +142,40 @@ class NewAccount extends Component {
     }
 
   }
+  verificarExisteCi= async()=>{
+      try {    
+          const res = await axios.get('/api/userci/'+this.state.ci);
+          if(res.data !==null){
+            
+          }else{
+            alert('Este Ci esta siendo utilizado, intente con otro');
+          }
+      }catch(err){
+        console.log(err)
+      }
+  }
+
+
+
+
+  validarNumerosCi = (event) => {
+    let numeros = "1234567890"
+    let key = event.keyCode || event.which;
+    let tecla = String.fromCharCode(key);
+    if (this.state.ci.length !== 9) {
+      if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla) !== -1)) {
+        this.setState({
+          ...this.state,
+          [event.target.name]: event.target.value + tecla
+        });
+      }
+    } else {
+      alert('El maximo de digitos en el campo es de 9')
+    }
+
+  }
+
+
   validarCorreo = (event) => {
 
     let key = event.keyCode || event.which;
@@ -436,38 +470,44 @@ class NewAccount extends Component {
 insertarDatoRegistro = async() =>{
   try {
     if (this.state.userName.trim() !== '') {
-      const res = await axios.get('/api/user/' + this.state.userName.trim());
-
+      
+      const resCi = await axios.get('/api/userci/'+ this.state.ci.trim());
       //console.log(res.data);
-      if (res.data === null) {
-        //console.log(this.state.paisID)
-        try {
-          const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
-            usuarioNombre: this.state.nombre,
-            usuarioApellido: this.state.apellido,
-            CI: this.state.ci,
-            genero: this.state.genero,
-            paisID: this.state.paisID,
-            ciudadID: this.state.ciudadID,
-            direccion: this.state.direccion,
-            correo: this.state.correo,
-            telefono: this.state.telefono,
-            nombreUsuario: this.state.userName,
-            password: this.state.password,
-            tipoUsuarioID: this.state.tipoID,
-            motivo: this.state.motivo
-          })
-          console.log(resp);
-          alert('Se creo el tipo de usuario Exitosamente');
-        } catch (err) {
-          // Handle Error Here
-          console.error(err);
+      if(resCi.data === null){
+        const res = await axios.get('/api/user/' + this.state.userName.trim());
+        if (res.data === null) {
+          //console.log(this.state.paisID)
+          try {
+            const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
+              usuarioNombre: this.state.nombre,
+              usuarioApellido: this.state.apellido,
+              CI: this.state.ci,
+              genero: this.state.genero,
+              paisID: this.state.paisID,
+              ciudadID: this.state.ciudadID,
+              direccion: this.state.direccion,
+              correo: this.state.correo,
+              telefono: this.state.telefono,
+              nombreUsuario: this.state.userName,
+              password: this.state.password,
+              tipoUsuarioID: this.state.tipoID,
+              motivo: this.state.motivo
+            })
+            console.log(resp);
+            alert('Se creo el tipo de usuario Exitosamente');
+          } catch (err) {
+            // Handle Error Here
+            console.error(err);
+          }
+  
+        } else {
+          alert('El Nombre de usuario ya existe');
+          //console.log("El nombre de usuario ya existe");
         }
-
-      } else {
-        alert('El Nombre de usuario ya existe');
-        //console.log("El nombre de usuario ya existe");
+      }else{
+        alert('La cédula que pretende ingresar ya existe')
       }
+      
     } else {
       //mensaje campos vacios "Existen campos vacios"
       alert('Existen campos vacíos, rellenar los campos restantes');
@@ -623,7 +663,7 @@ capturarDatosModal = (motivo) => {
                       size="60"
                       placeholder="Ingrese su cédula de identidad"
                       name="ci"
-                      onKeyPress={this.validarNumeros}
+                      onKeyPress={this.validarNumerosCi}
                       onKeyDown={this.handleDeleteKeyCi}
                       onChange={this.handleInputChange}
                       value={this.state.ci}
@@ -813,9 +853,9 @@ capturarDatosModal = (motivo) => {
                     /></div>
                   <div className="checkbox-confirmar">
 
-                    <input type="checkbox" name="aceppt" required value="" />  <label>
-                      <b>acepto los</b>
-                      <a href="#eulaPage" data-toggle="modal">
+                    <input type="checkbox" id="checkbox" name="aceppt" required value="" />  <label>
+                      <b>Acepto los </b>
+                      <a href="#eulaPage" onClick={this.check} data-toggle="modal">
                         <b>Términos y condiciones</b>
                       </a>
                     </label>

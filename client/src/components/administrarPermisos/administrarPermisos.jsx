@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TipoUser from '../../Service/TipoUser';
 import ModalEditarPermiso from './ModalEditarPermiso';
+import ModalEliminarPermiso from './ModalEliminarPermiso';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle, faEdit, faTrashAlt, faMinusCircle } from '@fortawesome/free-solid-svg-icons'
 import ModalCreatePermit from './ModalCreatePermit';
@@ -123,8 +124,13 @@ class administrarPermisos extends Component {
                     <FontAwesomeIcon icon={faEdit} style={{fontSize:"20px"}}></FontAwesomeIcon>
                 </button>{' '}
     
-                <button className="btn btn-default btn-sm">
-                    <FontAwesomeIcon icon={faTrashAlt} style={{fontSize:"20px", color:"blue"}}></FontAwesomeIcon>
+                <button
+                    className="btn btn-default btn-sm"
+                    data-toggle="modal"
+                    data-target="#erasePermiso"
+                    onClick={() => this.replaceModalItem(Permiso)}
+                >
+                    <FontAwesomeIcon   icon={faTrashAlt} style={{fontSize:"20px", color:"blue"}}></FontAwesomeIcon>
                 </button>{' '}
               </td>
             </tr>
@@ -151,9 +157,14 @@ class administrarPermisos extends Component {
                       <FontAwesomeIcon icon={faEdit} style={{fontSize:"20px"}}></FontAwesomeIcon>
                   </button>{' '}
       
-                  <button className="btn btn-default btn-sm">
-                      <FontAwesomeIcon icon={faTrashAlt} style={{fontSize:"20px", color:"blue"}}></FontAwesomeIcon>
-                  </button>{' '}
+                  <button
+                    className="btn btn-default btn-sm"
+                    data-toggle="modal"
+                    data-target="#erasePermiso"
+                    onClick={() => this.replaceModalItem(PermisoA)}
+                >
+                    <FontAwesomeIcon   icon={faTrashAlt} style={{fontSize:"20px", color:"blue"}}></FontAwesomeIcon>
+                </button>{' '}
                 </td>
               </tr>
             )
@@ -257,9 +268,13 @@ class administrarPermisos extends Component {
                 permisoDescripcion={this.state.permiso.permisoDescripcion}
                 saveDetails={this.saveDetails}
                 updateList ={this.updateList}
-                updateListAfterEdit = {this.updateListAfterEdit}
+               
                 />
-                
+                <ModalEliminarPermiso
+                 permisoId={this.state.permiso.permisoId}
+                 nombrePermiso={this.state.permiso.nombrePermiso}
+                 updateList={this.updateList}
+                 />
                 <ModalCreatePermit
                 actualizar={this.updateList}
                 />

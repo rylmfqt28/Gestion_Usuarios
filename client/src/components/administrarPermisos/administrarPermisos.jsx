@@ -4,7 +4,7 @@ import TipoUser from '../../Service/TipoUser';
 import ModalEditarPermiso from './ModalEditarPermiso';
 
 import ModalEliminarPermiso from './ModalEliminarPermiso';
-import ModalCrearPermiso from './ModalCrearPermiso';
+
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import{faPlusCircle, faEdit, faTrashAlt, faMinusCircle} from '@fortawesome/free-solid-svg-icons'
 
@@ -201,7 +201,7 @@ class administrarPermisos extends Component {
                                     <button
                                         className="btn btn-info btn-sm"
                                         data-toggle="modal"
-                                        data-target="#newPermiso"
+                                        data-target="#CreatePermiso"
                                         //onClick={this.updateList}
                                     >Crear Permiso</button>
 
@@ -230,8 +230,8 @@ class administrarPermisos extends Component {
                             </div>
                         </div>
                         <div className="col">
-                            {/*titulo de permisos asigandos y combobox tipo de usuario*/}
-                            <div className="row">
+                          {/*titulo de permisos asigandos y combobox tipo de usuario*/}
+                          <div className="row">
                                 <div className="col">
                                     <label>Permisos Asignados </label>
                                 </div>
@@ -283,7 +283,8 @@ class administrarPermisos extends Component {
              nombrePermiso={this.state.permiso.nombrePermiso}
              updateList={this.updateList}
             />
-             <ModalCrearPermiso
+          
+             <ModalCreatePermit
                saveDetails={this.saveDetails}
                updateList={this.updateList}
             />

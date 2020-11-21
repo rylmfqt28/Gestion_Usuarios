@@ -19,7 +19,7 @@ class ModalCreatePermit extends Component {
             }
 
         } else {
-            alert("El maximo de caracteres es de 20")
+            alert("El máximo de caracteres es de 20")
 
         }
     }
@@ -27,7 +27,7 @@ class ModalCreatePermit extends Component {
         if (e.target.value.length < 251) {
             this.setState({ permisoDescripcion: e.target.value })
         } else {
-            alert("maximo 250 caracteres")
+            alert("El máximo 250 caracteres")
         }
     }
     clearCampos() {
@@ -37,12 +37,15 @@ class ModalCreatePermit extends Component {
         });
 
     }
+    cancelarPermiso=()=>{
+        this.clearCampos();
+    }
     createPermisos = async () => {
         try {
             if (this.state.nombrePermiso.trim() !== '') {
 
                 if (this.state.nombrePermiso.length < 4) {
-                    alert("minimo 4 caracteres")
+                    alert("El mínimo 4 caracteres")
                 } else {
                     const res = await axios.get('/api/permiso/' + this.state.nombrePermiso.trim());
 
@@ -56,7 +59,7 @@ class ModalCreatePermit extends Component {
 
                             })
                             console.log(resp);
-                            alert('Se creo el nuevo Permiso con exito');
+                            alert('Se creo el nuevo Permiso con éxito');
                             //actualizar las listas
                             this.props.actualizar();
                             this.props.actualizar();
@@ -69,13 +72,14 @@ class ModalCreatePermit extends Component {
                         }
 
                     } else {
-                        alert('Error: El permiso ya existe')
+                        alert("Error: El permiso: "+this.state.nombrePermiso.trim()+" ya existe")
+                        this.clearCampos();
                     }
 
                 }
             } else {
                 //mensaje campos vacios "Existen campos vacios"
-                alert('El campo nombre de permiso es Obligatorio');
+                alert('El campo nombre de permiso es obligatorio');
                 //console.log("");
             }
         } catch (error) {
@@ -119,7 +123,7 @@ class ModalCreatePermit extends Component {
                             }
                         </div>
                         <div className="modal-footer justify-content-center">
-                            <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelarPermiso}>Cancelar</button>
                             <button type="button" className="btn btn-outline-info" data-dismiss="modal" onClick={this.createPermisos}>Crear</button>
                         </div>
                     </div>

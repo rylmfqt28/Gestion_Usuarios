@@ -100,8 +100,8 @@ class ModalEditarPermiso extends Component {
                             </div>
                         </div>
                         <div className="modal-footer justify-content-center" >
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-secondary" onClick={this.handleSave} >Guardar Cambios</button>
+                            <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="button" className="btn btn-outline-info" onClick={this.handleSave} >Guardar Cambios</button>
                         </div>
                     </div>
                 </div>

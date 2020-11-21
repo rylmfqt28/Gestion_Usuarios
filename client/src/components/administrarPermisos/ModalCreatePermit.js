@@ -17,10 +17,10 @@ class ModalCreatePermit extends Component {
             if (e.target.value.match("^[a-zA-Z ]*$") != null) {
                 this.setState({ nombrePermiso: e.target.value })
             }
-            
+
         } else {
             alert("El maximo de caracteres es de 20")
-            
+
         }
     }
     descripcionHandler(e) {
@@ -30,7 +30,7 @@ class ModalCreatePermit extends Component {
             alert("maximo 250 caracteres")
         }
     }
-    clearCampos(){
+    clearCampos() {
         this.setState({
             nombrePermiso: '',
             permisoDescripcion: ''
@@ -68,7 +68,7 @@ class ModalCreatePermit extends Component {
                             console.error(err);
                         }
 
-                    }else{
+                    } else {
                         alert('Error: El permiso ya existe')
                     }
 
@@ -101,21 +101,24 @@ class ModalCreatePermit extends Component {
                             {
                                 //this.state.User.map(
                                 //user=>(
-                                <div className="col">
-                                    <h2>Crear Permisos</h2>
-                                    <br />
-                                    <div>
-                                        <input className='form-control' placeholder='Ingresar nombre de permiso' value={this.state.nombrePermiso} onChange={(e) => this.nombreHandler(e)}>
-                                        </input>
+                                <div className="row justify-content-md-center">
+                                    <div className="col-9">
+                                        <h2>Crear Permisos</h2>
                                         <br />
-                                        <textarea className='form-control' placeholder='Ingresar la descripción de permiso' value={this.state.permisoDescripcion} onChange={(e) => this.descripcionHandler(e)} rows="5">
+                                        <div>
+                                            <input className='form-control' placeholder='Ingresar nombre de permiso' value={this.state.nombrePermiso} onChange={(e) => this.nombreHandler(e)}>
+                                            </input>
+                                            <br />
+                                            <textarea className='form-control' placeholder='Ingresar la descripción de permiso' value={this.state.permisoDescripcion} onChange={(e) => this.descripcionHandler(e)} rows="5">
 
-                                        </textarea>
+                                            </textarea>
+                                        </div>
                                     </div>
                                 </div>
+
                             }
                         </div>
-                        <div className="modal-footer">
+                        <div className="modal-footer justify-content-center">
                             <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
                             <button type="button" className="btn btn-outline-info" data-dismiss="modal" onClick={this.createPermisos}>Crear</button>
                         </div>

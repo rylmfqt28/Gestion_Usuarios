@@ -268,7 +268,7 @@ class administrarPermisos extends Component {
                 permisoDescripcion={this.state.permiso.permisoDescripcion}
                 saveDetails={this.saveDetails}
                 updateList ={this.updateList}
-                updateListAfterEdit = {this.updateListAfterEdit}
+               
                 />
                 <ModalEliminarPermiso
                  permisoId={this.state.permiso.permisoId}

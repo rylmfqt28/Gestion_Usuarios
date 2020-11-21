@@ -24,15 +24,6 @@ class ModalEditarPermiso extends Component {
         });
     }
 
-<<<<<<< HEAD
-    nombreHandler(e) {
-        if (e.target.value.length !== 21) {
-            if (e.target.value.match("^[a-zA-Z ]*$") != null) {
-                this.setState({ nombrePermiso: e.target.value })
-            }
-        } else {
-            alert("El maximo de caracteres es de 20")
-=======
     nombreHandler(e){
         if(e.target.value[0]!==" "){
             if(e.target.value.length !== 21){
@@ -49,7 +40,6 @@ class ModalEditarPermiso extends Component {
             }
         }else{
             alert("El nombre debe empezar con un caracter")
->>>>>>> develop
         }
     }
     descripcionHandler(e) {
@@ -60,19 +50,6 @@ class ModalEditarPermiso extends Component {
         }
     }
 
-<<<<<<< HEAD
-    handleSave() {
-        if (this.state.validate) {
-            this.saveChanges();
-
-
-            this.props.saveDetails();
-
-
-
-        } else {
-            alert("incorrecto")
-=======
     handleSave(){
         if(this.state.validate && this.state.nombrePermiso!==""){
             if(this.state.nombrePermiso.length>=4){
@@ -85,7 +62,6 @@ class ModalEditarPermiso extends Component {
             } 
         }else{
             alert("el campo nombre no debe estar vacio")
->>>>>>> develop
         }
     }
 

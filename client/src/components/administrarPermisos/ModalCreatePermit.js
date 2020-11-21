@@ -6,14 +6,14 @@ class ModalCreatePermit extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            permiso: '',
+            nombrePermiso: '',
             permisoDescripcion: ''
         }
         this.nombreHandler = this.nombreHandler.bind(this)
         this.descripcionHandler = this.descripcionHandler.bind(this)
     }
     nombreHandler(e) {
-        if (e.target.value.length < 20) {
+        if (e.target.value.length < 21) {
             if (e.target.value.match("^[a-zA-Z ]*$") != null) {
                 this.setState({ nombrePermiso: e.target.value })
             }
@@ -24,11 +24,18 @@ class ModalCreatePermit extends Component {
         }
     }
     descripcionHandler(e) {
-        if (e.target.value.length !== 250) {
+        if (e.target.value.length < 251) {
             this.setState({ permisoDescripcion: e.target.value })
         } else {
             alert("maximo 250 caracteres")
         }
+    }
+    clearCampos(){
+        this.setState({
+            nombrePermiso: '',
+            permisoDescripcion: ''
+        });
+
     }
     createPermisos = async () => {
         try {
@@ -44,21 +51,25 @@ class ModalCreatePermit extends Component {
                         //console.log(this.state.paisID)
                         try {
                             const resp = await axios.post("http://localhost:8080/api/nuevoPermiso", {
-                                nombrePermiso: this.state.nombrePermiso,
-                                permisoDescripcion: this.state.permisoDescripcion
+                                nombrePermiso: this.state.nombrePermiso.trim(),
+                                permisoDescripcion: this.state.permisoDescripcion.trim()
 
                             })
                             console.log(resp);
-                            alert('Se guardaron los cambios');
-                            //window.location.reload();
+                            alert('Se creo el nuevo Permiso con exito');
+                            //actualizar las listas
                             this.props.actualizar();
                             this.props.actualizar();
+                            //limpiar los campos
+                            this.clearCampos();
 
                         } catch (err) {
                             // Handle Error Here
                             console.error(err);
                         }
 
+                    }else{
+                        alert('Error: El permiso ya existe')
                     }
 
                 }
@@ -94,10 +105,10 @@ class ModalCreatePermit extends Component {
                                     <h2>Crear Permisos</h2>
                                     <br />
                                     <div>
-                                        <input className='form-control' placeholder='ingresar nombre de permiso' onChange={(e) => this.nombreHandler(e)}>
+                                        <input className='form-control' placeholder='Ingresar nombre de permiso' value={this.state.nombrePermiso} onChange={(e) => this.nombreHandler(e)}>
                                         </input>
                                         <br />
-                                        <textarea className='form-control' placeholder='ingresar la descripción de permiso' onChange={(e) => this.descripcionHandler(e)} rows="5">
+                                        <textarea className='form-control' placeholder='Ingresar la descripción de permiso' value={this.state.permisoDescripcion} onChange={(e) => this.descripcionHandler(e)} rows="5">
 
                                         </textarea>
                                     </div>

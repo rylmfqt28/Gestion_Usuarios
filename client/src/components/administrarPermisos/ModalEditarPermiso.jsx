@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
-import $ from 'jquery';
 import axios from 'axios';
-import AdminPermisosService from '../../Service/AdminPermisosService';
+
 class ModalEditarPermiso extends Component{
     constructor(props){
         super(props)
@@ -26,12 +25,21 @@ class ModalEditarPermiso extends Component{
     }
 
     nombreHandler(e){
-        if(e.target.value.length !== 21){ 
-            if(e.target.value.match("^[a-zA-Z ]*$")!=null){
-                this.setState({nombrePermiso: e.target.value})
+        if(e.target.value[0]!==" "){
+            if(e.target.value.length !== 21){
+                if(e.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null){
+                    this.setState({nombrePermiso: e.target.value})
+                    this.setState({validate: true})
+                    console.log(true)
+                }else{
+                    this.setState({validate: false})
+                    console.log(false)
+                }
+            }else{
+                alert("El maximo de caracteres es de 20")
             }
         }else{
-            alert("El maximo de caracteres es de 20")
+            alert("El nombre debe empezar con un caracter")
         }
     }
     descripcionHandler(e){
@@ -43,16 +51,17 @@ class ModalEditarPermiso extends Component{
     }
 
     handleSave(){
-        if(this.state.validate){
-            this.saveChanges();
-            
-            
-            this.props.saveDetails();  
-            
-            
-            
+        if(this.state.validate && this.state.nombrePermiso!==""){
+            if(this.state.nombrePermiso.length>=4){
+                this.saveChanges();
+                
+                this.props.saveDetails();
+                
+            }else{
+                alert("el nombre debe contener un minimo de 4 caracteres")
+            } 
         }else{
-            alert("incorrecto")
+            alert("el campo nombre no debe estar vacio")
         }
     }
     

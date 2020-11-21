@@ -1,37 +1,36 @@
 
 
 #textoArea{
-  height: 250px;
-}
-
-#EncabezadoEditPermiso{
-    background-color:rgb(2, 129, 146);
-}
-
+    height: 250px;
+  }
   
-#ModalEditPermiso{
-    background-color:  rgb(245, 244, 243);
-}
-
-
-.modal-footer{
-    background-color: rgb(2, 173, 185)
-}
-
-#asignados{
-    margin: 0.5em;
-}
-
-#permisos{
-    margin: 0.5em;
-}
-#listaPermisos{
-    border-collapse: separate;
-    border: 3px solid rgb(2, 129, 146);
-    border-radius: 10px;
-    text-align: left;
-    width: 100%;
-}
-#con{
-    margin: 0.5em;
-}
+  #EncabezadoEditPermiso{
+      background-color:rgb(2, 129, 146);
+  }
+  
+    
+  #ModalEditPermiso{
+      background-color:  rgb(245, 244, 243);
+  }
+  
+  .modal-footer{
+      background-color: rgb(2, 173, 185)
+  }
+  
+  #asignados{
+      margin: 0.5em;
+  }
+  
+  #permisos{
+      margin: 0.5em;
+  }
+  #listaPermisos{
+      border-collapse: separate;
+      border: 3px solid rgb(2, 129, 146);
+      border-radius: 10px;
+      text-align: left;
+      width: 100%;
+  }
+  #con{
+      margin: 0.5em;
+  }

@@ -12,27 +12,24 @@ class ModalEliminarPermiso extends Component{
                 nombrePermiso:this.props.nombrePermiso,
                 validate:true,
         }
-        this.handleSave=this.handleSave.bind(this)
+        this.handleErase=this.handleErase.bind(this)
     }
-    handleSave(){
+    handleErase(){
         if(this.state.validate){
 
           this.remove(this.props.permisoId);
-        
-            $(function(){
-               
-                $("#erasePermiso").modal('hide')
-
+          alert("Se elimino el permiso!")
+            $(function(){ 
+                $("#erasePermiso").modal('hide')  
             })
         }else{
             alert("incorrecto")
-           
-
         }
+       
     }
     remove(permisoId){
         
-        PermisosController.deletePermiso(permisoId);
+        PermisosController.deletePermiso(permisoId);   
         this.props.updateList();
         this.props.updateList();
     }
@@ -43,16 +40,16 @@ class ModalEliminarPermiso extends Component{
         return(
             <div className="modal fade" id="erasePermiso" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-lg">
-                    <div className="modal-content" >
-                        <div className="modal-header">
+                    <div className="modal-content" id="ModalEditPermiso">
+                        <div className="modal-header" id="EncabezadoEditPermiso">
                             <h5 className="modal-title">Eliminar Permiso</h5>
                         </div>
                         <div className="modal-body" id="Cuerpo">
                            <h7>Decea eliminar el permiso: "{this.props.nombrePermiso}" ?</h7>
                         </div>
                         <div className="modal-footer justify-content-center" >
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-secondary"  onClick={this.handleSave}>Aceptar</button>
+                            <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="button" className="btn btn-outline-info"  onClick={this.handleErase}>Aceptar</button>
                         </div>
                     </div>
                     </div>

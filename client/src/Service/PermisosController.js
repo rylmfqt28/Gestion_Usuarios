@@ -2,9 +2,7 @@ import axios from 'axios';
 class PermisosController
 {
     base="/api/permiso/"
-    base1="/api/nuevoPermiso/"
-    base2="/api/actualizarPermiso/"
-    base3="/api/eliminarPermiso/"
+    base1="/api/eliminarPermiso/"
 
 
  
@@ -14,7 +12,7 @@ class PermisosController
 
   
     deletePermiso(permisoId){
-        axios.delete(this.base3 + permisoId).then(response => response.data)
+        axios.delete(this.base1 + permisoId).then(response => response.data)
     }
   
 }

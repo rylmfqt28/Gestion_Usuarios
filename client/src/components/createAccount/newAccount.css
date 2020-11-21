@@ -167,9 +167,7 @@
       position: absolute;
       left: 45%;
       top: 43px;
-    }
-    
-    
+    }  
 }
 .genero{
   margin-right: 5px;
@@ -186,3 +184,4 @@
 .form-check-label{
   margin-right: 10px;
 }
+

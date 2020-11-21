@@ -1,4 +1,5 @@
-import React,{Component} from 'react'
+import React,{Component} from 'react';
+import axios from 'axios';
 
 class ModalEditarPermiso extends Component{
     constructor(props){
@@ -6,11 +7,14 @@ class ModalEditarPermiso extends Component{
         this.state={ 
                 permisoId:this.props.permisoId,
                 nombrePermiso:this.props.nombrePermiso,
-                permisoDescripcion:this.props.permisoDescripcion         
+                permisoDescripcion:this.props.permisoDescripcion,
+                validate:true,
         }
         this.handleSave=this.handleSave.bind(this)
         this.nombreHandler=this.nombreHandler.bind(this)
         this.descripcionHandler=this.descripcionHandler.bind(this)
+        
+       
     }
 
     componentWillReceiveProps(nextProps){
@@ -21,18 +25,25 @@ class ModalEditarPermiso extends Component{
     }
 
     nombreHandler(e){
-        console.log(e.target.value)
-        console.log(e.target.value.length)
-        if(e.target.value.length != 21){ 
-            if(e.target.value.match("^[a-zA-Z ]*$")!=null){
-                this.setState({nombrePermiso: e.target.value})
+        if(e.target.value[0]!==" "){
+            if(e.target.value.length !== 21){
+                if(e.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null){
+                    this.setState({nombrePermiso: e.target.value})
+                    this.setState({validate: true})
+                    console.log(true)
+                }else{
+                    this.setState({validate: false})
+                    console.log(false)
+                }
+            }else{
+                alert("El maximo de caracteres es de 20")
             }
         }else{
-            alert("El maximo de caracteres es de 20")
+            alert("El nombre debe empezar con un caracter")
         }
     }
     descripcionHandler(e){
-        if(e.target.value.length != 251){
+        if(e.target.value.length !== 251){
             this.setState({permisoDescripcion: e.target.value})
         }else{
             alert("maximo 250 caracteres")
@@ -40,12 +51,43 @@ class ModalEditarPermiso extends Component{
     }
 
     handleSave(){
-        if(this.state.validate){
-            const Permiso = this.state;
-            console.log(this.state.validate)
-            this.props.saveDetails(Permiso);
+        if(this.state.validate && this.state.nombrePermiso!==""){
+            if(this.state.nombrePermiso.length>=4){
+                this.saveChanges();
+                
+                this.props.saveDetails();
+                
+            }else{
+                alert("el nombre debe contener un minimo de 4 caracteres")
+            } 
+        }else{
+            alert("el campo nombre no debe estar vacio")
         }
     }
+    
+    saveChanges = async () => {
+        try {
+            if (this.state.permisoId !== 0) 
+                try {
+                  const resp = await axios.put("http://localhost:8080/api/actualizarPermiso/" + this.props.permisoId, {
+                    nombrePermiso: this.state.nombrePermiso,
+                    permisoDescripcion: this.state.permisoDescripcion,
+                    
+                  })
+                  console.log(resp);
+                  alert('Se guardaron los cambios con exito');
+                } catch (err) {
+                  // Handle Error Here
+                  console.error(err);
+                }
+            
+          } catch (error) {
+            console.log(error);
+          }
+
+    }
+    
+   
      
     render(){
         return(
@@ -69,7 +111,7 @@ class ModalEditarPermiso extends Component{
                         </div>
                         <div className="modal-footer justify-content-center" >
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="button" className="btn btn-secondary">Guardar Cambios</button>
+                            <button type="button" className="btn btn-secondary" onClick={this.handleSave} >Guardar Cambios</button>
                         </div>
                     </div>
                     </div>

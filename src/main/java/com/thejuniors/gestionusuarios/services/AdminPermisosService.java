@@ -79,9 +79,9 @@ public class AdminPermisosService {
         List<Permisos> permisos = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement("SELECT p.permisoId, p.nombrePermiso, p.permisoDescripcion FROM Permisos p, UsuarioPermisos up, TipoUsuario tp WHERE tp.tipoUsuarioID=up.tipoUsuarioID AND p.permisoId=up.permisoId AND tp.tipoUsuarioNombre<>? AND p.permisoId NOT IN(SELECT p1.permisoId FROM Permisos p1, UsuarioPermisos up1, TipoUsuario tp1 WHERE tp1.tipoUsuarioNombre=? AND tp1.tipoUsuarioID=up1.tipoUsuarioID AND p1.permisoId=up1.permisoId) GROUP BY p.permisoId");
+                PreparedStatement ps = con.prepareStatement("SELECT p.permisoId, p.nombrePermiso, p.permisoDescripcion FROM Permisos p WHERE p.permisoId NOT IN(SELECT p1.permisoId FROM Permisos p1, UsuarioPermisos up1, TipoUsuario tp1 WHERE tp1.tipoUsuarioNombre=? AND tp1.tipoUsuarioID=up1.tipoUsuarioID AND p1.permisoId=up1.permisoId) GROUP BY p.permisoId");
                 ps.setString(1, tipoUsuarioNombre);
-                ps.setString(2, tipoUsuarioNombre);
+                //ps.setString(2, tipoUsuarioNombre);
                 return ps;
             }
         }, new ResultSetExtractor <List<Permisos>>(){

@@ -18,9 +18,10 @@ class ModalEliminarPermiso extends Component{
         if(this.state.validate){
 
           this.remove(this.props.permisoId);
-          alert("Se elimino el permiso!")
+         
             $(function(){ 
                 $("#erasePermiso").modal('hide')  
+                alert("Se elimino el permiso!")
             })
         }else{
             alert("incorrecto")

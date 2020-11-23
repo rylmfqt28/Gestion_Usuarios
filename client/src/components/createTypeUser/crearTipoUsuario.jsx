@@ -50,14 +50,13 @@ const CrearTipoUsuario = () => {
                 });
             }
         } else {
-            //alert('El maximo de caracteres es de 20');
             swal("ADVERTENCIA", "El maximo de caracteres es de 20", "warning");
         }
 
     }
     const presionarKey = () => {
         if (descripcionTipo.length === 250) {
-            alert('Solo se permite un maximo de 250 caracteres')
+            swal("ADVERTENCIA", "Solo se permite un maximo de 250 caracteres", "warning");
         }
     }
     const { crearTipo, descripcionTipo } = datos

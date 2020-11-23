@@ -42,7 +42,6 @@ const CrearTipoUsuario = () => {
         let tecla = String.fromCharCode(key);
         let letras = " áéíóúñÑ";
         if (datos.crearTipo.length !== 20) {
-            console.log('llego malditod');
             if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
                 setDatos({
                     ...datos,
@@ -77,10 +76,10 @@ const CrearTipoUsuario = () => {
                 console.log(res.data);
                 if (res.data === null) {
                     const crear = await axios.post('/api/type/', datos);
-                    alert('Se creo el tipo de usuario Exitosamente');
+                    swal("TIPO DE USUARIO CREADO", "Se creo el tipo de usuario Exitosamente", "success");
                     console.log("Se creó el nuevo tipo de usuario:" + crear.data);
                 } else {
-                    alert('El tipo de usuario ya existe');
+                    swal("ERROR", "El tipo de usuario ya existe", "error");
                     console.log("El usuario ya existe");
                 }
             } else {

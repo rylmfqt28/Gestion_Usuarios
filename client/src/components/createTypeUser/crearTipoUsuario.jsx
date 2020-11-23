@@ -3,6 +3,7 @@ import './crearTipoUsuario.css';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import NavMenu from '../menuAdmin/NavMenu'
+import swal from 'sweetalert'
 
 const CrearTipoUsuario = () => {
 
@@ -49,7 +50,8 @@ const CrearTipoUsuario = () => {
                 });
             }
         } else {
-            alert('El maximo de caracteres es de 20');
+            //alert('El maximo de caracteres es de 20');
+            swal("ADVERTENCIA", "El maximo de caracteres es de 20", "warning");
         }
 
     }

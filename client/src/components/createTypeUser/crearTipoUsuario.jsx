@@ -84,8 +84,7 @@ const CrearTipoUsuario = () => {
                 }
             } else {
                 //mensaje campos vacios "Existen campos vacios"
-                alert('Existen campos vacíos, rellenar los campos restantes');
-                console.log("");
+                swal("ADVERTENCIA", "Existen campos vacíos, rellenar los campos restantes", "warning");
             }
 
         } catch (error) {

@@ -1,6 +1,5 @@
 import React,{Component} from 'react'
 import './newAccount.css'
-import swal from 'sweetalert'
 import $ from 'jquery'
 
 class ModalEula extends Component{

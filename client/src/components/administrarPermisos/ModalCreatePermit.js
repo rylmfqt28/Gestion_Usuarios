@@ -6,36 +6,46 @@ class ModalCreatePermit extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            permiso: '',
+            nombrePermiso: '',
             permisoDescripcion: ''
         }
         this.nombreHandler = this.nombreHandler.bind(this)
         this.descripcionHandler = this.descripcionHandler.bind(this)
     }
     nombreHandler(e) {
-        if (e.target.value.length < 20) {
+        if (e.target.value.length < 21) {
             if (e.target.value.match("^[a-zA-Z ]*$") != null) {
                 this.setState({ nombrePermiso: e.target.value })
             }
-            
+
         } else {
-            alert("El maximo de caracteres es de 20")
-            
+            alert("El máximo de caracteres es de 20")
+
         }
     }
     descripcionHandler(e) {
-        if (e.target.value.length !== 250) {
+        if (e.target.value.length < 251) {
             this.setState({ permisoDescripcion: e.target.value })
         } else {
-            alert("maximo 250 caracteres")
+            alert("El máximo 250 caracteres")
         }
+    }
+    clearCampos() {
+        this.setState({
+            nombrePermiso: '',
+            permisoDescripcion: ''
+        });
+
+    }
+    cancelarPermiso=()=>{
+        this.clearCampos();
     }
     createPermisos = async () => {
         try {
             if (this.state.nombrePermiso.trim() !== '') {
 
                 if (this.state.nombrePermiso.length < 4) {
-                    alert("minimo 4 caracteres")
+                    alert("El mínimo 4 caracteres")
                 } else {
                     const res = await axios.get('/api/permiso/' + this.state.nombrePermiso.trim());
 
@@ -44,27 +54,32 @@ class ModalCreatePermit extends Component {
                         //console.log(this.state.paisID)
                         try {
                             const resp = await axios.post("http://localhost:8080/api/nuevoPermiso", {
-                                nombrePermiso: this.state.nombrePermiso,
-                                permisoDescripcion: this.state.permisoDescripcion
+                                nombrePermiso: this.state.nombrePermiso.trim(),
+                                permisoDescripcion: this.state.permisoDescripcion.trim()
 
                             })
                             console.log(resp);
-                            alert('Se guardaron los cambios');
-                            //window.location.reload();
+                            alert('Se creo el nuevo Permiso con éxito');
+                            //actualizar las listas
                             this.props.actualizar();
                             this.props.actualizar();
+                            //limpiar los campos
+                            this.clearCampos();
 
                         } catch (err) {
                             // Handle Error Here
                             console.error(err);
                         }
 
+                    } else {
+                        alert("Error: El permiso: "+this.state.nombrePermiso.trim()+" ya existe")
+                        this.clearCampos();
                     }
 
                 }
             } else {
                 //mensaje campos vacios "Existen campos vacios"
-                alert('El campo nombre de permiso es Obligatorio');
+                alert('El campo nombre de permiso es obligatorio');
                 //console.log("");
             }
         } catch (error) {
@@ -90,22 +105,25 @@ class ModalCreatePermit extends Component {
                             {
                                 //this.state.User.map(
                                 //user=>(
-                                <div className="col">
-                                    <h2>Crear Permisos</h2>
-                                    <br />
-                                    <div>
-                                        <input className='form-control' placeholder='ingresar nombre de permiso' onChange={(e) => this.nombreHandler(e)}>
-                                        </input>
+                                <div className="row justify-content-md-center">
+                                    <div className="col-9">
+                                        <h2>Crear Permisos</h2>
                                         <br />
-                                        <textarea className='form-control' placeholder='ingresar la descripción de permiso' onChange={(e) => this.descripcionHandler(e)} rows="5">
+                                        <div>
+                                            <input className='form-control' placeholder='Ingresar nombre de permiso' value={this.state.nombrePermiso} onChange={(e) => this.nombreHandler(e)}>
+                                            </input>
+                                            <br />
+                                            <textarea className='form-control' placeholder='Ingresar la descripción de permiso' value={this.state.permisoDescripcion} onChange={(e) => this.descripcionHandler(e)} rows="5">
 
-                                        </textarea>
+                                            </textarea>
+                                        </div>
                                     </div>
                                 </div>
+
                             }
                         </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <div className="modal-footer justify-content-center">
+                            <button type="button" className="btn btn-danger" data-dismiss="modal" onClick={this.cancelarPermiso}>Cancelar</button>
                             <button type="button" className="btn btn-outline-info" data-dismiss="modal" onClick={this.createPermisos}>Crear</button>
                         </div>
                     </div>

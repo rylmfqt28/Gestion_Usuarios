@@ -3,6 +3,7 @@ import './crearTipoUsuario.css';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import NavMenu from '../menuAdmin/NavMenu'
+import swal from 'sweetalert'
 
 const CrearTipoUsuario = () => {
 
@@ -41,7 +42,6 @@ const CrearTipoUsuario = () => {
         let tecla = String.fromCharCode(key);
         let letras = " áéíóúñÑ";
         if (datos.crearTipo.length !== 20) {
-            console.log('llego malditod');
             if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
                 setDatos({
                     ...datos,
@@ -49,13 +49,13 @@ const CrearTipoUsuario = () => {
                 });
             }
         } else {
-            alert('El maximo de caracteres es de 20');
+            swal("ADVERTENCIA", "El maximo de caracteres es de 20", "warning");
         }
 
     }
     const presionarKey = () => {
         if (descripcionTipo.length === 250) {
-            alert('Solo se permite un maximo de 250 caracteres')
+            swal("ADVERTENCIA", "Solo se permite un maximo de 250 caracteres", "warning");
         }
     }
     const { crearTipo, descripcionTipo } = datos
@@ -76,16 +76,15 @@ const CrearTipoUsuario = () => {
                 console.log(res.data);
                 if (res.data === null) {
                     const crear = await axios.post('/api/type/', datos);
-                    alert('Se creo el tipo de usuario Exitosamente');
+                    swal("TIPO DE USUARIO CREADO", "Se creo el tipo de usuario Exitosamente", "success");
                     console.log("Se creó el nuevo tipo de usuario:" + crear.data);
                 } else {
-                    alert('El tipo de usuario ya existe');
+                    swal("ERROR", "El tipo de usuario ya existe", "error");
                     console.log("El usuario ya existe");
                 }
             } else {
                 //mensaje campos vacios "Existen campos vacios"
-                alert('Existen campos vacíos, rellenar los campos restantes');
-                console.log("");
+                swal("ADVERTENCIA", "Existen campos vacíos, rellenar los campos restantes", "warning");
             }
 
         } catch (error) {

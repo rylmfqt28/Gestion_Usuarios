@@ -108,7 +108,7 @@
 }
 #avisoPass{
   display: none;
-  margin-left: 154px; /*62 154*/
+  margin-left: 162px; /*62 162*/
   position: absolute;
 }
 @media(max-width:950px){

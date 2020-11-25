@@ -3,7 +3,6 @@ import './newAccount.css'
 import swal from 'sweetalert'
 import $ from 'jquery'
 
-
 class ModalSolicitudC extends Component{
     
      constructor(props){
@@ -15,8 +14,7 @@ class ModalSolicitudC extends Component{
         
     }
 
-
-     
+    
     valueToState = ({ name, value}) => {
     //console.log("El VALOR es: " + value)
     this.setState(() => {
@@ -32,7 +30,7 @@ class ModalSolicitudC extends Component{
         else
         {
             if(date.length <20 || date.length > 500){
-                swal("ERROR", "La descripción debe contener 20 caracteres como mínimo y 500 caracteres como máximo.", "error");
+                swal("ERROR", "La descripción debe contener 20 caracteres como mínimo y 500 como máximo.", "error");
                 
             } else{     
                 swal("ACEPTADO", "Solicitud enviada con éxito, espere a que el administrador apruebe su solicitud", "success");
@@ -45,6 +43,12 @@ class ModalSolicitudC extends Component{
         
         }
     }
+
+mostrarAlertaMaxL=(date)=>{
+    if(date.length > 499){
+        swal("ERROR", "La descripción debe contener 500 caracteres como máximo.", "error");
+    }
+}
 
       render(){
         return(
@@ -63,12 +67,14 @@ class ModalSolicitudC extends Component{
 
                         <div className="modal-body" id="Cuerpo">
                           <textarea 
+                              id="campo"
                               className="form-control"
                               rows="8"
                               placeholder="Ingrese el motivo de su Solicitud"
                               name="descripcionTipo"
                               type="text"
                               onChange={event => this.valueToState(event.target)} 
+                              onKeyPress={()=>this.mostrarAlertaMaxL(this.state.descripcionTipo)}
                           />
                        
                         </div>

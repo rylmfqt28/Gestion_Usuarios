@@ -35,8 +35,9 @@ public class PermisosController {
     // Inserta un nuevo permiso en la tabla PErmisos de la BD
     @PostMapping(value = "/api/nuevoPermiso", consumes={"application/json"})
     public void insertarPermiso(@RequestBody EditPermiso edtPermiso){
-        permisos.nuevoPermiso(edtPermiso);
+       permisos.nuevoPermiso(edtPermiso);
     }
+
 
     // Actualiza el nombre y descripcion de un permiso mediante su id
     @PutMapping(value = "/api/actualizarPermiso/{permisoId}", consumes = {"application/json"})

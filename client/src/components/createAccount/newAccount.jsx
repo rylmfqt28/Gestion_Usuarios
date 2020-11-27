@@ -10,7 +10,7 @@ import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser'
 
-import $ from 'jquery';
+import $, { event } from 'jquery';
 
 import ModalSolicitudC from './ModalSolicitudC';
 
@@ -123,7 +123,7 @@ class NewAccount extends Component {
         });
       }
     } else {
-      alert('El maximo de caracteres es de 50');
+      alert('El maximo de caracteres es de 15');
     }
   }
   validarNumeros = (event) => {
@@ -276,6 +276,24 @@ class NewAccount extends Component {
       alert('Minimo 8 caracteres');
     }
   }
+  validarConfirmarContraseña=(event)=>{
+    let key = event.keyCode || event.which;
+    let tecla = String.fromCharCode(key);
+    let numeros = "1234567890"
+    let letrasContraseña = "áéíóúñÑ*";
+    if (this.password !== 8) {
+      //console.log('llego malditod');
+      if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1) || (numeros.indexOf(tecla) !== -1)) {
+        this.setState({
+          ...this.state,
+          [event.target.name]: event.target.value + tecla
+        });
+      }
+    } else {
+      alert('Minimo 8 caracteres');
+    }
+
+  }
   validarDir = (event) => {
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
@@ -369,6 +387,16 @@ class NewAccount extends Component {
 
   }
 
+  handleDeleteKeyConfPassword=(event)=>{
+    let key = event.keyCode || event.which;
+    if (this.state.confPassword.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.confPassword.substring(0, this.state.confPassword.length - 1);
+      this.setState({
+        ...this.state,
+        [event.target.name]: nuevo
+      });
+    }
+  }
   handleDeleteKeyPassword = (event) => {
 
     let key = event.keyCode || event.which;
@@ -379,38 +407,6 @@ class NewAccount extends Component {
         [event.target.name]: nuevo
       });
     }
-    // Borra para el campo apellido
-
-
-
-    //borra campo nombre de usuario
-    if (this.state.userName.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.userName.substring(0, this.state.userName.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
-
-    }
-
-    //borra campo contraseña
-    if (this.state.password.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.password.substring(0, this.state.password.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
-
-    }
-    //borra campo confirmar-contraseña
-    if (this.state.confPassword.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.confPassword.substring(0, this.state.confPassword.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
-    }
-
   }
   handleDeleteKeyAp = (event) => {
     let key = event.keyCode || event.which;
@@ -494,7 +490,7 @@ insertarDatoRegistro = async() =>{
               motivo: this.state.motivo
             })
             console.log(resp);
-            alert('Se creo el tipo de usuario Exitosamente');
+            alert('Se creo el usuario Exitosamente');
           } catch (err) {
             // Handle Error Here
             console.error(err);
@@ -846,7 +842,7 @@ capturarDatosModal = (motivo) => {
                       id="confPassword"
                       minLength="8"
                       onKeyPress={this.validarContraseña}
-                      onKeyDown={this.handleDeleteKeyPassword}
+                      onKeyDown={this.handleDeleteKeyConfPassword}
                       onChange={this.handleInputChange}
                       value={this.state.confPassword}
                       required

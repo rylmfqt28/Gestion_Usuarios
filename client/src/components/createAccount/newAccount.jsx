@@ -10,7 +10,7 @@ import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser'
 
-import $, { event } from 'jquery';
+import $ from 'jquery';
 
 import ModalSolicitudC from './ModalSolicitudC';
 
@@ -48,17 +48,21 @@ class NewAccount extends Component {
     //document.addEventListener('DOMContentLoaded', (event) => {
     /*event.preventDefault();*/
     if (this.state.nombre !== '' && this.state.apellido !== '' && this.state.ci !== '' && this.state.direccion !== '' && this.state.correo !== '' && this.state.telefono !== '' && this.state.userName !== '' && this.state.password !== '' && this.state.confPassword !== '') {
-      if (this.state.password !== this.state.confPassword) {
+      if(this.state.password.length >= 8 && this.state.confPassword.length >= 8){
+        if (this.state.password !== this.state.confPassword) {
 
-        //mensaje contraseña "Las constraseñas no coinciden"
-        document.getElementById('avisoCorrecto').style.display = "none";
-        document.getElementById('avisoNuevo').style.display = "none";
-        document.getElementById('avisoPass').style.display = "block";
-      } else {
-        //mesaje datos correctos
-        document.getElementById('avisoCorrecto').style.display = "block";
-        document.getElementById('avisoNuevo').style.display = "none";
-        document.getElementById('avisoPass').style.display = "none";
+          //mensaje contraseña "Las constraseñas no coinciden"
+          document.getElementById('avisoCorrecto').style.display = "none";
+          document.getElementById('avisoNuevo').style.display = "none";
+          document.getElementById('avisoPass').style.display = "block";
+        } else {
+          //mesaje datos correctos
+          document.getElementById('avisoCorrecto').style.display = "block";
+          document.getElementById('avisoNuevo').style.display = "none";
+          document.getElementById('avisoPass').style.display = "none";
+        }
+      }else{
+        alert("La contraseña debe contener como minimo 8 caracteres.");
       }
     } else {
       document.addEventListener('DOMContentLoaded', (event) => {
@@ -546,14 +550,18 @@ class NewAccount extends Component {
         document.getElementById('avisoNuevo').style.display = "none";
         document.getElementById('avisoPass').style.display = "block";
       } else {
+        if(this.state.password.length >= 8 && this.state.confPassword.length >= 8){
+          //mesaje datos correctos
+          document.getElementById('avisoCorrecto').style.display = "block";
+          document.getElementById('avisoNuevo').style.display = "none";
+          document.getElementById('avisoPass').style.display = "none";
 
-        //mesaje datos correctos
-        document.getElementById('avisoCorrecto').style.display = "block";
-        document.getElementById('avisoNuevo').style.display = "none";
-        document.getElementById('avisoPass').style.display = "none";
-
-        //modal de tipo usuario
-        this.verficarTipo()
+          //modal de tipo usuario
+          this.verficarTipo()
+        }else{
+          alert("La contraseña debe contener como minimo 8 caracteres.");
+        }
+        
       }
     } else {
       document.addEventListener('DOMContentLoaded', (event) => {

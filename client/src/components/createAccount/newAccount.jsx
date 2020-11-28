@@ -39,10 +39,10 @@ class NewAccount extends Component {
       tipoID: 11,
       value: ''
     }
-    this.capturarDatosModal=this.capturarDatosModal.bind(this);
+    this.capturarDatosModal = this.capturarDatosModal.bind(this);
     this.updateList = this.updateList.bind(this)
-    this.insertarDatoRegistro=this.insertarDatoRegistro.bind(this);
-    this.verficarTipo=this.verficarTipo.bind(this)
+    this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
+    this.verficarTipo = this.verficarTipo.bind(this)
   }
   startButtonEvent() {
     //document.addEventListener('DOMContentLoaded', (event) => {
@@ -142,17 +142,17 @@ class NewAccount extends Component {
     }
 
   }
-  verificarExisteCi= async()=>{
-      try {    
-          const res = await axios.get('/api/userci/'+this.state.ci);
-          if(res.data !==null){
-            
-          }else{
-            alert('Este Ci esta siendo utilizado, intente con otro');
-          }
-      }catch(err){
-        console.log(err)
+  verificarExisteCi = async () => {
+    try {
+      const res = await axios.get('/api/userci/' + this.state.ci);
+      if (res.data !== null) {
+
+      } else {
+        alert('Este Ci esta siendo utilizado, intente con otro');
       }
+    } catch (err) {
+      console.log(err)
+    }
   }
 
 
@@ -264,34 +264,28 @@ class NewAccount extends Component {
     let tecla = String.fromCharCode(key);
     let numeros = "1234567890"
     let letrasContraseña = "áéíóúñÑ*";
-    if (this.password !== 8) {
-      //console.log('llego malditod');
-      if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1) || (numeros.indexOf(tecla) !== -1)) {
-        this.setState({
-          ...this.state,
-          [event.target.name]: event.target.value + tecla
-        });
-      }
-    } else {
-      alert('Minimo 8 caracteres');
+    if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1) || (numeros.indexOf(tecla) !== -1)) {
+      this.setState({
+        ...this.state,
+        [event.target.name]: event.target.value + tecla
+      });
     }
+
   }
-  validarConfirmarContraseña=(event)=>{
+  validarConfirmarContraseña = (event) => {
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
     let numeros = "1234567890"
     let letrasContraseña = "áéíóúñÑ*";
-    if (this.password !== 8) {
-      //console.log('llego malditod');
-      if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1) || (numeros.indexOf(tecla) !== -1)) {
-        this.setState({
-          ...this.state,
-          [event.target.name]: event.target.value + tecla
-        });
-      }
-    } else {
-      alert('Minimo 8 caracteres');
+
+    //console.log('llego malditod');
+    if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1) || (numeros.indexOf(tecla) !== -1)) {
+      this.setState({
+        ...this.state,
+        [event.target.name]: event.target.value + tecla
+      });
     }
+
 
   }
   validarDir = (event) => {
@@ -387,7 +381,7 @@ class NewAccount extends Component {
 
   }
 
-  handleDeleteKeyConfPassword=(event)=>{
+  handleDeleteKeyConfPassword = (event) => {
     let key = event.keyCode || event.which;
     if (this.state.confPassword.length !== 0 && (key === 8 || key === 127)) {
       let nuevo = this.state.confPassword.substring(0, this.state.confPassword.length - 1);
@@ -452,7 +446,7 @@ class NewAccount extends Component {
       }
     }
   }
-//aquiiiiiiiiii
+  //aquiiiiiiiiii
   updateTypeUserID = (e) => {
     for (const value of this.state.TUsuarios) {
       if (value.crearTipo === e.target.value) {
@@ -460,59 +454,66 @@ class NewAccount extends Component {
         this.setState({ tipoID: value.tipoUsuarioID })
       }
     }
-    this.setState({value: e.target.value});
+    this.setState({ value: e.target.value });
   }
 
-insertarDatoRegistro = async() =>{
-  try {
-    if (this.state.userName.trim() !== '') {
-      
-      const resCi = await axios.get('/api/userci/'+ this.state.ci.trim());
-      //console.log(res.data);
-      if(resCi.data === null){
-        const res = await axios.get('/api/user/' + this.state.userName.trim());
-        if (res.data === null) {
-          //console.log(this.state.paisID)
-          try {
-            const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
-              usuarioNombre: this.state.nombre,
-              usuarioApellido: this.state.apellido,
-              CI: this.state.ci,
-              genero: this.state.genero,
-              paisID: this.state.paisID,
-              ciudadID: this.state.ciudadID,
-              direccion: this.state.direccion,
-              correo: this.state.correo,
-              telefono: this.state.telefono,
-              nombreUsuario: this.state.userName,
-              password: this.state.password,
-              tipoUsuarioID: this.state.tipoID,
-              motivo: this.state.motivo
-            })
-            console.log(resp);
-            alert('Se creo el usuario Exitosamente');
-          } catch (err) {
-            // Handle Error Here
-            console.error(err);
+  insertarDatoRegistro = async () => {
+    try {
+      if (this.state.userName.trim() !== '') {
+        if (this.state.password.length >= 8) {
+          //console.log('llego malditod');
+          if (this.state.confPassword.length >= 8) {
+            const resCi = await axios.get('/api/userci/' + this.state.ci.trim());
+            //console.log(res.data);
+            if (resCi.data === null) {
+              const res = await axios.get('/api/user/' + this.state.userName.trim());
+              if (res.data === null) {
+                //console.log(this.state.paisID)
+                try {
+                  const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
+                    usuarioNombre: this.state.nombre,
+                    usuarioApellido: this.state.apellido,
+                    CI: this.state.ci,
+                    genero: this.state.genero,
+                    paisID: this.state.paisID,
+                    ciudadID: this.state.ciudadID,
+                    direccion: this.state.direccion,
+                    correo: this.state.correo,
+                    telefono: this.state.telefono,
+                    nombreUsuario: this.state.userName,
+                    password: this.state.password,
+                    tipoUsuarioID: this.state.tipoID,
+                    motivo: this.state.motivo
+                  })
+                  console.log(resp);
+                  alert('Se creo el usuario Exitosamente');
+                } catch (err) {
+                  // Handle Error Here
+                  console.error(err);
+                }
+
+              } else {
+                alert('El Nombre de usuario ya existe');
+                //console.log("El nombre de usuario ya existe");
+              }
+            } else {
+              alert('La cédula que pretende ingresar ya existe')
+            }
+          } else {
+            alert('Minimo 8 caracteres en el campo "Confirmar Contraseña"');
           }
-  
         } else {
-          alert('El Nombre de usuario ya existe');
-          //console.log("El nombre de usuario ya existe");
+          alert('Minimo 8 caracteres en el "Campo Contraseña"');
         }
-      }else{
-        alert('La cédula que pretende ingresar ya existe')
+      } else {
+        //mensaje campos vacios "Existen campos vacios"
+        alert('Existen campos vacíos, rellenar los campos restantes');
+        //console.log("");
       }
-      
-    } else {
-      //mensaje campos vacios "Existen campos vacios"
-      alert('Existen campos vacíos, rellenar los campos restantes');
-      //console.log("");
+    } catch (error) {
+      console.log(error);
     }
-  } catch (error) {
-    console.log(error);
   }
-}
 
   //actualiza la lista de los paises
   updateListCities = (pais) => {
@@ -530,10 +531,10 @@ insertarDatoRegistro = async() =>{
 
   //Registra los usuarios
 
-capturarDatosModal = (motivo) => {
-  this.setState({ motivo: motivo })
-  //console.log("El motivo es: " + motivo)
-}
+  capturarDatosModal = (motivo) => {
+    this.setState({ motivo: motivo })
+    //console.log("El motivo es: " + motivo)
+  }
 
   registerButtonEvent = async (event) => {
     event.preventDefault();
@@ -550,7 +551,7 @@ capturarDatosModal = (motivo) => {
         document.getElementById('avisoCorrecto').style.display = "block";
         document.getElementById('avisoNuevo').style.display = "none";
         document.getElementById('avisoPass').style.display = "none";
-        
+
         //modal de tipo usuario
         this.verficarTipo()
       }
@@ -576,14 +577,14 @@ capturarDatosModal = (motivo) => {
     this.setState({ genero: e.target.value });
   }
 
-  verficarTipo(){
+  verficarTipo() {
     //console.log("llego a verificar tipo")
 
-    if (this.state.tipoID !== 11){
-      $(function(){
+    if (this.state.tipoID !== 11) {
+      $(function () {
         $("#TipoUserData").modal('show')
       })
-    }else {
+    } else {
       this.insertarDatoRegistro()
     }
   }
@@ -684,7 +685,7 @@ capturarDatosModal = (motivo) => {
                       />
 
                       <label htmlFor="male" className="form-check-label"> Masculino</label>
-                      
+
                       <input
                         className="form-check-inputM"
                         type="radio"
@@ -876,9 +877,9 @@ capturarDatosModal = (motivo) => {
             <div>
               <ModalEula />
               <ModalSolicitudC
-              capturarDatosModal = {this.capturarDatosModal}
-              crearTipo = {this.state.value}
-              insertarDatoRegistro={this.insertarDatoRegistro}
+                capturarDatosModal={this.capturarDatosModal}
+                crearTipo={this.state.value}
+                insertarDatoRegistro={this.insertarDatoRegistro}
               />
             </div>
           </div>

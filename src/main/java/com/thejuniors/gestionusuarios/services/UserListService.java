@@ -46,4 +46,30 @@ public class UserListService {
         }
     }
 
+    public List<UserData> usersListOf(String tipoUsuarioNombre){
+        List<UserData> userList = jdbcTemplate.query(new PreparedStatementCreator(){
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps = con.prepareStatement("SELECT u.usuarioNombre, u.usuarioApellido, u.CI, p.paisNombre, c.ciudadNombre, u.direccion, u.correo, u.telefono, uc.nombreUsuario, tu.tipoUsuarioNombre FROM Usuario u, UsuarioTipoUsuario ut, TipoUsuario tu, Pais p, Ciudad c, UsuarioCredenciales uc WHERE u.CI=uc.CI AND u.CI=ut.CI AND u.paisID=p.paisID AND p.paisID=c.paisID AND u.ciudadID=c.ciudadID AND ut.tipoUsuarioID=tu.tipoUsuarioID AND tu.tipoUsuarioNombre=?");
+                ps.setString(1, tipoUsuarioNombre);
+                return ps;
+            }
+        }, new ResultSetExtractor <List<UserData>>(){
+            @Override
+            public List<UserData> extractData(ResultSet rs) throws SQLException {
+                List<UserData> UserDataLista = new ArrayList<>();
+                while (rs.next()){
+                    UserData userData = new UserData(rs.getString("usuarioNombre"), rs.getString("usuarioApellido"), rs.getString("CI"), rs.getString("paisNombre"), rs.getString("ciudadNombre"), rs.getString("direccion"),rs.getString("correo"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("tipoUsuarioNombre"));
+                    UserDataLista.add(userData);
+                } 
+                return UserDataLista;
+            }
+        });
+        if(userList != null){
+            return userList;
+        }else{
+            return null;
+        }
+    }
+
 }

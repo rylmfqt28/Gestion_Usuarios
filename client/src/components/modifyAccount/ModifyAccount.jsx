@@ -576,6 +576,25 @@ class modifyAccount extends Component {
                   </div>
                   
                   <div className="form-group">
+                    <label className="form-check-label">
+                      <b className="habilitar"> </b>
+                    </label>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        id="habilitar"
+                        name="habilitar"
+                        onChange={(e) => this.handleOnChange(e)}
+                        value="habilitar"
+                      />
+
+                      <label htmlFor="male" className="form-check-label"> Habilitar cambio de contraseña</label>
+                    </div>
+
+                  </div>
+
+                  <div className="form-group">
                     <b>Contraseña:</b>
                     <input
                       type="password"

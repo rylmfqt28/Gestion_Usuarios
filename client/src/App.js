@@ -18,6 +18,7 @@ import Home from './components/Home/Home';
 import AdministrarCuenta from './components/register/AdministrarCuenta';
 import ListaUsuarios from './components/register/ListaUsuarios';
 import ModificarTipoUser from './components/register/ModificarTipoUser';
+import ModifyAccount from './components/modifyAccount/ModifyAccount';
 //import Pagina from './components/register/PageAuxiliar';
 
 
@@ -41,6 +42,7 @@ class App extends Component{
         <PrivateRoute path="/lista" component={ListaUsuarios}/>
         <PrivateRoute path="/modificar" component={ModificarTipoUser}/>
         <PrivateRoute path="/administrarPermisos" component={administrarPermisos}/>
+        <PublicRoute path="/modifyAccount" component={ModifyAccount} />
         </Switch>
       </Router>
     );

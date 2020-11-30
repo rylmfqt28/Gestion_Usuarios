@@ -238,8 +238,6 @@ class modifyAccount extends Component {
           document.getElementById('avisoNuevo').style.display = "none";
           document.getElementById('avisoPass').style.display = "none";
 
-          //modal de tipo usuario
-          this.verficarTipo()
         }else{
           alert("La contraseña debe contener como minimo 8 caracteres.");
         }

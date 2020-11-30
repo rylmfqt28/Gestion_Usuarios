@@ -404,11 +404,10 @@ class modifyAccount extends Component {
     }
   }
 
-  verificar(tipo) {
-    if (tipo === "Cliente") { return true } else { return false }
-
-  }
-
+  comprobar(){
+    $("#password").prop('disabled', false);
+    $("#confPassword").prop('disabled', false);
+   }
 
   render() {
 
@@ -576,7 +575,7 @@ class modifyAccount extends Component {
                   
                   <div className="form-group">
                     <label className="form-check-label">
-                      <b className="habilitar"> </b>
+                      <b className="habilita"> </b>
                     </label>
                     <div className="form-check form-check-inline">
                       <input
@@ -585,10 +584,11 @@ class modifyAccount extends Component {
                         id="habilitar"
                         name="habilitar"
                         onChange={(e) => this.handleOnChange(e)}
-                        value="habilitar"
+                        value="habilitado"
+                        onClick={this.comprobar}
                       />
 
-                      <label htmlFor="male" className="form-check-label"> Habilitar cambio de contraseña</label>
+                      <label className="form-check-label"> Habilitar cambio de contraseña</label>
                     </div>
 
                   </div>
@@ -642,6 +642,7 @@ class modifyAccount extends Component {
                     <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
                   </div>
                   <br />
+                  
                 </div>
               </form>
             </div>

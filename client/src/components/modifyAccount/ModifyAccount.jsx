@@ -41,7 +41,23 @@ class modifyAccount extends Component {
     this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
   }
   
+  validarCorreo = (event) => {
 
+    let key = event.keyCode || event.which;
+    let tecla = String.fromCharCode(key);
+    if (this.state.correo.length !== 200) {
+      //console.log('llego malditod');
+      this.setState({
+        ...this.state,
+        [event.target.name]: event.target.value + tecla
+      });
+      //}
+    } else {
+      alert('El maximo de caracteres es de 200');
+    }
+
+
+  }
   validarVacios = () => {
 
     const name = document.getElementById('name');
@@ -523,7 +539,7 @@ class modifyAccount extends Component {
                     <b>Correo Electronico:</b>
                     <input
                       id="email"
-                      type="text"
+                      type="email"
                       className="form-control"
                       size="60"
                       minLength="3"

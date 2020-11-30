@@ -17,7 +17,7 @@ class ModificarTipoUser extends Component {
                 <NavMenu />
 
                 <div >
-                    <h1 align="center"> Modificar Tipos de Usuarios </h1>
+                    <h1 align="center"> Modificar Tipo de Usuario </h1>
                     <br></br>
                 </div>
                 <div className="container">
@@ -25,7 +25,7 @@ class ModificarTipoUser extends Component {
 
                         <div className="col">
                             {/*titulo de permisos asigandos y combobox tipo de usuario*/}
-                            <h5 align="center">Lista Tipo Usuario</h5>
+                            <h5 align="center">Lista de Tipo de Usuario</h5>
                             <br></br>
                             {/*Lista de permisos Asignados */}
                             <div className="row" id="asignados">

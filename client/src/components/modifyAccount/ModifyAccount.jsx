@@ -40,34 +40,23 @@ class modifyAccount extends Component {
     this.updateList = this.updateList.bind(this)
     this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
   }
-  
 
-  validarVacios = () => {
+    validarCorreo = (event) => {
 
-    const name = document.getElementById('name');
-    const lastName = document.getElementById('lastName');
-    const cedula = document.getElementById('cedula');
-    const country = document.getElementById('country');
-    const city = document.getElementById('city');
-    const address = document.getElementById('address');
-    const email = document.getElementById('email');
-    const phone = document.getElementById('phone');
-    const userName = document.getElementById('userName');
-    const typeUser = document.getElementById('typeUser');
-    const password = document.getElementById('password');
-    const confPassword = document.getElementById('confPassword');
+    let key = event.keyCode || event.which;
+    let tecla = String.fromCharCode(key);
+    if (this.state.correo.length !== 200) {
+      //console.log('llego malditod');
+      this.setState({
+        ...this.state,
+        [event.target.name]: event.target.value + tecla
+      });
+      //}
+    } else {
+      alert('El maximo de caracteres es de 200');
+    }
 
-    name.classList.add('input-error');
-    lastName.classList.add('input-error');
-    cedula.classList.add('input-error');
-    country.classList.add('input-error');
-    city.classList.add('input-error');
-    address.classList.add('input-error');
-    email.classList.add('input-error');
-    phone.classList.add('input-error');
-    userName.classList.add('input-error');
-    password.classList.add('input-error');
-    confPassword.classList.add('input-error');
+
   }
 
   validarContraseña = (event) => {
@@ -99,52 +88,35 @@ class modifyAccount extends Component {
 
 
   }
-  validarDir = (event) => {
-    let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    if (this.state.direccion.length !== 250) {
-      //console.log('llego malditod');
-      this.setState({
-        ...this.state,
-        [event.target.name]: event.target.value + tecla
-      });
-    } else {
-      alert('El maximo de caracteres es de 250');
-    }
+  
+  validarVacios = () => {
+
+    const name = document.getElementById('name');
+    const lastName = document.getElementById('lastName');
+    const cedula = document.getElementById('cedula');
+    const country = document.getElementById('country');
+    const city = document.getElementById('city');
+    const address = document.getElementById('address');
+    const email = document.getElementById('email');
+    const phone = document.getElementById('phone');
+    const userName = document.getElementById('userName');
+    const typeUser = document.getElementById('typeUser');
+    const password = document.getElementById('password');
+    const confPassword = document.getElementById('confPassword');
+
+    name.classList.add('input-error');
+    lastName.classList.add('input-error');
+    cedula.classList.add('input-error');
+    country.classList.add('input-error');
+    city.classList.add('input-error');
+    address.classList.add('input-error');
+    email.classList.add('input-error');
+    phone.classList.add('input-error');
+    userName.classList.add('input-error');
+    password.classList.add('input-error');
+    confPassword.classList.add('input-error');
   }
 
-  handleDeleteKeyUserName = (event) => {
-    let key = event.keyCode || event.which;
-    if (this.state.userName.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.userName.substring(0, this.state.userName.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
-    }
-
-  }
-  handleDeleteKey = (event) => {
-    let key = event.keyCode || event.which;
-    if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
-    }
-  }
-
-  handleDeleteName = (event) => {
-    let key = event.keyCode || event.which;
-    if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
-    }
-  }
   handleDeleteKeyEmail = (event) => {
     let key = event.keyCode || event.which;
     if (this.state.correo.length !== 0 && (key === 8 || key === 127)) {
@@ -155,53 +127,7 @@ class modifyAccount extends Component {
       });
     }
   }
-  handleDeleteKeyEmail = (event) => {
-    let key = event.keyCode || event.which;
-    if (this.state.correo.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.correo.substring(0, this.state.correo.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
-    }
-  }
-
-
-  handleDeleteKeyTelf = (event) => {
-    let key = event.keyCode || event.which;
-    if (this.state.telefono.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.telefono.substring(0, this.state.telefono.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
-
-    }
-
-  }
-  handleDeleteKeyCi = (event) => {
-    let key = event.keyCode || event.which;
-    if (this.state.ci.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.ci.substring(0, this.state.ci.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
-
-    }
-
-  }
-
-  handleDeleteKeyConfPassword = (event) => {
-    let key = event.keyCode || event.which;
-    if (this.state.confPassword.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.confPassword.substring(0, this.state.confPassword.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
-    }
-  }
+  
   handleDeleteKeyPassword = (event) => {
 
     let key = event.keyCode || event.which;
@@ -213,59 +139,16 @@ class modifyAccount extends Component {
       });
     }
   }
-  handleDeleteKeyAp = (event) => {
-    let key = event.keyCode || event.which;
-    if (this.state.apellido.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.apellido.substring(0, this.state.apellido.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
 
-    }
-  }
-
-  handleDeleteKeyDir = (event) => {
+  handleDeleteKeyConfPassword = (event) => {
     let key = event.keyCode || event.which;
-    if (this.state.direccion.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.direccion.substring(0, this.state.direccion.length - 1);
+    if (this.state.confPassword.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.confPassword.substring(0, this.state.confPassword.length - 1);
       this.setState({
         ...this.state,
         [event.target.name]: nuevo
       });
     }
-  }
-
-  updateListContries = (e) => {
-
-    for (const value of this.state.pais) {
-      if (value.paisNombre === e.target.value) {
-        //console.log(value.paisID)
-        this.setState({ paisID: value.paisID })
-      }
-    }
-    RegistroService.getAllCountries(e.target.value).then(data => this.setState({ pais: data }))
-    this.updateListCities(e.target.value);
-
-  }
-
-  updateCityId = (e) => {
-    for (const value of this.state.ciudad) {
-      if (value.ciudadNombre === e.target.value) {
-        //console.log(value.ciudadID)
-        this.setState({ ciudadID: value.ciudadID })
-      }
-    }
-  }
-  //aquiiiiiiiiii
-  updateTypeUserID = (e) => {
-    for (const value of this.state.TUsuarios) {
-      if (value.crearTipo === e.target.value) {
-        //console.log(value.tipoUsuarioID)
-        this.setState({ tipoID: value.tipoUsuarioID })
-      }
-    }
-    this.setState({ value: e.target.value });
   }
 
   insertarDatoRegistro = async () => {
@@ -293,8 +176,6 @@ class modifyAccount extends Component {
                     telefono: this.state.telefono,
                     nombreUsuario: this.state.userName,
                     password: this.state.password,
-                    tipoUsuarioID: this.state.tipoID,
-                    motivo: this.state.motivo
                   })
                   console.log(resp);
                   alert('Se creo el usuario Exitosamente');
@@ -340,12 +221,6 @@ class modifyAccount extends Component {
     PersonaService.getTiposUser(e.target.value).then(data => this.setState({ Usuarios: data }))
   }
 
-  //Registra los usuarios
-
-  capturarDatosModal = (motivo) => {
-    this.setState({ motivo: motivo })
-    //console.log("El motivo es: " + motivo)
-  }
 
   registerButtonEvent = async (event) => {
     event.preventDefault();
@@ -389,7 +264,7 @@ class modifyAccount extends Component {
   handleOnChange(e) {
     //console.log('selected option', e.target.value);
 
-    this.setState({ genero: e.target.value });
+    this.setState({ habilitar: e.target.value });
   }
 
   verficarTipo() {
@@ -404,11 +279,10 @@ class modifyAccount extends Component {
     }
   }
 
-  verificar(tipo) {
-    if (tipo === "Cliente") { return true } else { return false }
-
-  }
-
+  habilitarCampos(){
+    $("#password").prop('disabled', false);
+    $("#confPassword").prop('disabled', false);
+   }
 
   render() {
 
@@ -420,7 +294,6 @@ class modifyAccount extends Component {
             <a className="navbar-brand" href="/">
               <img className="logo" src={logo} height="35" alt="logo" />
             </a>
-            <Link className="btn btn-outline-info" value="Login" type="reset" to="/" >Iniciar Sesión</Link>
           </nav>
         </div>
         <div className="col" align="center">
@@ -443,8 +316,6 @@ class modifyAccount extends Component {
                     size="60"
                     placeholder="Ingrese sus nombres"
                     name="nombre"
-                    onKeyPress={this.validarNombre}
-                    onKeyDown={this.handleDeleteName}
                     onChange={this.handleInputChange}
                     value={this.state.nombre}
                     required
@@ -458,8 +329,6 @@ class modifyAccount extends Component {
                       size="60"
                       placeholder="Ingrese su Apellidos"
                       name="apellido"
-                      onKeyPress={this.validarApellido}
-                      onKeyDown={this.handleDeleteKeyAp}
                       onChange={this.handleInputChange}
                       value={this.state.apellido}
                       required
@@ -475,8 +344,6 @@ class modifyAccount extends Component {
                       size="60"
                       placeholder="Ingrese su cédula de identidad"
                       name="ci"
-                      onKeyPress={this.validarNumerosCi}
-                      onKeyDown={this.handleDeleteKeyCi}
                       onChange={this.handleInputChange}
                       value={this.state.ci}
                       required
@@ -514,8 +381,6 @@ class modifyAccount extends Component {
                       placeholder="Ingrese su dirección"
                       name="direccion"
                       maxLength="250"
-                      onKeyPress={this.validarDir}
-                      onKeyDown={this.handleDeleteKeyDir}
                       onChange={this.handleInputChange}
                       value={this.state.direccion}
                       required
@@ -525,7 +390,7 @@ class modifyAccount extends Component {
                     <b>Correo Electronico:</b>
                     <input
                       id="email"
-                      type="text"
+                      type="email"
                       className="form-control"
                       size="60"
                       minLength="3"
@@ -550,8 +415,6 @@ class modifyAccount extends Component {
                       name="telefono"
                       maxLength="8"
                       required
-                      onKeyPress={this.validarTelefono}
-                      onKeyDown={this.handleDeleteKeyTelf}
                       onChange={this.handleInputChange}
                       value={this.state.telefono}
                     />
@@ -567,14 +430,32 @@ class modifyAccount extends Component {
                       name="userName"
                       minLength="5"
                       maxLength="15"
-                      onKeyPress={this.validarNombreUsuario}
-                      onKeyDown={this.handleDeleteKeyUserName}
                       onChange={this.handleInputChange}
                       value={this.state.userName}
                       required
                     />
                   </div>
                   
+                  <div className="form-group">
+                    <label className="form-check-label">
+                      <b className="habilita"> </b>
+                    </label>
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        id="habilitar"
+                        name="habilitar"
+                        onChange={(e) => this.handleOnChange(e)}
+                        value="habilitado"
+                        onClick={this.habilitarCampos}
+                      />
+
+                      <label className="form-check-label"> Habilitar cambio de contraseña</label>
+                    </div>
+
+                  </div>
+
                   <div className="form-group">
                     <b>Contraseña:</b>
                     <input
@@ -590,6 +471,7 @@ class modifyAccount extends Component {
                       onKeyDown={this.handleDeleteKeyPassword}
                       onChange={this.handleInputChange}
                       value={this.state.password}
+                      disabled
                     />
                   </div>
                   <div className="form-group"><b>Confirmar contraseña:</b>
@@ -606,6 +488,7 @@ class modifyAccount extends Component {
                       onChange={this.handleInputChange}
                       value={this.state.confPassword}
                       required
+                      disabled
                     /></div>
                   
                   <br />
@@ -613,7 +496,7 @@ class modifyAccount extends Component {
 
                     <Link className="btn btn-cancelar" value="Login" type="reset" to="/" >Cancelar</Link>
 
-                    <button className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Aceptar</button>
+                    <button className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Guardar</button>
                   </div>
 
                   <div className="avisos">
@@ -622,6 +505,7 @@ class modifyAccount extends Component {
                     <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
                   </div>
                   <br />
+                  
                 </div>
               </form>
             </div>

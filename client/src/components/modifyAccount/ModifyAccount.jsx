@@ -590,6 +590,7 @@ class modifyAccount extends Component {
                       onKeyDown={this.handleDeleteKeyPassword}
                       onChange={this.handleInputChange}
                       value={this.state.password}
+                      disabled
                     />
                   </div>
                   <div className="form-group"><b>Confirmar contraseña:</b>
@@ -606,6 +607,7 @@ class modifyAccount extends Component {
                       onChange={this.handleInputChange}
                       value={this.state.confPassword}
                       required
+                      disabled
                     /></div>
                   
                   <br />

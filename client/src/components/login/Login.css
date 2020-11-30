@@ -82,6 +82,7 @@
     margin-left: 0;
     margin-right: 0;
     background-color: rgb(245, 244, 243);
+
   }
   
   .containerSecundario{
@@ -89,7 +90,10 @@
     text-align: center;
     /*margin-top: -10px;*/
   }
-  .logo{
-    padding: 50px 50px;
+  
+  .navbar-brand{
+    width: 30px;
+    
+
   }
 }

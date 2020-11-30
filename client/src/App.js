@@ -6,11 +6,21 @@ import{
 
 } from "react-router-dom"
 import Login from './components/login/Login';
-import Register from './components/register/Register';
 import Solicitudes from './components/solicitudes/Solicitudes';
 import crearTipoUsuario from './components/createTypeUser/crearTipoUsuario';
+import newAccount from './components/createAccount/newAccount';
 import PrivateRoute from './routes/PrivateRoute';
-import PublicRoute from './routes/PublicRoute'
+import PublicRoute from './routes/PublicRoute';
+
+import administrarPermisos from './components/administrarPermisos/administrarPermisos'
+
+import Home from './components/Home/Home';
+import AdministrarCuenta from './components/register/AdministrarCuenta';
+import ListaUsuarios from './components/register/ListaUsuarios';
+import ModificarTipoUser from './components/register/ModificarTipoUser';
+import ModifyAccount from './components/modifyAccount/ModifyAccount';
+//import Pagina from './components/register/PageAuxiliar';
+
 
 class App extends Component{
 
@@ -24,9 +34,15 @@ class App extends Component{
       <Router>
         <Switch>
         <PublicRoute exact path="/" component={Login}/>
-        <PublicRoute path="/register" component={Register}/>
         <PrivateRoute path="/solicitudes" component={Solicitudes}/>
         <PrivateRoute path="/crearTipoUsuario" component={crearTipoUsuario}/>
+        <PrivateRoute path="/home" component={Home}/>
+        <PublicRoute path="/createAccount" component={newAccount}/>
+        <PrivateRoute path="/administrar" component={AdministrarCuenta}/>
+        <PrivateRoute path="/lista" component={ListaUsuarios}/>
+        <PrivateRoute path="/modificar" component={ModificarTipoUser}/>
+        <PrivateRoute path="/administrarPermisos" component={administrarPermisos}/>
+        <PublicRoute path="/modifyAccount" component={ModifyAccount} />
         </Switch>
       </Router>
     );

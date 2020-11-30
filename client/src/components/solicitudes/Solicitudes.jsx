@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from "react-router-dom"
-import logo from '../img/logo.png';
 
 import './Solicitudes.css';
 import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser';
-//import ModalSolicitud from './ModalSolicitud';
 import ModalSolicitud from './ModalSolicitud';
-//import { data } from 'jquery';
+import NavMenu from '../menuAdmin/NavMenu'
 
 
 
@@ -97,39 +94,10 @@ class Solicitudes extends Component {
       )
     });
 
-
-      
-    const salir = () => {
-      sessionStorage.removeItem("authToken");
-  }
-
     return (
 
       <div>
-        <div className="barraNav">
-          <nav className="navbar navbar-light justify-content-between">
-            <a className="navbar-brand" href="/solicitudes">
-              <img className="logo" src={logo} height="35" alt="logo" />
-            </a>
-
-            <div>
-              <Link
-                className="btn btn-outline-info my-2 my-sm-0"
-                type="submit"
-                to="/crearTipoUsuario"
-              >Crear Tipo Usuario</Link>{"    "}
-              <Link
-                className="btn btn-danger my-2 my-sm-0"
-                type="submit"
-                onClick={salir}
-                to="/"
-                >SALIR</Link>
-            </div>
-
-
-          </nav>
-        </div>
-
+        <NavMenu/>
         <div >
           <h1 align="center"> Solicitudes de personal </h1>
           <br></br>

@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Open+Sans+Condensed:wght@300&family=Quicksand:wght@500&display=swap');
+
+
+.bienvenida{
+    margin-left: 10%;
+    /*font-family: 'Open Sans Condensed', sans-serif;*/
+    font-family: 'DM Sans', sans-serif;
+
+}

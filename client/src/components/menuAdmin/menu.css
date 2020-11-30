@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Open+Sans+Condensed:wght@300&family=Quicksand:wght@500&display=swap');
+.nav{
+	position: absolute;
+    top: 62px;
+    display: none;
+    z-index: 100;
+	/*right: -230px;*/
+	width: 0px;
+    margin-right: 0;
+    /*transition: width 2s ease-in-out;*/
+    animation-delay: width 3s;
+}
+.menu{
+	list-style: none;
+	padding: 2px;
+    margin: 0;
+    z-index: 100;
+    background:rgba(2, 2, 2, 0.151);
+    border-radius: 3px;
+    font-family: 'DM Sans', sans-serif;
+    /*font-family: 'Open Sans Condensed', sans-serif;*/
+    width: 100%;
+    
+}
+
+.menu__link{
+	display: block;
+	padding: 15px;
+	background:#008080;
+	text-decoration:none;
+    color: white;
+    border-radius: 4px;
+
+}
+.menu__item{
+    padding: 4px;
+    padding-bottom: 3px;
+    border-color: black;
+    
+}
+.menu__link:hover, .select{
+	background: white;
+    color: #008080;
+    text-decoration:none;
+}
+.mostrar{
+    right: 0;
+    width: 230px;
+    display: block;
+    
+    
+}
+#btn-menu:hover{
+    
+    border-radius: 5px;
+    border:  rgb(226, 229, 231) 1px solid;
+    cursor: hand;
+    transition: all 0.5s;
+}

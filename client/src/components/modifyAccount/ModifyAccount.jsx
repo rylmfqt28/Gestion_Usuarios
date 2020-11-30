@@ -420,7 +420,6 @@ class modifyAccount extends Component {
             <a className="navbar-brand" href="/">
               <img className="logo" src={logo} height="35" alt="logo" />
             </a>
-            <Link className="btn btn-outline-info" value="Login" type="reset" to="/" >Iniciar Sesión</Link>
           </nav>
         </div>
         <div className="col" align="center">
@@ -634,7 +633,7 @@ class modifyAccount extends Component {
 
                     <Link className="btn btn-cancelar" value="Login" type="reset" to="/" >Cancelar</Link>
 
-                    <button className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Aceptar</button>
+                    <button className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Guardar</button>
                   </div>
 
                   <div className="avisos">

@@ -16,6 +16,9 @@ class ListUsuarios extends Component{
                     <td>
                         {Usuario}        
                     </td>
+                    <td>
+                        <button className="btn btn-info col-sm">ver usuario</button>
+                    </td>
                 </tr>
             );
         })
@@ -27,10 +30,10 @@ class ListUsuarios extends Component{
                     <br></br>
                 </div>
                 <div className="row">
-                    <div className="col-3">
+                    <div className="col-sm-3">
                         <label>Ver usuarios de tipo:  </label>
                     </div>
-                    <div className="col-3">
+                    <div className="col-sm-3">
                         <select className="form-control form-control-sm" >
                             <option value=" " >{"---"}</option>
                         </select>

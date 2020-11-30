@@ -40,10 +40,9 @@ class App extends Component{
         <PublicRoute path="/createAccount" component={newAccount}/>
         <PrivateRoute path="/administrar" component={AdministrarCuenta}/>
         <PrivateRoute path="/lista" component={ListaUsuarios}/>
-        <PrivateRoute path="/modificar" component={ModificarTipoUser}/>
+        <PrivateRoute path="/modifyTypeUser" component={ModificarTipoUser}/>
         <PrivateRoute path="/administrarPermisos" component={administrarPermisos}/>
         <PublicRoute path="/modifyAccount" component={ModifyAccount} />
-        <PublicRoute path="/modifyTypeUser" component={ModificarTipoUser} />
         </Switch>
       </Router>
     );

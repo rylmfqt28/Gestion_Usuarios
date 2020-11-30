@@ -20,10 +20,10 @@ class ModificarTipoUser extends Component {
                     <h1 align="center"> Modificar Tipo de Usuario </h1>
                     <br></br>
                 </div>
-                <div className="container">
+                <div className="containerPrimary">
                     <div className="row">
 
-                        <div className="col">
+                        <div className="col" id="contencol">
                             {/*titulo de permisos asigandos y combobox tipo de usuario*/}
                             <h5 align="center">Lista de Tipo de Usuario</h5>
                             <br></br>

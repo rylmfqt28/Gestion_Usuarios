@@ -42,7 +42,7 @@ class App extends Component{
         <PrivateRoute path="/lista" component={ListaUsuarios}/>
         <PrivateRoute path="/modifyTypeUser" component={ModificarTipoUser}/>
         <PrivateRoute path="/administrarPermisos" component={administrarPermisos}/>
-        <PublicRoute path="/modifyAccount" component={ModifyAccount} />
+        <PrivateRoute path="/modifyAccount" component={ModifyAccount} />
         </Switch>
       </Router>
     );

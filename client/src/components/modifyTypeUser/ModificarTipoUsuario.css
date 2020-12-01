@@ -1,0 +1,12 @@
+.containerPrimary{
+padding-left: 25%;
+padding-right: 25%;
+}
+
+@media(max-width:408px){
+
+    .containerPrimary{
+        padding-left: 5%;
+        padding-right: 5%;
+        } 
+}

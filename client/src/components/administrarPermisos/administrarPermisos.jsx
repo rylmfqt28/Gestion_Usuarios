@@ -176,7 +176,7 @@ class administrarPermisos extends Component {
                 <NavMenu />
 
                 <div >
-                    <h1 align="center"> Solicitudes de personal </h1>
+                    <h1 align="center"> Administracion de Permisos </h1>
                     <br></br>
                 </div>
                 <div className="container">

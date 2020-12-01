@@ -8,6 +8,7 @@ import RegistroService from '../../Service/RegistroService'
 import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser'
+import NavMenu from '../menuAdmin/NavMenu'
 
 import $ from 'jquery';
 
@@ -308,22 +309,26 @@ class ModifyAccount extends Component {
   }
 
   habilitarCampos(){
+    if (document.getElementById("habilitar").checked){
     $("#password").prop('disabled', false);
     $("#confPassword").prop('disabled', false);
+    }else{
+      $("#password").prop('disabled', true);
+    $("#confPassword").prop('disabled', true);
+    }
+
    }
+   componentDidMount() {
+
+    PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
+    }
 
   render() {
-
+    const Usuarios = this.state.Usuarios;
     return (
 
       <div>
-        <div className="barraNav">
-          <nav className="navbar navbar-light justify-content-between">
-            <a className="navbar-brand" href="/">
-              <img className="logo" src={logo} height="35" alt="logo" />
-            </a>
-          </nav>
-        </div>
+        <NavMenu/>
         <div className="col" align="center">
           <div>
             <div className="form-register">
@@ -347,7 +352,7 @@ class ModifyAccount extends Component {
                     onKeyPress={this.validarNombre}
                     onKeyDown={this.handleDeleteName}
                     onChange={this.handleInputChange}
-                    value={this.state.nombre}
+                    value={Usuarios.nombre}
                     required
                   />
                   <div className="form-group">
@@ -360,7 +365,7 @@ class ModifyAccount extends Component {
                       placeholder="Ingrese su Apellidos"
                       name="apellido"
                       onChange={this.handleInputChange}
-                      value={this.state.apellido}
+                      value={Usuarios.apellido}
                       required
                     />
                   </div>
@@ -375,7 +380,7 @@ class ModifyAccount extends Component {
                       placeholder="Ingrese su cédula de identidad"
                       name="ci"
                       onChange={this.handleInputChange}
-                      value={this.state.ci}
+                      value={Usuarios.CI}
                       required
 
                     />
@@ -429,7 +434,7 @@ class ModifyAccount extends Component {
                       onKeyPress={this.validarCorreo}
                       onKeyDown={this.handleDeleteKeyEmail}
                       onChange={this.handleInputChange}
-                      value={this.state.correo}
+                      value={Usuarios.correo}
                       pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
                       required
                     />
@@ -473,7 +478,7 @@ class ModifyAccount extends Component {
                     <div className="form-check form-check-inline">
                       <input
                         className="form-check-input"
-                        type="radio"
+                        type="checkbox"
                         id="habilitar"
                         name="habilitar"
                         onChange={(e) => this.handleOnChange(e)}

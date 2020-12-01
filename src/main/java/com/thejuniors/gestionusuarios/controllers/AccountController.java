@@ -19,6 +19,7 @@ public class AccountController {
     @Autowired
     AccountService accountService;
 
+    // Devuelve la informacion de la cuenta de un usuario por su CI
     @GetMapping(value="/api/accountData/{CI}", produces={"application/json"})
     public List<Account> getAccountData(@PathVariable("CI") String CI){
         return accountService.accountData(CI);

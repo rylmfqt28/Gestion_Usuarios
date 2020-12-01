@@ -21,7 +21,7 @@ public class TypeUserService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<CrearTipo> allUsers(){
+    public List<CrearTipo> allTypeUsers(){
         List<CrearTipo> typeUserList = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {

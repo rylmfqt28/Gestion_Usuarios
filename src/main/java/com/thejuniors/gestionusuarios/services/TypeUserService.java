@@ -25,7 +25,7 @@ public class TypeUserService {
         List<CrearTipo> typeUserList = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement("SELECT * FROM TipoUsuario ORDER BY tipoUsuarioNombre");
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM TipoUsuario WHERE tipoUsuarioNombre<>'Cliente' AND tipoUsuarioNombre<>'Administrador' ORDER BY tipoUsuarioNombre");
                 return ps;
             }
         }, new ResultSetExtractor <List<CrearTipo>>(){

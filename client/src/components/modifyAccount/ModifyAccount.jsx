@@ -12,7 +12,7 @@ import TipoUser from '../../Service/TipoUser'
 import $ from 'jquery';
 
 
-class modifyAccount extends Component {
+class ModifyAccount extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +31,6 @@ class modifyAccount extends Component {
       confPassword: "",
       Usuarios: [],
       TUsuarios: [],
-      motivo: " ",
       paisID: 0,
       ciudadID: 0,
       tipoID: 11,
@@ -40,7 +39,36 @@ class modifyAccount extends Component {
     this.updateList = this.updateList.bind(this)
     this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
   }
+    
+    validarNombre = (event) => {
 
+    let key = event.keyCode || event.which;
+    let tecla = String.fromCharCode(key);
+    let letras = " áéíóúñÑ";
+
+    if (this.state.nombre.length !== 50) {
+      //console.log('llego malditod');
+      if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
+        this.setState({
+          ...this.state,
+          [event.target.name]: event.target.value + tecla
+        });
+      }
+    } else {
+      alert('El maximo de caracteres es de 50');
+    }
+   }
+   handleDeleteName = (event) => {
+    let key = event.keyCode || event.which;
+    if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
+      this.setState({
+        ...this.state,
+        [event.target.name]: nuevo
+      });
+    }
+  }
+   
     validarCorreo = (event) => {
 
     let key = event.keyCode || event.which;
@@ -316,6 +344,8 @@ class modifyAccount extends Component {
                     size="60"
                     placeholder="Ingrese sus nombres"
                     name="nombre"
+                    onKeyPress={this.validarNombre}
+                    onKeyDown={this.handleDeleteName}
                     onChange={this.handleInputChange}
                     value={this.state.nombre}
                     required
@@ -517,4 +547,4 @@ class modifyAccount extends Component {
   }
 }
 
-export default modifyAccount;
+export default ModifyAccount;

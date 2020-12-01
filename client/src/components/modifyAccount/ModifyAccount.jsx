@@ -434,7 +434,7 @@ class ModifyAccount extends Component {
                       onKeyPress={this.validarCorreo}
                       onKeyDown={this.handleDeleteKeyEmail}
                       onChange={this.handleInputChange}
-                      value={this.state.correo}
+                      value={Usuarios.correo}
                       pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
                       required
                     />

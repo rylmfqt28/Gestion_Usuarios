@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
+import TipoUser from '../../Service/TipoUser';
 import NavMenu from '../menuAdmin/NavMenu'
 
 class ListUsuarios extends Component{
     constructor(props){
      super(props);
      this.state = {
+        tipoUsuario : [],
         usuarios : ["roger","zusana","Dani","Nicol"]
      }   
+    }
+
+    componentDidMount(){
+        TipoUser.getAll().then(data => this.setState({tipoUsuario : data}))
     }
 
     render(){
@@ -29,16 +35,21 @@ class ListUsuarios extends Component{
                     <h1 align = "center">Lista de Usuarios</h1>
                     <br></br>
                 </div>
-                <div className="row">
+                <form className="form-inline" >
                     <div className="col-sm-3">
                         <label>Ver usuarios de tipo:  </label>
                     </div>
                     <div className="col-sm-3">
                         <select className="form-control form-control-sm" >
                             <option value=" " >{"---"}</option>
+                            {
+                                this.state.tipoUsuario.map((tipoUsuario,index)=>(
+                                <option key="index" value={tipoUsuario.crearTipo}>{tipoUsuario.crearTipo}</option>
+                                ))
+                            }
                         </select>
                     </div>
-                </div>
+                </form>
                 <div className="row">
                     <div className="table-responsive">
 

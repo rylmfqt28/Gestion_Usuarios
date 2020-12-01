@@ -8,11 +8,12 @@ import RegistroService from '../../Service/RegistroService'
 import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser'
+import NavMenu from '../menuAdmin/NavMenu'
 
 import $ from 'jquery';
 
 
-class modifyAccount extends Component {
+class ModifyAccount extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +32,6 @@ class modifyAccount extends Component {
       confPassword: "",
       Usuarios: [],
       TUsuarios: [],
-      motivo: " ",
       paisID: 0,
       ciudadID: 0,
       tipoID: 11,
@@ -40,7 +40,36 @@ class modifyAccount extends Component {
     this.updateList = this.updateList.bind(this)
     this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
   }
+    
+    validarNombre = (event) => {
 
+    let key = event.keyCode || event.which;
+    let tecla = String.fromCharCode(key);
+    let letras = " áéíóúñÑ";
+
+    if (this.state.nombre.length !== 50) {
+      //console.log('llego malditod');
+      if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
+        this.setState({
+          ...this.state,
+          [event.target.name]: event.target.value + tecla
+        });
+      }
+    } else {
+      alert('El maximo de caracteres es de 50');
+    }
+   }
+   handleDeleteName = (event) => {
+    let key = event.keyCode || event.which;
+    if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
+      this.setState({
+        ...this.state,
+        [event.target.name]: nuevo
+      });
+    }
+  }
+   
     validarCorreo = (event) => {
 
     let key = event.keyCode || event.which;
@@ -238,6 +267,8 @@ class modifyAccount extends Component {
           document.getElementById('avisoNuevo').style.display = "none";
           document.getElementById('avisoPass').style.display = "none";
 
+          //modal de tipo usuario
+          this.verficarTipo()
         }else{
           alert("La contraseña debe contener como minimo 8 caracteres.");
         }
@@ -278,22 +309,26 @@ class modifyAccount extends Component {
   }
 
   habilitarCampos(){
+    if (document.getElementById("habilitar").checked){
     $("#password").prop('disabled', false);
     $("#confPassword").prop('disabled', false);
+    }else{
+      $("#password").prop('disabled', true);
+    $("#confPassword").prop('disabled', true);
+    }
+
    }
+   componentDidMount() {
+
+    PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
+    }
 
   render() {
-
+    const Usuarios = this.state.Usuarios;
     return (
 
       <div>
-        <div className="barraNav">
-          <nav className="navbar navbar-light justify-content-between">
-            <a className="navbar-brand" href="/">
-              <img className="logo" src={logo} height="35" alt="logo" />
-            </a>
-          </nav>
-        </div>
+        <NavMenu/>
         <div className="col" align="center">
           <div>
             <div className="form-register">
@@ -314,8 +349,10 @@ class modifyAccount extends Component {
                     size="60"
                     placeholder="Ingrese sus nombres"
                     name="nombre"
+                    onKeyPress={this.validarNombre}
+                    onKeyDown={this.handleDeleteName}
                     onChange={this.handleInputChange}
-                    value={this.state.nombre}
+                    value={Usuarios.nombre}
                     required
                   />
                   <div className="form-group">
@@ -328,7 +365,7 @@ class modifyAccount extends Component {
                       placeholder="Ingrese su Apellidos"
                       name="apellido"
                       onChange={this.handleInputChange}
-                      value={this.state.apellido}
+                      value={Usuarios.apellido}
                       required
                     />
                   </div>
@@ -343,7 +380,7 @@ class modifyAccount extends Component {
                       placeholder="Ingrese su cédula de identidad"
                       name="ci"
                       onChange={this.handleInputChange}
-                      value={this.state.ci}
+                      value={Usuarios.CI}
                       required
 
                     />
@@ -441,7 +478,7 @@ class modifyAccount extends Component {
                     <div className="form-check form-check-inline">
                       <input
                         className="form-check-input"
-                        type="radio"
+                        type="checkbox"
                         id="habilitar"
                         name="habilitar"
                         onChange={(e) => this.handleOnChange(e)}
@@ -515,4 +552,4 @@ class modifyAccount extends Component {
   }
 }
 
-export default modifyAccount;
+export default ModifyAccount;

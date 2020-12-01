@@ -31,12 +31,12 @@ public class UserListService {
         }, new ResultSetExtractor <List<UserData>>(){
             @Override
             public List<UserData> extractData(ResultSet rs) throws SQLException {
-                List<UserData> UserDataLista = new ArrayList<>();
+                List<UserData> UserDataList = new ArrayList<>();
                 while (rs.next()){
                     UserData userData = new UserData(rs.getString("usuarioNombre"), rs.getString("usuarioApellido"), rs.getString("CI"), rs.getString("paisNombre"), rs.getString("ciudadNombre"), rs.getString("direccion"),rs.getString("correo"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("tipoUsuarioNombre"));
-                    UserDataLista.add(userData);
+                    UserDataList.add(userData);
                 } 
-                return UserDataLista;
+                return UserDataList;
             }
         });
         if(userList != null){
@@ -57,12 +57,12 @@ public class UserListService {
         }, new ResultSetExtractor <List<UserData>>(){
             @Override
             public List<UserData> extractData(ResultSet rs) throws SQLException {
-                List<UserData> UserDataLista = new ArrayList<>();
+                List<UserData> UserDataList = new ArrayList<>();
                 while (rs.next()){
                     UserData userData = new UserData(rs.getString("usuarioNombre"), rs.getString("usuarioApellido"), rs.getString("CI"), rs.getString("paisNombre"), rs.getString("ciudadNombre"), rs.getString("direccion"),rs.getString("correo"), rs.getString("telefono"), rs.getString("nombreUsuario"), rs.getString("tipoUsuarioNombre"));
-                    UserDataLista.add(userData);
+                    UserDataList.add(userData);
                 } 
-                return UserDataLista;
+                return UserDataList;
             }
         });
         if(userList != null){

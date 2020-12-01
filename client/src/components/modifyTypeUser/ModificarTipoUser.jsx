@@ -1,3 +1,4 @@
+import ModalEditType from './modalEditType.js';
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -73,9 +74,9 @@ class ModificarTipoUser extends Component {
 
                                                         <button
                                                             className="btn btn-default btn-sm"
-                                                            //data-toggle="modal"
-                                                            //data-target="#editPermiso"
-                                                            onClick=""
+                                                            data-toggle="modal"
+                                                            data-target="#modalEditType"
+                                                            onClick={this.check}
                                                         >
                                                             <FontAwesomeIcon icon={faEdit} style={{ fontSize: "20px" }}></FontAwesomeIcon>
                                                         </button>{' '}
@@ -99,7 +100,7 @@ class ModificarTipoUser extends Component {
                         </div>
                     </div>
                 </div>
-
+<ModalEditType />
 
             </div >
 

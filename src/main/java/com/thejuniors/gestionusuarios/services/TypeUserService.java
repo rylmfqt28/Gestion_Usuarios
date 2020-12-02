@@ -21,6 +21,7 @@ public class TypeUserService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    // lista de tipos de usuario
     public List<CrearTipo> allTypeUsers(){
         List<CrearTipo> typeUserList = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
@@ -46,4 +47,20 @@ public class TypeUserService {
         }
     }
     
+    /*
+    * Eliminar tipo de usuario antes cambia a cliente a los usuarios que tienen asignado el tipo de usuario
+    * a eliminar mediante metodo changeClient
+     */
+    public void deleteTypeUser(Integer tipoUsuarioID){
+        changeClient(tipoUsuarioID);
+        
+    }
+
+    private void changeClient(Integer tipoUsuarioID){
+        jdbcTemplate.update(
+                "UPDATE UsuarioTipoUsuario SET tipoUsuarioID=11 WHERE tipoUsuarioID=?",
+                tipoUsuarioID
+        );
+    }
+
 }

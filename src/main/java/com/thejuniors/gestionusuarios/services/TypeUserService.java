@@ -21,6 +21,7 @@ public class TypeUserService {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    // lista de tipos de usuario
     public List<CrearTipo> allTypeUsers(){
         List<CrearTipo> typeUserList = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
@@ -45,5 +46,40 @@ public class TypeUserService {
             return null;
         }
     }
+
+    // Actualizar un tipo de usuario
+    public void updateTypeUser(CrearTipo typeUser){
+        jdbcTemplate.update(
+            "UPDATE TipoUsuario SET tipoUsuarioNombre=?, tipoUsuarioDescripcion=? WHERE tipoUsuarioID=?",
+            typeUser.getCrearTipo(), typeUser.getDescripcionTipo(), typeUser.getTipoUsuarioID()
+        );
+    }
     
+    /*
+    * Eliminar tipo de usuario antes cambia a cliente a los usuarios que tienen asignado el tipo de usuario
+    * a eliminar mediante metodo changeClient y deletePermitsOfTypeUser
+     */
+    public void deleteTypeUser(Integer tipoUsuarioID){
+        changeClient(tipoUsuarioID);
+        deletePermitsOfTypeUser(tipoUsuarioID);
+        jdbcTemplate.update(
+            "DELETE FROM TipoUsuario WHERE tipoUsuarioID=?",
+            tipoUsuarioID
+        );
+    }
+
+    private void changeClient(Integer tipoUsuarioID){
+        jdbcTemplate.update(
+                "UPDATE UsuarioTipoUsuario SET tipoUsuarioID=11 WHERE tipoUsuarioID=?",
+                tipoUsuarioID
+        );
+    }
+
+    private void deletePermitsOfTypeUser(Integer tipoUsuarioID){
+        jdbcTemplate.update(
+            "DELETE FROM UsuarioPermisos WHERE tipoUsuarioID=?",
+            tipoUsuarioID
+        );
+    }
+
 }

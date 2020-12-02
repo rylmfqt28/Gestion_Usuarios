@@ -1,6 +1,9 @@
 import ModalEditType from './modalEditType.js';
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ModalEliminarTypeUser from './modalEliminarTypeUser';
+
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import "./ModificarTipoUsuario.css";
@@ -11,7 +14,7 @@ class ModificarTipoUser extends Component {
 
     render() {
 
-
+        
         return (
 
             <div>
@@ -59,9 +62,9 @@ class ModificarTipoUser extends Component {
 
                                                         <button
                                                             className="btn btn-default btn-sm"
-                                                        //data-toggle="modal"
-                                                        //data-target="#erasePermiso"
-                                                        //onClick={}
+                                                            data-toggle="modal"
+                                                            data-target="#erasePermisoTypeUser"
+                                                        onClick={""}
                                                         >
                                                             <FontAwesomeIcon icon={faTrashAlt} style={{ fontSize: "20px", color: "blue" }}></FontAwesomeIcon>
                                                         </button>{' '}
@@ -83,9 +86,9 @@ class ModificarTipoUser extends Component {
 
                                                         <button
                                                             className="btn btn-default btn-sm"
-                                                        //data-toggle="modal"
-                                                        //data-target="#erasePermiso"
-                                                        //onClick={}
+                                                            data-toggle="modal"
+                                                            data-target="#erasePermisoTypeUser"
+                                                        onClick={""}
                                                         >
                                                             <FontAwesomeIcon icon={faTrashAlt} style={{ fontSize: "20px", color: "blue" }}></FontAwesomeIcon>
                                                         </button>{' '}
@@ -100,8 +103,10 @@ class ModificarTipoUser extends Component {
                         </div>
                     </div>
                 </div>
-<ModalEditType />
 
+        <ModalEditType 
+        />
+       <ModalEliminarTypeUser />
             </div >
 
         )

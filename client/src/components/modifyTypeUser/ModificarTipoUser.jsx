@@ -51,11 +51,11 @@ class ModificarTipoUser extends Component {
 
                                                     <td>
 
-                                                        <button
+                                                    <button
                                                             className="btn btn-default btn-sm"
-                                                            //data-toggle="modal"
-                                                            //data-target="#editPermiso"
-                                                            onClick=""
+                                                            data-toggle="modal"
+                                                            data-target="#modalEditType"
+                                                            onClick={this.check}
                                                         >
                                                             <FontAwesomeIcon icon={faEdit} style={{ fontSize: "20px" }}></FontAwesomeIcon>
                                                         </button>{' '}

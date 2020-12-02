@@ -49,10 +49,11 @@ public class TypeUserService {
     
     /*
     * Eliminar tipo de usuario antes cambia a cliente a los usuarios que tienen asignado el tipo de usuario
-    * a eliminar mediante metodo changeClient
+    * a eliminar mediante metodo changeClient y deletePermitsOfTypeUser
      */
     public void deleteTypeUser(Integer tipoUsuarioID){
         changeClient(tipoUsuarioID);
+        deletePermitsOfTypeUser(tipoUsuarioID);
         jdbcTemplate.update(
             "DELETE FROM TipoUsuario WHERE tipoUsuarioID=?",
             tipoUsuarioID
@@ -63,6 +64,13 @@ public class TypeUserService {
         jdbcTemplate.update(
                 "UPDATE UsuarioTipoUsuario SET tipoUsuarioID=11 WHERE tipoUsuarioID=?",
                 tipoUsuarioID
+        );
+    }
+
+    private void deletePermitsOfTypeUser(Integer tipoUsuarioID){
+        jdbcTemplate.update(
+            "DELETE FROM UsuarioPermisos WHERE tipoUsuarioID=?",
+            tipoUsuarioID
         );
     }
 

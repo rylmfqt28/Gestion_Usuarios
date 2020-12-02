@@ -15,7 +15,6 @@ class ModalCambioContrasena extends Component{
         }
         
     }
-
     
     valueToState = ({ name, value}) => {
     //console.log("El VALOR es: " + value)
@@ -51,7 +50,6 @@ mostrarAlertaMaxL=(date)=>{
         swal("ERROR", "La contraseña debe contener al menos 8 caracteres.", "error");
     }
 }
-
 componentDidMount() {
 
     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));

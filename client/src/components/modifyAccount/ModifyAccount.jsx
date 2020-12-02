@@ -447,7 +447,7 @@ class ModifyAccount extends Component {
                       onChange={this.handleInputChange}
                       onKeyPress={this.validarApellido}
                       onKeyDown={this.handleDeleteKeyAp}
-                      value={this.state.apellido}
+                      value={Usuarios.apellido}
                       required
                     />
                   </div>
@@ -464,7 +464,7 @@ class ModifyAccount extends Component {
                       onKeyPress={this.validarNumerosCi}
                       onKeyDown={this.handleDeleteKeyCi}
                       onChange={this.handleInputChange}
-                      value={this.state.ci}
+                      value={Usuarios.ci}
                       required
 
                     />
@@ -503,7 +503,7 @@ class ModifyAccount extends Component {
                       onKeyPress={this.validarDir}
                       onKeyDown={this.handleDeleteKeyDir}
                       onChange={this.handleInputChange}
-                      value={this.state.direccion}
+                      value={Usuarios.direccion}
                       required
                     />
                   </div>
@@ -537,7 +537,7 @@ class ModifyAccount extends Component {
                       maxLength="8"
                       required
                       onChange={this.handleInputChange}
-                      value={this.state.telefono}
+                      value={Usuarios.telefono}
                     />
                   </div>
                   <div className="form-group">
@@ -552,7 +552,7 @@ class ModifyAccount extends Component {
                       minLength="5"
                       maxLength="15"
                       onChange={this.handleInputChange}
-                      value={this.state.userName}
+                      value={Usuarios.userName}
                       required
                     />
                   </div>

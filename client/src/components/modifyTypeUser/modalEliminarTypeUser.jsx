@@ -43,10 +43,10 @@ class ModalEliminarPermiso extends Component{
                     <div className="modal-dialog modal-lg">
                     <div className="modal-content" id="ModalEditPermiso">
                         <div className="modal-header" id="EncabezadoEditPermiso">
-                            <h5 className="modal-title">Eliminar Permiso</h5>
+                            <h5 className="modal-title">Eliminar Tipo Usuario</h5>
                         </div>
                         <div className="modal-body" id="Cuerpo">
-                           <h7>Decea eliminar el permiso: "{this.props.nombrePermiso}" ?</h7>
+                           <h7>Decea eliminar el Usuario: "{this.props.nombrePermiso}" ?</h7>
                         </div>
                         <div className="modal-footer justify-content-center" >
                             <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>

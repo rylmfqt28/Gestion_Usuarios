@@ -118,9 +118,4 @@ public class AdminPermisosService {
             );
     }
 
-    // Eliminar un permiso existente
-    public void eliminarPermiso(Integer permisoId){
-
-    }
-
 }

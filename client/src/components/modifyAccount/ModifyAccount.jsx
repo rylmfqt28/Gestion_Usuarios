@@ -42,75 +42,67 @@ class ModifyAccount extends Component {
   }
 
   validarNombre = (event) => {
-    const Usuarios = this.state.Usuarios;
-    let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    let letras = " áéíóúñÑ";
-
-    if (Usuarios.nombre.length !== 50) {
-      console.log(Usuarios.nombre.length);
-      if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
-        this.setState({
-          ...this.state,
-          [event.target.name]: event.target.value + tecla
-        });
+    if(event.target.value[0]!==" "){
+    if(event.target.value.length !== 51){
+          if(event.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null)
+          {
+            this.setState({nombre: event.target.value})
+            this.setState({validate: true})
+          }else{
+             this.setState({validate: false})
+             console.log(false)
       }
-    } else {
-      alert('El maximo de caracteres es de 50');
+      }else{
+          alert("El maximo de caracteres es de 50")
+      }
+
+      }else{
+        alert("El nombre debe empezar con un caracter")
     }
-  }
-  handleDeleteName = (event) => {
-    let key = event.keyCode || event.which;
-    if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
-    }
+
   }
   validarApellido = (event) => {
-    let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    let letras = " áéíóúñÑ";
-    if (this.state.apellido.length !== 50) {
-      //console.log('llego malditod');
-      if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
-        this.setState({
-          ...this.state,
-          [event.target.name]: event.target.value + tecla
-        });
+   
+    if(event.target.value[0]!==" "){
+      if(event.target.value.length !== 51){
+            if(event.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null)
+            {
+              this.setState({apellido: event.target.value})
+              this.setState({validate: true})
+            }else{
+               this.setState({validate: false})
+               console.log(false)
+        }
+        }else{
+            alert("El maximo de caracteres es de 50")
+        }
+  
+        }else{
+          alert("El nombre debe empezar con un caracter")
       }
-    } else {
-      alert('El maximo de caracteres es de 50');
-    }
 
   }
-  handleDeleteKeyAp = (event) => {
-    let key = event.keyCode || event.which;
-    if (this.state.apellido.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.apellido.substring(0, this.state.apellido.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
-
-    }
-  }
+ 
   validarNumerosCi = (event) => {
     let numeros = "1234567890"
-    let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    if (this.state.ci.length !== 9) {
-      if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla) !== -1)) {
-        this.setState({
-          ...this.state,
-          [event.target.name]: event.target.value + tecla
-        });
+    if(event.target.value[0]!==" "){
+      if(event.target.value.length !== 9){
+            if(event.target.value.match()!=null)
+            {
+              this.setState({ci: event.target.value})
+              this.setState({validate: true})
+            }else{
+               this.setState({validate: false})
+               console.log(false)
+        }
+        }else{
+            alert("El maximo de números es de 9")
+        }
+  
+        }else{
+          alert("El ci debe empezar con un numero")
       }
-    } else {
-      alert('El maximo de digitos en el campo es de 9')
-    }
+   
 
   }
   handleDeleteKeyCi = (event) => {
@@ -419,10 +411,9 @@ class ModifyAccount extends Component {
                     size="60"
                     placeholder="Ingrese sus nombres"
                     name="nombre"
-                    onKeyPress={this.validarNombre}
-                    onKeyDown={this.handleDeleteName}
-                    onChange={this.handleInputChange}
-                    value={Usuarios.nombre}
+                    
+                    onChange={(e) => this.validarNombre(e)}
+                    value={this.state.nombre}
                     required
                   />
                   <div className="form-group">
@@ -434,10 +425,10 @@ class ModifyAccount extends Component {
                       size="60"
                       placeholder="Ingrese su Apellidos"
                       name="apellido"
-                      onChange={this.handleInputChange}
-                      onKeyPress={this.validarApellido}
-                      onKeyDown={this.handleDeleteKeyAp}
-                      value={Usuarios.apellido}
+                      onChange={(e) => this.validarApellido(e)}
+                      
+        
+                      value={this.state.apellido}
                       required
                     />
                   </div>
@@ -446,15 +437,12 @@ class ModifyAccount extends Component {
                     <b>Cédula de Identidad:</b>
                     <input
                       id="cedula"
-                      type="text"
                       className="form-control"
                       size="60"
                       placeholder="Ingrese su cédula de identidad"
                       name="ci"
-                      onKeyPress={this.validarNumerosCi}
-                      onKeyDown={this.handleDeleteKeyCi}
-                      onChange={this.handleInputChange}
-                      value={Usuarios.CI}
+                      onChange={(e) => this.validarNumerosCi(e)}
+                      value={this.state.ci}
                       required
 
                     />

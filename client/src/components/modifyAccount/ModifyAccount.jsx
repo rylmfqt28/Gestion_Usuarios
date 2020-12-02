@@ -11,7 +11,7 @@ import TipoUser from '../../Service/TipoUser'
 import NavMenu from '../menuAdmin/NavMenu'
 
 import $ from 'jquery';
-
+import ModalContrasena from './ModalContrasena';
 
 class ModifyAccount extends Component {
   constructor(props) {
@@ -40,14 +40,40 @@ class ModifyAccount extends Component {
     this.updateList = this.updateList.bind(this)
     this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
   }
-    
-    validarNombre = (event) => {
 
+  validarNombre = (event) => {
+    const Usuarios = this.state.Usuarios;
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
     let letras = " áéíóúñÑ";
 
-    if (this.state.nombre.length !== 50) {
+    if (Usuarios.nombre.length !== 50) {
+      console.log(Usuarios.nombre.length);
+      if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
+        this.setState({
+          ...this.state,
+          [event.target.name]: event.target.value + tecla
+        });
+      }
+    } else {
+      alert('El maximo de caracteres es de 50');
+    }
+  }
+  handleDeleteName = (event) => {
+    let key = event.keyCode || event.which;
+    if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
+      this.setState({
+        ...this.state,
+        [event.target.name]: nuevo
+      });
+    }
+  }
+  validarApellido = (event) => {
+    let key = event.keyCode || event.which;
+    let tecla = String.fromCharCode(key);
+    let letras = " áéíóúñÑ";
+    if (this.state.apellido.length !== 50) {
       //console.log('llego malditod');
       if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
         this.setState({
@@ -58,19 +84,73 @@ class ModifyAccount extends Component {
     } else {
       alert('El maximo de caracteres es de 50');
     }
-   }
-   handleDeleteName = (event) => {
+
+  }
+  handleDeleteKeyAp = (event) => {
     let key = event.keyCode || event.which;
-    if (this.state.nombre.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.nombre.substring(0, this.state.nombre.length - 1);
+    if (this.state.apellido.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.apellido.substring(0, this.state.apellido.length - 1);
+      this.setState({
+        ...this.state,
+        [event.target.name]: nuevo
+      });
+
+    }
+  }
+  validarNumerosCi = (event) => {
+    let numeros = "1234567890"
+    let key = event.keyCode || event.which;
+    let tecla = String.fromCharCode(key);
+    if (this.state.ci.length !== 9) {
+      if ((key <= 57 && key >= 48) || (numeros.indexOf(tecla) !== -1)) {
+        this.setState({
+          ...this.state,
+          [event.target.name]: event.target.value + tecla
+        });
+      }
+    } else {
+      alert('El maximo de digitos en el campo es de 9')
+    }
+
+  }
+  handleDeleteKeyCi = (event) => {
+    let key = event.keyCode || event.which;
+    if (this.state.ci.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.ci.substring(0, this.state.ci.length - 1);
+      this.setState({
+        ...this.state,
+        [event.target.name]: nuevo
+      });
+
+    }
+
+  }
+  validarDir = (event) => {
+    let key = event.keyCode || event.which;
+    let tecla = String.fromCharCode(key);
+    if (this.state.direccion.length !== 250) {
+      //console.log('llego malditod');
+      this.setState({
+        ...this.state,
+        [event.target.name]: event.target.value + tecla
+      });
+    } else {
+      alert('El maximo de caracteres es de 250');
+    }
+  }
+  handleDeleteKeyDir = (event) => {
+    let key = event.keyCode || event.which;
+    if (this.state.direccion.length !== 0 && (key === 8 || key === 127)) {
+      let nuevo = this.state.direccion.substring(0, this.state.direccion.length - 1);
       this.setState({
         ...this.state,
         [event.target.name]: nuevo
       });
     }
   }
-   
-    validarCorreo = (event) => {
+  
+
+  validarCorreo = (event) => {
 
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
@@ -117,7 +197,7 @@ class ModifyAccount extends Component {
 
 
   }
-  
+
   validarVacios = () => {
 
     const name = document.getElementById('name');
@@ -156,7 +236,7 @@ class ModifyAccount extends Component {
       });
     }
   }
-  
+
   handleDeleteKeyPassword = (event) => {
 
     let key = event.keyCode || event.which;
@@ -261,7 +341,7 @@ class ModifyAccount extends Component {
         document.getElementById('avisoNuevo').style.display = "none";
         document.getElementById('avisoPass').style.display = "block";
       } else {
-        if(this.state.password.length >= 8 && this.state.confPassword.length >= 8){
+        if (this.state.password.length >= 8 && this.state.confPassword.length >= 8) {
           //mesaje datos correctos
           document.getElementById('avisoCorrecto').style.display = "block";
           document.getElementById('avisoNuevo').style.display = "none";
@@ -269,10 +349,10 @@ class ModifyAccount extends Component {
 
           //modal de tipo usuario
           this.verficarTipo()
-        }else{
+        } else {
           alert("La contraseña debe contener como minimo 8 caracteres.");
         }
-        
+
       }
     } else {
       document.addEventListener('DOMContentLoaded', (event) => {
@@ -308,27 +388,17 @@ class ModifyAccount extends Component {
     }
   }
 
-  habilitarCampos(){
-    if (document.getElementById("habilitar").checked){
-    $("#password").prop('disabled', false);
-    $("#confPassword").prop('disabled', false);
-    }else{
-      $("#password").prop('disabled', true);
-    $("#confPassword").prop('disabled', true);
-    }
-
-   }
-   componentDidMount() {
+  componentDidMount() {
 
     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
-    }
+  }
 
   render() {
     const Usuarios = this.state.Usuarios;
     return (
 
       <div>
-        <NavMenu/>
+        <NavMenu />
         <div className="col" align="center">
           <div>
             <div className="form-register">
@@ -365,6 +435,8 @@ class ModifyAccount extends Component {
                       placeholder="Ingrese su Apellidos"
                       name="apellido"
                       onChange={this.handleInputChange}
+                      onKeyPress={this.validarApellido}
+                      onKeyDown={this.handleDeleteKeyAp}
                       value={Usuarios.apellido}
                       required
                     />
@@ -379,6 +451,8 @@ class ModifyAccount extends Component {
                       size="60"
                       placeholder="Ingrese su cédula de identidad"
                       name="ci"
+                      onKeyPress={this.validarNumerosCi}
+                      onKeyDown={this.handleDeleteKeyCi}
                       onChange={this.handleInputChange}
                       value={Usuarios.CI}
                       required
@@ -416,8 +490,10 @@ class ModifyAccount extends Component {
                       placeholder="Ingrese su dirección"
                       name="direccion"
                       maxLength="250"
+                      onKeyPress={this.validarDir}
+                      onKeyDown={this.handleDeleteKeyDir}
                       onChange={this.handleInputChange}
-                      value={this.state.direccion}
+                      value={Usuarios.direccion}
                       required
                     />
                   </div>
@@ -451,7 +527,7 @@ class ModifyAccount extends Component {
                       maxLength="8"
                       required
                       onChange={this.handleInputChange}
-                      value={this.state.telefono}
+                      value={Usuarios.telefono}
                     />
                   </div>
                   <div className="form-group">
@@ -466,33 +542,13 @@ class ModifyAccount extends Component {
                       minLength="5"
                       maxLength="15"
                       onChange={this.handleInputChange}
-                      value={this.state.userName}
+                      value={Usuarios.userName}
                       required
                     />
                   </div>
-                  
-                  <div className="form-group">
-                    <label className="form-check-label">
-                      <b className="habilita"> </b>
-                    </label>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="habilitar"
-                        name="habilitar"
-                        onChange={(e) => this.handleOnChange(e)}
-                        value="habilitado"
-                        onClick={this.habilitarCampos}
-                      />
-
-                      <label className="form-check-label"> Habilitar cambio de contraseña</label>
-                    </div>
-
-                  </div>
 
                   <div className="form-group">
-                    <b>Contraseña:</b>
+                    <b href="#ModalContrasena" data-toggle="modal">Contraseña: </b>
                     <input
                       type="password"
                       className="form-control"
@@ -507,26 +563,12 @@ class ModifyAccount extends Component {
                       onChange={this.handleInputChange}
                       value={this.state.password}
                       disabled
+                      onClick="location.href='#ModalContrasena'"
                     />
                   </div>
-                  <div className="form-group"><b>Confirmar contraseña:</b>
-                    <input
-                      type="password"
-                      className="form-control"
-                      size="60"
-                      placeholder="Confirme su contraseña"
-                      name="confPassword"
-                      id="confPassword"
-                      minLength="8"
-                      onKeyPress={this.validarContraseña}
-                      onKeyDown={this.handleDeleteKeyConfPassword}
-                      onChange={this.handleInputChange}
-                      value={this.state.confPassword}
-                      required
-                      disabled
-                    /></div>
-                  
+
                   <br />
+                  
                   <div className="contenedor-btn">
 
                     <Link className="btn btn-cancelar" value="Login" type="reset" to="/" >Cancelar</Link>
@@ -540,11 +582,12 @@ class ModifyAccount extends Component {
                     <div id="avisoPass" className="alert alert-warning">Contraseñas no coinciden</div>
                   </div>
                   <br />
-                  
+
                 </div>
               </form>
             </div>
           </div>
+          <ModalContrasena/>
         </div >
       </div >
     )

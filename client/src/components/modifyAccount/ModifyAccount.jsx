@@ -503,7 +503,7 @@ class ModifyAccount extends Component {
                       onKeyPress={this.validarDir}
                       onKeyDown={this.handleDeleteKeyDir}
                       onChange={this.handleInputChange}
-                      value={this.state.direccion}
+                      value={Usuarios.direccion}
                       required
                     />
                   </div>

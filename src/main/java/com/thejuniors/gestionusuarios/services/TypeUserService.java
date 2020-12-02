@@ -53,7 +53,10 @@ public class TypeUserService {
      */
     public void deleteTypeUser(Integer tipoUsuarioID){
         changeClient(tipoUsuarioID);
-        
+        jdbcTemplate.update(
+            "DELETE FROM TipoUsuario WHERE tipoUsuarioID=?",
+            tipoUsuarioID
+        );
     }
 
     private void changeClient(Integer tipoUsuarioID){

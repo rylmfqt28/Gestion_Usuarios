@@ -32,7 +32,7 @@ class ListUsuarios extends Component{
             return(
                 <tr key={index}>
                     <td>
-                        {Usuario.usuarioNombre}        
+                        {Usuario.usuarioNombre + " " + Usuario.usuarioApellido}        
                     </td>
                     <td>
                         <button className="btn btn-info col-sm">ver usuario</button>

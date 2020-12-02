@@ -17,14 +17,12 @@ class ModalCambioContrasena extends Component{
     }
     
     valueToState = ({ name, value}) => {
-    //console.log("El VALOR es: " + value)
     this.setState(() => {
     return { [name]: value };
         });
      };
 
      mostrarAlerta=(date)=>{
-        //console.log("El DATO es: " + date)
         if(date.length === 0){
             swal("ERROR", "La contraseña está vacia. Por favor ingrese una contraseña válida.", "error");
         }

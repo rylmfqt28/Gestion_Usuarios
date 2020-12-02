@@ -2,7 +2,7 @@ import axios from "axios";
 
 class ListaUsuariosService{
     base = "/api/allUsers"
-    base1="/api/userListOf/cd"
+    base1="/api/userListOf/"
 
     getAllListaUsers(){
         return axios.get(this.base).then(res => res.data)

@@ -10,11 +10,21 @@ class ListUsuarios extends Component{
         tipoUsuario : [],
         usuarios : []
      }   
+     this.UpdateList = this.UpdateList.bind(this)
     }
 
     componentDidMount(){
         TipoUser.getAll().then(data => this.setState({tipoUsuario : data}))
         ListaUsuariosService.getAllListaUsers().then(data => this.setState({usuarios: data}))
+    }
+
+    UpdateList(e){
+        console.log(e.target.value)
+        if(e.target.value===" "){
+            ListaUsuariosService.getAllListaUsers().then(data => this.setState({usuarios: data}))
+        }else{
+            ListaUsuariosService.getListaTipoUser(e.target.value).then(data => this.setState({usuarios : data}))
+        }
     }
 
     render(){
@@ -42,7 +52,7 @@ class ListUsuarios extends Component{
                         <label>Ver usuarios de tipo:  </label>
                     </div>
                     <div className="col-sm-3">
-                        <select className="form-control form-control-sm" >
+                        <select className="form-control form-control-sm" onChange={this.UpdateList}>
                             <option value=" " >{"---"}</option>
                             {
                                 this.state.tipoUsuario.map((tipoUsuario,index)=>(

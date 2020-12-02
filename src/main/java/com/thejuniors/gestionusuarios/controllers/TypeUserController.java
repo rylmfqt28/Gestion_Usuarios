@@ -2,6 +2,7 @@ package com.thejuniors.gestionusuarios.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,12 @@ public class TypeUserController {
     @GetMapping(value="/api/allTypeUsers", produces={"application/json"})
     public List<CrearTipo> getListTypeUser(){
         return typeUserService.allTypeUsers();
+    }
+
+    // Elimina un tipo de usuario por medio de su ID
+    @DeleteMapping(value="/api/deleteTypeUser/{tipoUsuarioID}", produces={"application/json"})
+    public void deleteTypeUserById(Integer tipoUsuarioID){
+        typeUserService.deleteTypeUser(tipoUsuarioID);
     }
 
 }

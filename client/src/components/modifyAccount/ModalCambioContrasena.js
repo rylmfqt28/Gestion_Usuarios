@@ -49,6 +49,10 @@ mostrarAlertaMaxL=(date)=>{
     }
 }
 
+cerrarModal(e){
+    $('#ModalContrasena').modal('hide');
+    e.stopPropagation();
+}
 componentDidMount() {
 
     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));

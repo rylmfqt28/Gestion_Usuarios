@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,7 +28,7 @@ public class TypeUserController {
 
     // Elimina un tipo de usuario por medio de su ID
     @DeleteMapping(value="/api/deleteTypeUser/{tipoUsuarioID}", produces={"application/json"})
-    public void deleteTypeUserById(Integer tipoUsuarioID){
+    public void deleteTypeUserById(@PathVariable("tipoUsuarioID") Integer tipoUsuarioID){
         typeUserService.deleteTypeUser(tipoUsuarioID);
     }
 

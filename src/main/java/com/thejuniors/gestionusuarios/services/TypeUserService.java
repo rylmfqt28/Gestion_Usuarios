@@ -46,6 +46,14 @@ public class TypeUserService {
             return null;
         }
     }
+
+    // Actualizar un tipo de usuario
+    public void updateTypeUser(CrearTipo typeUser){
+        jdbcTemplate.update(
+            "UPDATE TipoUsuario SET tipoUsuarioNombre=?, tipoUsuarioDescripcion=? WHERE tipoUsuarioID=?",
+            typeUser.getCrearTipo(), typeUser.getDescripcionTipo(), typeUser.getTipoUsuarioID()
+        );
+    }
     
     /*
     * Eliminar tipo de usuario antes cambia a cliente a los usuarios que tienen asignado el tipo de usuario

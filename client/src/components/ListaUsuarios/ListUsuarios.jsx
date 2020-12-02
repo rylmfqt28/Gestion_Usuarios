@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ListaUsuariosService from '../../Service/ListaUsuariosService';
 import TipoUser from '../../Service/TipoUser';
 import NavMenu from '../menuAdmin/NavMenu'
 
@@ -7,12 +8,13 @@ class ListUsuarios extends Component{
      super(props);
      this.state = {
         tipoUsuario : [],
-        usuarios : ["roger","zusana","Dani","Nicol"]
+        usuarios : []
      }   
     }
 
     componentDidMount(){
         TipoUser.getAll().then(data => this.setState({tipoUsuario : data}))
+        ListaUsuariosService.getAllListaUsers().then(data => this.setState({usuarios: data}))
     }
 
     render(){
@@ -20,7 +22,7 @@ class ListUsuarios extends Component{
             return(
                 <tr key={index}>
                     <td>
-                        {Usuario}        
+                        {Usuario.usuarioNombre}        
                     </td>
                     <td>
                         <button className="btn btn-info col-sm">ver usuario</button>

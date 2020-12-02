@@ -1,7 +1,6 @@
 import axios from "axios";
-import ListUsuarios from "../components/ListaUsuarios/ListUsuarios";
 
-class ListaUsuarios{
+class ListaUsuariosService{
     base = "/api/allUsers"
     base1="/api/userListOf/cd"
 
@@ -14,4 +13,4 @@ class ListaUsuarios{
     }
 
 }
-export default ListUsuarios
+export default new ListaUsuariosService

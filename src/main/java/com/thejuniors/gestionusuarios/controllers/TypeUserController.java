@@ -34,7 +34,7 @@ public class TypeUserController {
         typeUserService.deleteTypeUser(tipoUsuarioID);
     }
 
-    //
+    // Actualiza datos de un tipo de usuario se requiere el id, nombre y descripcion
     @PutMapping(value = "/api/updateTypeUser", consumes = {"application/json"})
     public void updateUserTypeData(@RequestBody CrearTipo typeUser){
         typeUserService.updateTypeUser(typeUser);

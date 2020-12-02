@@ -51,7 +51,6 @@ mostrarAlertaMaxL=(date)=>{
         swal("ERROR", "La contraseña debe contener al menos 8 caracteres.", "error");
     }
 }
-
 cerrarModal(e){
     $('#ModalContrasena').modal('hide');
     e.stopPropagation();

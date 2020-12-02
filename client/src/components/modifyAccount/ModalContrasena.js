@@ -17,7 +17,6 @@ class ModalContrasena extends Component{
         
     }
 
-    
     valueToState = ({ name, value}) => {
     //console.log("El VALOR es: " + value)
     this.setState(() => {

@@ -3,9 +3,8 @@ import './modifyAccount.css'
 import swal from 'sweetalert'
 import $ from 'jquery'
 import PersonaService from '../../Service/PersonaService';
-import ModalCambioContrasena from './ModalCambioContrasena';
 
-class ModalContrasena extends Component{
+class ModalCambioContrasena extends Component{
     
      constructor(props){
         super(props)
@@ -16,16 +15,14 @@ class ModalContrasena extends Component{
         }
         
     }
-
+    
     valueToState = ({ name, value}) => {
-    //console.log("El VALOR es: " + value)
     this.setState(() => {
     return { [name]: value };
         });
      };
 
      mostrarAlerta=(date)=>{
-        //console.log("El DATO es: " + date)
         if(date.length === 0){
             swal("ERROR", "La contraseña está vacia. Por favor ingrese una contraseña válida.", "error");
         }
@@ -51,11 +48,11 @@ mostrarAlertaMaxL=(date)=>{
         swal("ERROR", "La contraseña debe contener al menos 8 caracteres.", "error");
     }
 }
+
 cerrarModal(e){
     $('#ModalContrasena').modal('hide');
     e.stopPropagation();
 }
-
 componentDidMount() {
 
     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
@@ -65,7 +62,7 @@ componentDidMount() {
         const Usuarios = this.state.Usuarios;
         return(
             
-            <div className="modal fade" id="ModalContrasena" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal fade" id="ModalCambioContrasena" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog modal-lg">
                     <div className="modal-content" id="VentanaEmergente">
                         <div className="modal-header" id ="Encabezado">
@@ -80,28 +77,17 @@ componentDidMount() {
                         <div className="form-register">
                         <div>
                         <label className="form-group">
-                            <b>Te damos la bienvenida</b>
-                        </label>
-                        </div>
-
-                        <div>
-                        <label>
-                            <b>{Usuarios.nombre} {Usuarios.apellido}</b>
-                        </label>
-                        </div>
-
-                        <div>
-                        <label>
-                            Debes verificar tu identidad para poder continuar 
+                            <b></b>
                         </label>
                         </div>
 
                         <div className="form-group">
+                        <b>Contraseña nueva:</b>
                             <input
                             type="password"
                             className="form-control"
                             size="30"
-                             placeholder="Introduce tu contraseña"
+                             placeholder="Introduce tu nueva contraseña"
                             name="password"
                             id="password"
                             minLength="8"
@@ -110,23 +96,35 @@ componentDidMount() {
                             
                         />
                         </div>
-
-                        <a href="#ModalCambioContrasena"  data-toggle="modal">Continue</a>
+                        <div className="form-group"><b>Confirma la nueva contraseña:</b>
+                         <input
+                            type="password"
+                            className="form-control"
+                            size="60"
+                            placeholder="Confirme tu nueva contraseña"
+                            name="confPassword"
+                            id="confPassword"
+                            minLength="8"
+                            onKeyPress={this.validarContraseña}
+                            onKeyDown={this.handleDeleteKeyConfPassword}
+                            onChange={this.handleInputChange}
+                            value={this.state.confPassword}
+                            required
+                        /></div>
                         
                         </div>
                         </div>
                         <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" className="btn btn-secondary" onClick={()=>this.mostrarAlerta(this.state.descripcionTipo)}>Siguiente</button>
+                        <button type="button" className="btn btn-secondary" onClick={()=>this.mostrarAlerta(this.state.descripcionTipo)}>Cambiar la contraseña</button>
                         </div>
                     </div>
                     </div>
-                    <ModalCambioContrasena/>
                 </div>
         );
     }
 }
-export default ModalContrasena;
+export default ModalCambioContrasena;
 
 
 

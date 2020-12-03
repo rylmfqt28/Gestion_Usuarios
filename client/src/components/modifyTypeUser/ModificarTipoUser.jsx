@@ -5,9 +5,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import "./ModificarTipoUsuario.css";
 
+import TypeUser from '../../Service/tyUserService'
+
 import NavMenu from '../menuAdmin/NavMenu'
 
 class ModificarTipoUser extends Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            listUserTypes: []
+        };
+
+        this.updateListUserTypes = this.updateListUserTypes.bind(this);
+    }
 
     render() {
 

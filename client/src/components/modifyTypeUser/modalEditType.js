@@ -5,14 +5,16 @@ import $ from 'jquery'
 
 class ModalEditType extends Component{
     
-     constructor(props){
+    constructor(props) {
         super(props)
-        this.state={ 
-            crearTipo: '',
-            descripcionTipo: '',        
+        this.state = {
+            tipoUsuarioID: this.props.tipoUsuarioID,
+            crearTipo: this.props.crearTipo,
+            descripcionTipo: this.props.descripcionTipo,
+            validate: true,
         }
-        
     }
+
 
     
     valueToState = ({ name, value}) => {
@@ -65,8 +67,8 @@ render() {
                     <div className="modal-body" id="Cuerpo">
                         <div className="row justify-content-md-center">
                             <div className="col-9">
-                                <p><input className="form-control text-center" value={this.state.nombrePermiso} onChange={(e) => this.nombreHandler(e)}></input></p>
-                                <textarea className="form-control" id="textoArea" aria-label="With textarea" value={this.state.permisoDescripcion} onChange={(e) => this.descripcionHandler(e)}></textarea>
+                                <p><input className="form-control text-center" value={this.props.crearTipo} onChange={""}></input></p>
+                                <textarea className="form-control" id="textoArea" aria-label="With textarea" value={this.props.descripcionTipo} onChange={""}></textarea>
                             </div>
                         </div>
                     </div>

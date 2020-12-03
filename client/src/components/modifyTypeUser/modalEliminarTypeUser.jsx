@@ -1,15 +1,14 @@
 import React,{Component} from 'react'
 import $ from 'jquery'
-import PermisosController from '../../Service/PermisosController';
-
+import TypeUser from '../../Service/tyUserService'
 
 
 class ModalEliminarPermiso extends Component{
     constructor(props){
         super(props)
         this.state={ 
-                permisoId:this.props.permisoId,
-                nombrePermiso:this.props.nombrePermiso,
+                tipoUsuarioID:this.props.tipoUsuarioID,
+                crearTipo:this.props.crearTipo,
                 validate:true,
         }
         this.handleErase=this.handleErase.bind(this)
@@ -17,22 +16,24 @@ class ModalEliminarPermiso extends Component{
     handleErase(){
         if(this.state.validate){
 
-          this.remove(this.props.permisoId);
-         
+          this.remove(this.props.tipoUsuarioID);
+     
             $(function(){ 
-                $("#erasePermiso").modal('hide')  
-                alert("Se elimino el permiso!")
+                $("#erasePermisoTypeUse").modal('hide')  
+                alert("Se elimino el tipo de Usuario!")
+               
             })
         }else{
             alert("incorrecto")
         }
        
     }
-    remove(permisoId){
+    remove(tipoUsuarioID){
         
-        PermisosController.deletePermiso(permisoId);   
-        this.props.updateList();
-        this.props.updateList();
+        TypeUser.deletePermisoTypeUser(tipoUsuarioID);   
+        this.props.updateListUserTypes();
+        this.props.updateListUserTypes();
+       
     }
    
     
@@ -46,7 +47,7 @@ class ModalEliminarPermiso extends Component{
                             <h5 className="modal-title">Eliminar Tipo Usuario</h5>
                         </div>
                         <div className="modal-body" id="Cuerpo">
-                           <h7>Decea eliminar el Usuario: "{this.props.nombrePermiso}" ?</h7>
+                           <h7>Decea eliminar el Usuario: "{this.props.crearTipo}" ?</h7>
                         </div>
                         <div className="modal-footer justify-content-center" >
                             <button type="button" className="btn btn-outline-info" data-dismiss="modal">Cancelar</button>

@@ -111,7 +111,7 @@ componentDidMount() {
                         />
                         </div>
 
-                        <a href="#ModalCambioContrasena"  data-toggle="modal">Continue</a>
+                        <a href="#ModalCambioContrasena" onClick={"#ModalContrasena.close()"} data-toggle="modal">Continue</a>
                         
                         </div>
                         </div>

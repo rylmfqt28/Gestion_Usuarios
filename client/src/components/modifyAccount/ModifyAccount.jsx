@@ -392,7 +392,9 @@ class ModifyAccount extends Component {
 
     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
   }
-
+  redireccionar(){
+    $("#ModalContrasena").modal('show')
+  }
   render() {
     const Usuarios = this.state.Usuarios;
     return (
@@ -562,8 +564,7 @@ class ModifyAccount extends Component {
                       onKeyDown={this.handleDeleteKeyPassword}
                       onChange={this.handleInputChange}
                       value={this.state.password}
-                      disabled
-                      onClick="location.href='#ModalContrasena'"
+                      onClick={this.redireccionar}
                     />
                   </div>
 

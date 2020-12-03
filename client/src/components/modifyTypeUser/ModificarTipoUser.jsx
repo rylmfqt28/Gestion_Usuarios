@@ -1,4 +1,5 @@
 import ModalEditType from './modalEditType.js';
+import ModalEliminarPermiso from './modalEliminarTypeUser.jsx';
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,12 +15,17 @@ class ModificarTipoUser extends Component {
     constructor(props){
         super(props);
         this.state = {
+            permiso: {},
             listUserTypes: []
         };
 
         this.updateListUserTypes = this.updateListUserTypes.bind(this);
     }
 
+    replaceModalItem(typeUser) {
+        this.setState({ permiso: typeUser })
+        console.log(typeUser)
+    }
     componentDidMount(){
         this.updateListUserTypes();
     }
@@ -71,8 +77,8 @@ class ModificarTipoUser extends Component {
 
                                                                 <button
                                                                 className="btn btn-default btn-sm"
-                                                                //data-toggle="modal"
-                                                                //data-target="#editPermiso"
+                                                                data-toggle="modal"
+                                                                data-target="#modalEditType"
                                                                 onClick=""
                                                                 >
                                                                 <FontAwesomeIcon icon={faEdit} style={{ fontSize: "20px" }}></FontAwesomeIcon>
@@ -80,9 +86,9 @@ class ModificarTipoUser extends Component {
 
                                                                 <button
                                                                     className="btn btn-default btn-sm"
-                                                                    //data-toggle="modal"
-                                                                    //data-target="#erasePermiso"
-                                                                    //onClick={}
+                                                                    data-toggle="modal"
+                                                                    data-target="#erasePermisoTypeUser"
+                                                                     onClick={() => this.replaceModalItem(typeUser)}
                                                                 >
                                                                 <FontAwesomeIcon icon={faTrashAlt} style={{ fontSize: "20px", color: "blue" }}></FontAwesomeIcon>
                                                                 </button>{' '}
@@ -101,6 +107,12 @@ class ModificarTipoUser extends Component {
                 </div>
 <ModalEditType />
 
+            <ModalEliminarPermiso 
+              tipoUsuarioID={this.state.permiso.tipoUsuarioID}
+              crearTipo={this.state.permiso.crearTipo}
+              updateListUserTypes ={this.updateListUserTypes}
+            />
+            
             </div >
 
         )

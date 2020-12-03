@@ -70,9 +70,9 @@ componentDidMount() {
                         <div className="col" align="center">
                         <div className="form-register">
                         <div>
-                        <label className="form-group">
-                            <b>Te damos la bienvenida</b>
-                        </label>
+                        <h5 className="form-group">
+                            <b>TE DAMOS LA BIENVENIDA</b>
+                        </h5>
                         </div>
 
                         <div>

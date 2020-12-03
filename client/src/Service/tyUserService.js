@@ -5,7 +5,7 @@ class ModifyTypeUser{
 
     async getAllUserTypes(){
         const res = await axios.get(this.base);
-        return res;
+        return res.data;
     }
 }
 

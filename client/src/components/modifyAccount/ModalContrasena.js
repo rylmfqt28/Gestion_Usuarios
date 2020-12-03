@@ -10,50 +10,41 @@ class ModalContrasena extends Component{
      constructor(props){
         super(props)
         this.state={ 
-            crearTipo: '',
-            descripcionTipo: '',
-            Usuarios: [],        
+            Usuarios: [],
+            password: '',        
         }
-        
+        this.contrasenaHandler = this.contrasenaHandler.bind(this)
     }
 
-    valueToState = ({ name, value}) => {
-    //console.log("El VALOR es: " + value)
-    this.setState(() => {
-    return { [name]: value };
-        });
-     };
+     verificarPasswd = async () => {
+        try {
+            if (this.state.password.trim() !== '') {
 
-     mostrarAlerta=(date)=>{
-        //console.log("El DATO es: " + date)
-        if(date.length === 0){
-            swal("ERROR", "La contraseña está vacia. Por favor ingrese una contraseña válida.", "error");
-        }
-        else
-        {
-            if(date.length <20 || date.length > 500){
-                swal("ERROR", "La descripción debe contener 20 caracteres como mínimo y 500 como máximo.", "error");
-                
-            } else{     
-                swal("ACEPTADO", "Solicitud enviada con éxito, espere a que el administrador apruebe su solicitud", "success");
-                this.props.capturarDatosModal(date)
-                this.props.insertarDatoRegistro()
-                $(function(){
-                    $("#TipoUserData").modal('hide')
-                })
+                if (this.state.password.length < 8) {
+                    alert("La contraseña debe contener al menos 8 caracteres.")
+                } else {
+                    //const res = await axios.get('/api/permiso/' + this.state.password.trim());
+
+                    //console.log(res.data);
+                }
+            }else{
+                alert('El campo contraseña es obligatorio');
             }
-        
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    contrasenaHandler(e) {
+        if (e.target.value.length < 50) {
+            this.setState({ password: e.target.value })
+        } else {
+            alert("La contraseña debe contener al menos 8 caracteres.")
         }
     }
 
-mostrarAlertaMaxL=(date)=>{
-    if(date.length < 8){
-        swal("ERROR", "La contraseña debe contener al menos 8 caracteres.", "error");
-    }
-}
-cerrarModal(e){
+cerrarModal(c){
     $('#ModalContrasena').modal('hide');
-    e.stopPropagation();
+    c.stopPropagation();
 }
 
 componentDidMount() {
@@ -107,7 +98,7 @@ componentDidMount() {
                             minLength="8"
                             required
                             value={this.state.password}
-                            
+                            onChange={(e) => this.contrasenaHandler(e)}
                         />
                         </div>
 
@@ -117,7 +108,7 @@ componentDidMount() {
                         </div>
                         <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" className="btn btn-secondary" onClick={()=>this.mostrarAlerta(this.state.descripcionTipo)}>Siguiente</button>
+                        <button type="button" className="btn btn-secondary" href="#ModalCambioContrasena" onClick={this.verificarPasswd}>Siguiente</button>
                         </div>
                     </div>
                     </div>

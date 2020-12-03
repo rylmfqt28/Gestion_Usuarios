@@ -550,12 +550,12 @@ class ModifyAccount extends Component {
                   </div>
 
                   <div className="form-group">
-                    <b href="#ModalContrasena" data-toggle="modal">Contraseña: </b>
+                    <b data-toggle="modal">Contraseña: </b>
                     <input
                       type="password"
                       className="form-control"
                       size="60"
-                      placeholder="Ingrese su contraseña"
+                      placeholder="Para cambiar su contraseña haga click aquí"
                       name="password"
                       id="password"
                       minLength="8"

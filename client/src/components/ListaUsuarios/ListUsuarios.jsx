@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ListaUsuariosService from '../../Service/ListaUsuariosService';
 import TipoUser from '../../Service/TipoUser';
-import NavMenu from '../menuAdmin/NavMenu'
+import NavMenu from '../menuAdmin/NavMenu';
+import ModalInformacion from './ModalInformacion'
 
 class ListUsuarios extends Component{
     constructor(props){
@@ -35,7 +36,9 @@ class ListUsuarios extends Component{
                         {Usuario.usuarioNombre + " " + Usuario.usuarioApellido}        
                     </td>
                     <td>
-                        <button className="btn btn-info col-sm">ver usuario</button>
+                        <button className="btn btn-info col-sm"
+                        data-toggle="modal"
+                        data-target="#informacion">ver usuario</button>
                     </td>
                 </tr>
             );
@@ -81,9 +84,10 @@ class ListUsuarios extends Component{
                         </div>
                     </div>
                 </div>
+                <ModalInformacion/>
             </div>
         );
     }
 
 }
-export default ListUsuarios
+export default ListUsuarios;

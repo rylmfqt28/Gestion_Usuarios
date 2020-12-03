@@ -1,6 +1,5 @@
 import React,{Component} from 'react'
 import './modifyAccount.css'
-import swal from 'sweetalert'
 import $ from 'jquery'
 import PersonaService from '../../Service/PersonaService';
 

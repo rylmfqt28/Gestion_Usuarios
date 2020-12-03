@@ -46,6 +46,8 @@ public class TypeUserService {
             return null;
         }
     }
+    //Obtener Nombre de tipo de tipo de usuario
+    
 
     // Actualizar un tipo de usuario
     public void updateTypeUser(CrearTipo typeUser){

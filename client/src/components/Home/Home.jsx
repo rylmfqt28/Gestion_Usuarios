@@ -16,15 +16,17 @@ class Home extends Component {
     componentDidMount() {
 
     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
+    
     }
     render() {
         const Usuarios = this.state.Usuarios;
         return (
             <div>
+                
                 <NavMenu />
                 <br />
                 <div className='bienvenida'>
-                    <h1><b>Usuario Administrador</b></h1>
+                    <h1><b>Usuario: Administrador</b></h1>
                     <h2>Bienvenido: {Usuarios.nombre} {Usuarios.apellido}</h2>
                 </div>
 

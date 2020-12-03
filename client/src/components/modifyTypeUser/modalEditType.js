@@ -46,48 +46,39 @@ class ModalEditType extends Component{
 
 mostrarAlertaMaxL=(date)=>{
     if(date.length > 499){
-        swal("ERROR", "La descripción debe contener 500 caracteres como máximo.", "error");
+        swal("ERROR", "La descripción debe contener 500 caracteres como máximo modalEditType.", "error");
     }
 }
 
-      render(){
-        return(
-            
-            <div className="modal fade" id="modalEditType" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-lg">
-                    <div className="modal-content" id="VentanaEmergente">
-                        <div className="modal-header" id ="Encabezado">
-                       
-                        <h5 className="modal-title" style={{textTransform: 'uppercase'}}>Editar Tipo de Usuario: {this.props.crearTipo}</h5>  
-                    
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
+render() {
+    return (
+        <div className="modal fade" id="modalEditType" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-lg">
+                <div className="modal-content" id="ModalEditPermiso">
+                    <div className="modal-header" id="EncabezadoEditPermiso">
+                        <h5 className="modal-title">Editar Tipo de Usuario</h5>
 
-                        <div className="modal-body" id="Cuerpo">
-                          <textarea 
-                              id="campo"
-                              className="form-control"
-                              rows="8"
-                              placeholder="Ingrese el motivo de su Solicitud"
-                              name="descripcionTipo"
-                              type="text"
-                              onChange={event => this.valueToState(event.target)} 
-                              onKeyPress={()=>this.mostrarAlertaMaxL(this.state.descripcionTipo)}
-                          />
-                       
-                        </div>
-
-                        <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" className="btn btn-secondary" onClick={()=>this.mostrarAlerta(this.state.descripcionTipo)}>Aceptar</button>
+                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div className="modal-body" id="Cuerpo">
+                        <div className="row justify-content-md-center">
+                            <div className="col-9">
+                                <p><input className="form-control text-center" value={this.state.nombrePermiso} onChange={(e) => this.nombreHandler(e)}></input></p>
+                                <textarea className="form-control" id="textoArea" aria-label="With textarea" value={this.state.permisoDescripcion} onChange={(e) => this.descripcionHandler(e)}></textarea>
+                            </div>
                         </div>
                     </div>
+                    <div className="modal-footer justify-content-center" >
+                        <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" className="btn btn-outline-info" onClick={this.handleSave} >Guardar Cambios</button>
                     </div>
                 </div>
-        );
-    }
+            </div>
+        </div>
+    );
+}
 }
 export default ModalEditType;
 

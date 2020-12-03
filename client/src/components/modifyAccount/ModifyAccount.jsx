@@ -11,7 +11,7 @@ import TipoUser from '../../Service/TipoUser'
 import NavMenu from '../menuAdmin/NavMenu'
 
 import $ from 'jquery';
-
+import ModalContrasena from './ModalContrasena';
 
 class ModifyAccount extends Component {
   constructor(props) {
@@ -388,16 +388,6 @@ class ModifyAccount extends Component {
     }
   }
 
-  habilitarCampos() {
-    if (document.getElementById("habilitar").checked) {
-      $("#password").prop('disabled', false);
-      $("#confPassword").prop('disabled', false);
-    } else {
-      $("#password").prop('disabled', true);
-      $("#confPassword").prop('disabled', true);
-    }
-
-  }
   componentDidMount() {
 
     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
@@ -464,7 +454,7 @@ class ModifyAccount extends Component {
                       onKeyPress={this.validarNumerosCi}
                       onKeyDown={this.handleDeleteKeyCi}
                       onChange={this.handleInputChange}
-                      value={Usuarios.ci}
+                      value={Usuarios.CI}
                       required
 
                     />
@@ -558,27 +548,7 @@ class ModifyAccount extends Component {
                   </div>
 
                   <div className="form-group">
-                    <label className="form-check-label">
-                      <b className="habilita"> </b>
-                    </label>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        id="habilitar"
-                        name="habilitar"
-                        onChange={(e) => this.handleOnChange(e)}
-                        value="habilitado"
-                        onClick={this.habilitarCampos}
-                      />
-
-                      <label className="form-check-label"> Habilitar cambio de contraseña</label>
-                    </div>
-
-                  </div>
-
-                  <div className="form-group">
-                    <b>Contraseña:</b>
+                    <b href="#ModalContrasena" data-toggle="modal">Contraseña: </b>
                     <input
                       type="password"
                       className="form-control"
@@ -593,26 +563,12 @@ class ModifyAccount extends Component {
                       onChange={this.handleInputChange}
                       value={this.state.password}
                       disabled
+                      onClick="location.href='#ModalContrasena'"
                     />
                   </div>
-                  <div className="form-group"><b>Confirmar contraseña:</b>
-                    <input
-                      type="password"
-                      className="form-control"
-                      size="60"
-                      placeholder="Confirme su contraseña"
-                      name="confPassword"
-                      id="confPassword"
-                      minLength="8"
-                      onKeyPress={this.validarContraseña}
-                      onKeyDown={this.handleDeleteKeyConfPassword}
-                      onChange={this.handleInputChange}
-                      value={this.state.confPassword}
-                      required
-                      disabled
-                    /></div>
 
                   <br />
+                  
                   <div className="contenedor-btn">
 
                     <Link className="btn btn-cancelar" value="Login" type="reset" to="/" >Cancelar</Link>
@@ -631,6 +587,7 @@ class ModifyAccount extends Component {
               </form>
             </div>
           </div>
+          <ModalContrasena/>
         </div >
       </div >
     )

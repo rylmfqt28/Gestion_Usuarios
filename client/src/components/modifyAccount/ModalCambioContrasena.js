@@ -105,9 +105,9 @@ componentDidMount() {
                             name="confPassword"
                             id="confPassword"
                             minLength="8"
-                            onKeyPress={this.validarContraseña}
                             onKeyDown={this.handleDeleteKeyConfPassword}
-                            onChange={this.handleInputChange}
+                            onChange={event => this.valueToState(event.target)} 
+                            onKeyPress={()=>this.mostrarAlertaMaxL(this.state.descripcionTipo)}
                             value={this.state.confPassword}
                             required
                         /></div>

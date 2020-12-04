@@ -3,6 +3,7 @@ import ListaUsuariosService from '../../Service/ListaUsuariosService';
 import TipoUser from '../../Service/TipoUser';
 import NavMenu from '../menuAdmin/NavMenu';
 import ModalInformacion from './ModalInformacion'
+import './ListUsuarios.css'
 
 class ListUsuarios extends Component{
     constructor(props){
@@ -32,11 +33,11 @@ class ListUsuarios extends Component{
         const Usuarios = this.state.usuarios.map((Usuario,index)=>{
             return(
                 <tr key={index}>
-                    <td>
+                    <td className="col-sm-6">
                         {Usuario.usuarioNombre + " " + Usuario.usuarioApellido}        
                     </td>
-                    <td>
-                        <button className="btn btn-info col-sm"
+                    <td className="col-sm-6" align="center">
+                        <button className="btn btn-info"
                         data-toggle="modal"
                         data-target="#informacion">ver usuario</button>
                     </td>
@@ -65,24 +66,19 @@ class ListUsuarios extends Component{
                         </select>
                     </div>
                 </form>
-                <div className="row">
-                    <div className="table-responsive">
-
-                        <div className="containerTabla">
-                            <table className="table"  id="lista">
+                <div className="row" id="list">
+                            <table className="table-default table-striped" >
                                 <thead>
                                     <tr>
-                                        <th scope="col">Nombre de Usuario</th>
-                                        <th scope="col">Informacion</th>
+                                        <th className="col-sm-6">Nombre de Usuario</th>
+                                        <th className="col-sm-6">Informacion</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
-                                    {Usuarios}
+                                    {Usuarios} 
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
+                    
                 </div>
                 <ModalInformacion/>
             </div>

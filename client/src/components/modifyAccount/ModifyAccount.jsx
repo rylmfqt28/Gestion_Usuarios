@@ -9,6 +9,7 @@ import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser'
 import NavMenu from '../menuAdmin/NavMenu'
+import NavMenuUser from '../menuAdmin/NavMenuUser';
 
 import $ from 'jquery';
 import ModalContrasena from './ModalContrasena';
@@ -42,156 +43,149 @@ class ModifyAccount extends Component {
   }
 
   validarNombre = (event) => {
-    if(event.target.value[0]!==" "){
-    if(event.target.value.length !== 51){
-          if(event.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null)
-          {
-            this.setState({nombre: event.target.value})
-            this.setState({validate: true})
-          }else{
-             this.setState({validate: false})
-             console.log(false)
-      }
-      }else{
-          alert("El maximo de caracteres es de 50")
+    if (event.target.value[0] !== " ") {
+      if (event.target.value.length !== 51) {
+        if (event.target.value.match("^[Ññíóáéú a-zA-Z ]*$") != null) {
+          this.setState({ nombre: event.target.value })
+          this.setState({ validate: true })
+        } else {
+          this.setState({ validate: false })
+          console.log(false)
+        }
+      } else {
+        alert("El maximo de caracteres es de 50")
       }
 
-      }else{
-        alert("El nombre debe empezar con un caracter")
+    } else {
+      alert("El nombre debe empezar con un caracter")
     }
 
   }
   validarApellido = (event) => {
-   
-    if(event.target.value[0]!==" "){
-      if(event.target.value.length !== 51){
-            if(event.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null)
-            {
-              this.setState({apellido: event.target.value})
-              this.setState({validate: true})
-            }else{
-               this.setState({validate: false})
-               console.log(false)
+
+    if (event.target.value[0] !== " ") {
+      if (event.target.value.length !== 51) {
+        if (event.target.value.match("^[Ññíóáéú a-zA-Z ]*$") != null) {
+          this.setState({ apellido: event.target.value })
+          this.setState({ validate: true })
+        } else {
+          this.setState({ validate: false })
+          console.log(false)
         }
-        }else{
-            alert("El maximo de caracteres es de 50")
-        }
-  
-        }else{
-          alert("El nombre debe empezar con un caracter")
+      } else {
+        alert("El maximo de caracteres es de 50")
       }
 
+    } else {
+      alert("El nombre debe empezar con un caracter")
+    }
+
   }
- 
+
   validarNumerosCi = (event) => {
-    if(event.target.value[0]!==" "  ){
-      if(event.target.value.length !== 9){
-            if(event.target.value.match("^[1234567890]*$")!=null)
-            {
-              this.setState({ci: event.target.value})
-              this.setState({validate: true})
-            }else{
-               this.setState({validate: false})
-               console.log(false)
+    if (event.target.value[0] !== " ") {
+      if (event.target.value.length !== 9) {
+        if (event.target.value.match("^[1234567890]*$") != null) {
+          this.setState({ ci: event.target.value })
+          this.setState({ validate: true })
+        } else {
+          this.setState({ validate: false })
+          console.log(false)
         }
-        }else{
-            alert("El maximo de números es de 9")
-        }
-  
-        }else{
-          alert("El ci debe empezar con un numero")
+      } else {
+        alert("El maximo de números es de 9")
       }
-   
+
+    } else {
+      alert("El ci debe empezar con un numero")
+    }
+
   }
-  validarMinCi=(event)=>{
-    if(event.target.value.length<3){
+  validarMinCi = (event) => {
+    if (event.target.value.length < 3) {
       alert("Minimo de 3 numeros")
     }
 
   }
-  
+
   validarDir = (event) => {
-    if(event.target.value[0]!==" "){
-      if(event.target.value.length !== 250){
-            if(event.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null)
-            {
-              this.setState({direccion: event.target.value})
-              this.setState({validate: true})
-            }else{
-               this.setState({validate: false})
-               console.log(false)
+    if (event.target.value[0] !== " ") {
+      if (event.target.value.length !== 250) {
+        if (event.target.value.match("^[Ññíóáéú a-zA-Z ]*$") != null) {
+          this.setState({ direccion: event.target.value })
+          this.setState({ validate: true })
+        } else {
+          this.setState({ validate: false })
+          console.log(false)
         }
-        }else{
-            alert("El maximo de caracteres es de 250")
-        }
-  
-        }else{
-          alert("El campo debe empezar con un caracter")
+      } else {
+        alert("El maximo de caracteres es de 250")
       }
+
+    } else {
+      alert("El campo debe empezar con un caracter")
+    }
   }
-  
+
 
   validarCorreo = (event) => {
-    if(event.target.value[0]!==" "){
-      if(event.target.value.length !== 200){
-            if(event.target.value.match("^[Ññíóáéú@.1234567890-_ a-zA-Z ]*$")!=null)
-            {
-              this.setState({correo: event.target.value})
-              this.setState({validate: true})
-            }else{
-               this.setState({validate: false})
-               console.log(false)
+    if (event.target.value[0] !== " ") {
+      if (event.target.value.length !== 200) {
+        if (event.target.value.match("^[Ññíóáéú@.1234567890-_ a-zA-Z ]*$") != null) {
+          this.setState({ correo: event.target.value })
+          this.setState({ validate: true })
+        } else {
+          this.setState({ validate: false })
+          console.log(false)
         }
-        }else{
-            alert("El maximo de caracteres es de 200")
-        }
-  
-        }else{
-          alert("El campo debe empezar con un caracter")
+      } else {
+        alert("El maximo de caracteres es de 200")
       }
+
+    } else {
+      alert("El campo debe empezar con un caracter")
+    }
 
 
   }
   validarNumerosTelefono = (event) => {
-    if(event.target.value[0]!==" "  ){
-      if(event.target.value.length !== 8){
-            if(event.target.value.match("^[1234567890]*$")!=null)
-            {
-              this.setState({telefono: event.target.value})
-              this.setState({validate: true})
-            }else{
-               this.setState({validate: false})
-               console.log(false)
+    if (event.target.value[0] !== " ") {
+      if (event.target.value.length !== 8) {
+        if (event.target.value.match("^[1234567890]*$") != null) {
+          this.setState({ telefono: event.target.value })
+          this.setState({ validate: true })
+        } else {
+          this.setState({ validate: false })
+          console.log(false)
         }
-        }else{
-            alert("El maximo de números es de 8")
-        }
-  
-        }else{
-          alert("El teléfono debe empezar con un numero")
+      } else {
+        alert("El maximo de números es de 8")
       }
-   
+
+    } else {
+      alert("El teléfono debe empezar con un numero")
+    }
+
 
   }
 
   validarNombreUsuario = (event) => {
-    if(event.target.value[0]!==" "  ){
-      if(event.target.value.length !== 15){
-            if(event.target.value.match("^[Ññíóáéú@. a-zA-Z ]*$")!=null)
-            {
-              this.setState({userName: event.target.value})
-              this.setState({validate: true})
-            }else{
-               this.setState({validate: false})
-               console.log(false)
+    if (event.target.value[0] !== " ") {
+      if (event.target.value.length !== 15) {
+        if (event.target.value.match("^[Ññíóáéú@. a-zA-Z ]*$") != null) {
+          this.setState({ userName: event.target.value })
+          this.setState({ validate: true })
+        } else {
+          this.setState({ validate: false })
+          console.log(false)
         }
-        }else{
-            alert("El maximo de carateres es de 15")
-        }
-  
-        }else{
-          alert("El Nombre de usuario debe empezar con un caracter")
+      } else {
+        alert("El maximo de carateres es de 15")
       }
+
+    } else {
+      alert("El Nombre de usuario debe empezar con un caracter")
+    }
   }
 
   validarContraseña = (event) => {
@@ -409,15 +403,24 @@ class ModifyAccount extends Component {
 
     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
   }
-  redireccionar(){
+  redireccionar() {
     $("#ModalContrasena").modal('show')
   }
   render() {
     const Usuarios = this.state.Usuarios;
+
+    function showMenu(props) {
+      if (sessionStorage.getItem("nombreTipo") === 'Administrador') {
+        return <NavMenu />
+      }
+      else {
+        return <NavMenuUser />
+      }
+    }
     return (
 
       <div>
-        <NavMenu />
+        {showMenu()}
         <div className="col" align="center">
           <div>
             <div className="form-register">
@@ -438,7 +441,7 @@ class ModifyAccount extends Component {
                     size="60"
                     placeholder="Ingrese sus nombres"
                     name="nombre"
-                    
+
                     onChange={(e) => this.validarNombre(e)}
                     value={this.state.nombre}
                     required
@@ -453,8 +456,8 @@ class ModifyAccount extends Component {
                       placeholder="Ingrese su Apellidos"
                       name="apellido"
                       onChange={(e) => this.validarApellido(e)}
-                      
-        
+
+
                       value={this.state.apellido}
                       required
                     />
@@ -468,7 +471,7 @@ class ModifyAccount extends Component {
                       size="60"
                       placeholder="Ingrese su cédula de identidad"
                       name="ci"
-                    
+
                       minLength="7"
                       onChange={(e) => this.validarNumerosCi(e)}
                       value={this.state.ci}
@@ -521,7 +524,7 @@ class ModifyAccount extends Component {
                       size="60"
                       minLength="3"
                       placeholder="Ingrese su dirección de correo"
-                      name="correo" 
+                      name="correo"
                       onChange={(e) => this.validarCorreo(e)}
                       value={this.state.correo}
                       pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
@@ -551,7 +554,7 @@ class ModifyAccount extends Component {
                       placeholder="Ingrese su nombre de usuario"
                       name="userName"
                       minLength="5"
-                      
+
                       onChange={(e) => this.validarNombreUsuario(e)}
                       value={this.state.userName}
                       required
@@ -578,7 +581,7 @@ class ModifyAccount extends Component {
                   </div>
 
                   <br />
-                  
+
                   <div className="contenedor-btn">
 
                     <Link className="btn btn-cancelar" value="Login" type="reset" to="/" >Cancelar</Link>
@@ -597,7 +600,7 @@ class ModifyAccount extends Component {
               </form>
             </div>
           </div>
-          <ModalContrasena/>
+          <ModalContrasena />
         </div >
       </div >
     )

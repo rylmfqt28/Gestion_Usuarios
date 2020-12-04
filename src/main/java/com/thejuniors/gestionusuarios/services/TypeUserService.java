@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.thejuniors.gestionusuarios.model.CrearTipo;
+import com.thejuniors.gestionusuarios.model.TipoUserName;
 
 @Component
 public class TypeUserService {
@@ -42,6 +43,32 @@ public class TypeUserService {
         });
         if(typeUserList != null){
             return typeUserList;
+        }else{
+            return null;
+        }
+    }
+    //Obtener Nombre de tipo de tipo de usuario
+    public TipoUserName buscarNombreTipo(String ci){
+        TipoUserName user = jdbcTemplate.query(new PreparedStatementCreator(){
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps = con.prepareStatement("select tipoUsuarioNombre from TipoUsuario where tipoUsuarioID=(select tipoUsuarioID from UsuarioTipoUsuario where CI=?)");
+                ps.setString(1, ci);
+                return ps;
+            }
+        }, new ResultSetExtractor<TipoUserName>(){
+            @Override
+            public TipoUserName extractData(ResultSet rs) throws SQLException{
+                if (rs.next()){
+                    TipoUserName user = new TipoUserName(rs.getString("tipoUsuarioNombre"));
+                    return user;
+                } else{
+                    return null;
+                }
+            }
+        });
+        if(user != null){
+            return user;
         }else{
             return null;
         }

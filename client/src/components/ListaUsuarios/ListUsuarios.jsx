@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
+import ListaUsuariosService from '../../Service/ListaUsuariosService';
 import TipoUser from '../../Service/TipoUser';
-import NavMenu from '../menuAdmin/NavMenu'
+import NavMenu from '../menuAdmin/NavMenu';
+import ModalInformacion from './ModalInformacion'
 
 class ListUsuarios extends Component{
     constructor(props){
      super(props);
      this.state = {
         tipoUsuario : [],
-        usuarios : ["roger","zusana","Dani","Nicol"]
+        usuarios : []
      }   
+     this.UpdateList = this.UpdateList.bind(this)
     }
 
     componentDidMount(){
         TipoUser.getAll().then(data => this.setState({tipoUsuario : data}))
+        ListaUsuariosService.getAllListaUsers().then(data => this.setState({usuarios: data}))
+    }
+
+    UpdateList(e){
+        console.log(e.target.value)
+        if(e.target.value===" "){
+            ListaUsuariosService.getAllListaUsers().then(data => this.setState({usuarios: data}))
+        }else{
+            ListaUsuariosService.getListaTipoUser(e.target.value).then(data => this.setState({usuarios : data}))
+        }
     }
 
     render(){
@@ -20,10 +33,12 @@ class ListUsuarios extends Component{
             return(
                 <tr key={index}>
                     <td>
-                        {Usuario}        
+                        {Usuario.usuarioNombre + " " + Usuario.usuarioApellido}        
                     </td>
                     <td>
-                        <button className="btn btn-info col-sm">ver usuario</button>
+                        <button className="btn btn-info col-sm"
+                        data-toggle="modal"
+                        data-target="#informacion">ver usuario</button>
                     </td>
                 </tr>
             );
@@ -40,7 +55,7 @@ class ListUsuarios extends Component{
                         <label>Ver usuarios de tipo:  </label>
                     </div>
                     <div className="col-sm-3">
-                        <select className="form-control form-control-sm" >
+                        <select className="form-control form-control-sm" onChange={this.UpdateList}>
                             <option value=" " >{"---"}</option>
                             {
                                 this.state.tipoUsuario.map((tipoUsuario,index)=>(
@@ -69,9 +84,10 @@ class ListUsuarios extends Component{
                         </div>
                     </div>
                 </div>
+                <ModalInformacion/>
             </div>
         );
     }
 
 }
-export default ListUsuarios
+export default ListUsuarios;

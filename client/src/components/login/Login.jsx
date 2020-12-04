@@ -19,7 +19,7 @@ window.onload = timeout;
 const Login = () => {
 
   const [datos, setDatos] = useState({
-    CI:'',
+    CI: '',
     username: '',
     password: '',
     isChecked: false,
@@ -63,27 +63,12 @@ const Login = () => {
   //funcion que permite direccionear
   function ingersar(rol) {
 
-    switch (rol) {
 
-      case 'Administrador':
+    sessionStorage.setItem("ci", datos.CI);
+    sessionStorage.setItem("nombreTipo", rol);
+    window.location.pathname = '/home';
+    sessionStorage.setItem("authToken", true);
 
-        /*<Home
-        CI= {this.datos.CI}
-         
-        />*/
-        sessionStorage.setItem("ci", datos.CI);
-        window.location.pathname = '/home';
-        sessionStorage.setItem("authToken", true);
-        break;
-      case '2':
-        //ventana de cliente
-        break;
-      default:
-        //no hacer nada
-        break;
-
-
-    }
 
   }
   const startButtonEvent = async (event) => {
@@ -94,10 +79,10 @@ const Login = () => {
       const res = await axios.get('/api/user/' + datos.username);
       if (res.data !== null) {
         if (res.data.nombreUsuario === datos.username && res.data.password === datos.password) {
-          
+
           if (res.data.nombreEstado === "Habilitado") {
             //redireccionar a la pagina de crear usuario
-            datos.CI=res.data.CI;
+            datos.CI = res.data.CI;
             document.getElementById('avisoValido').style.display = "block";
             document.getElementById('avisoVacio').style.display = "none";
             document.getElementById('avisoNo').style.display = "none";
@@ -105,7 +90,7 @@ const Login = () => {
             document.getElementById('avisoReachazado').style.display = "none";
             document.getElementById('avisoDeshabilitado').style.display = "none";
             ingersar(res.data.tipoUsuarioNombre);
-          
+
           } else {
             if (res.data.nombreEstado === "Pendiente") {
               document.getElementById('avisoValido').style.display = "none";

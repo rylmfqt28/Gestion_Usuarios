@@ -51,6 +51,13 @@ class ModalCambioContrasena extends Component{
             alert("El campo confirmar contraseña debe contener al menos 8 caracteres.")
         }
     }
+    
+    limpiarCampos() {
+        this.setState({
+            password: '',
+        });
+    
+    }
 componentDidMount() {
 
     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));

@@ -58,7 +58,7 @@ class ModalEditType extends Component {
                 this.props.saveDetails();
                 
             }else{
-                alert("el nombre debe contener un minimo de 4 caracteres")
+                alert("el campo nombre debe contener un minimo de 4 caracteres")
             } 
         }else{
             alert("el campo nombre no debe estar vacio")

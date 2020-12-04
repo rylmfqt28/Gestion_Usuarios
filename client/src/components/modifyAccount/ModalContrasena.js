@@ -40,7 +40,12 @@ class ModalContrasena extends Component{
             alert("La contraseña debe contener al menos 8 caracteres.")
         }
     }
-
+    validarMinPass=(event)=>{
+        if(event.target.value.length<8){
+          alert("La contraseña debe contener al menos 8 caracteres.")
+        }
+    
+      }
 cerrarModal(c){
     $('#ModalContrasena').modal('hide');
     c.stopPropagation();

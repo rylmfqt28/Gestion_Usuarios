@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.thejuniors.gestionusuarios.model.CrearTipo;
+import com.thejuniors.gestionusuarios.model.TipoUserName;
 
 @Component
 public class TypeUserService {
@@ -47,7 +48,31 @@ public class TypeUserService {
         }
     }
     //Obtener Nombre de tipo de tipo de usuario
-    
+    public TipoUserName buscarUsuario(String ci){
+        TipoUserName user = jdbcTemplate.query(new PreparedStatementCreator(){
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement ps = con.prepareStatement("select CI, usuarioNombre, usuarioApellido from Usuario where CI=?");
+                ps.setString(1, ci);
+                return ps;
+            }
+        }, new ResultSetExtractor<TipoUserName>(){
+            @Override
+            public TipoUserName extractData(ResultSet rs) throws SQLException{
+                if (rs.next()){
+                    TipoUserName user = new TipoUserName(rs.getString("CI"));
+                    return user;
+                } else{
+                    return null;
+                }
+            }
+        });
+        if(user != null){
+            return user;
+        }else{
+            return null;
+        }
+    }
 
     // Actualizar un tipo de usuario
     public void updateTypeUser(CrearTipo typeUser){

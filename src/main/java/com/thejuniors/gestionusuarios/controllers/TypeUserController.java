@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.thejuniors.gestionusuarios.model.CrearTipo;
 import com.thejuniors.gestionusuarios.services.TypeUserService;
+import com.google.gson.Gson;
 
 @RestController
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT, RequestMethod.DELETE})
@@ -21,6 +22,9 @@ public class TypeUserController {
     
     @Autowired
     TypeUserService typeUserService;
+
+    @Autowired
+    Gson gson;
 
     // Devuelve la lista de todos los tipos de usuario existentes
     @GetMapping(value="/api/allTypeUsers", produces={"application/json"})
@@ -39,5 +43,10 @@ public class TypeUserController {
     public void updateUserTypeData(@RequestBody CrearTipo typeUser){
         typeUserService.updateTypeUser(typeUser);
     }
-
+    
+    //Obtener el nombre del Tipo de usuario
+    @GetMapping(value="/api/nameType/{ci}", produces={"application/json"})
+    public String login(@PathVariable("ci") String ci){
+        return gson.toJson(typeUserService.buscarNombreTipo(ci));
+    }
 }

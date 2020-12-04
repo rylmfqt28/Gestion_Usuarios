@@ -48,7 +48,7 @@ public class TypeUserService {
         }
     }
     //Obtener Nombre de tipo de tipo de usuario
-    public TipoUserName buscarUsuario(String ci){
+    public TipoUserName buscarNombreTipo(String ci){
         TipoUserName user = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {

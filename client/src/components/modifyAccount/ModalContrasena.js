@@ -21,6 +21,7 @@ class ModalContrasena extends Component{
 
                 if (this.state.password.length < 8) {
                     alert("La contraseña debe contener al menos 8 caracteres.")
+                    this.limpiarCampos();
                 } else {
                     //const res = await axios.get('/api/permiso/' + this.state.password.trim());
                     this.redireccionar();
@@ -123,7 +124,7 @@ componentDidMount() {
                         </div>
                         <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" className="btn btn-secondary" href="#ModalCambioContrasena" onClick={this.verificarPasswd}>Siguiente</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.verificarPasswd}>Siguiente</button>
                         </div>
                     </div>
                     </div>

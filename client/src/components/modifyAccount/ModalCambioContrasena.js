@@ -23,7 +23,7 @@ class ModalCambioContrasena extends Component{
                 if (this.state.password.length < 8 || this.state.confPassword.length < 8) {
                     alert("Las contraseñas deben contener al menos 8 caracteres.")
                 } else {
-                    if(this.state.password.length !== this.state.confPassword.length){
+                    if(this.state.password !== this.state.confPassword){
                     alert("Las contraseñas no coinciden")
                     }else{
                         alert("Se cambio la contraseña exitosamente")
@@ -52,6 +52,12 @@ class ModalCambioContrasena extends Component{
         }
     }
     
+    limpiarCampos() {
+        this.setState({
+            password: '',
+        });
+    
+    }
 
 componentDidMount() {
 

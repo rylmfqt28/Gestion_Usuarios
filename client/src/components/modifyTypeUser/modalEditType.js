@@ -53,7 +53,7 @@ class ModalEditType extends Component {
     handleSave(){
         if(this.state.validate && this.state.crearTipo!==""){
             if(this.state.crearTipo.length>=4){
-                this.saveChanges();
+              //  this.saveChanges();
                 
                 this.props.saveDetails();
                 
@@ -65,28 +65,7 @@ class ModalEditType extends Component {
         }
     }
 
-    saveChanges = async () => {
-        try {
-            if (this.state.tipoUsuarioID !== 0)
-                try {
-                    const resp = await axios.put("http://localhost:8080/api/actualizarPermiso/" + this.props.tipoUsuarioID, {
-                        crearTipo: this.state.crearTipo,
-                        descripcionTipo: this.state.descripcionTipo,
-
-                    })
-                    console.log(resp);
-                    alert('Se guardaron los cambios con exito');
-                } catch (err) {
-                    // Handle Error Here
-                    console.error(err);
-                }
-
-        } catch (error) {
-            console.log(error);
-        }
-
-    }
-
+    
 
 
     render() {

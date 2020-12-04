@@ -13,21 +13,24 @@ class ModalCambioContrasena extends Component{
             confPassword: '',           
         }
         this.contrasenaHandler = this.contrasenaHandler.bind(this)
+        this.confContrasenaHandler = this.confContrasenaHandler.bind(this)
     }
     
-    verificarPasswd = async () => {
+    verificarCampos = async () => {
         try {
-            if (this.state.password.trim() !== '') {
+            if (this.state.password.trim() !== '' && this.state.confPassword.trim() !=='') {
 
-                if (this.state.password.length < 8) {
-                    alert("La contraseña debe contener al menos 8 caracteres.")
+                if (this.state.password.length < 8 || this.state.confPassword.length < 8) {
+                    alert("Las contraseñas deben contener al menos 8 caracteres.")
                 } else {
-                    //const res = await axios.get('/api/permiso/' + this.state.password.trim());
-
-                    //console.log(res.data);
+                    if(this.state.password.length !== this.state.confPassword.length){
+                    alert("Las contraseñas no coinciden")
+                    }else{
+                        alert("Se cambio la contraseña exitosamente")
+                    }
                 }
             }else{
-                alert('El campo contraseña es obligatorio');
+                alert('Existen campos vacios, intente nuevamente');
             }
         } catch (error) {
             console.log(error);
@@ -101,7 +104,7 @@ componentDidMount() {
                             name="confPassword"
                             id="confPassword"
                             minLength="8"
-                            onChange={(e) => this.contrasenaHandler(e)}
+                            onChange={(e) => this.confContrasenaHandler(e)}
                             value={this.state.confPassword}
                             required
                         /></div>
@@ -110,7 +113,7 @@ componentDidMount() {
                         </div>
                         <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.verificarPasswd}>Cambiar la contraseña</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.verificarCampos}>Cambiar la contraseña</button>
                         </div>
                     </div>
                     </div>

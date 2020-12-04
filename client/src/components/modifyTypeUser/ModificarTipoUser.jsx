@@ -19,6 +19,7 @@ class ModificarTipoUser extends Component {
             listUserTypes: []
         };
 
+        this.updateList = this.updateList.bind(this)
         this.updateListUserTypes = this.updateListUserTypes.bind(this);
     }
 
@@ -33,6 +34,9 @@ class ModificarTipoUser extends Component {
     updateListUserTypes = async() =>{
         const data = await TypeUser.getAllUserTypes();
         this.setState({listUserTypes: data});
+    }
+    updateList() {   
+            TypeUser.getAllUserTypes().then(data=>this.setState({listUserTypes: data}))
     }
 
     render() {
@@ -109,14 +113,14 @@ class ModificarTipoUser extends Component {
              tipoUsuarioID={this.state.permiso.tipoUsuarioID}
              crearTipo={this.state.permiso.crearTipo}
              descripcionTipo={this.state.permiso.descripcionTipo}
-             updateListUserTypes ={this.updateListUserTypes}
+             updateList ={this.updateList}
             
             />
 
             <ModalEliminarPermiso 
               tipoUsuarioID={this.state.permiso.tipoUsuarioID}
               crearTipo={this.state.permiso.crearTipo}
-              updateListUserTypes ={this.updateListUserTypes}
+              updateList ={this.updateList}
             />
             
             </div >

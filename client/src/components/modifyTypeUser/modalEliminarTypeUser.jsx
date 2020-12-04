@@ -16,24 +16,16 @@ class ModalEliminarPermiso extends Component{
     handleErase(){
         if(this.state.validate){
 
-          this.remove(this.props.tipoUsuarioID);
-     
-            $(function(){ 
-                $("#erasePermisoTypeUse").modal('hide')  
-                alert("Se elimino el tipo de Usuario!")
-               
-            })
-        }else{
-            alert("incorrecto")
+          this.remove(this.props.tipoUsuarioID);  
         }
        
     }
     remove(tipoUsuarioID){
         
-        TypeUser.deletePermisoTypeUser(tipoUsuarioID);   
-        this.props.updateListUserTypes();
-        this.props.updateListUserTypes();
-       
+        TypeUser.deletePermisoTypeUser(tipoUsuarioID);  
+        $('#erasePermisoTypeUser').modal('hide')
+        this.props.updateList();
+        this.props.updateList();
     }
    
     

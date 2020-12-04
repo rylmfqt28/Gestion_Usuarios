@@ -3,6 +3,7 @@ import ListaUsuariosService from '../../Service/ListaUsuariosService';
 import TipoUser from '../../Service/TipoUser';
 import NavMenu from '../menuAdmin/NavMenu';
 import ModalInformacion from './ModalInformacion'
+import './ListUsuarios.css'
 
 class ListUsuarios extends Component{
     constructor(props){
@@ -32,10 +33,10 @@ class ListUsuarios extends Component{
         const Usuarios = this.state.usuarios.map((Usuario,index)=>{
             return(
                 <tr key={index}>
-                    <td>
+                    <td className="col-sm-6">
                         {Usuario.usuarioNombre + " " + Usuario.usuarioApellido}        
                     </td>
-                    <td>
+                    <td className="col-sm-6">
                         <button className="btn btn-info col-sm"
                         data-toggle="modal"
                         data-target="#informacion">ver usuario</button>
@@ -69,11 +70,11 @@ class ListUsuarios extends Component{
                     <div className="table-responsive">
 
                         <div className="containerTabla">
-                            <table className="table"  id="lista">
+                            <table className="table table-fixed">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Nombre de Usuario</th>
-                                        <th scope="col">Informacion</th>
+                                        <th scope="col-sm-6">Nombre de Usuario</th>
+                                        <th scope="col-sm-6">Informacion</th>
                                     </tr>
                                 </thead>
 

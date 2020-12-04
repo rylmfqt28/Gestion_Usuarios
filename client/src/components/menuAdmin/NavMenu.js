@@ -10,6 +10,7 @@ const BarraMenu = props => {
     const salir = () => {
         sessionStorage.removeItem("authToken");
         sessionStorage.removeItem("ci");
+        sessionStorage.removeItem("nombreTipo");
     }
     const mostrarMenu=()=> {
         //var btnMenu = document.getElementById('btn-menu');
@@ -34,7 +35,7 @@ const BarraMenu = props => {
                     <ul className="menu">
                         <div className="menu__item"><Link className="menu__link" to="/modifyAccount">Administrar cuenta</Link></div>
                         <div className="menu__item"><Link className="menu__link" to="/crearTipoUsuario">Crear tipo de usuario</Link></div>
-                        <div className="menu__item"><Link className="menu__link" to="/lista">Lista de usuarios</Link></div>
+                        <div className="menu__item"><Link className="menu__link" to="/listUsuarios">Lista de usuarios</Link></div>
                         <div className="menu__item"><Link className="menu__link" to="/modifyTypeUser">Modificar tipo de usuario</Link></div>
                         <div className="menu__item"><Link className="menu__link" to="/solicitudes">Solicitudes</Link></div>
                         <div className="menu__item"><Link className="menu__link" to="/administrarPermisos">Administrar permisos</Link></div>

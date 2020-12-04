@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import $ from 'jquery'
 
 class ModalEditType extends Component {
     constructor(props) {
@@ -53,19 +54,48 @@ class ModalEditType extends Component {
     handleSave(){
         if(this.state.validate && this.state.crearTipo!==""){
             if(this.state.crearTipo.length>=4){
-              //  this.saveChanges();
-                
-                this.props.saveDetails();
+                this.saveChanges();                
+                this.saveDetails();
                 
             }else{
-                alert("el campo nombre debe contener un minimo de 4 caracteres")
+                alert("el campo nombre de tipo usuario debe contener un minimo de 4 caracteres")
             } 
         }else{
-            alert("el campo nombre no debe estar vacio")
+            alert("el campo nombre de tipo usuario no debe estar vacio")
         }
     }
+    saveChanges = async () => {
 
-    
+        try {
+            if (this.state.crearTipo.trim() !== '' && this.state.descripcionTipo.trim() !== '') {
+                const res = await axios.get('/api/type/' + this.state.crearTipo.trim());
+                console.log(res.data);
+                if (res.data === null) {
+                   //Aqui Api para guardar datos
+                    alert("Se edito el tipo de usuario Exitosamente");
+                   ;
+                } else {
+                    alert("El tipo de usuario ya existe");
+                    console.log("El usuario ya existe");
+                }
+            } else {
+
+                alert("Existen campos vacíos, rellenar los campos restantes");
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+   
+    saveDetails(){
+        $("#modalEditType").modal("hide");
+        this.props.updateListUserTypes();
+        this.props.updateListUserTypes();
+        this.props.updateListUserTypes();
+    }
 
 
     render() {

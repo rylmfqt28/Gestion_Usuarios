@@ -52,7 +52,7 @@ public class TypeUserService {
         TipoUserName user = jdbcTemplate.query(new PreparedStatementCreator(){
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
-                PreparedStatement ps = con.prepareStatement("select CI, usuarioNombre, usuarioApellido from Usuario where CI=?");
+                PreparedStatement ps = con.prepareStatement("select tipoUsuarioNombre from TipoUsuario where tipoUsuarioID=(select tipoUsuarioID from UsuarioTipoUsuario where CI=?)");
                 ps.setString(1, ci);
                 return ps;
             }
@@ -60,7 +60,7 @@ public class TypeUserService {
             @Override
             public TipoUserName extractData(ResultSet rs) throws SQLException{
                 if (rs.next()){
-                    TipoUserName user = new TipoUserName(rs.getString("CI"));
+                    TipoUserName user = new TipoUserName(rs.getString("tipoUsuarioNombre"));
                     return user;
                 } else{
                     return null;

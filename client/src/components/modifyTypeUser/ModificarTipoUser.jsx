@@ -1,16 +1,41 @@
 import ModalEditType from './modalEditType.js';
+import ModalEliminarPermiso from './modalEliminarTypeUser.jsx';
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import "./ModificarTipoUsuario.css";
 
+import TypeUser from '../../Service/tyUserService'
+
 import NavMenu from '../menuAdmin/NavMenu'
 
 class ModificarTipoUser extends Component {
 
-    render() {
+    constructor(props){
+        super(props);
+        this.state = {
+            permiso: {},
+            listUserTypes: []
+        };
 
+        this.updateListUserTypes = this.updateListUserTypes.bind(this);
+    }
+
+    replaceModalItem(typeUser) {
+        this.setState({ permiso: typeUser })
+        console.log(typeUser)
+    }
+    componentDidMount(){
+        this.updateListUserTypes();
+    }
+
+    updateListUserTypes = async() =>{
+        const data = await TypeUser.getAllUserTypes();
+        this.setState({listUserTypes: data});
+    }
+
+    render() {
 
         return (
 
@@ -40,57 +65,37 @@ class ModificarTipoUser extends Component {
                                                     <th scope="col">Opciones</th>
                                                 </tr>
                                             </thead>
+
                                             <tbody >
                                                 {/* Lista de tipo usuarios estatica */}
-                                                <tr >
+                                                {
+                                                    this.state.listUserTypes.map((typeUser,index)=>(
+                                                        <tr key={index}>
+                                                            <td>{typeUser.crearTipo}</td>
 
-                                                    <td>Vendedor</td>
+                                                            <td>
 
-                                                    <td>
+                                                                <button
+                                                                className="btn btn-default btn-sm"
+                                                                data-toggle="modal"
+                                                                data-target="#modalEditType"
+                                                                onClick=""
+                                                                >
+                                                                <FontAwesomeIcon icon={faEdit} style={{ fontSize: "20px" }}></FontAwesomeIcon>
+                                                                </button>{' '}
 
-                                                        <button
-                                                            className="btn btn-default btn-sm"
-                                                            //data-toggle="modal"
-                                                            //data-target="#editPermiso"
-                                                            onClick=""
-                                                        >
-                                                            <FontAwesomeIcon icon={faEdit} style={{ fontSize: "20px" }}></FontAwesomeIcon>
-                                                        </button>{' '}
-
-                                                        <button
-                                                            className="btn btn-default btn-sm"
-                                                        //data-toggle="modal"
-                                                        //data-target="#erasePermiso"
-                                                        //onClick={}
-                                                        >
-                                                            <FontAwesomeIcon icon={faTrashAlt} style={{ fontSize: "20px", color: "blue" }}></FontAwesomeIcon>
-                                                        </button>{' '}
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Oficina</td>
-
-                                                    <td>
-
-                                                        <button
-                                                            className="btn btn-default btn-sm"
-                                                            data-toggle="modal"
-                                                            data-target="#modalEditType"
-                                                            onClick={this.check}
-                                                        >
-                                                            <FontAwesomeIcon icon={faEdit} style={{ fontSize: "20px" }}></FontAwesomeIcon>
-                                                        </button>{' '}
-
-                                                        <button
-                                                            className="btn btn-default btn-sm"
-                                                        //data-toggle="modal"
-                                                        //data-target="#erasePermiso"
-                                                        //onClick={}
-                                                        >
-                                                            <FontAwesomeIcon icon={faTrashAlt} style={{ fontSize: "20px", color: "blue" }}></FontAwesomeIcon>
-                                                        </button>{' '}
-                                                    </td>
-                                                </tr>
+                                                                <button
+                                                                    className="btn btn-default btn-sm"
+                                                                    data-toggle="modal"
+                                                                    data-target="#erasePermisoTypeUser"
+                                                                     onClick={() => this.replaceModalItem(typeUser)}
+                                                                >
+                                                                <FontAwesomeIcon icon={faTrashAlt} style={{ fontSize: "20px", color: "blue" }}></FontAwesomeIcon>
+                                                                </button>{' '}
+                                                            </td>
+                                                        </tr>
+                                                    ))    
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
@@ -102,6 +107,12 @@ class ModificarTipoUser extends Component {
                 </div>
 <ModalEditType />
 
+            <ModalEliminarPermiso 
+              tipoUsuarioID={this.state.permiso.tipoUsuarioID}
+              crearTipo={this.state.permiso.crearTipo}
+              updateListUserTypes ={this.updateListUserTypes}
+            />
+            
             </div >
 
         )

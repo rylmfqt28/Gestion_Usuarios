@@ -5,12 +5,11 @@ import logo from '../img/logo.png';
 import menu from '../img/menu.png';
 import { Link } from "react-router-dom";
 
-const BarraMenu = props => {
+const BarraMenuUser = props => {
 
     const salir = () => {
         sessionStorage.removeItem("authToken");
         sessionStorage.removeItem("ci");
-        sessionStorage.removeItem("nombreTipo");
     }
     const mostrarMenu=()=> {
         //var btnMenu = document.getElementById('btn-menu');
@@ -34,11 +33,6 @@ const BarraMenu = props => {
                 <div className="nav" id="nav">
                     <ul className="menu">
                         <div className="menu__item"><Link className="menu__link" to="/modifyAccount">Administrar cuenta</Link></div>
-                        <div className="menu__item"><Link className="menu__link" to="/crearTipoUsuario">Crear tipo de usuario</Link></div>
-                        <div className="menu__item"><Link className="menu__link" to="/listUsuarios">Lista de usuarios</Link></div>
-                        <div className="menu__item"><Link className="menu__link" to="/modifyTypeUser">Modificar tipo de usuario</Link></div>
-                        <div className="menu__item"><Link className="menu__link" to="/solicitudes">Solicitudes</Link></div>
-                        <div className="menu__item"><Link className="menu__link" to="/administrarPermisos">Administrar permisos</Link></div>
                         <div className="menu__item"><Link className="menu__link" to="/" onClick={salir} >Salir</Link></div>
 
                     </ul>
@@ -50,4 +44,4 @@ const BarraMenu = props => {
     );
 }
 
-export default BarraMenu;
+export default BarraMenuUser;

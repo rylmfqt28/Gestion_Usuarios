@@ -52,12 +52,7 @@ class ModalCambioContrasena extends Component{
         }
     }
     
-    limpiarCampos() {
-        this.setState({
-            password: '',
-        });
-    
-    }
+
 componentDidMount() {
 
     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));

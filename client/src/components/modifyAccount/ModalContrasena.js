@@ -1,6 +1,5 @@
 import React,{Component} from 'react'
 import './modifyAccount.css'
-import swal from 'sweetalert'
 import $ from 'jquery'
 import PersonaService from '../../Service/PersonaService';
 import ModalCambioContrasena from './ModalCambioContrasena';
@@ -24,8 +23,10 @@ class ModalContrasena extends Component{
                     alert("La contraseña debe contener al menos 8 caracteres.")
                 } else {
                     //const res = await axios.get('/api/permiso/' + this.state.password.trim());
-
+                    this.redireccionar();
                     //console.log(res.data);
+                    alert("Contraseña correcta!")
+                    this.limpiarCampos();
                 }
             }else{
                 alert('El campo contraseña es obligatorio');
@@ -41,10 +42,24 @@ class ModalContrasena extends Component{
             alert("La contraseña debe contener al menos 8 caracteres.")
         }
     }
-
+    validarMinPass=(event)=>{
+        if(event.target.value.length<8){
+          alert("La contraseña debe contener al menos 8 caracteres.")
+        }
+    
+      }
 cerrarModal(c){
     $('#ModalContrasena').modal('hide');
     c.stopPropagation();
+}
+redireccionar(){
+    $("#ModalCambioContrasena").modal('show')
+}
+limpiarCampos() {
+    this.setState({
+        password: '',
+    });
+
 }
 
 componentDidMount() {
@@ -70,9 +85,9 @@ componentDidMount() {
                         <div className="col" align="center">
                         <div className="form-register">
                         <div>
-                        <label className="form-group">
-                            <b>Te damos la bienvenida</b>
-                        </label>
+                        <h5 className="form-group">
+                            <b>TE DAMOS LA BIENVENIDA</b>
+                        </h5>
                         </div>
 
                         <div>
@@ -102,7 +117,7 @@ componentDidMount() {
                         />
                         </div>
 
-                        <a href="#ModalCambioContrasena" onClick={"#ModalContrasena.close()"} data-toggle="modal">Continue</a>
+                        
                         
                         </div>
                         </div>

@@ -36,8 +36,8 @@ class ListUsuarios extends Component{
                     <td className="col-sm-6">
                         {Usuario.usuarioNombre + " " + Usuario.usuarioApellido}        
                     </td>
-                    <td className="col-sm-6">
-                        <button className="btn btn-info col-sm"
+                    <td className="col-sm-6" align="center">
+                        <button className="btn btn-info"
                         data-toggle="modal"
                         data-target="#informacion">ver usuario</button>
                     </td>
@@ -66,24 +66,19 @@ class ListUsuarios extends Component{
                         </select>
                     </div>
                 </form>
-                <div className="row">
-                    <div className="table-responsive">
-
-                        <div className="containerTabla">
-                            <table className="table table-fixed">
+                <div className="row" id="list">
+                            <table className="table-default table-striped" >
                                 <thead>
                                     <tr>
-                                        <th scope="col-sm-6">Nombre de Usuario</th>
-                                        <th scope="col-sm-6">Informacion</th>
+                                        <th className="col-sm-6">Nombre de Usuario</th>
+                                        <th className="col-sm-6">Informacion</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
-                                    {Usuarios}
+                                    {Usuarios} 
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
+                    
                 </div>
                 <ModalInformacion/>
             </div>

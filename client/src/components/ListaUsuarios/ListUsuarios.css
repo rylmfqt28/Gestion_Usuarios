@@ -1,16 +1,37 @@
-.table-fixed{
-    border-collapse: separate;
-    border: 3px solid rgb(2, 129, 146);
-    border-radius: 10px;
-    text-align: left;
-    width: 100%;
+#list{
+  margin-top: 2%;
+  margin-inline: 5%;
 }
 
-.table-fixed thead{
+.table-striped{
+  border-collapse: separate;
+  border: 3px solid rgb(2, 129, 146);
+  border-radius: 10px;
+  text-align: justify;
   width: 100%;
 }
 
-.table-fixed tbody {
-  height: 200px;
+.table-striped thead{
+  text-align: center;
   width: 100%;
+}
+
+.table-striped tbody {
+  height: 350px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.table-striped thead,
+.table-striped tbody,
+.table-striped tr,
+.table-striped td,
+.table-striped th {
+  display: block;
+}
+
+.table-striped tbody td,
+.table-striped thead > tr> th{
+  float: left;
+  border-bottom-width: 0;
 }

@@ -1,95 +1,131 @@
-import React,{Component} from 'react'
-import "./ModificarTipoUsuario.css";
-import swal from 'sweetalert'
+import React, { Component } from 'react';
+import axios from 'axios';
 import $ from 'jquery'
 
-class ModalEditType extends Component{
-    
-     constructor(props){
+class ModalEditType extends Component {
+    constructor(props) {
         super(props)
-        this.state={ 
-            crearTipo: '',
-            descripcionTipo: '',        
+        this.state = {
+            tipoUsuarioID: this.props.tipoUsuarioID,
+            crearTipo: this.props.crearTipo,
+            descripcionTipo: this.props.descripcionTipo,
+            validate: true,
         }
-        
+        this.handleSave = this.handleSave.bind(this)
+        this.nombreHandler = this.nombreHandler.bind(this)
+        this.descripcionHandler = this.descripcionHandler.bind(this)
+
+
     }
 
-    
-    valueToState = ({ name, value}) => {
-    //console.log("El VALOR es: " + value)
-    this.setState(() => {
-    return { [name]: value };
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            crearTipo: nextProps.crearTipo,
+            descripcionTipo: nextProps.descripcionTipo,
         });
-     };
+    }
 
-     mostrarAlerta=(date)=>{
-        //console.log("El DATO es: " + date)
-        if(date.length === 0){
-            swal("ERROR", "La descripción está vacia. Por favor ingrese una descripción válida.", "error");
-        }
-        else
-        {
-            if(date.length <20 || date.length > 500){
-                swal("ERROR", "La descripción debe contener 20 caracteres como mínimo y 500 como máximo.", "error");
-                
-            } else{     
-                swal("ACEPTADO", "Solicitud enviada con éxito, espere a que el administrador apruebe su solicitud", "success");
-                this.props.capturarDatosModal(date)
-                this.props.insertarDatoRegistro()
-                $(function(){
-                    $("#TipoUserData").modal('hide')
-                })
+    nombreHandler(e){
+        if(e.target.value[0]!==" "){
+            if(e.target.value.length !== 21){
+                if(e.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null){
+                    this.setState({crearTipo: e.target.value})
+                    this.setState({validate: true})
+                    console.log(true)
+                }else{
+                    this.setState({validate: false})
+                    console.log(false)
+                }
+            }else{
+                alert("El maximo de caracteres es de 20")
             }
-        
+        }else{
+            alert("El nombre debe empezar con un caracter")
+        }
+    }
+    descripcionHandler(e) {
+        if (e.target.value.length !== 251) {
+            this.setState({ descripcionTipo: e.target.value })
+        } else {
+            alert("maximo 250 caracteres")
         }
     }
 
-mostrarAlertaMaxL=(date)=>{
-    if(date.length > 499){
-        swal("ERROR", "La descripción debe contener 500 caracteres como máximo.", "error");
+    handleSave(){
+        if(this.state.validate && this.state.crearTipo!==""){
+            if(this.state.crearTipo.length>=4){
+                this.saveChanges();                
+                this.saveDetails();
+                
+            }else{
+                alert("el campo nombre de tipo usuario debe contener un minimo de 4 caracteres")
+            } 
+        }else{
+            alert("el campo nombre de tipo usuario no debe estar vacio")
+        }
     }
-}
+    saveChanges = async () => {
 
-      render(){
-        return(
-            
+        try {
+            if (this.state.crearTipo.trim() !== '' && this.state.descripcionTipo.trim() !== '') {
+                const res = await axios.get('/api/type/' + this.state.crearTipo.trim());
+                console.log(res.data);
+                if (res.data === null) {
+                   //Aqui Api para guardar datos
+                    alert("Se edito el tipo de usuario Exitosamente");
+                   ;
+                } else {
+                    alert("El tipo de usuario ya existe");
+                    console.log("El usuario ya existe");
+                }
+            } else {
+
+                alert("Existen campos vacíos, rellenar los campos restantes");
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+   
+    saveDetails(){
+        $("#modalEditType").modal("hide");
+        this.props.updateListUserTypes();
+        this.props.updateListUserTypes();
+        this.props.updateListUserTypes();
+    }
+
+
+    render() {
+        return (
             <div className="modal fade" id="modalEditType" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog modal-lg">
-                    <div className="modal-content" id="VentanaEmergente">
-                        <div className="modal-header" id ="Encabezado">
-                       
-                        <h5 className="modal-title" style={{textTransform: 'uppercase'}}>Editar Tipo de Usuario: {this.props.crearTipo}</h5>  
-                    
+                <div className="modal-dialog modal-lg">
+                    <div className="modal-content" id="ModalEditPermiso">
+                        <div className="modal-header" id="EncabezadoEditPermiso">
+                            <h5 className="modal-title">Editar Tipo de Usuario</h5>
+
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-
                         <div className="modal-body" id="Cuerpo">
-                          <textarea 
-                              id="campo"
-                              className="form-control"
-                              rows="8"
-                              placeholder="Ingrese el motivo de su Solicitud"
-                              name="descripcionTipo"
-                              type="text"
-                              onChange={event => this.valueToState(event.target)} 
-                              onKeyPress={()=>this.mostrarAlertaMaxL(this.state.descripcionTipo)}
-                          />
-                       
+                            <div className="row justify-content-md-center">
+                                <div className="col-9">
+                                    <p><input className="form-control text-center" value={this.state.crearTipo} onChange={(e) => this.nombreHandler(e)}></input></p>
+                                    <textarea className="form-control" id="textoArea" aria-label="With textarea" value={this.state.descripcionTipo} onChange={(e) => this.descripcionHandler(e)}></textarea>
+                                </div>
+                            </div>
                         </div>
-
-                        <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" className="btn btn-secondary" onClick={()=>this.mostrarAlerta(this.state.descripcionTipo)}>Aceptar</button>
+                        <div className="modal-footer justify-content-center" >
+                            <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            <button type="button" className="btn btn-outline-info" onClick={this.handleSave} >Guardar Cambios</button>
                         </div>
-                    </div>
                     </div>
                 </div>
+            </div>
         );
     }
 }
 export default ModalEditType;
-
-
-

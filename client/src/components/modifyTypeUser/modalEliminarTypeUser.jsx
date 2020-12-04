@@ -16,24 +16,16 @@ class ModalEliminarPermiso extends Component{
     handleErase(){
         if(this.state.validate){
 
-          this.remove(this.props.tipoUsuarioID);
-     
-            $(function(){ 
-                $("#erasePermisoTypeUse").modal('hide')  
-                alert("Se elimino el tipo de Usuario!")
-               
-            })
-        }else{
-            alert("incorrecto")
+          this.remove(this.props.tipoUsuarioID);  
+          $('#erasePermisoTypeUser').modal('hide')
+          this.props.updateListUserTypes();
+          this.props.updateListUserTypes();
+          this.props.updateListUserTypes();
         }
        
     }
     remove(tipoUsuarioID){
-        
-        TypeUser.deletePermisoTypeUser(tipoUsuarioID);   
-        this.props.updateListUserTypes();
-        this.props.updateListUserTypes();
-       
+        TypeUser.deletePermisoTypeUser(tipoUsuarioID);  
     }
    
     
@@ -50,7 +42,7 @@ class ModalEliminarPermiso extends Component{
                            <h7>Decea eliminar el Usuario: "{this.props.crearTipo}" ?</h7>
                         </div>
                         <div className="modal-footer justify-content-center" >
-                            <button type="button" className="btn btn-outline-info" data-dismiss="modal">Cancelar</button>
+                            <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
                             <button type="button" className="btn btn-outline-info"  onClick={this.handleErase}>Aceptar</button>
                         </div>
                     </div>

@@ -74,7 +74,7 @@ class ModalEditType extends Component {
                 <div className="modal-dialog modal-lg">
                     <div className="modal-content" id="ModalEditPermiso">
                         <div className="modal-header" id="EncabezadoEditPermiso">
-                            <h5 className="modal-title">Editar Permiso</h5>
+                            <h5 className="modal-title">Editar Tipo de Usuario</h5>
 
                             <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>

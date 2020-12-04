@@ -32,7 +32,7 @@ const BarraMenuUser = props => {
 
                 <div className="nav" id="nav">
                     <ul className="menu">
-                        <div className="menu__item"><Link className="menu__link" to="/administrar">Administrar cuenta</Link></div>
+                        <div className="menu__item"><Link className="menu__link" to="/modifyAccount">Administrar cuenta</Link></div>
                         <div className="menu__item"><Link className="menu__link" to="/" onClick={salir} >Salir</Link></div>
 
                     </ul>

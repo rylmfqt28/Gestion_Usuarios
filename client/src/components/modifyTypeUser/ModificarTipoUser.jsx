@@ -19,6 +19,7 @@ class ModificarTipoUser extends Component {
             listUserTypes: []
         };
 
+        //this.updateList = this.updateList.bind(this)
         this.updateListUserTypes = this.updateListUserTypes.bind(this);
     }
 
@@ -34,6 +35,9 @@ class ModificarTipoUser extends Component {
         const data = await TypeUser.getAllUserTypes();
         this.setState({listUserTypes: data});
     }
+    //updateList() {   
+      //      TypeUser.getAllUserTypes().then(data=>this.setState({listUserTypes: data}))
+    //}
 
     render() {
 
@@ -79,7 +83,7 @@ class ModificarTipoUser extends Component {
                                                                 className="btn btn-default btn-sm"
                                                                 data-toggle="modal"
                                                                 data-target="#modalEditType"
-                                                                onClick=""
+                                                                onClick={() => this.replaceModalItem(typeUser)}
                                                                 >
                                                                 <FontAwesomeIcon icon={faEdit} style={{ fontSize: "20px" }}></FontAwesomeIcon>
                                                                 </button>{' '}
@@ -105,7 +109,12 @@ class ModificarTipoUser extends Component {
                         </div>
                     </div>
                 </div>
-<ModalEditType />
+            <ModalEditType 
+             tipoUsuarioID={this.state.permiso.tipoUsuarioID}
+             crearTipo={this.state.permiso.crearTipo}
+             descripcionTipo={this.state.permiso.descripcionTipo}   
+             updateListUserTypes ={this.updateListUserTypes}     
+            />
 
             <ModalEliminarPermiso 
               tipoUsuarioID={this.state.permiso.tipoUsuarioID}

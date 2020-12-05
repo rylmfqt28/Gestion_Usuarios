@@ -3,16 +3,19 @@ import ListaUsuariosService from '../../Service/ListaUsuariosService';
 import TipoUser from '../../Service/TipoUser';
 import NavMenu from '../menuAdmin/NavMenu';
 import ModalInformacion from './ModalInformacion'
+import './ListUsuarios.css'
 
 class ListUsuarios extends Component{
     constructor(props){
      super(props);
      this.state = {
         tipoUsuario : [],
-        usuarios : []
+        usuarios : [],
+        detalleUsuario : {}
      }   
      this.UpdateList = this.UpdateList.bind(this)
-    }
+     this.updateIndex = this.updateIndex.bind(this)
+         }
 
     componentDidMount(){
         TipoUser.getAll().then(data => this.setState({tipoUsuario : data}))
@@ -28,17 +31,25 @@ class ListUsuarios extends Component{
         }
     }
 
+    updateIndex(index){
+        this.setState({detalleUsuario:this.state.usuarios[index]})
+        console.log(this.state.usuarios[index])
+    }
+
     render(){
+        
         const Usuarios = this.state.usuarios.map((Usuario,index)=>{
             return(
                 <tr key={index}>
-                    <td>
-                        {Usuario.usuarioNombre + " " + Usuario.usuarioApellido}        
+                    <td className="col-sm-6">
+                        {Usuario.usuarioNombre + " " + Usuario.usuarioApellido}         
                     </td>
-                    <td>
-                        <button className="btn btn-info col-sm"
+                    <td className="col-sm-6" align="center">
+                        <button className="btn btn-info"
+                        onClick = {()=>this.updateIndex(index)}
                         data-toggle="modal"
-                        data-target="#informacion">ver usuario</button>
+                        data-target="#informacion">Detalles
+                        </button>
                     </td>
                 </tr>
             );
@@ -59,32 +70,30 @@ class ListUsuarios extends Component{
                             <option value=" " >{"---"}</option>
                             {
                                 this.state.tipoUsuario.map((tipoUsuario,index)=>(
-                                <option key="index" value={tipoUsuario.crearTipo}>{tipoUsuario.crearTipo}</option>
+                                <option key="index" value={tipoUsuario.crearTipo}>{tipoUsuario.crearTipo} </option>
                                 ))
                             }
                         </select>
                     </div>
                 </form>
-                <div className="row">
-                    <div className="table-responsive">
-
-                        <div className="containerTabla">
-                            <table className="table"  id="lista">
+                <div className="row" id="list">
+                            <table className="table-default table-striped" >
                                 <thead>
                                     <tr>
-                                        <th scope="col">Nombre de Usuario</th>
-                                        <th scope="col">Informacion</th>
+                                        <th className="col-sm-6">Nombre de Usuario</th>
+                                        <th className="col-sm-6">Información</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
-                                    {Usuarios}
+                                    {Usuarios} 
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
+                    
                 </div>
-                <ModalInformacion/>
+                <ModalInformacion
+                detalleUsuario = {this.state.detalleUsuario}
+                //detalleUsuario = {this.state.detalleUsuario}
+                />
             </div>
         );
     }

@@ -41,6 +41,39 @@ class ModifyAccount extends Component {
     this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
   }
 
+  componentDidMount(){
+    const ci = this.state.ci;
+          if(ci){
+            this.findCi(ci);
+          }
+
+  }
+
+
+  findCi=(ci)=>{
+    axios.get("/api/accountData/" + this.state.ci.trim())
+    .then(response => {
+      if(response.data !=null){
+        this.setState({
+          nombre: response.data.nombre,
+          apellido: response.data.apellido,
+          ci: response.data.ci,
+          pais: response.data.pais
+
+
+        })
+
+      }
+    }).catch((error)=>{
+      console.log(error); 
+    })
+
+
+
+  }
+
+
+
   validarNombre = (event) => {
     if(event.target.value[0]!==" "){
     if(event.target.value.length !== 51){

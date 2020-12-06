@@ -14,6 +14,8 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
 
 import com.thejuniors.gestionusuarios.model.Account;
+import com.thejuniors.gestionusuarios.model.ModifAccount;
+import com.thejuniors.gestionusuarios.model.ModifPassword;
 
 @Component
 public class AccountService {
@@ -46,5 +48,42 @@ public class AccountService {
             return null;
         }
     }
+
+    // Query para modificar contraseña
+    public void updatePassword(ModifPassword password){
+        jdbcTemplate.update(
+            "UPDATE UsuarioCredenciales SET password=? WHERE CI=?",
+            password.getPassword(), password.getCI()
+        );
+    }
     
+    // Querys para modificar la informacion de un usaurio
+    public void updateAccountInfo(ModifAccount account, String oldCI){
+        // modifica el nombre de usuario
+        updateUserName(account.getNombreUsuario(), oldCI);
+
+        // modifica la informacion
+        jdbcTemplate.update(
+            "UPDATE Usuario SET usuarioNombre=?, usuarioApellido=?, paisID=?, ciudadID=?, direccion=?, correo=?, telefono=? WHERE CI=?",
+            account.getUsuarioNombre(), account.getUsuarioApellido(), account.getPaisID(), account.getCiudadID(), account.getDireccion(), account.getCorreo(), account.getTelefono(), oldCI
+        );
+
+        //modifica el CI
+        updateCI(account.getCI(), oldCI);        
+    }
+
+    private void updateUserName(String nombreUsuario, String oldCI){
+        jdbcTemplate.update(
+            "UPDATE UsuarioCredenciales SET nombreUsuario=? WHERE CI=?",
+            nombreUsuario, oldCI
+        );
+    }
+
+    private void updateCI(String CI, String oldCI){
+        jdbcTemplate.update(
+            "UPDATE Usuario SET CI=? WHERE CI=?",
+            CI, oldCI
+        );
+    }
+
 }

@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
 
 import com.thejuniors.gestionusuarios.model.Account;
-//import com.thejuniors.gestionusuarios.model.ModifAccount;
+import com.thejuniors.gestionusuarios.model.ModifAccount;
 import com.thejuniors.gestionusuarios.model.ModifPassword;
 
 @Component
@@ -57,4 +57,25 @@ public class AccountService {
         );
     }
     
+    // Querys para modificar la informacion de un usaurio
+    public void updateAccountInfo(ModifAccount account, Integer CI){
+        // modifica el nombre de usuario
+        jdbcTemplate.update(
+            "UPDATE UsuarioCredenciales SET nombreUsuario=? WHERE CI=?",
+            account.getNombreUsuario(), CI
+        );
+
+        // modifica la informacion
+        jdbcTemplate.update(
+            "UPDATE Usuario SET usuarioNombre=?, usuarioApellido=?, paisID=?, ciudadID=?, direccion=?, correo=?, telefono=? WHERE CI=?",
+            account.getUsuarioNombre(), account.getUsuarioApellido(), account.getPaisID(), account.getCiudadID(), account.getDireccion(), account.getCorreo(), account.getTelefono(), CI
+        );
+
+        //modifica el CI
+        jdbcTemplate.update(
+            "UPDATE Usuario SET CI=? WHERE CI=?",
+            account.getCI(), CI
+        );            
+    }
+
 }

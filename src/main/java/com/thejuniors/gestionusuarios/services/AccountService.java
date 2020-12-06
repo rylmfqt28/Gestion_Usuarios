@@ -60,10 +60,7 @@ public class AccountService {
     // Querys para modificar la informacion de un usaurio
     public void updateAccountInfo(ModifAccount account, String oldCI){
         // modifica el nombre de usuario
-        jdbcTemplate.update(
-            "UPDATE UsuarioCredenciales SET nombreUsuario=? WHERE CI=?",
-            account.getNombreUsuario(), oldCI
-        );
+        updateUserName(account.getNombreUsuario(), oldCI);
 
         // modifica la informacion
         jdbcTemplate.update(
@@ -72,10 +69,21 @@ public class AccountService {
         );
 
         //modifica el CI
+        updateCI(account.getCI(), oldCI);        
+    }
+
+    private void updateUserName(String nombreUsuario, String oldCI){
+        jdbcTemplate.update(
+            "UPDATE UsuarioCredenciales SET nombreUsuario=? WHERE CI=?",
+            nombreUsuario, oldCI
+        );
+    }
+
+    private void updateCI(String CI, String oldCI){
         jdbcTemplate.update(
             "UPDATE Usuario SET CI=? WHERE CI=?",
-            account.getCI(), oldCI
-        );            
+            CI, oldCI
+        );
     }
 
 }

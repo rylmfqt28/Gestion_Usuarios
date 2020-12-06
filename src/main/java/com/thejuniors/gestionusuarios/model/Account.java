@@ -13,6 +13,9 @@ public class Account {
     private String nombreUsuario;
     private String password;
 
+    private Integer paisID;
+    private Integer ciudadID;
+
     public Account(String usuarioNombre, String usuarioApellido, String CI, String paisNombre, String ciudadNombre,
             String direccion, String correo, String telefono, String nombreUsuario, String password) {
         this.usuarioNombre = usuarioNombre;
@@ -105,6 +108,22 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getPaisID(){
+        return paisID;
+    }
+
+    public void setPaisID(Integer paisID){
+        this.paisID = paisID;
+    }
+
+    public Integer getCiudadID(){
+        return ciudadID;
+    }
+
+    public void setCiudadID(Integer ciudadID){
+        this.ciudadID = ciudadID;
     }
     
 }

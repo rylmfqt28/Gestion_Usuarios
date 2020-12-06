@@ -11,11 +11,10 @@ public class ModifAccount {
     private String correo;
     private String telefono;
     private String nombreUsuario;
-    private String password;
 
     // Constructor para modificar la informacion de un usuario en la BD
     public ModifAccount(String usuarioNombre, String usuarioApellido, String CI, Integer paisID, Integer ciudadID,
-            String direccion, String correo, String telefono, String nombreUsuario, String password) {
+            String direccion, String correo, String telefono, String nombreUsuario) {
         this.usuarioNombre = usuarioNombre;
         this.usuarioApellido = usuarioApellido;
         this.CI = CI;
@@ -25,13 +24,6 @@ public class ModifAccount {
         this.correo = correo;
         this.telefono = telefono;
         this.nombreUsuario = nombreUsuario;
-        this.password = password;
-    }
-
-    // constructor para modificar la contraseña de un usuario en la BD
-    public ModifAccount(String CI, String password){
-        this.CI = CI;
-        this.password = password;
     }
 
     public String getUsuarioNombre() {
@@ -104,14 +96,6 @@ public class ModifAccount {
 
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
 }

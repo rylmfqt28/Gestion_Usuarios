@@ -1,6 +1,5 @@
 import React,{Component} from 'react'
 import './modifyAccount.css'
-import $ from 'jquery'
 import PersonaService from '../../Service/PersonaService';
 
 class ModalCambioContrasena extends Component{
@@ -8,7 +7,6 @@ class ModalCambioContrasena extends Component{
      constructor(props){
         super(props)
         this.state={ 
-            Usuarios: [],
             password: '',
             confPassword: '',           
         }
@@ -120,8 +118,8 @@ componentDidMount() {
                         </div>
                         </div>
                         <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.verificarCampos}>Cambiar la contraseña</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" className="btn btn-outline-info" onClick={this.verificarCampos}>Cambiar contraseña</button>
                         </div>
                     </div>
                     </div>

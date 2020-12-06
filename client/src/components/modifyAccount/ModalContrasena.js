@@ -3,6 +3,7 @@ import './modifyAccount.css'
 import $ from 'jquery'
 import PersonaService from '../../Service/PersonaService';
 import ModalCambioContrasena from './ModalCambioContrasena';
+import axios from 'axios';
 
 class ModalContrasena extends Component{
     
@@ -10,7 +11,8 @@ class ModalContrasena extends Component{
         super(props)
         this.state={ 
             Usuarios: [],
-            password: '',        
+            password: '',
+            validate: true,        
         }
         this.contrasenaHandler = this.contrasenaHandler.bind(this)
     }
@@ -18,16 +20,22 @@ class ModalContrasena extends Component{
      verificarPasswd = async () => {
         try {
             if (this.state.password.trim() !== '') {
-
+                const res = await axios.get('/api/accountData/' + sessionStorage.getItem("ci")); //sessionStorage.getItem("ci")
+                console.log(res.data);
                 if (this.state.password.length < 8) {
                     alert("La contraseña debe contener al menos 8 caracteres.")
                     this.limpiarCampos();
                 } else {
-                    //const res = await axios.get('/api/permiso/' + this.state.password.trim());
-                    this.redireccionar();
-                    //console.log(res.data);
-                    alert("Contraseña correcta!")
-                    this.limpiarCampos();
+                    if(res.data.password === this.setState.password){
+                        this.redireccionar();
+                        alert("Contraseña correcta!")
+                        this.limpiarCampos();
+                        console.log(res.data.password)
+                    }else{
+                        alert("Datos incorrectos")
+                        this.limpiarCampos();
+                        console.log(res.data.password)
+                    }
                 }
             }else{
                 alert('El campo contraseña es obligatorio');
@@ -38,7 +46,12 @@ class ModalContrasena extends Component{
     }
     contrasenaHandler(e) {
         if (e.target.value.length < 50) {
-            this.setState({ password: e.target.value })
+            if(e.target.value.match("^[Ññíóáéú A-Za-z0-9 ]*$")!=null){
+                this.setState({ password: e.target.value })
+                this.setState({validate: true})
+            }else{
+                this.setState({validate: false})
+            }
         } else {
             alert("La contraseña debe contener al menos 8 caracteres.")
         }
@@ -66,7 +79,7 @@ limpiarCampos() {
 componentDidMount() {
 
     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
-  }
+    }
 
       render(){
         const Usuarios = this.state.Usuarios;
@@ -93,7 +106,7 @@ componentDidMount() {
 
                         <div>
                         <label>
-                            <b>{Usuarios.nombre} {Usuarios.apellido}</b>
+                            <b>{Usuarios.nombre} {Usuarios.apellido} {Usuarios.password}</b>
                         </label>
                         </div>
 
@@ -123,8 +136,8 @@ componentDidMount() {
                         </div>
                         </div>
                         <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.verificarPasswd}>Siguiente</button>
+                        <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" className="btn btn-outline-info" onClick={this.verificarPasswd}>Siguiente</button>
                         </div>
                     </div>
                     </div>

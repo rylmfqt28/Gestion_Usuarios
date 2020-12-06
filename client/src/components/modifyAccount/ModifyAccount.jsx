@@ -231,7 +231,6 @@ class ModifyAccount extends Component {
     const userName = document.getElementById('userName');
     const typeUser = document.getElementById('typeUser');
     const password = document.getElementById('password');
-    const confPassword = document.getElementById('confPassword');
 
     name.classList.add('input-error');
     lastName.classList.add('input-error');
@@ -243,7 +242,6 @@ class ModifyAccount extends Component {
     phone.classList.add('input-error');
     userName.classList.add('input-error');
     password.classList.add('input-error');
-    confPassword.classList.add('input-error');
   }
 
 

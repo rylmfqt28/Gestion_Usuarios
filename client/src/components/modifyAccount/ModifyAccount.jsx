@@ -40,6 +40,45 @@ class ModifyAccount extends Component {
     this.updateList = this.updateList.bind(this)
     this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
   }
+  peticionGet= async ()=>{
+    
+    const res = await axios.get('/api/accountData/' + '10001')
+    console.log(res);
+    console.log(this.state.Usuarios);
+    }
+    
+  componentDidMount(){
+    this.peticionGet();
+
+  }
+
+
+  findCi=(ci)=>{
+    axios.get("/api/accountData/"+this.state.ci)
+    .then(response => {
+      if(response.data !=null){
+        this.setState({
+          nombre: response.data.nombre,
+          apellido: response.data.apellido,
+          ci: response.data.ci,
+          pais: response.data.pais,
+          ciudad: response.data.ciudadNombre,
+          direccion: response.data.direccion,
+          correo: response.data.correo,
+          telefono: response.data.telefono,
+          nombreUsuario: response.data.nombreUsuario
+        })
+
+      }
+    }).catch((error)=>{
+      console.log(error); 
+    })
+
+
+
+  }
+
+
 
   validarNombre = (event) => {
     if (event.target.value[0] !== " ") {
@@ -328,10 +367,10 @@ class ModifyAccount extends Component {
     RegistroService.getAllCities(pais).then(data => this.setState({ ciudad: data }))
   }
   //visualiza paises y tipos de usuario
-  componentDidMount() {
+  /*componentDidMount() {
     RegistroService.getAllCountries().then(data => this.setState({ pais: data }))
     TipoUser.getAll().then(data => this.setState({ TUsuarios: data, tipo: data[0].crearTipo }))
-  }
+  }*/
   //Actualiza lista de usuarios
   updateList(e) {
     PersonaService.getTiposUser(e.target.value).then(data => this.setState({ Usuarios: data }))
@@ -398,6 +437,7 @@ class ModifyAccount extends Component {
   componentDidMount() {
 
     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
+  
   }
   redireccionar() {
     $("#ModalContrasena").modal('show')
@@ -414,7 +454,7 @@ class ModifyAccount extends Component {
       }
     }
     return (
-
+        
       <div>
         {showMenu()}
         <div className="col" align="center">
@@ -439,7 +479,7 @@ class ModifyAccount extends Component {
                     name="nombre"
 
                     onChange={(e) => this.validarNombre(e)}
-                    value={this.state.nombre}
+                    value={Usuarios.nombre}
                     required
                   />
                   <div className="form-group">
@@ -454,7 +494,7 @@ class ModifyAccount extends Component {
                       onChange={(e) => this.validarApellido(e)}
 
 
-                      value={this.state.apellido}
+                      value={Usuarios.apellido}
                       required
                     />
                   </div>
@@ -470,7 +510,7 @@ class ModifyAccount extends Component {
 
                       minLength="7"
                       onChange={(e) => this.validarNumerosCi(e)}
-                      value={this.state.ci}
+                      value={Usuarios.ci}
                       required
 
                     />
@@ -580,7 +620,7 @@ class ModifyAccount extends Component {
 
                   <div className="contenedor-btn">
 
-                    <Link className="btn btn-cancelar" value="Login" type="reset" to="/" >Cancelar</Link>
+                    <Link className="btn btn-cancelar" value="Login" type="reset" to="/"  >Cancelar</Link>
 
                     <button className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Guardar</button>
                   </div>

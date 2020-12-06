@@ -14,8 +14,6 @@ class ModalEditType extends Component {
         this.handleSave = this.handleSave.bind(this)
         this.nombreHandler = this.nombreHandler.bind(this)
         this.descripcionHandler = this.descripcionHandler.bind(this)
-
-
     }
 
     componentWillReceiveProps(nextProps) {
@@ -70,8 +68,12 @@ class ModalEditType extends Component {
             if (this.state.crearTipo.trim() !== '' && this.state.descripcionTipo.trim() !== '') {
                 const res = await axios.get('/api/type/' + this.state.crearTipo.trim());
                 console.log(res.data);
+                console.log(this.state.tipoUsuarioID)
                 if (res.data === null) {
                    //Aqui Api para guardar datos
+                   const valorActualizar = {tipoUsuarioID:this.state.tipoUsuarioID,crearTipo:this.state.crearTipo,descripcionTipo:this.state.descripcionTipo}
+                   console.log(valorActualizar) 
+                   axios.put("/api/updateTypeUser",valorActualizar)
                     alert("Se edito el tipo de usuario Exitosamente");
                    ;
                 } else {
@@ -86,7 +88,7 @@ class ModalEditType extends Component {
         } catch (error) {
             console.log(error);
         }
-
+        
     }
 
    

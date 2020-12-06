@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.stereotype.Component;
 
 import com.thejuniors.gestionusuarios.model.Account;
+import com.thejuniors.gestionusuarios.model.ModifAccount;
 
 @Component
 public class AccountService {
@@ -45,6 +46,14 @@ public class AccountService {
         }else{
             return null;
         }
+    }
+
+    // Query para modificar contraseña
+    public void updatePassword(ModifAccount account){
+        jdbcTemplate.update(
+            "UPDATE UsuarioCredenciales SET password=? WHERE CI=?",
+            account.getPassword(), account.getCI()
+        );
     }
     
 }

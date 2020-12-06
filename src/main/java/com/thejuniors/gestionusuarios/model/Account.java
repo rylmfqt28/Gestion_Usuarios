@@ -13,9 +13,6 @@ public class Account {
     private String nombreUsuario;
     private String password;
 
-    private Integer paisID;
-    private Integer ciudadID;
-
     // Constructor para obtener la informacion del usuario en la BD
     public Account(String usuarioNombre, String usuarioApellido, String CI, String paisNombre, String ciudadNombre,
             String direccion, String correo, String telefono, String nombreUsuario, String password) {
@@ -29,20 +26,6 @@ public class Account {
         this.telefono = telefono;
         this.nombreUsuario = nombreUsuario;
         this.password = password;
-    }
-
-    // constructor para cambiar la informacion del usuario en la BD
-    public Account(String usuarioNombre, String usuarioApellido, String CI, Integer paisID, Integer ciudadID,
-            String direccion, String correo, String telefono, String nombreUsuario) {
-        this.usuarioNombre = usuarioNombre;
-        this.usuarioApellido = usuarioApellido;
-        this.CI = CI;
-        this.paisID = paisID;
-        this.ciudadID = ciudadID;
-        this.direccion = direccion;
-        this.correo = correo;
-        this.telefono = telefono;
-        this.nombreUsuario = nombreUsuario;
     }
 
     public String getUsuarioNombre() {
@@ -123,22 +106,6 @@ public class Account {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Integer getPaisID(){
-        return paisID;
-    }
-
-    public void setPaisID(Integer paisID){
-        this.paisID = paisID;
-    }
-
-    public Integer getCiudadID(){
-        return ciudadID;
-    }
-
-    public void setCiudadID(Integer ciudadID){
-        this.ciudadID = ciudadID;
     }
     
 }

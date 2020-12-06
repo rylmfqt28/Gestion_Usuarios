@@ -4,11 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.thejuniors.gestionusuarios.services.AccountService;
 import com.thejuniors.gestionusuarios.model.Account;
+//import com.thejuniors.gestionusuarios.model.ModifAccount;
+import com.thejuniors.gestionusuarios.model.ModifPassword;
 
 import java.util.List;
 
@@ -23,6 +27,12 @@ public class AccountController {
     @GetMapping(value="/api/accountData/{CI}", produces={"application/json"})
     public List<Account> getAccountData(@PathVariable("CI") String CI){
         return accountService.accountData(CI);
+    }
+
+    // Modifica el password de un usuario
+    @PutMapping(value="/api/updatePassword", consumes={"application/json"})
+    public void setUserPassword(@RequestBody ModifPassword password){
+        accountService.updatePassword(password);
     }
 
 }

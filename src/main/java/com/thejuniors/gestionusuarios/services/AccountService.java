@@ -58,7 +58,7 @@ public class AccountService {
     }
     
     // Querys para modificar la informacion de un usaurio
-    public void updateAccountInfo(ModifAccount account, Integer CI){
+    public void updateAccountInfo(ModifAccount account, String CI){
         // modifica el nombre de usuario
         jdbcTemplate.update(
             "UPDATE UsuarioCredenciales SET nombreUsuario=? WHERE CI=?",

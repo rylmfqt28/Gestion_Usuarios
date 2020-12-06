@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.thejuniors.gestionusuarios.services.AccountService;
 import com.thejuniors.gestionusuarios.model.Account;
-//import com.thejuniors.gestionusuarios.model.ModifAccount;
+import com.thejuniors.gestionusuarios.model.ModifAccount;
 import com.thejuniors.gestionusuarios.model.ModifPassword;
 
 import java.util.List;
@@ -33,6 +33,12 @@ public class AccountController {
     @PutMapping(value="/api/updatePassword", consumes={"application/json"})
     public void setUserPassword(@RequestBody ModifPassword password){
         accountService.updatePassword(password);
+    }
+
+    // Modifica la informacion de un usaurio
+    @PutMapping(value="/api/updateAccountInfo/{oldCI}", consumes={"application/json"})
+    public void setAccountInfo(@PathVariable String oldCI, @RequestBody ModifAccount account){
+        accountService.updateAccountInfo(account, oldCI);
     }
 
 }

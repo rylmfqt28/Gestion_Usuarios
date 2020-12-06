@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './modifyAccount.css'
 import { Link } from "react-router-dom"
 import axios from 'axios';
-import logo from '../img/logo.png';
 import RegistroService from '../../Service/RegistroService'
 import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
@@ -229,9 +228,7 @@ class ModifyAccount extends Component {
     const email = document.getElementById('email');
     const phone = document.getElementById('phone');
     const userName = document.getElementById('userName');
-    const typeUser = document.getElementById('typeUser');
     const password = document.getElementById('password');
-    const confPassword = document.getElementById('confPassword');
 
     name.classList.add('input-error');
     lastName.classList.add('input-error');
@@ -243,7 +240,6 @@ class ModifyAccount extends Component {
     phone.classList.add('input-error');
     userName.classList.add('input-error');
     password.classList.add('input-error');
-    confPassword.classList.add('input-error');
   }
 
 

@@ -20,13 +20,13 @@ class ModalContrasena extends Component{
      verificarPasswd = async () => {
         try {
             if (this.state.password.trim() !== '') {
-                const res = await axios.get('/api/accountData/' + sessionStorage.getItem("ci")); //sessionStorage.getItem("ci")
+                const res = await axios.get('/api/accountData/' + sessionStorage.getItem("ci")); 
                 console.log(res.data);
                 if (this.state.password.length < 8) {
                     alert("La contraseña debe contener al menos 8 caracteres.")
                     this.limpiarCampos();
                 } else {
-                    if(res.data.password === this.setState.password){
+                    if(res.data.password === this.state.password){
                         this.redireccionar();
                         alert("Contraseña correcta!")
                         this.limpiarCampos();

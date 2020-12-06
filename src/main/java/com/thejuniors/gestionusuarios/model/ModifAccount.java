@@ -1,31 +1,29 @@
 package com.thejuniors.gestionusuarios.model;
 
-public class Account {
+public class ModifAccount {
 
     private String usuarioNombre;
     private String usuarioApellido;
     private String CI;
-    private String paisNombre;
-    private String ciudadNombre;
+    private Integer paisID;
+    private Integer ciudadID;
     private String direccion;
     private String correo;
     private String telefono;
     private String nombreUsuario;
-    private String password;
 
-    // Constructor para obtener la informacion del usuario en la BD
-    public Account(String usuarioNombre, String usuarioApellido, String CI, String paisNombre, String ciudadNombre,
-            String direccion, String correo, String telefono, String nombreUsuario, String password) {
+    // Constructor para modificar la informacion de un usuario en la BD
+    public ModifAccount(String usuarioNombre, String usuarioApellido, String CI, Integer paisID, Integer ciudadID,
+            String direccion, String correo, String telefono, String nombreUsuario) {
         this.usuarioNombre = usuarioNombre;
         this.usuarioApellido = usuarioApellido;
         this.CI = CI;
-        this.paisNombre = paisNombre;
-        this.ciudadNombre = ciudadNombre;
+        this.paisID = paisID;
+        this.ciudadID = ciudadID;
         this.direccion = direccion;
         this.correo = correo;
         this.telefono = telefono;
         this.nombreUsuario = nombreUsuario;
-        this.password = password;
     }
 
     public String getUsuarioNombre() {
@@ -52,20 +50,20 @@ public class Account {
         this.CI = CI;
     }
 
-    public String getPaisNombre() {
-        return paisNombre;
+    public Integer getPaisID() {
+        return paisID;
     }
 
-    public void setPaisNombre(String paisNombre) {
-        this.paisNombre = paisNombre;
+    public void setPaisID(Integer paisID) {
+        this.paisID = paisID;
     }
 
-    public String getCiudadNombre() {
-        return ciudadNombre;
+    public Integer getCiudadID() {
+        return ciudadID;
     }
 
-    public void setCiudadNombre(String ciudadNombre) {
-        this.ciudadNombre = ciudadNombre;
+    public void setCiudadID(Integer ciudadID) {
+        this.ciudadID = ciudadID;
     }
 
     public String getDireccion() {
@@ -100,12 +98,4 @@ public class Account {
         this.nombreUsuario = nombreUsuario;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
 }

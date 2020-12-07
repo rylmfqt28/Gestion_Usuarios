@@ -26,7 +26,7 @@ class ModalContrasena extends Component{
                     alert("La contraseña debe contener al menos 8 caracteres.")
                     this.limpiarCampos();
                 } else {
-                    if(res.data.password === this.state.password){
+                    if(res.data.password !== this.state.password){
                         this.redireccionar();
                         alert("Contraseña correcta!")
                         this.limpiarCampos();
@@ -62,9 +62,9 @@ class ModalContrasena extends Component{
         }
     
       }
-cerrarModal(c){
+cerrarModal(){
     $('#ModalContrasena').modal('hide');
-    c.stopPropagation();
+    //c.stopPropagation();
 }
 redireccionar(){
     $("#ModalCambioContrasena").modal('show')
@@ -106,7 +106,7 @@ componentDidMount() {
 
                         <div>
                         <label>
-                            <b>{Usuarios.nombre} {Usuarios.apellido} {Usuarios.password}</b>
+                            <b>{Usuarios.nombre} {Usuarios.apellido}</b>
                         </label>
                         </div>
 
@@ -123,7 +123,7 @@ componentDidMount() {
                             size="30"
                              placeholder="Introduce tu contraseña"
                             name="password"
-                            id="password"
+                            id="passwordModal"
                             minLength="8"
                             required
                             value={this.state.password}

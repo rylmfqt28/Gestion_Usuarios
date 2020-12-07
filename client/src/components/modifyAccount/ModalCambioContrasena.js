@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 import './modifyAccount.css'
+import $ from 'jquery'
 import PersonaService from '../../Service/PersonaService';
 
 class ModalCambioContrasena extends Component{
@@ -25,6 +26,8 @@ class ModalCambioContrasena extends Component{
                     alert("Las contraseñas no coinciden")
                     }else{
                         alert("Se cambio la contraseña exitosamente")
+                        this.cerrarModalCambio();
+                        this.cerrarModal();
                     }
                 }
             }else{
@@ -55,6 +58,12 @@ class ModalCambioContrasena extends Component{
             password: '',
         });
     
+    }
+    cerrarModalCambio(){
+        $('#ModalCambioContrasena').modal('hide');
+    }
+    cerrarModal(){
+        $('#ModalContrasena').modal('hide');
     }
 
 componentDidMount() {
@@ -93,7 +102,7 @@ componentDidMount() {
                             size="30"
                              placeholder="Introduce tu nueva contraseña"
                             name="password"
-                            id="password"
+                            id="passwordModalCambio"
                             minLength="8"
                             required
                             value={this.state.password}

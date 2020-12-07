@@ -28,6 +28,7 @@ class ModalCambioContrasena extends Component{
                         alert("Se cambio la contraseña exitosamente")
                         this.cerrarModalCambio();
                         this.cerrarModal();
+                        this.limpiarCampos();
                     }
                 }
             }else{
@@ -39,15 +40,25 @@ class ModalCambioContrasena extends Component{
     }
     contrasenaHandler(e) {
         if (e.target.value.length < 50) {
-            this.setState({ password: e.target.value })
+            if(e.target.value.match("^[Ññíóáéú A-Za-z0-9 ]*$")!=null){
+                this.setState({ password: e.target.value })
+                this.setState({validate: true})
+            }else{
+                this.setState({validate: false})
+            }
         } else {
-            alert("El campo contraseña debe contener al menos 8 caracteres.")
+            alert("La contraseña debe contener al menos 8 caracteres.")
         }
     }
 
     confContrasenaHandler(e) {
         if (e.target.value.length < 50) {
-            this.setState({ confPassword: e.target.value })
+            if(e.target.value.match("^[Ññíóáéú A-Za-z0-9 ]*$")!=null){
+                this.setState({ confPassword: e.target.value })
+                this.setState({validate: true})
+            }else{
+                this.setState({validate: false})
+            }
         } else {
             alert("El campo confirmar contraseña debe contener al menos 8 caracteres.")
         }
@@ -56,6 +67,7 @@ class ModalCambioContrasena extends Component{
     limpiarCampos() {
         this.setState({
             password: '',
+            confPassword: '',
         });
     
     }

@@ -64,7 +64,6 @@ class ModalContrasena extends Component{
       }
 cerrarModal(){
     $('#ModalContrasena').modal('hide');
-    //c.stopPropagation();
 }
 redireccionar(){
     $("#ModalCambioContrasena").modal('show')

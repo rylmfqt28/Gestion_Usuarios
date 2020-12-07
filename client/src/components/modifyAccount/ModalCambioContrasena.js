@@ -93,7 +93,7 @@ componentDidMount() {
                             size="30"
                              placeholder="Introduce tu nueva contraseña"
                             name="password"
-                            id="password"
+                            id="passwordModalCambio"
                             minLength="8"
                             required
                             value={this.state.password}

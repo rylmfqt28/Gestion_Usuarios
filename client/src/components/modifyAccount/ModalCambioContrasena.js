@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import './modifyAccount.css'
 import $ from 'jquery'
+import axios from 'axios';
 import PersonaService from '../../Service/PersonaService';
 
 class ModalCambioContrasena extends Component{
@@ -21,13 +22,17 @@ class ModalCambioContrasena extends Component{
 
                 if (this.state.password.length < 8 || this.state.confPassword.length < 8) {
                     alert("Las contraseñas deben contener al menos 8 caracteres.")
+                    this.limpiarCampos();
                 } else {
                     if(this.state.password !== this.state.confPassword){
                     alert("Las contraseñas no coinciden")
+                    this.limpiarCampos();
                     }else{
                         alert("Se cambio la contraseña exitosamente")
+                        await axios.put('/api/updatePassword/' , {CI:sessionStorage.getItem("ci"), password:this.state.password});
                         this.cerrarModalCambio();
                         this.cerrarModal();
+                        this.limpiarCampos();
                     }
                 }
             }else{
@@ -39,15 +44,25 @@ class ModalCambioContrasena extends Component{
     }
     contrasenaHandler(e) {
         if (e.target.value.length < 50) {
-            this.setState({ password: e.target.value })
+            if(e.target.value.match("^[Ññíóáéú A-Za-z0-9 ]*$")!=null){
+                this.setState({ password: e.target.value })
+                this.setState({validate: true})
+            }else{
+                this.setState({validate: false})
+            }
         } else {
-            alert("El campo contraseña debe contener al menos 8 caracteres.")
+            alert("La contraseña debe contener al menos 8 caracteres.")
         }
     }
 
     confContrasenaHandler(e) {
         if (e.target.value.length < 50) {
-            this.setState({ confPassword: e.target.value })
+            if(e.target.value.match("^[Ññíóáéú A-Za-z0-9 ]*$")!=null){
+                this.setState({ confPassword: e.target.value })
+                this.setState({validate: true})
+            }else{
+                this.setState({validate: false})
+            }
         } else {
             alert("El campo confirmar contraseña debe contener al menos 8 caracteres.")
         }
@@ -56,6 +71,7 @@ class ModalCambioContrasena extends Component{
     limpiarCampos() {
         this.setState({
             password: '',
+            confPassword: '',
         });
     
     }
@@ -72,7 +88,6 @@ componentDidMount() {
   }
 
       render(){
-        const Usuarios = this.state.Usuarios;
         return(
             
             <div className="modal fade" id="ModalCambioContrasena" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

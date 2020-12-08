@@ -29,7 +29,7 @@ class ModalCambioContrasena extends Component{
                     this.limpiarCampos();
                     }else{
                         alert("Se cambio la contraseña exitosamente")
-                        const result = await axios.put('/api/updatePassword/' , {CI:sessionStorage.getItem("ci"), password:this.state.password});
+                        await axios.put('/api/updatePassword/' , {CI:sessionStorage.getItem("ci"), password:this.state.password});
                         this.cerrarModalCambio();
                         this.cerrarModal();
                         this.limpiarCampos();
@@ -88,7 +88,6 @@ componentDidMount() {
   }
 
       render(){
-        const Usuarios = this.state.Usuarios;
         return(
             
             <div className="modal fade" id="ModalCambioContrasena" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

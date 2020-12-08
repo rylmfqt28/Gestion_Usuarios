@@ -26,15 +26,15 @@ class ModalContrasena extends Component{
                     alert("La contraseña debe contener al menos 8 caracteres.")
                     this.limpiarCampos();
                 } else {
-                    if(res.data.password !== this.state.password){
+                    if(res.data[0].password === this.state.password){
                         this.redireccionar();
                         alert("Contraseña correcta!")
                         this.limpiarCampos();
-                        console.log(res.data.password)
+                        console.log(res.data[0].password)
                     }else{
                         alert("Datos incorrectos")
                         this.limpiarCampos();
-                        console.log(res.data.password)
+                        console.log(res.data[0].password)
                     }
                 }
             }else{

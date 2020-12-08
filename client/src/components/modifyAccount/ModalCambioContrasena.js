@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import './modifyAccount.css'
 import $ from 'jquery'
+import axios from 'axios';
 import PersonaService from '../../Service/PersonaService';
 
 class ModalCambioContrasena extends Component{
@@ -21,11 +22,14 @@ class ModalCambioContrasena extends Component{
 
                 if (this.state.password.length < 8 || this.state.confPassword.length < 8) {
                     alert("Las contraseñas deben contener al menos 8 caracteres.")
+                    this.limpiarCampos();
                 } else {
                     if(this.state.password !== this.state.confPassword){
                     alert("Las contraseñas no coinciden")
+                    this.limpiarCampos();
                     }else{
                         alert("Se cambio la contraseña exitosamente")
+                        const result = await axios.put('/api/updatePassword/' , {CI:sessionStorage.getItem("ci"), password:this.state.password});
                         this.cerrarModalCambio();
                         this.cerrarModal();
                         this.limpiarCampos();

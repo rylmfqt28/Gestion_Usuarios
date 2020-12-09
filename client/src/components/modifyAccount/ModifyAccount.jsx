@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './modifyAccount.css'
 import { Link } from "react-router-dom"
 import axios from 'axios';
+
 import RegistroService from '../../Service/RegistroService'
 import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
@@ -21,7 +22,9 @@ class ModifyAccount extends Component {
       ci: "",
       genero: "",
       pais: [],
+      paisOld:[],
       ciudad: [],
+      ciudadOld:[],
       direccion: "",
       correo: "",
       telefono: "",
@@ -43,39 +46,59 @@ class ModifyAccount extends Component {
   }
   // Usuarios=this.state.Usuarios;
   peticionGet= async()=>{  
-     
-    /*await axios.get('/api/accountData/' + sessionStorage.getItem("ci")).then(response=>{
-        console.log(response.data.usuarioNombre);
-        this.setState({Usuarios: response.data});
-        
-        this.setState({nombre: response.data.usuarioNombre});
-        console.log(this.state.Usuarios.get);
-        
-    })*/
     const res = await axios.get('/api/accountData/'+sessionStorage.getItem("ci"))
     console.log(res.data);
-    console.log(res.data[0].ci);
-
+    console.log(res.data[0].paisNombre);
+    
     this.setState({nombre: res.data[0].usuarioNombre,
                   apellido: res.data[0].usuarioApellido,
                   ci:res.data[0].ci,                
                   correo: res.data[0].correo,
                   direccion: res.data[0].direccion,
-                  pais: res.data[0].paisNombre,
-                  ciudad: res.data[0].ciudadNombre,
-                  userName: res.data[0].usuarioNombre
-
+                  paisOld: res.data[0].paisNombre,
+                  ciudadOld: res.data[0].ciudadNombre,
+                  userName: res.data[0].usuarioNombre,
+                  telefono: res.data[0].telefono
 
     });
+    console.log(this.state.paisOld);
     
     }
     
   componentDidMount(){
     
     this.peticionGet();
+    RegistroService.getAllCountries().then(data => this.setState({ pais: data }))
+  
     
   }
 
+  //actualiza la lista de paises
+  updateListContries = (e) => {
+
+    for (const value of this.state.pais) {
+      if (value.paisNombre === e.target.value) {
+        //console.log(value.paisID)
+        this.setState({ paisID: value.paisID })
+      }
+    }
+    RegistroService.getAllCountries(e.target.value).then(data => this.setState({ pais: data }))
+    this.updateListCities(e.target.value);
+
+  }
+  //actualiza la lista de ciudades
+  updateListCities = (pais) => {
+    RegistroService.getAllCities(pais).then(data => this.setState({ ciudad: data }))
+  }
+
+  updateCityId = (e) => {
+    for (const value of this.state.ciudad) {
+      if (value.ciudadNombre === e.target.value) {
+        //console.log(value.ciudadID)
+        this.setState({ ciudadID: value.ciudadID })
+      }
+    }
+  }
 
   
 
@@ -521,21 +544,21 @@ class ModifyAccount extends Component {
                   <div className="form-group">
                     <b>Pais:</b>
                     <select className="form-control" id="country" required onChange={this.updateListContries}>
-                      <option value="1" >{"Seleccione una Opción"}</option>
-                      /{/*this.state.paisNombre.map((elemento, i) => (
+                      <option value="" >{"Seleccione una Opción"}</option>
+                      {this.state.pais.map((elemento, i) => (
                         <option key={i} value={elemento.paisNombre}>
                           {elemento.paisNombre}
-                      </option>))*/}
+                      </option>))}
                     </select>
                   </div>
                   <div className="form-group">
                     <b>Ciudad:</b>
                     <select className="form-control" id="city" required onChange={this.updateCityId} >
-                      <option value=" " >{"Seleccione una Opción"}</option>
-                      {/*this.state.ciudad.map((elemento, i) => (
+                      <option value="" >{"Seleccione una Opción"}</option>
+                      {this.state.ciudad.map((elemento, i) => (
                         <option key={i} value={elemento.ciudad}>
                           {elemento.ciudadNombre}
-                      </option>))*/}
+                      </option>))}
 
                     </select>
                   </div>
@@ -580,7 +603,7 @@ class ModifyAccount extends Component {
                       name="telefono"
                       required
                       onChange={(e) => this.validarNumerosTelefono(e)}
-                      value={this.state.Usuarios.telefono}
+                      value={this.state.telefono}
                     />
                   </div>
                   <div className="form-group">

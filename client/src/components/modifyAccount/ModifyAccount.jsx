@@ -57,7 +57,7 @@ class ModifyAccount extends Component {
                   direccion: res.data[0].direccion,
                   paisOld: res.data[0].paisNombre,
                   ciudadOld: res.data[0].ciudadNombre,
-                  userName: res.data[0].usuarioNombre,
+                  userName: res.data[0].nombreUsuario,
                   telefono: res.data[0].telefono
 
     });
@@ -468,6 +468,64 @@ class ModifyAccount extends Component {
   redireccionar() {
     $("#ModalContrasena").modal('show')
   }
+  updateDatosRegistro = async () => {
+    try {
+      if (this.state.userName.trim() !== '') {
+        if (this.state.password.length >= 8) {
+          //console.log('llego malditod');
+          if (this.state.confPassword.length >= 8) {
+            const resCi = await axios.get('/api/userci/' + this.state.ci.trim());
+            //console.log(res.data);
+            if (resCi.data === null) {
+              const res = await axios.get('/api/user/' + this.state.userName.trim());
+              if (res.data === null) {
+                //console.log(this.state.paisID)
+                try {
+                  const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
+                    usuarioNombre: this.state.nombre,
+                    usuarioApellido: this.state.apellido,
+                    CI: this.state.ci,
+                    genero: this.state.genero,
+                    paisID: this.state.paisID,
+                    ciudadID: this.state.ciudadID,
+                    direccion: this.state.direccion,
+                    correo: this.state.correo,
+                    telefono: this.state.telefono,
+                    nombreUsuario: this.state.userName,
+                    password: this.state.password,
+                    tipoUsuarioID: this.state.tipoID,
+                    motivo: this.state.motivo
+                  })
+                  console.log(resp);
+                  alert('Se creo el usuario Exitosamente');
+                } catch (err) {
+                  // Handle Error Here
+                  console.error(err);
+                }
+
+              } else {
+                alert('El Nombre de usuario ya existe');
+                //console.log("El nombre de usuario ya existe");
+              }
+            } else {
+              alert('La cédula que pretende ingresar ya existe')
+            }
+          } else {
+            alert('Minimo 8 caracteres en el campo "Confirmar Contraseña"');
+          }
+        } else {
+          alert('Minimo 8 caracteres en el "Campo Contraseña"');
+        }
+      } else {
+        //mensaje campos vacios "Existen campos vacios"
+        alert('Existen campos vacíos, rellenar los campos restantes');
+        //console.log("");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   render() {
     
 
@@ -633,7 +691,7 @@ class ModifyAccount extends Component {
                       name="password"
                       id="password"
                       minLength="8"
-                      required
+                      //required
                       onKeyPress={this.validarContraseña}
                       onKeyDown={this.handleDeleteKeyPassword}
                       onChange={this.handleInputChange}

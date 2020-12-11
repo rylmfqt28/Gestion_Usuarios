@@ -488,6 +488,7 @@ class ModifyAccount extends Component {
 
       })
       sessionStorage.setItem("ci", this.state.ci);
+      sessionStorage.setItem("userName", this.state.nombreUsuario);
 
       alert('Los datos fueron guardados Exitosamente');
     } catch (err) {
@@ -499,49 +500,74 @@ class ModifyAccount extends Component {
   //funcion para actualizar los datos del usuario
   updateDatosRegistro = async () => {
     this.validarVacios();
-    try {
-      if (this.state.userName.trim() !== '') {
+    //try {
+    if (this.state.userName.trim() !== '') {
 
-        if (this.state.ci.trim() === sessionStorage.getItem("ci")) {
+      if (this.state.ci.trim() === sessionStorage.getItem("ci") && this.state.userName.trim() === sessionStorage.getItem("userName")) {
+
+        this.updateUserDate();
+      }
+
+      else if (this.state.ci.trim() === sessionStorage.getItem("ci") && this.state.userName.trim() !== sessionStorage.getItem("userName")) {
+
+        const res = await axios.get('/api/user/' + this.state.userName.trim());
+        if (res.data === null) {
 
           this.updateUserDate();
+
+        } else {
+          alert('El Nombre de usuario ya existe');
+
         }
 
-        else {
-          
+      }
+      else if (this.state.ci.trim() !== sessionStorage.getItem("ci") && this.state.userName.trim() === sessionStorage.getItem("userName")) {
+
         const resCi = await axios.get('/api/userci/' + this.state.ci.trim());
-          if (resCi.data === null) {
-            if(this.state.ci.trim() === this.state.oldUser.trim()){
+        if (resCi.data === null) {
+
+          this.updateUserDate();
+
+        } else {
+          alert('La cédula que pretende ingresar ya existe')
+        }
+
+      }
+      else if (this.state.ci.trim() !== sessionStorage.getItem("ci") && this.state.userName.trim() !== sessionStorage.getItem("userName")) {
+
+        const resCi = await axios.get('/api/userci/' + this.state.ci.trim());
+        if (resCi.data === null) {
+          if (this.state.ci.trim() === sessionStorage.getItem("userName")) {
+            this.updateUserDate();
+
+          } else {
+            const res = await axios.get('/api/user/' + this.state.userName.trim());
+            if (res.data === null) {
+
               this.updateUserDate();
 
-            }else{
-              const res = await axios.get('/api/user/' + this.state.userName.trim());
-              if (res.data === null) {
-    
-                this.updateUserDate();
-    
-              } else {
-                alert('El Nombre de usuario ya existe');
-                //console.log("El nombre de usuario ya existe");
-              }
+            } else {
+              alert('El Nombre de usuario ya existe');
+
             }
-            
-          } else {
-            alert('La cédula que pretende ingresar ya existe')
           }
 
+        } else {
+          alert('La cédula que pretende ingresar ya existe')
         }
-        
 
-      } else {
-        //mensaje campos vacios "Existen campos vacios"
-        alert('Existen campos vacíos, rellenar los campos restantes');
-        //console.log("");
       }
-    } catch (error) {
-      console.log(error);
-      alert('Ocurrio un ERROR no se realizaron los cambios');
+
+
+    } else {
+      //mensaje campos vacios "Existen campos vacios"
+      alert('Existen campos vacíos, rellenar los campos restantes');
+      //console.log("");
     }
+    /* } catch (error) {
+       console.log(error);
+       alert('Ocurrio un ERROR no se realizaron los cambios');
+     }*/
   }
 
   render() {

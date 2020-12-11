@@ -20,6 +20,7 @@ class ModifyAccount extends Component {
       nombre: "",
       apellido: "",
       ci: "",
+      oldCI:"",
       genero: "",
       pais: [],
       paisOld:[],
@@ -58,7 +59,8 @@ class ModifyAccount extends Component {
                   paisOld: res.data[0].paisNombre,
                   ciudadOld: res.data[0].ciudadNombre,
                   userName: res.data[0].nombreUsuario,
-                  telefono: res.data[0].telefono
+                  telefono: res.data[0].telefono,
+                  oldCI:res.data[0].ci
 
     });
     console.log(this.state.paisOld);
@@ -305,6 +307,7 @@ class ModifyAccount extends Component {
     userName.classList.add('input-error');
     password.classList.add('input-error');
     confPassword.classList.add('input-error');
+    
   }
 
 
@@ -468,36 +471,42 @@ class ModifyAccount extends Component {
   redireccionar() {
     $("#ModalContrasena").modal('show')
   }
+
+  //funcion para actualizar los datos del usuario
   updateDatosRegistro = async () => {
+    
     try {
       if (this.state.userName.trim() !== '') {
-        if (this.state.password.length >= 8) {
+        //if (this.state.password.length >= 8) {
           //console.log('llego malditod');
-          if (this.state.confPassword.length >= 8) {
+          //if (this.state.confPassword.length >= 8) {
             const resCi = await axios.get('/api/userci/' + this.state.ci.trim());
             //console.log(res.data);
             if (resCi.data === null) {
               const res = await axios.get('/api/user/' + this.state.userName.trim());
               if (res.data === null) {
-                //console.log(this.state.paisID)
+                //console.log(this.state.oldCI)
                 try {
-                  const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
+                  await axios.put('/api/updateAccountInfo/'+sessionStorage.getItem("ci"), {
                     usuarioNombre: this.state.nombre,
                     usuarioApellido: this.state.apellido,
                     CI: this.state.ci,
-                    genero: this.state.genero,
+                    //genero: this.state.genero,
                     paisID: this.state.paisID,
                     ciudadID: this.state.ciudadID,
                     direccion: this.state.direccion,
                     correo: this.state.correo,
                     telefono: this.state.telefono,
+
                     nombreUsuario: this.state.userName,
-                    password: this.state.password,
-                    tipoUsuarioID: this.state.tipoID,
-                    motivo: this.state.motivo
+                    //CI: this.state.ci,
+                    //password: this.state.password,
+                    //tipoUsuarioID: this.state.tipoID,
+                    //motivo: this.state.motivo
                   })
-                  console.log(resp);
-                  alert('Se creo el usuario Exitosamente');
+                  sessionStorage.setItem("ci",this.state.ci);
+                  //console.log(resp)
+                  alert('Los datos fueron guardados Exitosamente');
                 } catch (err) {
                   // Handle Error Here
                   console.error(err);
@@ -510,12 +519,12 @@ class ModifyAccount extends Component {
             } else {
               alert('La cédula que pretende ingresar ya existe')
             }
-          } else {
+          /*} else {
             alert('Minimo 8 caracteres en el campo "Confirmar Contraseña"');
           }
         } else {
           alert('Minimo 8 caracteres en el "Campo Contraseña"');
-        }
+        }*/
       } else {
         //mensaje campos vacios "Existen campos vacios"
         alert('Existen campos vacíos, rellenar los campos restantes');
@@ -523,6 +532,7 @@ class ModifyAccount extends Component {
       }
     } catch (error) {
       console.log(error);
+      alert('Ocurrio un ERROR no se realizaron los cambios');
     }
   }
 
@@ -548,7 +558,7 @@ class ModifyAccount extends Component {
                 <h1 className="titulo-registro"> Administrar Cuenta </h1>
               </div>
               <br />
-              <form onSubmit={this.registerButtonEvent}>
+              <form >
                 <div className="form-group">
                   <label>
                     <b>Nombres:</b>
@@ -706,7 +716,7 @@ class ModifyAccount extends Component {
 
                     <Link className="btn btn-cancelar" value="Login" type="reset" to="/"  >Cancelar</Link>
 
-                    <button className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Guardar</button>
+                    <button className="btn btn-aceptar" value="Login" onClick={this.updateDatosRegistro} >Guardar</button>
                   </div>
 
                   <div className="avisos">

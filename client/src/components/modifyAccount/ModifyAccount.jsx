@@ -20,12 +20,12 @@ class ModifyAccount extends Component {
       nombre: "",
       apellido: "",
       ci: "",
-      oldCI:"",
+      oldUser: "",
       genero: "",
       pais: [],
-      paisOld:[],
+      paisOld: [],
       ciudad: [],
-      ciudadOld:[],
+      ciudadOld: [],
       direccion: "",
       correo: "",
       telefono: "",
@@ -40,39 +40,40 @@ class ModifyAccount extends Component {
       tipoID: 11,
       value: ''
     }
-    
+
     this.updateList = this.updateList.bind(this)
     this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
     this.peticionGet = this.peticionGet.bind(this);
   }
   // Usuarios=this.state.Usuarios;
-  peticionGet= async()=>{  
-    const res = await axios.get('/api/accountData/'+sessionStorage.getItem("ci"))
+  peticionGet = async () => {
+    const res = await axios.get('/api/accountData/' + sessionStorage.getItem("ci"))
     console.log(res.data);
     console.log(res.data[0].paisNombre);
-    
-    this.setState({nombre: res.data[0].usuarioNombre,
-                  apellido: res.data[0].usuarioApellido,
-                  ci:res.data[0].ci,                
-                  correo: res.data[0].correo,
-                  direccion: res.data[0].direccion,
-                  paisOld: res.data[0].paisNombre,
-                  ciudadOld: res.data[0].ciudadNombre,
-                  userName: res.data[0].nombreUsuario,
-                  telefono: res.data[0].telefono,
-                  oldCI:res.data[0].ci
+
+    this.setState({
+      nombre: res.data[0].usuarioNombre,
+      apellido: res.data[0].usuarioApellido,
+      ci: res.data[0].ci,
+      correo: res.data[0].correo,
+      direccion: res.data[0].direccion,
+      paisOld: res.data[0].paisNombre,
+      ciudadOld: res.data[0].ciudadNombre,
+      userName: res.data[0].nombreUsuario,
+      telefono: res.data[0].telefono,
+      oldUser: res.data[0].nombreUsuario
 
     });
     console.log(this.state.paisOld);
-    
-    }
-    
-  componentDidMount(){
-    
+
+  }
+
+  componentDidMount() {
+
     this.peticionGet();
     RegistroService.getAllCountries().then(data => this.setState({ pais: data }))
-  
-    
+
+
   }
 
   //actualiza la lista de paises
@@ -102,7 +103,7 @@ class ModifyAccount extends Component {
     }
   }
 
-  
+
 
 
 
@@ -307,7 +308,7 @@ class ModifyAccount extends Component {
     userName.classList.add('input-error');
     password.classList.add('input-error');
     confPassword.classList.add('input-error');
-    
+
   }
 
 
@@ -463,68 +464,75 @@ class ModifyAccount extends Component {
     }
   }
 
- /* componentDidMount() {
-    const Usuarios = this.state.Usuarios
-    PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
-    console.log(Usuarios)
-  }*/
+  /* componentDidMount() {
+     const Usuarios = this.state.Usuarios
+     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
+     console.log(Usuarios)
+   }*/
   redireccionar() {
     $("#ModalContrasena").modal('show')
   }
+  //Actuliza los datos
+  updateUserDate = async () => {
+    try {
+      await axios.put('/api/updateAccountInfo/' + sessionStorage.getItem("ci"), {
+        usuarioNombre: this.state.nombre,
+        usuarioApellido: this.state.apellido,
+        CI: this.state.ci,
+        paisID: this.state.paisID,
+        ciudadID: this.state.ciudadID,
+        direccion: this.state.direccion,
+        correo: this.state.correo,
+        telefono: this.state.telefono,
+        nombreUsuario: this.state.userName,
 
+      })
+      sessionStorage.setItem("ci", this.state.ci);
+
+      alert('Los datos fueron guardados Exitosamente');
+    } catch (err) {
+      // Handle Error Here
+      console.error(err);
+    }
+
+  }
   //funcion para actualizar los datos del usuario
   updateDatosRegistro = async () => {
-    
+    this.validarVacios();
     try {
       if (this.state.userName.trim() !== '') {
-        //if (this.state.password.length >= 8) {
-          //console.log('llego malditod');
-          //if (this.state.confPassword.length >= 8) {
-            const resCi = await axios.get('/api/userci/' + this.state.ci.trim());
-            //console.log(res.data);
-            if (resCi.data === null) {
+
+        if (this.state.ci.trim() === sessionStorage.getItem("ci")) {
+
+          this.updateUserDate();
+        }
+
+        else {
+          
+        const resCi = await axios.get('/api/userci/' + this.state.ci.trim());
+          if (resCi.data === null) {
+            if(this.state.ci.trim() === this.state.oldUser.trim()){
+              this.updateUserDate();
+
+            }else{
               const res = await axios.get('/api/user/' + this.state.userName.trim());
               if (res.data === null) {
-                //console.log(this.state.oldCI)
-                try {
-                  await axios.put('/api/updateAccountInfo/'+sessionStorage.getItem("ci"), {
-                    usuarioNombre: this.state.nombre,
-                    usuarioApellido: this.state.apellido,
-                    CI: this.state.ci,
-                    //genero: this.state.genero,
-                    paisID: this.state.paisID,
-                    ciudadID: this.state.ciudadID,
-                    direccion: this.state.direccion,
-                    correo: this.state.correo,
-                    telefono: this.state.telefono,
-
-                    nombreUsuario: this.state.userName,
-                    //CI: this.state.ci,
-                    //password: this.state.password,
-                    //tipoUsuarioID: this.state.tipoID,
-                    //motivo: this.state.motivo
-                  })
-                  sessionStorage.setItem("ci",this.state.ci);
-                  //console.log(resp)
-                  alert('Los datos fueron guardados Exitosamente');
-                } catch (err) {
-                  // Handle Error Here
-                  console.error(err);
-                }
-
+    
+                this.updateUserDate();
+    
               } else {
                 alert('El Nombre de usuario ya existe');
                 //console.log("El nombre de usuario ya existe");
               }
-            } else {
-              alert('La cédula que pretende ingresar ya existe')
             }
-          /*} else {
-            alert('Minimo 8 caracteres en el campo "Confirmar Contraseña"');
+            
+          } else {
+            alert('La cédula que pretende ingresar ya existe')
           }
-        } else {
-          alert('Minimo 8 caracteres en el "Campo Contraseña"');
-        }*/
+
+        }
+        
+
       } else {
         //mensaje campos vacios "Existen campos vacios"
         alert('Existen campos vacíos, rellenar los campos restantes');
@@ -537,7 +545,7 @@ class ModifyAccount extends Component {
   }
 
   render() {
-    
+
 
     function showMenu(props) {
       if (sessionStorage.getItem("nombreTipo") === 'Administrador') {
@@ -548,7 +556,7 @@ class ModifyAccount extends Component {
       }
     }
     return (
-        
+
       <div>
         {showMenu()}
         <div className="col" align="center">
@@ -616,7 +624,7 @@ class ModifyAccount extends Component {
                       {this.state.pais.map((elemento, i) => (
                         <option key={i} value={elemento.paisNombre}>
                           {elemento.paisNombre}
-                      </option>))}
+                        </option>))}
                     </select>
                   </div>
                   <div className="form-group">
@@ -626,7 +634,7 @@ class ModifyAccount extends Component {
                       {this.state.ciudad.map((elemento, i) => (
                         <option key={i} value={elemento.ciudad}>
                           {elemento.ciudadNombre}
-                      </option>))}
+                        </option>))}
 
                     </select>
                   </div>

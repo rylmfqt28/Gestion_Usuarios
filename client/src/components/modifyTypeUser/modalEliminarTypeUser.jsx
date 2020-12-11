@@ -39,7 +39,7 @@ class ModalEliminarPermiso extends Component{
                             <h5 className="modal-title">Eliminar Tipo Usuario</h5>
                         </div>
                         <div className="modal-body" id="Cuerpo">
-                           <h7>Decea eliminar el Usuario: "{this.props.crearTipo}" ?</h7>
+                           <h7>Desea eliminar el Usuario: "{this.props.crearTipo}" ?</h7>
                         </div>
                         <div className="modal-footer justify-content-center" >
                             <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>

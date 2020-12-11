@@ -240,7 +240,7 @@ class ModifyAccount extends Component {
   }
   validarNumerosTelefono = (event) => {
     if (event.target.value[0] !== " ") {
-      if (event.target.value.length !== 8) {
+      if (event.target.value.length !== 9) {
         if (event.target.value.match("^[1234567890]*$") != null) {
           this.setState({ telefono: event.target.value })
           this.setState({ validate: true })

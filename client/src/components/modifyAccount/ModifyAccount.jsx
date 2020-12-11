@@ -23,9 +23,11 @@ class ModifyAccount extends Component {
       oldUser: "",
       genero: "",
       pais: [],
-      paisOld: [],
+      paisOld:"",
+      paisSeleccionado:"Bol",
       ciudad: [],
-      ciudadOld: [],
+      ciudadOld:[],
+      ciudadSeleccionado:"",
       direccion: "",
       correo: "",
       telefono: "",
@@ -44,6 +46,7 @@ class ModifyAccount extends Component {
     this.updateList = this.updateList.bind(this)
     this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
     this.peticionGet = this.peticionGet.bind(this);
+    //this.verificarCiudad = this.verificarCiudad.bind(this)
   }
   // Usuarios=this.state.Usuarios;
   peticionGet = async () => {
@@ -64,16 +67,18 @@ class ModifyAccount extends Component {
       oldUser: res.data[0].nombreUsuario
 
     });
-    console.log(this.state.paisOld);
-
-  }
-
-  componentDidMount() {
-
+    console.log(this.state.paisOld+"Ponele");
+    console.log(this.state.ciudadOld);
+    RegistroService.getAllCities(this.state.paisOld).then(data => this.setState({ ciudad: data }));
+    }
+    
+  componentDidMount(){
+    
     this.peticionGet();
     RegistroService.getAllCountries().then(data => this.setState({ pais: data }))
-
-
+    console.log(this.state.ciudadNombre+"El vieoj");
+    
+    
   }
 
   //actualiza la lista de paises
@@ -81,29 +86,51 @@ class ModifyAccount extends Component {
 
     for (const value of this.state.pais) {
       if (value.paisNombre === e.target.value) {
-        //console.log(value.paisID)
-        this.setState({ paisID: value.paisID })
+        console.log(value.paisID)
+        this.setState({ paisID: value.paisID }) 
       }
     }
     RegistroService.getAllCountries(e.target.value).then(data => this.setState({ pais: data }))
+    this.setState({paisSeleccionado: e.target.value})
+    console.log(this.state.paisSeleccionado);
     this.updateListCities(e.target.value);
-
+    console.log(this.state.ciudadSeleccionado+"3");
+    
   }
   //actualiza la lista de ciudades
   updateListCities = (pais) => {
     RegistroService.getAllCities(pais).then(data => this.setState({ ciudad: data }))
+    
   }
 
   updateCityId = (e) => {
     for (const value of this.state.ciudad) {
-      if (value.ciudadNombre === e.target.value) {
+      if (value.ciudadSeleccionado === e.target.value) {
         //console.log(value.ciudadID)
         this.setState({ ciudadID: value.ciudadID })
       }
     }
+   
+    
   }
+  verificarPais=(pais, pId)=>{
+    
+    if(this.state.paisOld===pais){ 
+     // this.setState({ paisID: pId})
+      return true } else { 
+       
+        return false };
 
-
+  }
+  verificarCiudad=(ciudad)=>{
+    
+   
+    if(this.state.ciudadOld===ciudad){  return true } else { 
+      this.state.ciudadSeleccionado=ciudad;
+      return false };
+    
+  }
+  
 
 
 
@@ -172,6 +199,7 @@ class ModifyAccount extends Component {
     }
 
   }
+  validar
 
   validarDir = (event) => {
     if (event.target.value[0] !== " ") {
@@ -648,7 +676,7 @@ class ModifyAccount extends Component {
                     <select className="form-control" id="country" required onChange={this.updateListContries}>
                       <option value="" >{"Seleccione una Opción"}</option>
                       {this.state.pais.map((elemento, i) => (
-                        <option key={i} value={elemento.paisNombre}>
+                        <option key={i} selected={this.verificarPais(elemento.paisNombre, elemento.paisID)} value={elemento.paisNombre}>
                           {elemento.paisNombre}
                         </option>))}
                     </select>
@@ -658,7 +686,7 @@ class ModifyAccount extends Component {
                     <select className="form-control" id="city" required onChange={this.updateCityId} >
                       <option value="" >{"Seleccione una Opción"}</option>
                       {this.state.ciudad.map((elemento, i) => (
-                        <option key={i} value={elemento.ciudad}>
+                        <option key={i} selected={this.verificarCiudad(elemento.ciudadNombre)} value={elemento.ciudadSeleccionado}>
                           {elemento.ciudadNombre}
                         </option>))}
 

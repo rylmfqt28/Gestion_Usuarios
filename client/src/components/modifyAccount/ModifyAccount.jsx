@@ -208,7 +208,7 @@ class ModifyAccount extends Component {
   validarDir = (event) => {
     if (event.target.value[0] !== " ") {
       if (event.target.value.length !== 250) {
-        if (event.target.value.match("^[Ññíóáéú a-zA-Z ]*$") != null) {
+        if (event.target.value.match("^[Ññíóáéú@.1234567890-_#&/ a-zA-Z ]*$") != null) {
           this.setState({ direccion: event.target.value })
           this.setState({ validate: true })
         } else {
@@ -247,7 +247,7 @@ class ModifyAccount extends Component {
   }
   validarNumerosTelefono = (event) => {
     if (event.target.value[0] !== " ") {
-      if (event.target.value.length !== 8) {
+      if (event.target.value.length !== 9) {
         if (event.target.value.match("^[1234567890]*$") != null) {
           this.setState({ telefono: event.target.value })
           this.setState({ validate: true })
@@ -701,7 +701,7 @@ class ModifyAccount extends Component {
                       size="60"
                       placeholder="Ingrese su dirección"
                       name="direccion"
-                      maxLength="250"
+                   
                       onChange={(e) => this.validarDir(e)}
                       value={this.state.direccion}
                       required

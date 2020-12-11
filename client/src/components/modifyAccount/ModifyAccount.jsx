@@ -47,6 +47,7 @@ class ModifyAccount extends Component {
     //this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
     this.updateDatosRegistro = this.updateDatosRegistro.bind(this);
     this.peticionGet = this.peticionGet.bind(this);
+    //this.updateUserDate = this.updateUserDate.bind(this);
     //this.verificarCiudad = this.verificarCiudad.bind(this)
   }
   // Usuarios=this.state.Usuarios;

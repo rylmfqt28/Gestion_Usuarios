@@ -41,7 +41,7 @@ class Home extends Component {
                 <div className='bienvenida'>
                     <h1><b>Usuario: {sessionStorage.getItem("nombreTipo")}</b></h1>
                     <h2>Bienvenido: {Usuarios.nombre} {Usuarios.apellido}</h2>
-                    <h2>UserName: {sessionStorage.getItem("userName")}</h2>
+                    
                 </div>
 
             </div>

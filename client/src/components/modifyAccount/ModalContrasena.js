@@ -5,6 +5,10 @@ import PersonaService from '../../Service/PersonaService';
 import ModalCambioContrasena from './ModalCambioContrasena';
 import axios from 'axios';
 
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
+
 class ModalContrasena extends Component{
     
      constructor(props){
@@ -23,14 +27,17 @@ class ModalContrasena extends Component{
                 const res = await axios.get('/api/accountData/' + sessionStorage.getItem("ci")); 
                     if(res.data[0].password === this.state.password){
                         this.redireccionar();
-                        alert("Contraseña correcta!")
+                        //alert("Contraseña correcta!")
+                        toast.success('🦄 Contraseña correcta!');
                         this.limpiarCampos();
                     }else{
-                        alert("La contraseña ingresada no es correcta")
+                        //alert("La contraseña ingresada no es correcta")
+                        toast.info('🦄 La contraseña ingresada no es correcta!');
                         this.limpiarCampos();
                     }
             }else{
-                alert('El campo contraseña es obligatorio');
+                toast.error('🦄 El campo contraseña es obligatorio');
+                //alert('El campo contraseña es obligatorio');
             }
         } catch (error) {
             console.log(error);
@@ -45,7 +52,8 @@ class ModalContrasena extends Component{
                 this.setState({validate: false})
             }
         } else {
-            alert("La contraseña debe contener al menos 8 caracteres.")
+            toast('🦄 La contraseña debe contener al menos 8 caracteres.');
+            //alert("La contraseña debe contener al menos 8 caracteres.")
         }
     }
     validarMinPass=(event)=>{
@@ -65,6 +73,9 @@ limpiarCampos() {
         password: '',
     });
 
+}
+estiloToast(){
+    
 }
 
 componentDidMount() {
@@ -129,6 +140,17 @@ componentDidMount() {
                         <div className="modal-footer">
                         <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
                         <button type="button" className="btn btn-outline-info" onClick={this.verificarPasswd}>Siguiente</button>
+                        <ToastContainer
+                            position="top-right"
+                            autoClose={5000}
+                            hideProgressBar={false}
+                            newestOnTop
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                        />
                         </div>
                     </div>
                     </div>

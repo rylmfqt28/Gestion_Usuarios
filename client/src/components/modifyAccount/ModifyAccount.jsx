@@ -20,11 +20,14 @@ class ModifyAccount extends Component {
       nombre: "",
       apellido: "",
       ci: "",
+      oldUser: "",
       genero: "",
       pais: [],
-      paisOld:[],
+      paisOld: "",
+      paisSeleccionado: "Bol",
       ciudad: [],
-      ciudadOld:[],
+      ciudadOld: "",
+      ciudadSeleccionado: "",
       direccion: "",
       correo: "",
       telefono: "",
@@ -39,38 +42,49 @@ class ModifyAccount extends Component {
       tipoID: 11,
       value: ''
     }
-    
+
     this.updateList = this.updateList.bind(this)
-    this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
+    //this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
+    this.updateDatosRegistro = this.updateDatosRegistro.bind(this);
     this.peticionGet = this.peticionGet.bind(this);
+    this.updateCityId = this.updateCityId.bind(this);
+    this.updateListContries = this.updateListContries.bind(this);
+    //this.updateUserDate = this.updateUserDate.bind(this);
+    //this.verificarCiudad = this.verificarCiudad.bind(this)
   }
   // Usuarios=this.state.Usuarios;
-  peticionGet= async()=>{  
-    const res = await axios.get('/api/accountData/'+sessionStorage.getItem("ci"))
+  peticionGet = async () => {
+    const res = await axios.get('/api/accountData/' + sessionStorage.getItem("ci"))
     console.log(res.data);
     console.log(res.data[0].paisNombre);
-    
-    this.setState({nombre: res.data[0].usuarioNombre,
-                  apellido: res.data[0].usuarioApellido,
-                  ci:res.data[0].ci,                
-                  correo: res.data[0].correo,
-                  direccion: res.data[0].direccion,
-                  paisOld: res.data[0].paisNombre,
-                  ciudadOld: res.data[0].ciudadNombre,
-                  userName: res.data[0].usuarioNombre,
-                  telefono: res.data[0].telefono
+
+    this.setState({
+      nombre: res.data[0].usuarioNombre,
+      apellido: res.data[0].usuarioApellido,
+      ci: res.data[0].ci,
+      correo: res.data[0].correo,
+      direccion: res.data[0].direccion,
+      paisOld: res.data[0].paisNombre,
+      ciudadOld: res.data[0].ciudadNombre,
+      userName: res.data[0].nombreUsuario,
+      telefono: res.data[0].telefono,
+      oldUser: res.data[0].nombreUsuario,
+      paisID: res.data[0].paisID,
+      ciudadID: res.data[0].ciudadID
 
     });
-    console.log(this.state.paisOld);
-    
-    }
-    
-  componentDidMount(){
-    
+    console.log(this.state.paisOld + "Ponele");
+    console.log(this.state.ciudadOld);
+    RegistroService.getAllCities(this.state.paisOld).then(data => this.setState({ ciudad: data }));
+  }
+
+  componentDidMount() {
+
     this.peticionGet();
     RegistroService.getAllCountries().then(data => this.setState({ pais: data }))
-  
-    
+    console.log(this.state.ciudadNombre + "El vieoj");
+
+
   }
 
   //actualiza la lista de paises
@@ -78,29 +92,75 @@ class ModifyAccount extends Component {
 
     for (const value of this.state.pais) {
       if (value.paisNombre === e.target.value) {
-        //console.log(value.paisID)
-        this.setState({ paisID: value.paisID })
+        console.log(value.paisID + " pais ID Valor")
+        //this.setState({ paisID: value.paisID })
+        this.state.paisID = value.paisID;
+        console.log(this.state.paisID + " mirar aqui Pais")
+        break;
       }
     }
     RegistroService.getAllCountries(e.target.value).then(data => this.setState({ pais: data }))
+    this.setState({ paisSeleccionado: e.target.value })
+    console.log(this.state.paisSeleccionado);
     this.updateListCities(e.target.value);
+    console.log(this.state.ciudadSeleccionado + "3");
 
   }
   //actualiza la lista de ciudades
   updateListCities = (pais) => {
-    RegistroService.getAllCities(pais).then(data => this.setState({ ciudad: data }))
+    RegistroService.getAllCities(pais).then(data => this.setState({ ciudad: data}))
+    //console.log(this.state.paisID +" Este es el buenardo")
   }
 
   updateCityId = (e) => {
     for (const value of this.state.ciudad) {
       if (value.ciudadNombre === e.target.value) {
         //console.log(value.ciudadID)
-        this.setState({ ciudadID: value.ciudadID })
+        this.setState({ paisID: value.paisID })
+        this.state.ciudadID = value.ciudadID;
+        //console.log(this.state.ciudadID + " mirar aqui ciudad")
+        //console.log(this.state.paisID + " mirar aqui PAis")
+        break;
+      }else{
+        //this.state.ciudadID = value.ciudadID;
+        console.log("no entro......")
+        //console.log(this.state.ciudadSeleccionado + " mirar aqui ciudad el ELse")
+        //console.log(this.state.ciudadID + " mirar ID aqui ciudad el ELse")
       }
+      
     }
+
+
+  }
+  verificarPais = (pais, pId) => {
+
+    if (this.state.paisOld === pais) {
+      // this.setState({ paisID: pId})
+     // this.state.paisID = pId;
+      console.log(this.state.paisID+ " el id de la Pais");
+      return true
+    } else {
+      
+      return false
+    };
+
+  }
+  verificarCiudad = (ciudad, id) => {
+
+
+    if (this.state.ciudadOld === ciudad) {
+     // console.log(this.state.ciudadID+ " el id de la ciudad"); 
+     // this.state.ciudadSeleccionado = ciudad;
+    
+      return true 
+    } else {
+      
+      
+      return false
+    };
+
   }
 
-  
 
 
 
@@ -146,7 +206,7 @@ class ModifyAccount extends Component {
 
   validarNumerosCi = (event) => {
     if (event.target.value[0] !== " ") {
-      if (event.target.value.length !== 9) {
+      if (event.target.value.length !== 10) {
         if (event.target.value.match("^[1234567890]*$") != null) {
           this.setState({ ci: event.target.value })
           this.setState({ validate: true })
@@ -169,11 +229,12 @@ class ModifyAccount extends Component {
     }
 
   }
+  validar
 
   validarDir = (event) => {
     if (event.target.value[0] !== " ") {
       if (event.target.value.length !== 250) {
-        if (event.target.value.match("^[Ññíóáéú a-zA-Z ]*$") != null) {
+        if (event.target.value.match("^[Ññíóáéú@.1234567890-_#&/ a-zA-Z ]*$") != null) {
           this.setState({ direccion: event.target.value })
           this.setState({ validate: true })
         } else {
@@ -212,7 +273,7 @@ class ModifyAccount extends Component {
   }
   validarNumerosTelefono = (event) => {
     if (event.target.value[0] !== " ") {
-      if (event.target.value.length !== 8) {
+      if (event.target.value.length !== 9) {
         if (event.target.value.match("^[1234567890]*$") != null) {
           this.setState({ telefono: event.target.value })
           this.setState({ validate: true })
@@ -234,7 +295,7 @@ class ModifyAccount extends Component {
   validarNombreUsuario = (event) => {
     if (event.target.value[0] !== " ") {
       if (event.target.value.length !== 15) {
-        if (event.target.value.match("^[Ññíóáéú@. a-zA-Z ]*$") != null) {
+        if (event.target.value.match("^[Ññíóáéú@.a-zA-Z0-9]*$") != null) {
           this.setState({ userName: event.target.value })
           this.setState({ validate: true })
         } else {
@@ -305,6 +366,7 @@ class ModifyAccount extends Component {
     userName.classList.add('input-error');
     password.classList.add('input-error');
     confPassword.classList.add('input-error');
+
   }
 
 
@@ -332,61 +394,6 @@ class ModifyAccount extends Component {
     }
   }
 
-  insertarDatoRegistro = async () => {
-    try {
-      if (this.state.userName.trim() !== '') {
-        if (this.state.password.length >= 8) {
-          //console.log('llego malditod');
-          if (this.state.confPassword.length >= 8) {
-            const resCi = await axios.get('/api/userci/' + this.state.ci.trim());
-            //console.log(res.data);
-            if (resCi.data === null) {
-              const res = await axios.get('/api/user/' + this.state.userName.trim());
-              if (res.data === null) {
-                //console.log(this.state.paisID)
-                try {
-                  const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
-                    usuarioNombre: this.state.nombre,
-                    usuarioApellido: this.state.apellido,
-                    CI: this.state.ci,
-                    genero: this.state.genero,
-                    paisID: this.state.paisID,
-                    ciudadID: this.state.ciudadID,
-                    direccion: this.state.direccion,
-                    correo: this.state.correo,
-                    telefono: this.state.telefono,
-                    nombreUsuario: this.state.userName,
-                    password: this.state.password,
-                  })
-                  console.log(resp);
-                  alert('Se creo el usuario Exitosamente');
-                } catch (err) {
-                  // Handle Error Here
-                  console.error(err);
-                }
-
-              } else {
-                alert('El Nombre de usuario ya existe');
-                //console.log("El nombre de usuario ya existe");
-              }
-            } else {
-              alert('La cédula que pretende ingresar ya existe')
-            }
-          } else {
-            alert('Minimo 8 caracteres en el campo "Confirmar Contraseña"');
-          }
-        } else {
-          alert('Minimo 8 caracteres en el "Campo Contraseña"');
-        }
-      } else {
-        //mensaje campos vacios "Existen campos vacios"
-        alert('Existen campos vacíos, rellenar los campos restantes');
-        //console.log("");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   //actualiza la lista de los paises
   updateListCities = (pais) => {
@@ -460,16 +467,113 @@ class ModifyAccount extends Component {
     }
   }
 
- /* componentDidMount() {
-    const Usuarios = this.state.Usuarios
-    PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
-    console.log(Usuarios)
-  }*/
+  /* componentDidMount() {
+     const Usuarios = this.state.Usuarios
+     PersonaService.getUser(sessionStorage.getItem("ci")).then(data => this.setState({ Usuarios: data }));
+     console.log(Usuarios)
+   }*/
   redireccionar() {
     $("#ModalContrasena").modal('show')
   }
+  //Actualiza los datos
+  updateUserDate = async () => {
+    console.log(this.state.paisID);
+    console.log(this.state.ciudadID);
+    try {
+      await axios.put('http://localhost:8080/api/updateAccountInfo/' + sessionStorage.getItem("ci"), {
+        usuarioNombre: this.state.nombre,
+        usuarioApellido: this.state.apellido,
+        CI: this.state.ci,
+        paisID: this.state.paisID,
+        ciudadID: this.state.ciudadID,
+        direccion: this.state.direccion,
+        correo: this.state.correo,
+        telefono: this.state.telefono,
+        nombreUsuario: this.state.userName,
+
+      });
+      sessionStorage.setItem("ci", this.state.ci);
+      sessionStorage.setItem("userName", this.state.userName);
+      console.log(this.state.nombreUsuario);
+      alert('Los datos fueron guardados Exitosamente');
+    } catch (err) {
+      // Handle Error Here
+      console.error(err);
+    }
+
+  }
+  //funcion para actualizar los datos del usuario
+  updateDatosRegistro = async (event) => {
+    //this.validarVacios();
+    event.preventDefault();
+    try {
+      if (this.state.userName.trim() !== '') {
+
+        if (this.state.ci.trim() === sessionStorage.getItem("ci") && this.state.userName.trim() === sessionStorage.getItem("userName")) {
+
+          this.updateUserDate();
+        }
+
+        else if (this.state.ci.trim() === sessionStorage.getItem("ci") && this.state.userName.trim() !== sessionStorage.getItem("userName")) {
+
+          const res = await axios.get('/api/user/' + this.state.userName.trim());
+          if (res.data === null) {
+
+            this.updateUserDate();
+
+          } else {
+            alert('El Nombre de usuario ya existe');
+
+          }
+
+        }
+        else if (this.state.ci.trim() !== sessionStorage.getItem("ci") && this.state.userName.trim() === sessionStorage.getItem("userName")) {
+
+          const resCi = await axios.get('/api/userci/' + this.state.ci.trim());
+          if (resCi.data === null) {
+
+            this.updateUserDate();
+
+          } else {
+            alert('La cédula que pretende ingresar ya existe')
+          }
+
+        }
+        else if (this.state.ci.trim() !== sessionStorage.getItem("ci") && this.state.userName.trim() !== sessionStorage.getItem("userName")) {
+
+          const resCi = await axios.get('/api/userci/' + this.state.ci.trim());
+          if (resCi.data === null) {
+
+            const res = await axios.get('/api/user/' + this.state.userName.trim());
+            if (res.data === null) {
+
+              this.updateUserDate();
+
+            } else {
+              alert('El Nombre de usuario ya existe');
+
+            }
+
+          } else {
+            alert('La cédula que pretende ingresar ya existe')
+          }
+
+        }
+
+
+      } else {
+        //mensaje campos vacios "Existen campos vacios"
+        alert('Existen campos vacíos, rellenar los campos restantes');
+        //console.log("");
+      }
+    } catch (error) {
+      console.log(error);
+      alert('Ocurrio un ERROR no se realizaron los cambios');
+    }
+  }
+
   render() {
-    
+
 
     function showMenu(props) {
       if (sessionStorage.getItem("nombreTipo") === 'Administrador') {
@@ -480,7 +584,7 @@ class ModifyAccount extends Component {
       }
     }
     return (
-        
+
       <div>
         {showMenu()}
         <div className="col" align="center">
@@ -490,7 +594,7 @@ class ModifyAccount extends Component {
                 <h1 className="titulo-registro"> Administrar Cuenta </h1>
               </div>
               <br />
-              <form onSubmit={this.registerButtonEvent}>
+              <form onSubmit={this.updateDatosRegistro}>
                 <div className="form-group">
                   <label>
                     <b>Nombres:</b>
@@ -546,9 +650,9 @@ class ModifyAccount extends Component {
                     <select className="form-control" id="country" required onChange={this.updateListContries}>
                       <option value="" >{"Seleccione una Opción"}</option>
                       {this.state.pais.map((elemento, i) => (
-                        <option key={i} value={elemento.paisNombre}>
+                        <option key={i} selected={this.verificarPais(elemento.paisNombre, elemento.paisID)} value={elemento.paisSeleccionado}>
                           {elemento.paisNombre}
-                      </option>))}
+                        </option>))}
                     </select>
                   </div>
                   <div className="form-group">
@@ -556,9 +660,9 @@ class ModifyAccount extends Component {
                     <select className="form-control" id="city" required onChange={this.updateCityId} >
                       <option value="" >{"Seleccione una Opción"}</option>
                       {this.state.ciudad.map((elemento, i) => (
-                        <option key={i} value={elemento.ciudad}>
+                        <option key={i} selected={this.verificarCiudad(elemento.ciudadNombre,elemento.ciudadID)} value={elemento.ciudadNombre}>
                           {elemento.ciudadNombre}
-                      </option>))}
+                        </option>))}
 
                     </select>
                   </div>
@@ -571,7 +675,7 @@ class ModifyAccount extends Component {
                       size="60"
                       placeholder="Ingrese su dirección"
                       name="direccion"
-                      maxLength="250"
+                   
                       onChange={(e) => this.validarDir(e)}
                       value={this.state.direccion}
                       required
@@ -633,7 +737,7 @@ class ModifyAccount extends Component {
                       name="password"
                       id="password"
                       minLength="8"
-                      required
+                      //required
                       onKeyPress={this.validarContraseña}
                       onKeyDown={this.handleDeleteKeyPassword}
                       onChange={this.handleInputChange}
@@ -648,7 +752,7 @@ class ModifyAccount extends Component {
 
                     <Link className="btn btn-cancelar" value="Login" type="reset" to="/"  >Cancelar</Link>
 
-                    <button className="btn btn-aceptar " type='submit' value="Login" onClick={this.validarVacios} >Guardar</button>
+                    <button className="btn btn-aceptar" type="submit" value="Login" onClick={this.validarVacios} >Guardar</button>
                   </div>
 
                   <div className="avisos">

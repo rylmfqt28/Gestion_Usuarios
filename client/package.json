@@ -20,6 +20,7 @@
     "react-hook-form": "^6.9.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-toastify": "^6.2.0",
     "sweetalert": "^2.1.2"
   },
   "scripts": {

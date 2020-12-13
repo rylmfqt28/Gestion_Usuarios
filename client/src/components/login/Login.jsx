@@ -61,14 +61,14 @@ const Login = () => {
   }
 
   //funcion que permite direccionear
-  function ingersar(rol) {
+  function ingersar(rol,userName) {
 
 
     sessionStorage.setItem("ci", datos.CI);
     sessionStorage.setItem("nombreTipo", rol);
     window.location.pathname = '/home';
     sessionStorage.setItem("authToken", true);
-
+    sessionStorage.setItem("userName",userName);
 
   }
   const startButtonEvent = async (event) => {
@@ -89,7 +89,7 @@ const Login = () => {
             document.getElementById('avisoPendiente').style.display = "none";
             document.getElementById('avisoReachazado').style.display = "none";
             document.getElementById('avisoDeshabilitado').style.display = "none";
-            ingersar(res.data.tipoUsuarioNombre);
+            ingersar(res.data.tipoUsuarioNombre, datos.username.trim());
 
           } else {
             if (res.data.nombreEstado === "Pendiente") {

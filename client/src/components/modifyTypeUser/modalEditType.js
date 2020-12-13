@@ -9,19 +9,20 @@ class ModalEditType extends Component {
             tipoUsuarioID: this.props.tipoUsuarioID,
             crearTipo: this.props.crearTipo,
             descripcionTipo: this.props.descripcionTipo,
+            userTypeNameOld: this.props.crearTipo,
             validate: true,
         }
         this.handleSave = this.handleSave.bind(this)
         this.nombreHandler = this.nombreHandler.bind(this)
         this.descripcionHandler = this.descripcionHandler.bind(this)
-
-
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
+            tipoUsuarioID: nextProps.tipoUsuarioID,
             crearTipo: nextProps.crearTipo,
             descripcionTipo: nextProps.descripcionTipo,
+            userTypeNameOld: nextProps.crearTipo
         });
     }
 
@@ -31,10 +32,11 @@ class ModalEditType extends Component {
                 if(e.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null){
                     this.setState({crearTipo: e.target.value})
                     this.setState({validate: true})
-                    console.log(true)
+                    //console.log(true)
+                    //console.log(this.state.tipoUsuarioID);
                 }else{
                     this.setState({validate: false})
-                    console.log(false)
+                    //console.log(false)
                 }
             }else{
                 alert("El maximo de caracteres es de 20")
@@ -55,7 +57,11 @@ class ModalEditType extends Component {
         if(this.state.validate && this.state.crearTipo!==""){
             if(this.state.crearTipo.length>=4){
                 this.saveChanges();                
-                this.saveDetails();
+                //this.saveDetails();
+                $("#modalEditType").modal("hide");
+                this.props.updateListUserTypes();
+                this.props.updateListUserTypes();
+                this.props.updateListUserTypes();
                 
             }else{
                 alert("el campo nombre de tipo usuario debe contener un minimo de 4 caracteres")
@@ -69,14 +75,18 @@ class ModalEditType extends Component {
         try {
             if (this.state.crearTipo.trim() !== '' && this.state.descripcionTipo.trim() !== '') {
                 const res = await axios.get('/api/type/' + this.state.crearTipo.trim());
-                console.log(res.data);
-                if (res.data === null) {
+                //console.log(res.data);
+                //console.log(this.state.tipoUsuarioID)
+                if (res.data === null || this.state.userTypeNameOld === this.state.crearTipo.trim()) {
                    //Aqui Api para guardar datos
+                   const valorActualizar = {tipoUsuarioID:this.state.tipoUsuarioID,crearTipo:this.state.crearTipo,descripcionTipo:this.state.descripcionTipo}
+                   //console.log(valorActualizar) 
+                   await axios.put("/api/updateTypeUser",valorActualizar)
                     alert("Se edito el tipo de usuario Exitosamente");
                    ;
                 } else {
                     alert("El tipo de usuario ya existe");
-                    console.log("El usuario ya existe");
+                    //console.log("El usuario ya existe");
                 }
             } else {
 
@@ -86,17 +96,17 @@ class ModalEditType extends Component {
         } catch (error) {
             console.log(error);
         }
-
+        
     }
 
    
-    saveDetails(){
-        $("#modalEditType").modal("hide");
-        this.props.updateListUserTypes();
-        this.props.updateListUserTypes();
-        this.props.updateListUserTypes();
-    }
-
+    /*saveDetails(){
+        //$("#modalEditType").modal("hide");
+        //this.props.updateListUserTypes();
+        //this.props.updateListUserTypes();
+        //this.props.updateListUserTypes();
+        this.props.loadingList();
+    }*/
 
     render() {
         return (

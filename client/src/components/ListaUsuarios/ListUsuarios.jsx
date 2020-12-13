@@ -67,7 +67,7 @@ class ListUsuarios extends Component{
                     </div>
                     <div className="col-sm-3">
                         <select className="form-control form-control-sm" onChange={this.UpdateList}>
-                            <option value=" " >{"---"}</option>
+                            <option value=" " >{"Todos"}</option>
                             {
                                 this.state.tipoUsuario.map((tipoUsuario,index)=>(
                                 <option key="index" value={tipoUsuario.crearTipo}>{tipoUsuario.crearTipo} </option>

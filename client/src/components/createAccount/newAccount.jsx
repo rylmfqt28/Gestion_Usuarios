@@ -14,6 +14,12 @@ import $ from 'jquery';
 
 import ModalSolicitudC from './ModalSolicitudC';
 
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+import { store } from 'react-notifications-component';
+import 'animate.css/animate.min.css';
+
+
 class NewAccount extends Component {
   constructor(props) {
     super(props);
@@ -45,6 +51,29 @@ class NewAccount extends Component {
     this.verficarTipo = this.verficarTipo.bind(this)
   }
   
+  notify( alerta ){
+    store.addNotification({
+      title: "Alert!!!",
+      message: alerta,
+      type: "info",
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animate__animated", "animate__fadeIn"],
+      animationOut: ["animate__animated", "animate__fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true,
+        pauseOnHover: true
+      },
+      slidingExit: {
+        duration: 800,
+        timingFunction: 'ease-out',
+        delay: 0
+      }
+    });
+  }
+
+
   validarNombre = (event) => {
 
     let key = event.keyCode || event.which;
@@ -96,7 +125,7 @@ class NewAccount extends Component {
         });
       }
     } else {
-      alert('El maximo de caracteres es de 15');
+      this.notify("El maximo de caracteres es de 15")
     }
   }
   validarNumeros = (event) => {
@@ -556,6 +585,7 @@ class NewAccount extends Component {
     return (
 
       <div>
+        <ReactNotification />
         <div className="barraNav">
           <nav className="navbar navbar-light justify-content-between">
             <a className="navbar-brand" href="/">

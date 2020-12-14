@@ -39,7 +39,7 @@ public class RegisterController {
 
     @GetMapping(value="/api/listaCiudades/{paisNombre}", produces={"application/json"})
     public List<Ciudad> listarCiudades(@PathVariable("paisNombre") String paisNombre){
-        return registerService.listaCiudades(paisNombre);
+        return registerService.listaCiudades(paisNombre.replace("+", " "));
     }
 
     @GetMapping(value="/api/userci/{CI}", produces={"application/json"})

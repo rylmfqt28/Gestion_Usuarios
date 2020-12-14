@@ -44,38 +44,7 @@ class NewAccount extends Component {
     this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
     this.verficarTipo = this.verficarTipo.bind(this)
   }
-  startButtonEvent() {
-    //document.addEventListener('DOMContentLoaded', (event) => {
-    /*event.preventDefault();*/
-    if (this.state.nombre !== '' && this.state.apellido !== '' && this.state.ci !== '' && this.state.direccion !== '' && this.state.correo !== '' && this.state.telefono !== '' && this.state.userName !== '' && this.state.password !== '' && this.state.confPassword !== '') {
-      if(this.state.password.length >= 8 && this.state.confPassword.length >= 8){
-        if (this.state.password !== this.state.confPassword) {
-
-          //mensaje contraseña "Las constraseñas no coinciden"
-          document.getElementById('avisoCorrecto').style.display = "none";
-          document.getElementById('avisoNuevo').style.display = "none";
-          document.getElementById('avisoPass').style.display = "block";
-        } else {
-          //mesaje datos correctos
-          document.getElementById('avisoCorrecto').style.display = "block";
-          document.getElementById('avisoNuevo').style.display = "none";
-          document.getElementById('avisoPass').style.display = "none";
-        }
-      }else{
-        alert("La contraseña debe contener como minimo 8 caracteres.");
-      }
-    } else {
-      document.addEventListener('DOMContentLoaded', (event) => {
-        //mensaje campos vacios "Existen campos vacios"
-        document.getElementById("avisoCorrecto").style.display = "none";
-        document.getElementById('avisoNuevo').style.display = "block";
-        document.getElementById('avisoPass').style.display = "none";
-      })
-    }
-    //})
-  }
-
-
+  
   validarNombre = (event) => {
 
     let key = event.keyCode || event.which;
@@ -210,27 +179,6 @@ class NewAccount extends Component {
       }
     } else {
       alert('El maximo de digitos en el campo es de 8')
-    }
-  }
-
-
-
-
-  validarContraseña = (event) => {
-    let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    let numeros = "1234567890"
-    let letrasContraseña = "áéíóúñÑ*";
-    if (this.password !== 8) {
-      console.log('llego malditod');
-      if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1) || (numeros.indexOf(tecla) !== -1)) {
-        this.setState({
-          ...this.state,
-          [event.target.name]: event.target.value + tecla
-        });
-      }
-    } else {
-      alert('Minimo 8 caracteres');
     }
   }
 

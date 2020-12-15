@@ -14,10 +14,15 @@ import $ from 'jquery';
 
 import ModalSolicitudC from './ModalSolicitudC';
 
+//primer modelo de alerta
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
 import { store } from 'react-notifications-component';
 import 'animate.css/animate.min.css';
+
+//segundo modelo de alerta
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 
 class NewAccount extends Component {
@@ -57,7 +62,7 @@ class NewAccount extends Component {
       message: alerta,
       type: "info",
       insert: "top",
-      container: "top-right",
+      container: "top-left",
       animationIn: ["animate__animated", "animate__fadeIn"],
       animationOut: ["animate__animated", "animate__fadeOut"],
       dismiss: {
@@ -73,6 +78,9 @@ class NewAccount extends Component {
     });
   }
 
+  notify2(alerta){
+    NotificationManager.info(alerta, 'Alert!!!', 3000);
+  }
 
   validarNombre = (event) => {
 
@@ -126,6 +134,7 @@ class NewAccount extends Component {
       }
     } else {
       this.notify("El maximo de caracteres es de 15")
+      this.notify2("El maximo de caracteres es de 15")
     }
   }
   validarNumeros = (event) => {
@@ -586,6 +595,7 @@ class NewAccount extends Component {
 
       <div>
         <ReactNotification />
+        <NotificationContainer/>
         <div className="barraNav">
           <nav className="navbar navbar-light justify-content-between">
             <a className="navbar-brand" href="/">

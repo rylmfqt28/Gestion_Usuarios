@@ -19,7 +19,10 @@ import AdministrarCuenta from './components/register/AdministrarCuenta';
 import ModificarTipoUser from './components/modifyTypeUser/ModificarTipoUser';
 import ModifyAccount from './components/modifyAccount/ModifyAccount';
 //import Pagina from './components/register/PageAuxiliar';
-import ListUsuario from './components/ListaUsuarios/ListUsuarios' 
+import ListUsuario from './components/ListaUsuarios/ListUsuarios'
+
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
 
 class App extends Component{
@@ -32,6 +35,7 @@ class App extends Component{
   render(){
     return (
       <Router>
+        <ReactNotification />
         <Switch>
         <PublicRoute exact path="/" component={Login}/>
         <PrivateRoute path="/solicitudes" component={Solicitudes}/>

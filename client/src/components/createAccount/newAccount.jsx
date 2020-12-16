@@ -214,6 +214,8 @@ class NewAccount extends Component {
       }
     } else {
       aler.AlertaInfo('El maximo de digitos en el campo es de 8')
+      aler.AlertaDanger('El maximo de digitos en el campo es de 8')
+      aler.AlertaSuccess('El maximo de digitos en el campo es de 8')
     }
   }
 
@@ -591,7 +593,7 @@ class NewAccount extends Component {
     return (
 
       <div>
-        <ReactNotification />
+        
         <div className="barraNav">
           <nav className="navbar navbar-light justify-content-between">
             <a className="navbar-brand" href="/">

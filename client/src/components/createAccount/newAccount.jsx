@@ -21,8 +21,7 @@ import { store } from 'react-notifications-component';
 import 'animate.css/animate.min.css';
 
 //segundo modelo de alerta
-import 'react-notifications/lib/notifications.css';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import aler from '../alert/Alerta'
 
 
 class NewAccount extends Component {
@@ -57,29 +56,27 @@ class NewAccount extends Component {
   }
   
   notify( alerta ){
+    //store.removeNotification("1")
     store.addNotification({
+      id: 'hola',
       title: "Alert!!!",
       message: alerta,
       type: "info",
       insert: "top",
       container: "top-left",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
+      animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
+      animationOut: ["animated", "fadeOut"],
       dismiss: {
         duration: 5000,
         onScreen: true,
-        pauseOnHover: true
+        pauseOnHover: true,
+        showIcon: true
       },
-      slidingExit: {
-        duration: 800,
-        timingFunction: 'ease-out',
-        delay: 0
-      }
     });
   }
 
   notify2(alerta){
-    NotificationManager.info(alerta, 'Alert!!!', 3000);
+    //NotificationManager.info(alerta, 'Alert!!!', 3000);
   }
 
   validarNombre = (event) => {
@@ -216,7 +213,7 @@ class NewAccount extends Component {
         });
       }
     } else {
-      alert('El maximo de digitos en el campo es de 8')
+      aler.AlertaInfo('El maximo de digitos en el campo es de 8')
     }
   }
 
@@ -595,7 +592,6 @@ class NewAccount extends Component {
 
       <div>
         <ReactNotification />
-        <NotificationContainer/>
         <div className="barraNav">
           <nav className="navbar navbar-light justify-content-between">
             <a className="navbar-brand" href="/">

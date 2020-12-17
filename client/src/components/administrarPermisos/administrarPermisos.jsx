@@ -78,7 +78,7 @@ class administrarPermisos extends Component {
             }
             AdminPermisosService.postAsignarPermiso(add)
         }else{
-            alert("seleccione un tipo de Usuario")
+            Alerta.AlertaDanger("seleccione un tipo de Usuario")
         }
         this.updateList()
         this.updateList() 

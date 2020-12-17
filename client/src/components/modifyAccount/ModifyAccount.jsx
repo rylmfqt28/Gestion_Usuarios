@@ -9,9 +9,10 @@ import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
 import NavMenu from '../menuAdmin/NavMenu'
 import NavMenuUser from '../menuAdmin/NavMenuUser';
-
+import Alerta from '../alert/Alerta';
 import $ from 'jquery';
 import ModalContrasena from './ModalContrasena';
+import { Alert } from 'bootstrap';
 
 class ModifyAccount extends Component {
   constructor(props) {
@@ -175,11 +176,13 @@ class ModifyAccount extends Component {
           console.log(false)
         }
       } else {
-        alert("El maximo de caracteres es de 50")
+       
+        Alerta.AlertaInfo("El maximo de caracteres es de 50")
       }
 
     } else {
-      alert("El nombre debe empezar con un caracter")
+      Alerta.AlertaInfo("El nombre debe empezar con un caracter")
+    
     }
 
   }
@@ -195,11 +198,11 @@ class ModifyAccount extends Component {
           console.log(false)
         }
       } else {
-        alert("El maximo de caracteres es de 50")
+        Alerta.AlertaInfo("El maximo de caracteres es de 50")
       }
 
     } else {
-      alert("El nombre debe empezar con un caracter")
+      Alerta.AlertaInfo("El apellido debe empezar con un caracter")
     }
 
   }
@@ -215,21 +218,18 @@ class ModifyAccount extends Component {
           console.log(false)
         }
       } else {
-        alert("El maximo de números es de 9")
+        Alerta.AlertaInfo("El maximo de números es de 9")
+        
       }
 
     } else {
       alert("El ci debe empezar con un numero")
+      Alerta.AlertaInfo("El ci debe empezar con un numero")
     }
 
   }
-  validarMinCi = (event) => {
-    if (event.target.value.length < 3) {
-      alert("Minimo de 3 numeros")
-    }
+ 
 
-  }
-  validar
 
   validarDir = (event) => {
     if (event.target.value[0] !== " ") {
@@ -242,11 +242,12 @@ class ModifyAccount extends Component {
           console.log(false)
         }
       } else {
-        alert("El maximo de caracteres es de 250")
+        
+        Alerta.AlertaInfo("El maximo de caracteres es de 250")
       }
 
     } else {
-      alert("El campo debe empezar con un caracter")
+      Alerta.AlertaInfo("El campo debe empezar con un caracter")
     }
   }
 
@@ -262,11 +263,12 @@ class ModifyAccount extends Component {
           console.log(false)
         }
       } else {
-        alert("El maximo de caracteres es de 200")
+        Alerta.AlertaInfo("El maximo de caracteres es de 200")
       }
 
     } else {
-      alert("El campo debe empezar con un caracter")
+     
+      Alerta.AlertaInfo("El campo debe empezar con un caracter")
     }
 
 
@@ -281,12 +283,12 @@ class ModifyAccount extends Component {
           this.setState({ validate: false })
           console.log(false)
         }
-      } else {
-        alert("El maximo de números es de 8")
+      } else {  
+        Alerta.AlertaInfo("El maximo de números es de 8")
       }
 
     } else {
-      alert("El teléfono debe empezar con un numero")
+      Alerta.AlertaInfo("El teléfono debe empezar con un numero")
     }
 
 
@@ -303,11 +305,13 @@ class ModifyAccount extends Component {
           console.log(false)
         }
       } else {
-        alert("El maximo de carateres es de 15")
+        Alerta.AlertaInfo("El maximo de carateres es de 15")
+      
       }
 
     } else {
-      alert("El Nombre de usuario debe empezar con un caracter")
+      Alerta.AlertaInfo("El Nombre de usuario debe empezar con un caracter")
+
     }
   }
 
@@ -376,17 +380,6 @@ class ModifyAccount extends Component {
     let key = event.keyCode || event.which;
     if (this.state.password.length !== 0 && (key === 8 || key === 127)) {
       let nuevo = this.state.password.substring(0, this.state.password.length - 1);
-      this.setState({
-        ...this.state,
-        [event.target.name]: nuevo
-      });
-    }
-  }
-
-  handleDeleteKeyConfPassword = (event) => {
-    let key = event.keyCode || event.which;
-    if (this.state.confPassword.length !== 0 && (key === 8 || key === 127)) {
-      let nuevo = this.state.confPassword.substring(0, this.state.confPassword.length - 1);
       this.setState({
         ...this.state,
         [event.target.name]: nuevo
@@ -499,25 +492,30 @@ class ModifyAccount extends Component {
                 sessionStorage.setItem("ci", this.state.ci);
                 sessionStorage.setItem("userName", this.state.userName);
                 console.log(this.state.nombreUsuario);
-                alert('Los datos fueron guardados Exitosamente');
+                Alerta.AlertaSuccess('Los datos fueron guardados Exitosamente');
+             
               } catch (err) {
                 // Handle Error Here
                 console.error(err);
               }
             }else{
-              alert("El minimo es de 7 digitos");
+              Alerta.AlertaInfo("El minimo en el campo telefono es de 7 digitos")
+            
             }
           }else{
-          alert("El minimo es de 3 digitos");
+            Alerta.AlertaInfo("El minimo en el campo Ci es de 3 digitos")
+        
     
         }
 
         }else{
-          alert("El minimo es de 3 caracteres");
+          Alerta.AlertaInfo("El minimo en el campo apellido es de 3 caracteres")
+         
         }
 
       }else{
-        alert("El minimo es de 3 caracteres");
+        Alerta.AlertaInfo("El minimo en el campo nombre es de 3 caracteres")
+      
     }
   }
     
@@ -541,7 +539,8 @@ class ModifyAccount extends Component {
             this.updateUserDate();
 
           } else {
-            alert('El Nombre de usuario ya existe');
+            Alerta.AlertaDanger('El Nombre de usuario ya existe');
+            
 
           }
 
@@ -554,7 +553,7 @@ class ModifyAccount extends Component {
             this.updateUserDate();
 
           } else {
-            alert('La cédula que pretende ingresar ya existe')
+            Alerta.AlertaDanger('La cédula que pretende ingresar ya existe')
           }
 
         }
@@ -569,12 +568,14 @@ class ModifyAccount extends Component {
               this.updateUserDate();
 
             } else {
-              alert('El Nombre de usuario ya existe');
+              Alerta.AlertaDanger('El Nombre de usuario ya existe')
+              
 
             }
 
           } else {
-            alert('La cédula que pretende ingresar ya existe')
+            Alerta.AlertaDanger('La cédula que pretende ingresar ya existe');
+         
           }
 
         }
@@ -582,12 +583,13 @@ class ModifyAccount extends Component {
 
       } else {
         //mensaje campos vacios "Existen campos vacios"
-        alert('Existen campos vacíos, rellenar los campos restantes');
+      
+        Alerta.AlertaInfo('Existen campos vacíos, rellenar los campos restantes');
         //console.log("");
       }
     } catch (error) {
       console.log(error);
-      alert('Ocurrio un ERROR no se realizaron los cambios');
+      Alerta.AlertaDanger('Ocurrio un ERROR no se realizaron los cambios');
     }
   }
 

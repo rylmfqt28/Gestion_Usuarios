@@ -57,7 +57,7 @@ class ModalContrasena extends Component{
     }
     validarMinPass=(event)=>{
         if(event.target.value.length<8){
-          alert("La contraseña debe contener al menos 8 caracteres.")
+            Alerta.AlertaInfo("La contraseña debe contener al menos 8 caracteres.")
         }
     
       }

@@ -20,7 +20,7 @@ class ModalCreatePermit extends Component {
             }
 
         } else {
-            ("El máximo de caracteres es de 20")
+            Alerta.AlertaInfo("El máximo de caracteres es de 20")
 
         }
     }

@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import $ from 'jquery'
 import PermisosController from '../../Service/PermisosController';
+import Alerta from '../alert/Alerta';
 
 
 
@@ -21,10 +22,10 @@ class ModalEliminarPermiso extends Component{
          
             $(function(){ 
                 $("#erasePermiso").modal('hide')  
-                alert("Se elimino el permiso!")
+                Alerta.AlertaSuccess("Se elimino el permiso!")
             })
         }else{
-            alert("incorrecto")
+            Alerta.AlertaDanger("No se pudo eliminar el permiso")
         }
        
     }

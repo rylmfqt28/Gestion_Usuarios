@@ -30,7 +30,7 @@ class ModalCambioContrasena extends Component{
                         Alerta.AlertaDanger("Las contraseñas no coinciden")
                     this.limpiarCampos();
                     }else{
-                        Alerta.AlertaSuccess("Se cambio la contraseña exitosamente")
+                        Alerta.AlertaSuccess("Se cambió la contraseña exitosamente")
                         await axios.put('/api/updatePassword/' , {CI:sessionStorage.getItem("ci"), password:this.state.password});
                         this.cerrarModalCambio();
                         this.cerrarModal();
@@ -38,7 +38,7 @@ class ModalCambioContrasena extends Component{
                     }
                 }
             }else{
-                Alerta.AlertaInfo('Existen campos vacios, intente nuevamente');
+                Alerta.AlertaInfo('Existen campos vacíos, intente nuevamente');
             }
         } catch (error) {
             console.log(error);

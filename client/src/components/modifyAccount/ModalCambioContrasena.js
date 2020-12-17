@@ -27,10 +27,10 @@ class ModalCambioContrasena extends Component{
                     this.limpiarCampos();
                 } else {
                     if(this.state.password !== this.state.confPassword){
-                    alert("Las contraseñas no coinciden")
+                        Alerta.AlertaDanger("Las contraseñas no coinciden")
                     this.limpiarCampos();
                     }else{
-                        alert("Se cambio la contraseña exitosamente")
+                        Alerta.AlertaSuccess("Se cambio la contraseña exitosamente")
                         await axios.put('/api/updatePassword/' , {CI:sessionStorage.getItem("ci"), password:this.state.password});
                         this.cerrarModalCambio();
                         this.cerrarModal();
@@ -38,7 +38,7 @@ class ModalCambioContrasena extends Component{
                     }
                 }
             }else{
-                alert('Existen campos vacios, intente nuevamente');
+                Alerta.AlertaInfo('Existen campos vacios, intente nuevamente');
             }
         } catch (error) {
             console.log(error);
@@ -53,7 +53,7 @@ class ModalCambioContrasena extends Component{
                 this.setState({validate: false})
             }
         } else {
-            alert("La contraseña debe contener al menos 8 caracteres.")
+            Alerta.AlertaInfo("El máximo de caracteres de la contraseña es 50.")
         }
     }
 
@@ -66,7 +66,7 @@ class ModalCambioContrasena extends Component{
                 this.setState({validate: false})
             }
         } else {
-            alert("El campo confirmar contraseña debe contener al menos 8 caracteres.")
+            Alerta.AlertaInfo("El máximo de caracteres de la confirmar contraseña es 50.")
         }
     }
     

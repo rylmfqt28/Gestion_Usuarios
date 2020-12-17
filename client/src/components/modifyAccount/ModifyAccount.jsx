@@ -479,29 +479,48 @@ class ModifyAccount extends Component {
   updateUserDate = async () => {
     console.log(this.state.paisID);
     console.log(this.state.ciudadID);
-    try {
-      await axios.put('http://localhost:8080/api/updateAccountInfo/' + sessionStorage.getItem("ci"), {
-        usuarioNombre: this.state.nombre,
-        usuarioApellido: this.state.apellido,
-        CI: this.state.ci,
-        paisID: this.state.paisID,
-        ciudadID: this.state.ciudadID,
-        direccion: this.state.direccion,
-        correo: this.state.correo,
-        telefono: this.state.telefono,
-        nombreUsuario: this.state.userName,
+    if(this.state.nombre.length>=3){
+      if(this.state.apellido.length>=3){
+          if(this.state.ci.length>=3){
+            if(this.state.telefono.length>=7){
+              try {
+                await axios.put('http://localhost:8080/api/updateAccountInfo/' + sessionStorage.getItem("ci"), {
+                  usuarioNombre: this.state.nombre,
+                  usuarioApellido: this.state.apellido,
+                  CI: this.state.ci,
+                  paisID: this.state.paisID,
+                  ciudadID: this.state.ciudadID,
+                  direccion: this.state.direccion,
+                  correo: this.state.correo,
+                  telefono: this.state.telefono,
+                  nombreUsuario: this.state.userName,
+          
+                });
+                sessionStorage.setItem("ci", this.state.ci);
+                sessionStorage.setItem("userName", this.state.userName);
+                console.log(this.state.nombreUsuario);
+                alert('Los datos fueron guardados Exitosamente');
+              } catch (err) {
+                // Handle Error Here
+                console.error(err);
+              }
+            }else{
+              alert("El minimo es de 7 digitos");
+            }
+          }else{
+          alert("El minimo es de 3 digitos");
+    
+        }
 
-      });
-      sessionStorage.setItem("ci", this.state.ci);
-      sessionStorage.setItem("userName", this.state.userName);
-      console.log(this.state.nombreUsuario);
-      alert('Los datos fueron guardados Exitosamente');
-    } catch (err) {
-      // Handle Error Here
-      console.error(err);
+        }else{
+          alert("El minimo es de 3 caracteres");
+        }
+
+      }else{
+        alert("El minimo es de 3 caracteres");
     }
-
   }
+    
   //funcion para actualizar los datos del usuario
   updateDatosRegistro = async (event) => {
     //this.validarVacios();
@@ -638,7 +657,7 @@ class ModifyAccount extends Component {
                       placeholder="Ingrese su cédula de identidad"
                       name="ci"
 
-                      minLength="7"
+                     
                       onChange={(e) => this.validarNumerosCi(e)}
                       value={this.state.ci}
                       required

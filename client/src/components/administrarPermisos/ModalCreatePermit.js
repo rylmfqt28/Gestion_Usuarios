@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import swal from 'sweetalert';
 import Alerta from '../alert/Alerta'
 
 class ModalCreatePermit extends Component {
@@ -57,7 +57,7 @@ class ModalCreatePermit extends Component {
                                 permisoDescripcion: this.state.permisoDescripcion.trim()
 
                             })
-                            Alerta.AlertaSuccess('Se creo el nuevo Permiso con éxito');
+                            swal('CREADO','Se creo el nuevo Permiso con éxito','success');
                             //actualizar las listas
                             this.props.actualizar();
                             this.props.actualizar();

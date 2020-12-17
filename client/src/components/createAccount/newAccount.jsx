@@ -14,6 +14,16 @@ import $ from 'jquery';
 
 import ModalSolicitudC from './ModalSolicitudC';
 
+//primer modelo de alerta
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
+import { store } from 'react-notifications-component';
+import 'animate.css/animate.min.css';
+
+//segundo modelo de alerta
+import aler from '../alert/Alerta'
+
+
 class NewAccount extends Component {
   constructor(props) {
     super(props);
@@ -44,37 +54,30 @@ class NewAccount extends Component {
     this.insertarDatoRegistro = this.insertarDatoRegistro.bind(this);
     this.verficarTipo = this.verficarTipo.bind(this)
   }
-  startButtonEvent() {
-    //document.addEventListener('DOMContentLoaded', (event) => {
-    /*event.preventDefault();*/
-    if (this.state.nombre !== '' && this.state.apellido !== '' && this.state.ci !== '' && this.state.direccion !== '' && this.state.correo !== '' && this.state.telefono !== '' && this.state.userName !== '' && this.state.password !== '' && this.state.confPassword !== '') {
-      if(this.state.password.length >= 8 && this.state.confPassword.length >= 8){
-        if (this.state.password !== this.state.confPassword) {
-
-          //mensaje contraseña "Las constraseñas no coinciden"
-          document.getElementById('avisoCorrecto').style.display = "none";
-          document.getElementById('avisoNuevo').style.display = "none";
-          document.getElementById('avisoPass').style.display = "block";
-        } else {
-          //mesaje datos correctos
-          document.getElementById('avisoCorrecto').style.display = "block";
-          document.getElementById('avisoNuevo').style.display = "none";
-          document.getElementById('avisoPass').style.display = "none";
-        }
-      }else{
-        alert("La contraseña debe contener como minimo 8 caracteres.");
-      }
-    } else {
-      document.addEventListener('DOMContentLoaded', (event) => {
-        //mensaje campos vacios "Existen campos vacios"
-        document.getElementById("avisoCorrecto").style.display = "none";
-        document.getElementById('avisoNuevo').style.display = "block";
-        document.getElementById('avisoPass').style.display = "none";
-      })
-    }
-    //})
+  
+  notify( alerta ){
+    //store.removeNotification("1")
+    store.addNotification({
+      id: 'hola',
+      title: "Alert!!!",
+      message: alerta,
+      type: "info",
+      insert: "top",
+      container: "top-left",
+      animationIn: ["animated", "fadeIn"],     // animate.css classes that's applied
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 5000,
+        onScreen: true,
+        pauseOnHover: true,
+        showIcon: true
+      },
+    });
   }
 
+  notify2(alerta){
+    //NotificationManager.info(alerta, 'Alert!!!', 3000);
+  }
 
   validarNombre = (event) => {
 
@@ -127,7 +130,8 @@ class NewAccount extends Component {
         });
       }
     } else {
-      alert('El maximo de caracteres es de 15');
+      this.notify("El maximo de caracteres es de 15")
+      this.notify2("El maximo de caracteres es de 15")
     }
   }
   validarNumeros = (event) => {
@@ -209,28 +213,9 @@ class NewAccount extends Component {
         });
       }
     } else {
-      alert('El maximo de digitos en el campo es de 8')
-    }
-  }
-
-
-
-
-  validarContraseña = (event) => {
-    let key = event.keyCode || event.which;
-    let tecla = String.fromCharCode(key);
-    let numeros = "1234567890"
-    let letrasContraseña = "áéíóúñÑ*";
-    if (this.password !== 8) {
-      console.log('llego malditod');
-      if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1) || (numeros.indexOf(tecla) !== -1)) {
-        this.setState({
-          ...this.state,
-          [event.target.name]: event.target.value + tecla
-        });
-      }
-    } else {
-      alert('Minimo 8 caracteres');
+      aler.AlertaInfo('El maximo de digitos en el campo es de 8')
+      aler.AlertaDanger('El maximo de digitos en el campo es de 8')
+      aler.AlertaSuccess('El maximo de digitos en el campo es de 8')
     }
   }
 
@@ -608,6 +593,7 @@ class NewAccount extends Component {
     return (
 
       <div>
+        
         <div className="barraNav">
           <nav className="navbar navbar-light justify-content-between">
             <a className="navbar-brand" href="/">

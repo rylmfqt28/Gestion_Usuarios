@@ -65,7 +65,6 @@ class administrarPermisos extends Component {
 
     replaceModalItem(Permiso) {
         this.setState({ permiso: Permiso })
-        console.log(Permiso)
     }
 
     saveDetails(){
@@ -75,14 +74,11 @@ class administrarPermisos extends Component {
     }
     
     add(permisoID){
-        console.log(this.state.tipo)
         if(this.state.tipo!==" "){
-            console.log(permisoID)
             const add = {
                 tipoUsuarioId: this.state.tipoId,
                 permisoId: permisoID
             }
-            console.log(add)
             AdminPermisosService.postAsignarPermiso(add)
         }else{
             alert("seleccione un tipo de Usuario")

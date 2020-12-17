@@ -75,7 +75,7 @@ class NewAccount extends Component {
     let tecla = String.fromCharCode(key);
     let letras = " áéíóúñÑ";
     if (this.state.apellido.length !== 50) {
-      //console.log('llego malditod');
+      
       if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letras.indexOf(tecla) !== -1)) {
         this.setState({
           ...this.state,
@@ -94,7 +94,7 @@ class NewAccount extends Component {
     let letras = " áéíóúñÑ@_";
     let numeros = "1234567890"
     if (this.state.userName.length !== 15) {
-      //console.log('llego malditod');
+      
       if ((key <= 90 && key >= 64) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (key === 95) || (letras.indexOf(tecla) !== -1) || (numeros.indexOf(tecla) !== -1)) {
         this.setState({
           ...this.state,
@@ -102,7 +102,7 @@ class NewAccount extends Component {
         });
       }
     } else {
-      Alerta.AlertaInfo("El maximo de caracteres es de 15")
+      Alerta.AlertaInfo("El máximo de caracteres es de 15")
     }
   }
   validarNumeros = (event) => {
@@ -117,7 +117,7 @@ class NewAccount extends Component {
         });
       }
     } else {
-      alert('El maximo de digitos en el campo es de 9')
+      Alerta.AlertaInfo('El maximo de dígitos en el campo es de 9')
     }
 
   }
@@ -127,7 +127,7 @@ class NewAccount extends Component {
       if (res.data !== null) {
 
       } else {
-        alert('Este Ci esta siendo utilizado, intente con otro');
+        Alerta.AlertaDanger('Este Ci está siendo utilizado, intente con otro');
       }
     } catch (err) {
       console.log(err)
@@ -149,7 +149,7 @@ class NewAccount extends Component {
         });
       }
     } else {
-      alert('El maximo de digitos en el campo es de 9')
+   Alerta.AlertaInfo('El máximo de dígitos en el campo es de 9')
     }
 
   }
@@ -160,14 +160,14 @@ class NewAccount extends Component {
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
     if (this.state.correo.length !== 200) {
-      //console.log('llego malditod');
+      
       this.setState({
         ...this.state,
         [event.target.name]: event.target.value + tecla
       });
-      //}
+      
     } else {
-      alert('El maximo de caracteres es de 200');
+      Alerta.AlertaInfo('El máximo de caracteres es de 200');
     }
 
 
@@ -184,9 +184,8 @@ class NewAccount extends Component {
         });
       }
     } else {
-      Alerta.AlertaInfo('El maximo de digitos en el campo es de 8')
-      Alerta.AlertaDanger('El maximo de digitos en el campo es de 8')
-      Alerta.AlertaSuccess('El maximo de digitos en el campo es de 8')
+      Alerta.AlertaInfo('El máximo de dígitos en el campo es de 8')
+      
     }
   }
 
@@ -238,7 +237,7 @@ class NewAccount extends Component {
     let numeros = "1234567890"
     let letrasContraseña = "áéíóúñÑ*";
 
-    //console.log('llego malditod');
+    
     if ((key <= 90 && key >= 65) || (key <= 122 && key >= 97) || (key === 164) || (key === 165) || (letrasContraseña.indexOf(tecla) !== -1) || (numeros.indexOf(tecla) !== -1)) {
       this.setState({
         ...this.state,
@@ -252,13 +251,13 @@ class NewAccount extends Component {
     let key = event.keyCode || event.which;
     let tecla = String.fromCharCode(key);
     if (this.state.direccion.length !== 250) {
-      //console.log('llego malditod');
+     
       this.setState({
         ...this.state,
         [event.target.name]: event.target.value + tecla
       });
     } else {
-      alert('El maximo de caracteres es de 250');
+      Alerta.AlertaInfo('El máximo de caracteres es de 250');
     }
   }
 
@@ -389,7 +388,7 @@ class NewAccount extends Component {
 
     for (const value of this.state.pais) {
       if (value.paisNombre === e.target.value) {
-        //console.log(value.paisID)
+        
         this.setState({ paisID: value.paisID })
       }
     }
@@ -401,16 +400,16 @@ class NewAccount extends Component {
   updateCityId = (e) => {
     for (const value of this.state.ciudad) {
       if (value.ciudadNombre === e.target.value) {
-        //console.log(value.ciudadID)
+        
         this.setState({ ciudadID: value.ciudadID })
       }
     }
   }
-  //aquiiiiiiiiii
+  
   updateTypeUserID = (e) => {
     for (const value of this.state.TUsuarios) {
       if (value.crearTipo === e.target.value) {
-        //console.log(value.tipoUsuarioID)
+        
         this.setState({ tipoID: value.tipoUsuarioID })
       }
     }
@@ -421,14 +420,14 @@ class NewAccount extends Component {
     try {
       if (this.state.userName.trim() !== '') {
         if (this.state.password.length >= 8) {
-          //console.log('llego malditod');
+          
           if (this.state.confPassword.length >= 8) {
             const resCi = await axios.get('/api/userci/' + this.state.ci.trim());
-            //console.log(res.data);
+            
             if (resCi.data === null) {
               const res = await axios.get('/api/user/' + this.state.userName.trim());
               if (res.data === null) {
-                //console.log(this.state.paisID)
+                
                 try {
                   const resp = await axios.post("http://localhost:8080/api/nuevoUsuario", {
                     usuarioNombre: this.state.nombre,
@@ -445,30 +444,30 @@ class NewAccount extends Component {
                     tipoUsuarioID: this.state.tipoID,
                     motivo: this.state.motivo
                   })
-                  console.log(resp);
-                  alert('Se creo el usuario Exitosamente');
+                  
+                  Alerta.AlertaSuccess('Se creo el usuario Exitosamente');
                 } catch (err) {
-                  // Handle Error Here
+                  
                   console.error(err);
                 }
 
               } else {
-                alert('El Nombre de usuario ya existe');
-                //console.log("El nombre de usuario ya existe");
+                Alerta.AlertaDanger('El Nombre de usuario ya existe');
+                
               }
             } else {
-              alert('La cédula que pretende ingresar ya existe')
+              Alerta.AlertaDanger('La cédula que pretende ingresar ya existe')
             }
           } else {
-            alert('Minimo 8 caracteres en el campo "Confirmar Contraseña"');
+            Alerta.AlertaInfo('Mínimo 8 caracteres en el campo "Confirmar Contraseña"');
           }
         } else {
-          alert('Minimo 8 caracteres en el "Campo Contraseña"');
+          Alerta.AlertaInfo('Mínimo 8 caracteres en el "Campo Contraseña"');
         }
       } else {
-        //mensaje campos vacios "Existen campos vacios"
-        alert('Existen campos vacíos, rellenar los campos restantes');
-        //console.log("");
+        
+        Alerta.AlertaDanger('Existen campos vacíos, rellenar los campos restantes');
+        
       }
     } catch (error) {
       console.log(error);
@@ -515,13 +514,13 @@ class NewAccount extends Component {
           //modal de tipo usuario
           this.verficarTipo()
         }else{
-          alert("La contraseña debe contener como minimo 8 caracteres.");
+          Alerta.AlertaInfo("La contraseña debe contener como minimo 8 caracteres.");
         }
         
       }
     } else {
       document.addEventListener('DOMContentLoaded', (event) => {
-        //mensaje campos vacios "Existen campos vacios"
+       
         document.getElementById("avisoCorrecto").style.display = "none";
         document.getElementById('avisoNuevo').style.display = "block";
         document.getElementById('avisoPass').style.display = "none";
@@ -536,7 +535,6 @@ class NewAccount extends Component {
 
   }
   handleOnChange(e) {
-    //console.log('selected option', e.target.value);
 
     this.setState({ genero: e.target.value });
   }

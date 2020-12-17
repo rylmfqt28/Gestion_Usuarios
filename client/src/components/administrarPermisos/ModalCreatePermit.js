@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+import Alerta from '../alert/Alerta'
 
 class ModalCreatePermit extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class ModalCreatePermit extends Component {
             }
 
         } else {
-            alert("El máximo de caracteres es de 20")
+            Alerta.AlertaInfo("El máximo de caracteres es de 20")
 
         }
     }
@@ -27,7 +28,7 @@ class ModalCreatePermit extends Component {
         if (e.target.value.length < 251) {
             this.setState({ permisoDescripcion: e.target.value })
         } else {
-            alert("El máximo 250 caracteres")
+            Alerta.AlertaInfo("El máximo 250 caracteres")
         }
     }
     clearCampos() {
@@ -45,21 +46,18 @@ class ModalCreatePermit extends Component {
             if (this.state.nombrePermiso.trim() !== '') {
 
                 if (this.state.nombrePermiso.length < 4) {
-                    alert("El mínimo 4 caracteres")
+                    Alerta.AlertaInfo("El mínimo 4 caracteres")
                 } else {
                     const res = await axios.get('/api/permiso/' + this.state.nombrePermiso.trim());
 
-                    //console.log(res.data);
                     if (res.data === null) {
-                        //console.log(this.state.paisID)
                         try {
                             const resp = await axios.post("http://localhost:8080/api/nuevoPermiso", {
                                 nombrePermiso: this.state.nombrePermiso.trim(),
                                 permisoDescripcion: this.state.permisoDescripcion.trim()
 
                             })
-                            console.log(resp);
-                            alert('Se creo el nuevo Permiso con éxito');
+                            Alerta.AlertaSuccess('Se creo el nuevo Permiso con éxito');
                             //actualizar las listas
                             this.props.actualizar();
                             this.props.actualizar();
@@ -68,22 +66,20 @@ class ModalCreatePermit extends Component {
 
                         } catch (err) {
                             // Handle Error Here
-                            console.error(err);
+                            Alerta.AlertaDanger(err)
                         }
 
                     } else {
-                        alert("Error: El permiso: "+this.state.nombrePermiso.trim()+" ya existe")
+                        Alerta.AlertaDanger("Error: El permiso: "+this.state.nombrePermiso.trim()+" ya existe")
                         this.clearCampos();
                     }
 
                 }
             } else {
-                //mensaje campos vacios "Existen campos vacios"
-                alert('El campo nombre de permiso es obligatorio');
-                //console.log("");
+                Alerta.AlertaInfo('El campo nombre de permiso es obligatorio');
             }
         } catch (error) {
-            console.log(error);
+            Alerta.AlertaDanger(error)
         }
     }
 

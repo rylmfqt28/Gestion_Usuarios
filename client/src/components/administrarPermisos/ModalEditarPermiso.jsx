@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Alerta from '../alert/Alerta';
 
 class ModalEditarPermiso extends Component {
     constructor(props) {
@@ -30,23 +31,21 @@ class ModalEditarPermiso extends Component {
                 if(e.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null){
                     this.setState({nombrePermiso: e.target.value})
                     this.setState({validate: true})
-                    console.log(true)
                 }else{
                     this.setState({validate: false})
-                    console.log(false)
                 }
             }else{
-                alert("El maximo de caracteres es de 20")
+                Alerta.AlertaInfo("El maximo de caracteres es de 20")
             }
         }else{
-            alert("El nombre debe empezar con un caracter")
+            Alerta.AlertaInfo("El nombre debe empezar con un caracter")
         }
     }
     descripcionHandler(e) {
         if (e.target.value.length !== 251) {
             this.setState({ permisoDescripcion: e.target.value })
         } else {
-            alert("maximo 250 caracteres")
+            Alerta.AlertaInfo("maximo 250 caracteres")
         }
     }
 
@@ -58,10 +57,10 @@ class ModalEditarPermiso extends Component {
                 this.props.saveDetails();
                 
             }else{
-                alert("el nombre debe contener un minimo de 4 caracteres")
+                Alerta.AlertaInfo("el nombre debe contener un minimo de 4 caracteres")
             } 
         }else{
-            alert("el campo nombre no debe estar vacio")
+            Alerta.AlertaInfo("el campo nombre no debe estar vacio")
         }
     }
 
@@ -74,15 +73,13 @@ class ModalEditarPermiso extends Component {
                         permisoDescripcion: this.state.permisoDescripcion,
 
                     })
-                    console.log(resp);
-                    alert('Se guardaron los cambios con exito');
+                    Alerta.AlertaSuccess('Se guardaron los cambios con exito');
                 } catch (err) {
-                    // Handle Error Here
-                    console.error(err);
+                    Alerta.AlertaDanger(err)
                 }
 
         } catch (error) {
-            console.log(error);
+            Alerta.AlertaDanger(error)
         }
 
     }

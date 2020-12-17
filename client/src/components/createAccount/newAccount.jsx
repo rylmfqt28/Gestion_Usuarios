@@ -8,7 +8,8 @@ import logo from '../img/logo.png';
 import RegistroService from '../../Service/RegistroService'
 import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
-import TipoUser from '../../Service/TipoUser'
+import TipoUser from '../../Service/TipoUser';
+import Alerta from '../alert/Alerta'
 
 import $ from 'jquery';
 

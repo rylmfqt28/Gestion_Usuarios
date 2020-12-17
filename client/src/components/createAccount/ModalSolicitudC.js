@@ -1,7 +1,8 @@
-import React,{Component} from 'react'
-import './newAccount.css'
-import swal from 'sweetalert'
-import $ from 'jquery'
+import React,{Component} from 'react';
+import './newAccount.css';
+import swal from 'sweetalert';
+import $ from 'jquery';
+import Alerta from '../alert/Alerta';
 
 class ModalSolicitudC extends Component{
     

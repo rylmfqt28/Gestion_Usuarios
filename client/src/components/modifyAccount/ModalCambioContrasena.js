@@ -3,6 +3,8 @@ import './modifyAccount.css'
 import $ from 'jquery'
 import axios from 'axios';
 import PersonaService from '../../Service/PersonaService';
+
+import Alerta from '../alert/Alerta'
 //❌✔️⚠️
 class ModalCambioContrasena extends Component{
     

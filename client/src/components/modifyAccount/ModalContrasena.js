@@ -5,9 +5,8 @@ import PersonaService from '../../Service/PersonaService';
 import ModalCambioContrasena from './ModalCambioContrasena';
 import axios from 'axios';
 
-import { ToastContainer, toast } from 'react-toastify';
+import Alerta from '../alert/Alerta'
 
-import 'react-toastify/dist/ReactToastify.css';
 
 class ModalContrasena extends Component{
     
@@ -28,15 +27,15 @@ class ModalContrasena extends Component{
                     if(res.data[0].password === this.state.password){
                         this.redireccionar();
                         //alert("Contraseña correcta!")
-                        toast.success('🦄 Contraseña correcta!');
+                        Alerta.AlertaSuccess('Contraseña correcta!');
                         this.limpiarCampos();
                     }else{
                         //alert("La contraseña ingresada no es correcta")
-                        toast.info('🦄 La contraseña ingresada no es correcta!');
+                        Alerta.AlertaDanger('La contraseña ingresada no es correcta!');
                         this.limpiarCampos();
                     }
             }else{
-                toast.error('🦄 El campo contraseña es obligatorio');
+                Alerta.AlertaInfo('El campo contraseña es obligatorio');
                 //alert('El campo contraseña es obligatorio');
             }
         } catch (error) {
@@ -52,7 +51,7 @@ class ModalContrasena extends Component{
                 this.setState({validate: false})
             }
         } else {
-            toast('🦄 La contraseña debe contener al menos 8 caracteres.');
+            Alerta.AlertaInfo('El máximo de caracteres de la contraseña es 50.');
             //alert("La contraseña debe contener al menos 8 caracteres.")
         }
     }
@@ -140,17 +139,7 @@ componentDidMount() {
                         <div className="modal-footer">
                         <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
                         <button type="button" className="btn btn-outline-info" onClick={this.verificarPasswd}>Siguiente</button>
-                        <ToastContainer
-                            position="top-right"
-                            autoClose={5000}
-                            hideProgressBar={false}
-                            newestOnTop
-                            closeOnClick
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            pauseOnHover
-                        />
+                        
                         </div>
                     </div>
                     </div>

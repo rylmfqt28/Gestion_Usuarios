@@ -3,7 +3,7 @@ import './modifyAccount.css'
 import $ from 'jquery'
 import axios from 'axios';
 import PersonaService from '../../Service/PersonaService';
-
+//❌✔️⚠️
 class ModalCambioContrasena extends Component{
     
      constructor(props){

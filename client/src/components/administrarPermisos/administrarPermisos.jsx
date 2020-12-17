@@ -12,6 +12,7 @@ import $ from 'jquery';
 import NavMenu from '../menuAdmin/NavMenu'
 import AdminPermisosService from '../../Service/AdminPermisosService';
 
+import Alerta from '../alert/Alerta'
 
 class administrarPermisos extends Component {
     constructor(props) {
@@ -37,7 +38,6 @@ class administrarPermisos extends Component {
         this.setState({tipo: e.target.value})
         for(const value of this.state.TUsuarios ){
             if(value.crearTipo===e.target.value){
-                console.log(value.tipoUsuarioID)
                 this.setState({tipoId: value.tipoUsuarioID})
             }
         }
@@ -57,9 +57,6 @@ class administrarPermisos extends Component {
             AdminPermisosService.getListaPermisosNoAsignados(this.state.tipo).then(data => this.setState({permisos: data}))
             AdminPermisosService.getListaPermisosAsignados(this.state.tipo).then(data => this.setState({permisosAsignados: data}))
         }
-        //AdminPermisosService.getListaPermisosNoAsignados(this.state.tipo).then(data => this.setState({ permisos: data }))
-        //AdminPermisosService.getListaPermisosAsignados(this.state.tipo).then(data => this.setState({ permisosAsignados: data }))
-        console.log(this.state.tipo);
     }
     
 

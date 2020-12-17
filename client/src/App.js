@@ -15,7 +15,6 @@ import PublicRoute from './routes/PublicRoute';
 import administrarPermisos from './components/administrarPermisos/administrarPermisos'
 
 import Home from './components/Home/Home';
-import AdministrarCuenta from './components/register/AdministrarCuenta';
 import ModificarTipoUser from './components/modifyTypeUser/ModificarTipoUser';
 import ModifyAccount from './components/modifyAccount/ModifyAccount';
 //import Pagina from './components/register/PageAuxiliar';
@@ -42,7 +41,6 @@ class App extends Component{
         <PrivateRoute path="/crearTipoUsuario" component={crearTipoUsuario}/>
         <PrivateRoute path="/home" component={Home}/>
         <PublicRoute path="/createAccount" component={newAccount}/>
-        <PrivateRoute path="/administrar" component={AdministrarCuenta}/>
         <PrivateRoute path="/modifyTypeUser" component={ModificarTipoUser}/>
         <PrivateRoute path="/administrarPermisos" component={administrarPermisos}/>
         <PrivateRoute path="/modifyAccount" component={ModifyAccount} />

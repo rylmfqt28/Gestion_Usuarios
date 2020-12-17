@@ -1,7 +1,8 @@
-import React,{Component} from 'react'
-import './newAccount.css'
-import swal from 'sweetalert'
-import $ from 'jquery'
+import React,{Component} from 'react';
+import './newAccount.css';
+import swal from 'sweetalert';
+import $ from 'jquery';
+import Alerta from '../alert/Alerta';
 
 class ModalSolicitudC extends Component{
     
@@ -16,21 +17,21 @@ class ModalSolicitudC extends Component{
 
     
     valueToState = ({ name, value}) => {
-    //console.log("El VALOR es: " + value)
+    
     this.setState(() => {
     return { [name]: value };
         });
      };
 
      mostrarAlerta=(date)=>{
-        //console.log("El DATO es: " + date)
+        
         if(date.length === 0){
-            swal("ERROR", "La descripción está vacia. Por favor ingrese una descripción válida.", "error");
+            Alerta.AlertaDanger("La descripción está vacia. Por favor ingrese una descripción válida.");
         }
         else
         {
             if(date.length <20 || date.length > 500){
-                swal("ERROR", "La descripción debe contener 20 caracteres como mínimo y 500 como máximo.", "error");
+                Alerta.AlertaInfo("La descripción debe contener 20 caracteres como mínimo y 500 como máximo.");
                 
             } else{     
                 swal("ACEPTADO", "Solicitud enviada con éxito, espere a que el administrador apruebe su solicitud", "success");
@@ -46,7 +47,7 @@ class ModalSolicitudC extends Component{
 
 mostrarAlertaMaxL=(date)=>{
     if(date.length > 499){
-        swal("ERROR", "La descripción debe contener 500 caracteres como máximo.", "error");
+        Alerta.AlertaInfo("La descripción debe contener 500 caracteres como máximo.");
     }
 }
 

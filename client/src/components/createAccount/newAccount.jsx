@@ -9,7 +9,7 @@ import RegistroService from '../../Service/RegistroService'
 import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser';
-import Alerta from '../alert/Alerta'
+//import Alerta from '../alert/Alerta';
 
 import $ from 'jquery';
 
@@ -64,7 +64,9 @@ class NewAccount extends Component {
         });
       }
     } else {
-      alert('El maximo de caracteres es de 50');
+      
+      
+    Alerta.AlertaInfo('El máximo de caracteres es de 50');
     }
   }
 
@@ -81,7 +83,7 @@ class NewAccount extends Component {
         });
       }
     } else {
-      alert('El maximo de caracteres es de 50');
+      Alerta.AlertaInfo('El máximo de caracteres es de 50');
     }
 
   }

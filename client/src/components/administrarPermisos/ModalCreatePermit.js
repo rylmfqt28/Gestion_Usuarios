@@ -58,7 +58,6 @@ class ModalCreatePermit extends Component {
                                 permisoDescripcion: this.state.permisoDescripcion.trim()
 
                             })
-                            console.log(resp);
                             alert('Se creo el nuevo Permiso con éxito');
                             //actualizar las listas
                             this.props.actualizar();
@@ -68,7 +67,6 @@ class ModalCreatePermit extends Component {
 
                         } catch (err) {
                             // Handle Error Here
-                            console.error(err);
                         }
 
                     } else {
@@ -83,7 +81,6 @@ class ModalCreatePermit extends Component {
                 //console.log("");
             }
         } catch (error) {
-            console.log(error);
         }
     }
 

@@ -30,10 +30,8 @@ class ModalEditarPermiso extends Component {
                 if(e.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null){
                     this.setState({nombrePermiso: e.target.value})
                     this.setState({validate: true})
-                    console.log(true)
                 }else{
                     this.setState({validate: false})
-                    console.log(false)
                 }
             }else{
                 alert("El maximo de caracteres es de 20")
@@ -74,15 +72,12 @@ class ModalEditarPermiso extends Component {
                         permisoDescripcion: this.state.permisoDescripcion,
 
                     })
-                    console.log(resp);
                     alert('Se guardaron los cambios con exito');
                 } catch (err) {
                     // Handle Error Here
-                    console.error(err);
                 }
 
         } catch (error) {
-            console.log(error);
         }
 
     }

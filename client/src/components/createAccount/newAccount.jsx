@@ -9,7 +9,7 @@ import RegistroService from '../../Service/RegistroService'
 import { Component } from 'react';
 import PersonaService from '../../Service/PersonaService';
 import TipoUser from '../../Service/TipoUser';
-//import Alerta from '../alert/Alerta';
+import swal from 'sweetalert';
 
 import $ from 'jquery';
 
@@ -117,7 +117,7 @@ class NewAccount extends Component {
         });
       }
     } else {
-      Alerta.AlertaInfo('El maximo de dígitos en el campo es de 9')
+      Alerta.AlertaInfo('El máximo de dígitos en el campo es de 9')
     }
 
   }
@@ -445,7 +445,7 @@ class NewAccount extends Component {
                     motivo: this.state.motivo
                   })
                   
-                  Alerta.AlertaSuccess('Se creo el usuario Exitosamente');
+                  swal("ACEPTADO","Se creo el usuario Exitosamente",'success');
                 } catch (err) {
                   
                   console.error(err);
@@ -492,7 +492,7 @@ class NewAccount extends Component {
 
   capturarDatosModal = (motivo) => {
     this.setState({ motivo: motivo })
-    //console.log("El motivo es: " + motivo)
+    
   }
 
   registerButtonEvent = async (event) => {
@@ -500,30 +500,24 @@ class NewAccount extends Component {
     if (this.state.nombre !== '' && this.state.apellido !== '' && this.state.ci !== '' && this.state.direccion !== '' && this.state.correo !== '' && this.state.telefono !== '' && this.state.userName !== '' && this.state.password !== '' && this.state.confPassword !== '') {
       if (this.state.password !== this.state.confPassword) {
 
-        //mensaje contraseña "Las constraseñas no coinciden"
-        document.getElementById('avisoCorrecto').style.display = "none";
-        document.getElementById('avisoNuevo').style.display = "none";
-        document.getElementById('avisoPass').style.display = "block";
+        Alerta.AlertaDanger('Contraseñas no coinciden');
+        
+        
       } else {
         if(this.state.password.length >= 8 && this.state.confPassword.length >= 8){
-          //mesaje datos correctos
-          document.getElementById('avisoCorrecto').style.display = "block";
-          document.getElementById('avisoNuevo').style.display = "none";
-          document.getElementById('avisoPass').style.display = "none";
+          
 
           //modal de tipo usuario
           this.verficarTipo()
         }else{
-          Alerta.AlertaInfo("La contraseña debe contener como minimo 8 caracteres.");
+          Alerta.AlertaInfo("La contraseña debe contener como mínimo 8 caracteres.");
         }
         
       }
     } else {
       document.addEventListener('DOMContentLoaded', (event) => {
-       
-        document.getElementById("avisoCorrecto").style.display = "none";
-        document.getElementById('avisoNuevo').style.display = "block";
-        document.getElementById('avisoPass').style.display = "none";
+        Alerta.AlertaDanger('Existen campos vacíos, rellenar los campos restantes');
+        
       })
     }
 
@@ -540,7 +534,6 @@ class NewAccount extends Component {
   }
 
   verficarTipo() {
-    //console.log("llego a verificar tipo")
 
     if (this.state.tipoID !== 11) {
       $(function () {

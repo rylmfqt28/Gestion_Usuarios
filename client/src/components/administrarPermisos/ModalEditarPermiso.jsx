@@ -79,7 +79,7 @@ class ModalEditarPermiso extends Component {
                 }
 
         } catch (error) {
-            Alerta.AlertaDanger(err)
+            Alerta.AlertaDanger(error)
         }
 
     }

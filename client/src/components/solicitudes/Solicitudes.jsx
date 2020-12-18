@@ -32,7 +32,6 @@ class Solicitudes extends Component {
 
   updateList(e){
     PersonaService.getTiposUser(e.target.value).then(data => this.setState({Usuarios: data}))
-    console.log(e.target.value);
   }
 
   putEstadoLista(id, estado) {
@@ -44,7 +43,6 @@ class Solicitudes extends Component {
     if (estado === '3') {
       var opcion = window.confirm("¿Está seguro que quiere RECHAZAR la solicitud de " + nomUser+"?");
       if (opcion) {
-        console.log(this.state.Usuarios[id].ci);
         PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
         PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data }));
         PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data }));
@@ -52,7 +50,6 @@ class Solicitudes extends Component {
     } else if (estado === '1') {
       var opcion1 = window.confirm("Esta seguro que quiere ACEPTAR la solicitud de "+nomUser);
       if(opcion1){
-        console.log(this.state.Usuarios[id].ci);
         PersonaService.putListaUser(this.state.Usuarios[id].ci, estado);
         PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data }));
         PersonaService.getTiposUser(tipoUsuario).then(data => this.setState({ Usuarios: data }));

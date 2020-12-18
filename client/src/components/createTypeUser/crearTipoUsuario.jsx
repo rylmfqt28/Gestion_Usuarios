@@ -5,6 +5,8 @@ import axios from 'axios';
 import NavMenu from '../menuAdmin/NavMenu'
 import swal from 'sweetalert'
 
+import Alerta from '../alert/Alerta'
+
 const CrearTipoUsuario = () => {
 
     const [datos, setDatos] = useState({
@@ -14,7 +16,6 @@ const CrearTipoUsuario = () => {
 
     const { register, errors, handleSubmit } = useForm();
     const onSubmit = (data, e) => {
-        console.log(data)
         e.target.reset()
     }
 
@@ -49,13 +50,13 @@ const CrearTipoUsuario = () => {
                 });
             }
         } else {
-            swal("ADVERTENCIA", "El maximo de caracteres es de 20", "warning");
+            Alerta.AlertaInfo("El maximo de caracteres es de 20");
         }
 
     }
     const presionarKey = () => {
         if (descripcionTipo.length === 250) {
-            swal("ADVERTENCIA", "Solo se permite un maximo de 250 caracteres", "warning");
+            Alerta.AlertaInfo("Solo se permite un maximo de 250 caracteres");
         }
     }
     const { crearTipo, descripcionTipo } = datos
@@ -73,22 +74,19 @@ const CrearTipoUsuario = () => {
         try {
             if (datos.crearTipo.trim() !== '' && datos.descripcionTipo.trim() !== '') {
                 const res = await axios.get('/api/type/' + datos.crearTipo.trim());
-                console.log(res.data);
                 if (res.data === null) {
                     const crear = await axios.post('/api/type/', datos);
                     swal("TIPO DE USUARIO CREADO", "Se creo el tipo de usuario Exitosamente", "success");
-                    console.log("Se creó el nuevo tipo de usuario:" + crear.data);
                 } else {
-                    swal("ERROR", "El tipo de usuario ya existe", "error");
-                    console.log("El usuario ya existe");
+                    Alerta.AlertaDanger("El tipo de usuario ya existe");
                 }
             } else {
                 //mensaje campos vacios "Existen campos vacios"
-                swal("ADVERTENCIA", "Existen campos vacíos, rellenar los campos restantes", "warning");
+                Alerta.AlertaInfo("Existen campos vacíos, rellenar los campos restantes");
             }
 
         } catch (error) {
-            console.log(error);
+            Alerta.AlertaDanger(error);
         }
     }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import $ from 'jquery'
+import Alerta from '../alert/Alerta'
 
 class ModalEditType extends Component {
     constructor(props) {
@@ -32,24 +33,21 @@ class ModalEditType extends Component {
                 if(e.target.value.match("^[Ññíóáéú a-zA-Z ]*$")!=null){
                     this.setState({crearTipo: e.target.value})
                     this.setState({validate: true})
-                    //console.log(true)
-                    //console.log(this.state.tipoUsuarioID);
                 }else{
                     this.setState({validate: false})
-                    //console.log(false)
                 }
             }else{
-                alert("El maximo de caracteres es de 20")
+                Alerta.AlertaInfo("El maximo de caracteres es de 20")
             }
         }else{
-            alert("El nombre debe empezar con un caracter")
+            Alerta.AlertaInfo("El nombre debe empezar con un caracter")
         }
     }
     descripcionHandler(e) {
         if (e.target.value.length !== 251) {
             this.setState({ descripcionTipo: e.target.value })
         } else {
-            alert("maximo 250 caracteres")
+            Alerta.AlertaInfo("maximo 250 caracteres")
         }
     }
 
@@ -57,17 +55,16 @@ class ModalEditType extends Component {
         if(this.state.validate && this.state.crearTipo!==""){
             if(this.state.crearTipo.length>=4){
                 this.saveChanges();                
-                //this.saveDetails();
                 $("#modalEditType").modal("hide");
                 this.props.updateListUserTypes();
                 this.props.updateListUserTypes();
                 this.props.updateListUserTypes();
                 
             }else{
-                alert("el campo nombre de tipo usuario debe contener un minimo de 4 caracteres")
+                Alerta.AlertaInfo("el campo nombre de tipo usuario debe contener un minimo de 4 caracteres")
             } 
         }else{
-            alert("el campo nombre de tipo usuario no debe estar vacio")
+            Alerta.AlertaInfo("el campo nombre de tipo usuario no debe estar vacio")
         }
     }
     saveChanges = async () => {
@@ -75,22 +72,18 @@ class ModalEditType extends Component {
         try {
             if (this.state.crearTipo.trim() !== '' && this.state.descripcionTipo.trim() !== '') {
                 const res = await axios.get('/api/type/' + this.state.crearTipo.trim());
-                //console.log(res.data);
-                //console.log(this.state.tipoUsuarioID)
                 if (res.data === null || this.state.userTypeNameOld === this.state.crearTipo.trim()) {
                    //Aqui Api para guardar datos
                    const valorActualizar = {tipoUsuarioID:this.state.tipoUsuarioID,crearTipo:this.state.crearTipo,descripcionTipo:this.state.descripcionTipo}
-                   //console.log(valorActualizar) 
                    await axios.put("/api/updateTypeUser",valorActualizar)
-                    alert("Se edito el tipo de usuario Exitosamente");
+                   Alerta.AlertaSuccess("Se edito el tipo de usuario Exitosamente");
                    ;
                 } else {
-                    alert("El tipo de usuario ya existe");
-                    //console.log("El usuario ya existe");
+                    Alerta.AlertaDanger("El tipo de usuario ya existe");
                 }
             } else {
 
-                alert("Existen campos vacíos, rellenar los campos restantes");
+                Alerta.AlertaInfo("Existen campos vacíos, rellenar los campos restantes");
             }
 
         } catch (error) {
@@ -98,15 +91,6 @@ class ModalEditType extends Component {
         }
         
     }
-
-   
-    /*saveDetails(){
-        //$("#modalEditType").modal("hide");
-        //this.props.updateListUserTypes();
-        //this.props.updateListUserTypes();
-        //this.props.updateListUserTypes();
-        this.props.loadingList();
-    }*/
 
     render() {
         return (
